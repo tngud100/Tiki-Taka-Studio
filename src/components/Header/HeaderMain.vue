@@ -14,7 +14,7 @@
             }}</router-link>
           </li>
         </div>
-        <span class="nav-name" :style="nameStyle">Tiki&Taka Studio</span>
+        <span class="nav-name" :style="nameStyle">TNT Studio</span>
         <div class="right-list btn" :style="linkTopStyle">
           <li
             v-for="(list, index) in menuR"
