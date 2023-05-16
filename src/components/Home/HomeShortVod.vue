@@ -219,8 +219,8 @@ export default {
     border: 1px solid #888;
     border-radius: 5px;
     width: 23%;
-    // max-width: 560px;
-    // max-height: 350px;
+    max-width: 750px;
+    max-height: 462px;
   }
 }
 

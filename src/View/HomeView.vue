@@ -1,6 +1,7 @@
 <template>
   <Header />
   <HomeBanner />
+  <HomeMainVod />
   <HomeLongVod />
   <HomeAdverse />
   <!-- <HomeShortVod /> -->
@@ -12,6 +13,7 @@
 <script>
 import Header from "../components/Header/HeaderMain.vue";
 import HomeBanner from "../components/Home/HomeBanner.vue";
+import HomeMainVod from "../components/Home/HomeMainVod.vue";
 import HomeLongVod from "../components/Home/HomeLongVod.vue";
 // import HomeShortVod from "../components/Home/HomeShortVod.vue";
 // import HomeVod from "../components/Home/HomeVod.vue";
@@ -24,6 +26,7 @@ export default {
   components: {
     Header,
     HomeBanner,
+    HomeMainVod,
     HomeLongVod,
     HomeAdverse,
     // HomeShortVod,

@@ -65,8 +65,8 @@ export default {
   padding: 0px 20px 20px 20px;
   border: 1px solid #888;
   width: 80%;
-  max-width: 560px;
-  max-height: 350px;
+  max-width: 750px;
+  max-height: 462px;
 }
 
 .close {

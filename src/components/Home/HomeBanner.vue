@@ -2,7 +2,12 @@
   <section class="banner-section">
     <div class="carousel">
       <div class="image-container" id="imgs">
-        <img :src="img.src" v-for="(img, index) in imgs" :key="index" />
+        <img
+          :src="img.src"
+          v-for="(img, index) in imgs"
+          :key="index"
+          style="width: 100%; height: 100%; object-fit: cover"
+        />
       </div>
       <div class="filter" />
     </div>
@@ -67,7 +72,7 @@ export default {
       if (idx >= img.length) {
         idx = 0;
       }
-      imgs.style.transform = `translateX(${-idx * window.innerWidth}px)`;
+      imgs.style.transform = `translateX(${-idx * imgs.clientWidth}px)`;
       setTimeout(run, 5000);
     }
     run();
@@ -77,31 +82,27 @@ export default {
 
 <style lang="scss" scoped>
 .banner-section {
-  .filter {
-    background-color: rgba(0, 0, 0, 0.3);
-    -webkit-mask-image: linear-gradient(-355deg, transparent 64%, black 68%);
-    position: absolute;
-    top: 0;
-    width: 100vw;
-    height: 540px;
-  }
+  left: 0;
+  top: 0;
   .carousel {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     overflow: hidden;
+    width: 100%;
+    height: auto;
 
     .image-container {
       display: flex;
       transition: transform 0.5s ease-in-out;
       transform: translateX(0);
-      img {
-        object-fit: cover;
-        z-index: -1;
-
-        // -webkit-mask-image: linear-gradient(-5.5deg, transparent 20%, black 21%);
-        // mask-image: linear-gradient(-5.5deg, transparent 20%, black 21%);
-      }
+      width: 100%;
+      height: 100%;
     }
-
+    .filter {
+      background-color: rgba(0, 0, 0, 0.3);
+      -webkit-mask-image: linear-gradient(-355deg, transparent 64%, black 68%);
+      position: absolute;
+      top: 0;
+    }
     // .text-container {
     //   position: absolute;
     //   top: 15%;

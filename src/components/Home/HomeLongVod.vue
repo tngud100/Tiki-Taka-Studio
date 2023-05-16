@@ -13,7 +13,7 @@
           v-for="(item, index) in long"
           :key="index"
         >
-          <div class="img-con" style="height: 175px; border-radius: 5px">
+          <div class="img-con" style="border-radius: 5px">
             <img
               :src="item.src"
               style="
@@ -24,10 +24,10 @@
               "
             />
           </div>
-          <div class="text-con">
+          <!-- <div class="text-con">
             <span class="text-title">{{ item.title }}</span>
-            <!-- <span class="text-desc">{{ item.desc }}</span> -->
-          </div>
+            <span class="text-desc">{{ item.desc }}</span>
+          </div> -->
         </div>
         <!-- <div class="swipe_btn">
           <div class="swiper-button-prev"></div>
@@ -40,23 +40,20 @@
       <div class="modal-content">
         <span class="close" @click="closeModal">&times;</span>
         <iframe
+          v-if="showModal"
           width="750"
           height="425"
+          style="border-radius: 5px"
           :src="videoUrl[this.videoIndex]"
           frameborder="0"
           allowfullscreen
         ></iframe>
       </div>
     </div>
-    <!-- </div>
-    </div> -->
   </section>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import store from "@/store";
-
 import { onMounted, ref } from "vue";
 import Swiper from "swiper";
 import SwiperCore, { Navigation, Autoplay } from "swiper";
@@ -72,73 +69,81 @@ export default {
       videoIndex: Number,
 
       videoUrl: [
-        "https://www.youtube.com/embed/NIRhxNNKXdE",
-        "https://www.youtube.com/embed/cexutyYCbaM",
-        "https://www.youtube.com/embed/AUS7hVUMoKU",
-        "https://www.youtube.com/embed/YCqp1kgJjXQ",
-        "https://www.youtube.com/embed/HhBFwoWErlo",
-        "https://www.youtube.com/embed/ibp7a5t9iJU",
+        "https://www.youtube.com/embed/b7D3C09UyP4",
+        "https://www.youtube.com/embed/k2IOXI9j270",
+        "https://www.youtube.com/embed/aLm0NkmQUy0",
+        "https://www.youtube.com/embed/opAfmk5S3us",
+        "https://www.youtube.com/embed/5BaWzofXFuE",
+        "https://www.youtube.com/embed/A7IPmKh1bOI",
+        "https://www.youtube.com/embed/AkwAI15UNgE",
+        "https://www.youtube.com/embed/X70MrarcM48",
+        "https://www.youtube.com/embed/Y135I3m4zhI",
       ],
-
       long: [
         {
-          title: "5연속 공식경기 1위의 불가능한 도전 l [TOP피파 1화]",
-          src: require("@/assets/thumbnail/Top피파1.jpg"),
-          desc: "게임만 잘해서는 피파 1등이 될 수 없다! 팀도 잘 짜야 진정한 피파 최강자 대한민국 최고의 프로게이머를 찾아보는시간  [TOP피파]",
+          title: "쇼츠영상1",
+          src: "https://i.ytimg.com/vi/b7D3C09UyP4/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLBfHlZPUeUX3EpzZBSqZ_eU2I4C_A",
+          desc: "youtube1",
           num: 0,
         },
         {
-          title:
-            "장지현의 굴리트 썰! RTN 시즌 근본(?) TOP4 l [피파의 모든것 1-2화]",
-          src: require("@/assets/thumbnail/피파의 모든것 1-2화.webp"),
-          desc: "피파온라인4와 축구의 다양한 이슈들을 각 분야 전문가와 크리에이터들을 통해 알아보는 [피파의 모든 것]",
+          title: "쇼츠영상2",
+          src: "https://i.ytimg.com/vi/k2IOXI9j270/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLCtDmMM6oj-MvwAm9nDfFOzRV6B2g",
+          desc: "youtube1",
           num: 1,
         },
         {
-          title:
-            "저자본 추천 팀컬러 TOP5 그리고 공식경기 꿀팁 l TSL 우승자 인터뷰",
-          src: require("@/assets/thumbnail/TSL 우승자 인터뷰.jpg"),
-          desc: "TSL 프리시즌 우승자: 박찬화 선수와의 인터뷰.공식경기 꿀팁까지!",
+          title: "쇼츠영상3",
+          src: "https://i.ytimg.com/vi/aLm0NkmQUy0/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLDDuqeQ0X50GkI1pwCuHnMjO1Undw",
+          desc: "youtube1",
           num: 2,
         },
         {
-          title:
-            "사포 쓰고 골 넣는 여기는 TSL l TSL 프리시즌 4강&결승전 Highlight",
-          src: require("@/assets/thumbnail/TSL 프리시즌 Highlight 4강,결승.jpg"),
-          desc: "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
+          title: "쇼츠영상4",
+          src: "https://i.ytimg.com/vi/opAfmk5S3us/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLBTNtN2w5_0NOSZ0RsoaSZO4-Dekw",
+          desc: "youtube1",
           num: 3,
         },
         {
-          title:
-            "시원시원한 닥공 플레이의 정점! l TSL 프리시즌 8강전 Highlight",
-          src: require("@/assets/thumbnail/TSL 프리시즌 Highlight 8강.jpg"),
-          desc: "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
+          title: "쇼츠영상5",
+          src: "https://i.ytimg.com/vi/5BaWzofXFuE/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLAU3z9l7Ch0BTPXCKLIF2atoxO3ig",
+          desc: "youtube1",
           num: 4,
         },
         {
-          title:
-            "최호석 VS 김승섭! 패기와 관록의 대결 l TSL 프리시즌 조별리그 D조 Highlight",
-          src: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조.webp"),
-          desc: "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
+          title: "쇼츠영상6",
+          src: "https://i.ytimg.com/vi/A7IPmKh1bOI/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLBxopjMCwaKoxCCkcaes9tkzvL9vQ",
+          desc: "youtube1",
           num: 5,
+        },
+        {
+          title: "쇼츠영상7",
+          src: "https://i.ytimg.com/vi/AkwAI15UNgE/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLC5ysOlg1QZhdawM9rxI2bvsJUVIA",
+          desc: "youtube1",
+          num: 6,
+        },
+        {
+          title: "쇼츠영상8",
+          src: "https://i.ytimg.com/vi/X70MrarcM48/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLC1gaKCzG_Y9DHRMEw1v-sZhK7oNg",
+          desc: "youtube1",
+          num: 6,
+        },
+        {
+          title: "쇼츠영상9",
+          src: "https://i.ytimg.com/vi/Y135I3m4zhI/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLD07V14W_IGywZpoSEMFr-98reWIg",
+          desc: "youtube1",
+          num: 6,
         },
       ],
     };
-  },
-  computed: {
-    ...mapGetters(["isVideoPlay"]),
   },
   methods: {
     openModal(index) {
       this.videoIndex = index;
       this.showModal = true;
-      store.getters.isScrolling = true;
-      console.log(store.getters.isScrolling);
     },
     closeModal() {
       this.showModal = false;
-      store.getters.isScrolling = false;
-      console.log(store.getters.isScrolling);
     },
   },
 
@@ -150,7 +155,7 @@ export default {
         direction: "horizontal",
         loop: false,
         mousewheel: false,
-        slidesPerView: 4, // only one slide per view
+        slidesPerView: 6, // only one slide per view
         spaceBetween: 30,
         speed: 300,
         autoplay: {
@@ -196,10 +201,11 @@ export default {
     overflow: hidden;
     width: 70%;
     padding: 20px;
+    z-index: 0;
   }
   .vod-content {
-    width: 300px !important;
-    height: 280px;
+    width: 200px !important;
+    height: 355px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
     border-radius: 5px;
     cursor: pointer;
@@ -238,7 +244,7 @@ export default {
     border-radius: 5px;
     width: 80%;
     max-width: 750px;
-    // max-height: 350px;
+    max-height: 462px;
   }
 }
 

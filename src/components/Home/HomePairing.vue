@@ -23,8 +23,13 @@
             v-for="card in pairing.cards"
             :key="card.num"
             class="pairing-card"
+            :style="
+              'background-image:url(' +
+              card.img +
+              '); background-size: cover; background-position: center;'
+            "
           >
-            <div>{{ card.youtube }}</div>
+            <!-- <div>{{ card.youtube }}</div> -->
           </div>
         </div>
       </div>
@@ -50,9 +55,21 @@ export default {
         {
           class: "mon",
           cards: [
-            { youtube: "src", num: 1 },
-            { youtube: "src", num: 2 },
-            { youtube: "src", num: 3 },
+            {
+              youtube: "src",
+              num: 1,
+              img: require("@/assets/pairing/mon/TSL.svg"),
+            },
+            {
+              youtube: "src",
+              num: 2,
+              img: require("@/assets/pairing/mon/Top피파.svg"),
+            },
+            {
+              youtube: "src",
+              num: 3,
+              img: require("@/assets/pairing/mon/피파의모든것.svg"),
+            },
           ],
         },
         {
@@ -178,7 +195,6 @@ export default {
       .pairing-card {
         width: 100%;
         height: 140px;
-        background-color: beige;
       }
       .mon {
         position: relative;
