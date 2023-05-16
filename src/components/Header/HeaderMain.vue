@@ -127,7 +127,7 @@ header {
   position: absolute;
   top: 0;
   width: 100vw;
-  z-index: 1;
+  z-index: 3;
   transition: background-color 0.2s ease;
   nav {
     padding: 12px;
