@@ -144,22 +144,84 @@ export default {
     openModal(index) {
       this.videoIndex = index;
       this.showModal = true;
+      document.body.classList.add("modal-open");
     },
     closeModal() {
       this.showModal = false;
+      document.body.classList.remove("modal-open");
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+//PC XL
+@media screen and (min-width: 1300px) {
+  .vod-title {
+    width: 1300px;
+  }
+  .vod-box {
+    width: 1300px;
+    .first-con {
+      .sub-vod {
+        width: 290px;
+        height: 330px;
+        .thumbnail {
+          width: 290px;
+          height: 160px;
+        }
+        .text {
+          .title {
+            padding: 20px;
+            font-size: 18px;
+          }
+          .sub-title {
+            padding: 0px 12px 0px 20px;
+            font-size: 14px;
+          }
+        }
+      }
+      .main-vod {
+        width: 604px;
+        height: 330px;
+      }
+      .advertise {
+        width: 290px;
+      }
+    }
+    .second-con {
+      .sub-vod {
+        width: 290px;
+        height: 270px;
+      }
+    }
+  }
+}
+// PC
+@media screen and (min-width: 1300px) and (max-width: 1550px) {
+}
+// PC
+@media screen and (min-width: 1080px) and (max-width: 1299px) {
+}
+
+// 노트북
+@media screen and (min-width: 760px) and (max-width: 1079px) {
+}
+
+// 테블릿
+@media screen and (min-width: 640px) and (max-width: 759px) {
+}
+
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 639px) {
+}
+
 .mainvod-section {
-  width: 100vw;
   height: auto;
   .vod-title {
     margin: 50px auto 10px auto;
     padding: 12px;
-    width: 70%;
+    // width: 70%;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -170,74 +232,49 @@ export default {
     }
   }
   .vod-box {
-    width: 70%;
+    // width: 70%;
     height: auto;
     margin: auto;
     .first-con,
     .second-con {
-      width: 100%;
       display: flex;
       justify-content: center;
       .sub-vod {
         margin: 12px;
         box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+        transition: all 0.3s ease;
+
         cursor: pointer;
         .thumbnail {
-          height: 160px;
           overflow: hidden;
-          .img {
-            transition: all 0.3s ease;
-          }
         }
         .text {
           height: auto;
           .title {
             margin: 0;
-            padding: 20px;
             font-family: "pretendard-Regular";
             font-weight: bold;
-            font-size: 18px;
           }
           .sub-title {
             margin: 0;
-            padding: 0px 12px 0px 20px;
             font-family: "pretendard-Regular";
-            font-size: 14px;
             color: rgb(97, 97, 97);
           }
         }
       }
       .main-vod {
-        width: 604px;
-        height: 330px;
         margin: 12px;
         box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
       }
       .advertise {
-        width: 290px;
         margin: 12px;
       }
-    }
-  }
-
-  .first-con {
-    .sub-vod {
-      width: 290px;
-      height: 330px;
-    }
-  }
-  .second-con {
-    .sub-vod {
-      width: 290px;
-      height: 270px;
     }
   }
 }
 
 .sub-vod:hover {
-  .img {
-    transform: scale(1.2);
-  }
+  transform: scale(1.1);
 }
 .modal {
   position: fixed;
