@@ -2,9 +2,9 @@
   <Header />
   <HomeBanner />
   <HomeMainVod />
-  <HomeLongVod />
+  <!-- <HomeLongVod /> -->
   <HomeAdverse />
-  <!-- <HomeShortVod /> -->
+  <HomeShortVod />
   <!-- <HomeVod /> -->
   <HomePairing />
   <HomeYoutube />
@@ -14,8 +14,8 @@
 import Header from "../components/Header/HeaderMain.vue";
 import HomeBanner from "../components/Home/HomeBanner.vue";
 import HomeMainVod from "../components/Home/HomeMainVod.vue";
-import HomeLongVod from "../components/Home/HomeLongVod.vue";
-// import HomeShortVod from "../components/Home/HomeShortVod.vue";
+// import HomeLongVod from "../components/Home/HomeLongVod.vue";
+import HomeShortVod from "../components/Home/HomeShortVod.vue";
 // import HomeVod from "../components/Home/HomeVod.vue";
 
 import HomeAdverse from "../components/Home/HomeAdvertise.vue";
@@ -27,9 +27,9 @@ export default {
     Header,
     HomeBanner,
     HomeMainVod,
-    HomeLongVod,
+    // HomeLongVod,
     HomeAdverse,
-    // HomeShortVod,
+    HomeShortVod,
     // HomeVod,
     HomePairing,
     HomeYoutube,
@@ -41,5 +41,8 @@ export default {
 body {
   margin: 0;
   padding: 0;
+}
+.modal-open {
+  overflow: hidden;
 }
 </style>

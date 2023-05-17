@@ -40,9 +40,10 @@
       <div class="modal-content">
         <span class="close" @click="closeModal">&times;</span>
         <iframe
+          class="youtubeVod"
           v-if="showModal"
-          width="750"
-          height="425"
+          width="350"
+          height="620"
           style="border-radius: 5px"
           :src="videoUrl[this.videoIndex]"
           frameborder="0"
@@ -67,6 +68,8 @@ export default {
     return {
       showModal: false,
       videoIndex: Number,
+      vodState: false,
+      scrollLock: false,
 
       videoUrl: [
         "https://www.youtube.com/embed/b7D3C09UyP4",
@@ -126,27 +129,29 @@ export default {
           title: "쇼츠영상8",
           src: "https://i.ytimg.com/vi/X70MrarcM48/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLC1gaKCzG_Y9DHRMEw1v-sZhK7oNg",
           desc: "youtube1",
-          num: 6,
+          num: 7,
         },
         {
           title: "쇼츠영상9",
           src: "https://i.ytimg.com/vi/Y135I3m4zhI/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLD07V14W_IGywZpoSEMFr-98reWIg",
           desc: "youtube1",
-          num: 6,
+          num: 8,
         },
       ],
     };
   },
+
   methods: {
     openModal(index) {
       this.videoIndex = index;
       this.showModal = true;
+      document.body.classList.add("modal-open");
     },
     closeModal() {
       this.showModal = false;
+      document.body.classList.remove("modal-open");
     },
   },
-
   setup() {
     const swiperRef = ref(null);
 
@@ -161,6 +166,29 @@ export default {
         autoplay: {
           delay: 3000,
           disableOnInteraction: false,
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+          1280: {
+            slidesPerView: 4,
+          },
+          1440: {
+            slidesPerView: 5,
+          },
+          1600: {
+            slidesPerView: 6,
+          },
+          1920: {
+            slidesPerView: 6,
+          },
+          2560: {
+            slidesPerView: 8,
+          },
         },
 
         navigation: {
@@ -181,9 +209,8 @@ export default {
 .longvod-section {
   justify-items: center;
   display: grid;
-  width: 100vw;
+  width: 100%;
   .long-title {
-    margin-top: 50px;
     margin-bottom: 10px;
     width: 70vw;
     padding: 12px;
@@ -238,13 +265,13 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   .modal-content {
     background-color: #fefefe;
-    margin: 13% auto;
+    margin: 6% auto;
     // padding: 0px 20px 20px 20px;
     border: 1px solid #888;
     border-radius: 5px;
     width: 80%;
-    max-width: 750px;
-    max-height: 462px;
+    max-width: 350px;
+    max-height: 657px;
   }
 }
 

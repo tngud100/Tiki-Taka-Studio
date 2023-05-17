@@ -10,10 +10,10 @@ export default {};
 
 <style lang="scss" scoped>
 .advertise-section {
-  margin: 30px 0;
+  margin: 50px 0;
   display: flex;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
   .adver-con {
     width: 55%;
     height: 110px;

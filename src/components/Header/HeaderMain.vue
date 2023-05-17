@@ -90,9 +90,17 @@ export default {
     },
     //router
     linkMarginStyle() {
-      return {
-        margin: this.isScrolledUp ? "95px 20px 0px 20px" : "0px 20px 0px 20px",
-      };
+      if (window.innerWidth >= 760) {
+        return {
+          margin: this.isScrolledUp
+            ? "80px 20px 0px 20px"
+            : "0px 20px 0px 20px",
+        };
+      } else {
+        return {
+          margin: this.isScrolledUp ? "80px 20px 0px 20px" : "0px 0px 0px 20px",
+        };
+      }
     },
     //router
     linkTopStyle() {
@@ -102,10 +110,15 @@ export default {
     },
     //menu
     menuStyle() {
-      return {
-        height: this.isScrolledUp ? "80px" : "20px",
-        padding: this.isScrolledUp ? "15px" : "15px",
-      };
+      if (window.innerWidth >= 1080) {
+        return {
+          height: this.isScrolledUp ? "80px" : "20px",
+        };
+      } else {
+        return {
+          height: this.isScrolledUp ? "20px" : "20px",
+        };
+      }
     },
     //navName
     nameStyle() {
@@ -115,23 +128,122 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener("scroll", () => {
-      this.isScrolledUp = window.scrollY <= 42;
-    });
+    if (window.innerWidth >= 760) {
+      window.addEventListener("scroll", () => {
+        this.isScrolledUp = window.scrollY <= 42;
+      });
+    } else {
+      this.isScrolledUp = false;
+    }
   },
 };
 </script>
 <style lang="scss" scoped>
+// PC XL
+@media screen and (min-width: 1550px) {
+  .menu-list {
+    width: 1500px;
+    .nav-name {
+      width: 1500px;
+      font-size: 30px;
+    }
+  }
+  .list {
+    // margin: 90px 20px 0px 20px;
+  }
+  .a {
+    font-size: 18px;
+  }
+}
+//PC
+@media screen and (min-width: 1080px) and (max-width: 1550px) {
+  .menu-list {
+    width: 1050px;
+    .nav-name {
+      width: 1050px;
+      font-size: 30px;
+    }
+  }
+  .a {
+    font-size: 18px;
+  }
+}
+// 노트북
+@media screen and (min-width: 760px) and (max-width: 1080px) {
+  .menu-list {
+    width: 740px;
+    .nav-name {
+      width: 740px;
+      font-size: 25px;
+    }
+  }
+  .a {
+    font-size: 15px;
+  }
+}
+
+// 테블릿
+@media screen and (min-width: 640px) and (max-width: 759px) {
+  .nav {
+    padding: 4px 0px;
+  }
+  .menu-list {
+    width: 100%;
+    .left-list {
+      display: none !important;
+    }
+    .nav-name {
+      width: 100%;
+      font-size: 22px;
+      justify-content: left !important;
+    }
+    .right-list {
+      display: flex !important;
+      width: 100%;
+      padding-right: 25px;
+    }
+  }
+  .a {
+    font-size: 14px;
+  }
+}
+
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 639px) {
+  .nav {
+    padding: 2px 0px;
+  }
+  .menu-list {
+    width: 100%;
+    .left-list {
+      display: none !important;
+    }
+    .nav-name {
+      width: 100%;
+      font-size: 18px;
+      justify-content: left !important;
+    }
+    .right-list {
+      display: flex !important;
+      width: 100%;
+      padding-right: 25px;
+    }
+  }
+  .a {
+    font-size: 14px;
+  }
+}
+
 header {
   color: #ffffff;
   position: absolute;
   top: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 3;
   transition: background-color 0.2s ease;
   nav {
-    padding: 12px;
     width: 100%;
+    padding: 12px 0px;
   }
 }
 
@@ -139,10 +251,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
-  height: 50px;
+  // height: 50px;
   margin: auto;
-  // padding: 15px;
+  padding: 15px;
   list-style-type: none;
   transition: all 0.3s ease;
   .nav-name {
@@ -150,9 +261,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80%;
     font-family: sans-serif;
-    font-size: 30px;
     font-weight: bold;
   }
   .left-list {
@@ -167,13 +276,11 @@ header {
     z-index: 1;
     transition: all 0.3s ease;
     .list {
-      margin: 95px 20px 0px 20px;
     }
   }
 }
 .a {
   font-family: "Pretendard-Regular";
-  font-size: 18px;
   font-weight: bold;
   color: white;
   text-decoration: none;

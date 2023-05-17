@@ -6,7 +6,7 @@
           :src="img.src"
           v-for="(img, index) in imgs"
           :key="index"
-          style="width: 100%; height: 100%; object-fit: cover"
+          style="max-width: 100%; max-height: 100%; object-fit: contain"
         />
       </div>
       <div class="filter" />
@@ -21,44 +21,16 @@ export default {
     return {
       imgs: [
         {
-          src: require("@/assets/banner/youtube.svg"),
+          src: require("@/assets/banner/youtubetiki.svg"),
         },
         {
-          src: require("@/assets/banner/youtube.svg"),
+          src: require("@/assets/banner/youtubetiki.svg"),
         },
         {
-          src: require("@/assets/banner/youtube.svg"),
+          src: require("@/assets/banner/youtubetiki.svg"),
         },
         {
-          src: require("@/assets/banner/youtube.svg"),
-        },
-      ],
-      menuL: [
-        {
-          name: "커뮤니티",
-          href: "/",
-        },
-        {
-          name: "유튜브",
-          href: "/",
-        },
-        {
-          name: "SNS",
-          href: "/",
-        },
-      ],
-      menuR: [
-        {
-          name: "광고문의",
-          href: "/",
-        },
-        {
-          name: "이벤트",
-          href: "/",
-        },
-        {
-          name: "편성표",
-          href: "/",
+          src: require("@/assets/banner/youtubetiki.svg"),
         },
       ],
     };
@@ -81,9 +53,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (min-width: 760px) {
+  .banner-section {
+    top: 0;
+  }
+}
+// 테블릿
+@media screen and (max-width: 760px) {
+  .banner-section {
+    margin-top: 58px;
+  }
+}
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 759px) {
+  .banner-section {
+    margin-top: 54px;
+  }
+}
+
 .banner-section {
-  left: 0;
-  top: 0;
   .carousel {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     overflow: hidden;
@@ -103,34 +91,6 @@ export default {
       position: absolute;
       top: 0;
     }
-    // .text-container {
-    //   position: absolute;
-    //   top: 15%;
-    //   width: 100%;
-    //   padding: 10px;
-    //   .menu-list {
-    //     display: flex;
-    //     justify-content: space-between;
-    //     width: 80%;
-    //     margin: auto;
-    //     list-style-type: none;
-    //     .left-list {
-    //       justify-content: left;
-    //     }
-    //     .right-list {
-    //       justify-content: right;
-    //     }
-    //     .btn {
-    //       display: flex;
-    //     }
-    //     a {
-    //       font-family: "Pretendard-Regular";
-    //       font-size: 24px;
-    //       font-weight: bold;
-    //       color: white;
-    //     }
-    //   }
-    // }
   }
 }
 .Title {
