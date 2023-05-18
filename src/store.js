@@ -2,20 +2,28 @@ import { createStore } from "vuex";
 
 const store = createStore({
   state: {
-    isVideoPlay: false,
+    videoIndex: 0,
+    showModal: false,
   },
   mutations: {
-    setVideoPlay(state, value) {
-      state.isVideoPlay = value;
+    setVideoNumber(state, value) {
+      state.videoIndex = value;
+    },
+    setShowModal(state, value) {
+      state.showModal = value;
     },
   },
   actions: {
-    setVideoPlay({ commit }, value) {
-      commit("setVideoPlay", value);
+    setVideoNumber({ commit }, value) {
+      commit("setVideoNumber", value);
+    },
+    setShowModal({ commit }, value) {
+      commit("setShowModal", value);
     },
   },
   getters: {
-    isVideoPlay: (state) => state.isVideoPlay,
+    videoIndex: (state) => state.videoIndex,
+    showModal: (state) => state.showModal,
   },
 });
 

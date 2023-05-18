@@ -49,10 +49,10 @@
           frameborder="0"
           allowfullscreen
         ></iframe>
-        <!-- <div class="modal-btn">
-          <div class="prev-btn"></div>
-          <div class="next-btn"></div>
-        </div> -->
+        <div class="modal-btn">
+          <div class="prev-btn" @click="openModal(this.videoIndex - 1)"></div>
+          <div class="next-btn" @click="openModal(this.videoIndex + 1)"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -147,7 +147,17 @@ export default {
 
   methods: {
     openModal(index) {
-      this.videoIndex = index;
+      if (index <= 0) {
+        // const deActivateBtn = document.querySelector(".prev-btn");
+        // deActivateBtn.style.backgroundImage =
+        //   "url('@/assets/btn/VodBtnDeactive.svg')";
+        this.videoIndex = 0;
+      } else if (index >= this.long.length - 1) {
+        this.videoIndex = this.long.length - 1;
+      } else {
+        this.videoIndex = index;
+      }
+
       this.showModal = true;
       document.body.classList.add("modal-open");
     },

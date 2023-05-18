@@ -2,7 +2,7 @@
   <section class="mainvod-section">
     <div class="vod-title"><span class="title">최신 동영상</span></div>
     <div class="vod-box">
-      <div class="first-con">
+      <div class="first-con pc">
         <div class="sub-vod" @click="openModal(firsts[0].num)">
           <div class="thumbnail">
             <img
@@ -16,9 +16,7 @@
             <p class="sub-title">{{ firsts[0].subTitle }}</p>
           </div>
         </div>
-        <!-- <div class="main-vod" @click="openModal(firsts[1].num)">
-          <img :src="firsts[1].img" style="width: 100%; height: 100%" />
-        </div> -->
+
         <div class="main-vod">
           <iframe
             width="100%"
@@ -28,19 +26,11 @@
             allowfullscreen
           ></iframe>
         </div>
-        <div
-          class="advertise sub-vod"
-          style="display: flex; justify-content: center; align-items: center"
-        >
+        <div class="advertise sub-vod">
           <span>광고 배너</span>
-          <!-- <img src="@/assets/thumbnail/Top피파1.jpg" width="100%" />
-          <div class="text">
-            <p class="title">title</p>
-            <p class="sub-title">subtitle</p>
-          </div> -->
         </div>
       </div>
-      <div class="second-con">
+      <div class="second-con pc">
         <div
           v-for="(card, index) in seconds"
           class="sub-vod"
@@ -56,32 +46,73 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="modal" v-show="showModal">
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <iframe
-          v-if="showModal"
-          width="750"
-          height="425"
-          style="border-radius: 5px"
-          :src="videoUrl[this.videoIndex]"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
+      <!-- 반응형 모바일 버전 레이아웃 -->
+      <div class="first-con mobile">
+        <div class="main-vod">
+          <iframe
+            width="100%"
+            height="100%"
+            :src="videoUrl[1]"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="mobile-vod">
+          <div class="sub-vod" @click="openModal(firsts[0].num)">
+            <div class="thumbnail">
+              <img
+                :src="firsts[0].img"
+                style="width: 100%; height: 100%"
+                class="img"
+              />
+            </div>
+            <div class="text">
+              <p class="title">{{ firsts[0].title }}</p>
+              <p class="sub-title">티키앤타카</p>
+            </div>
+          </div>
+          <div
+            v-for="(card, index) in seconds"
+            class="sub-vod"
+            :key="index"
+            @click="openModal(index + 2)"
+          >
+            <div class="thumbnail">
+              <img :src="card.src" style="width: 100%" class="img" />
+            </div>
+            <div class="text">
+              <p class="title">{{ card.title }}</p>
+              <p class="sub-title">티키앤타카</p>
+            </div>
+          </div>
+
+          <div class="advertise sub-vod">
+            <span>광고 배너</span>
+          </div>
+        </div>
       </div>
     </div>
+
+    <ModalPopup />
   </section>
 </template>
 
 <script>
+import ModalPopup from "@/components/Home/YoutubePopupModal.vue";
+
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "HomeMainVod",
+  components: {
+    ModalPopup,
+  },
+  computed: {
+    ...mapGetters(["videoIndex", "showModal"]),
+  },
   data() {
     return {
-      videoIndex: Number,
-      showModal: false,
       videoUrl: [
         "https://www.youtube.com/embed/NIRhxNNKXdE",
         "https://www.youtube.com/embed/Y3ArHWkokWA",
@@ -140,15 +171,13 @@ export default {
       ],
     };
   },
+  mounted() {},
   methods: {
+    ...mapActions(["setShowModal", "setVideoNumber"]),
     openModal(index) {
-      this.videoIndex = index;
-      this.showModal = true;
+      this.setVideoNumber(index);
+      this.setShowModal(true);
       document.body.classList.add("modal-open");
-    },
-    closeModal() {
-      this.showModal = false;
-      document.body.classList.remove("modal-open");
     },
   },
 };
@@ -157,69 +186,257 @@ export default {
 <style lang="scss" scoped>
 //PC XL
 @media screen and (min-width: 1300px) {
+  .pc {
+    display: flex !important;
+  }
+  .mobile {
+    display: none !important;
+  }
   .vod-title {
     width: 1300px;
+    margin: 50px auto 10px auto;
+    .title {
+      font-size: 26px !important;
+    }
   }
   .vod-box {
     width: 1300px;
-    .first-con {
-      .sub-vod {
-        width: 290px;
-        height: 330px;
-        .thumbnail {
-          width: 290px;
-          height: 160px;
-        }
-        .text {
-          .title {
-            padding: 20px;
-            font-size: 18px;
-          }
-          .sub-title {
-            padding: 0px 12px 0px 20px;
-            font-size: 14px;
-          }
-        }
-      }
-      .main-vod {
-        width: 604px;
-        height: 330px;
-      }
-      .advertise {
-        width: 290px;
-      }
-    }
+    .first-con,
     .second-con {
       .sub-vod {
-        width: 290px;
-        height: 270px;
+        margin: 12px;
       }
     }
+    .main-vod {
+      margin: 12px;
+    }
+    .advertise {
+      margin: 12px;
+    }
+  }
+  .thumbnail {
+    width: 100%;
+  }
+  .text {
+    .title {
+      padding: 20px;
+      font-size: 18px;
+    }
+    .sub-title {
+      padding: 0px 12px 20px 20px;
+      font-size: 14px;
+    }
+  }
+  .sub-vod:hover {
+    transform: scale(1.1);
   }
 }
 // PC
-@media screen and (min-width: 1300px) and (max-width: 1550px) {
-}
-// PC
 @media screen and (min-width: 1080px) and (max-width: 1299px) {
+  .pc {
+    display: flex;
+  }
+  .mobile {
+    display: none !important;
+  }
+  .vod-title {
+    width: 1080px;
+    margin: 40px auto 10px auto;
+    .title {
+      font-size: 24px !important;
+    }
+  }
+  .vod-box {
+    width: 1080px;
+    .first-con,
+    .second-con {
+      .sub-vod {
+        margin: 6px;
+      }
+    }
+    .main-vod {
+      margin: 6px;
+    }
+    .advertise {
+      margin: 6px;
+    }
+  }
+  .text {
+    .title {
+      padding: 12px;
+      font-size: 15px;
+    }
+    .sub-title {
+      padding: 0px 10px 12px 12px;
+      font-size: 13px;
+    }
+  }
+  .sub-vod:hover {
+    transform: scale(1.05);
+  }
 }
 
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1079px) {
+  .pc {
+    display: flex;
+  }
+  .mobile {
+    display: none !important;
+  }
+  .vod-title {
+    width: 760px;
+    margin: 30px auto 10px auto;
+    .title {
+      font-size: 22px !important;
+    }
+  }
+  .vod-box {
+    width: 760px;
+    .first-con,
+    .second-con {
+      .sub-vod {
+        margin: 6px;
+      }
+    }
+    .main-vod {
+      margin: 6px;
+    }
+    .advertise {
+      margin: 6px;
+    }
+  }
+  .text {
+    .title {
+      padding: 10px;
+      font-size: 14px;
+    }
+    .sub-title {
+      padding: 0px 10px 12px 12px;
+      font-size: 12px;
+    }
+  }
+  .sub-vod:hover {
+    transform: scale(1.05);
+  }
 }
 
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
+  .pc {
+    display: none !important;
+  }
+  .vod-title {
+    width: 640px;
+    margin: 20px auto 10px auto;
+
+    .title {
+      font-size: 20px !important;
+    }
+  }
+  .mobile {
+    display: grid !important;
+    .vod-box {
+      box-shadow: none;
+      justify-self: center;
+      width: none;
+      .sub-vod {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .main-vod {
+      width: calc(100% - 24px) !important;
+      height: 342px;
+      margin: 12px;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0px 0px 0px !important;
+    }
+    .mobile-vod {
+      width: 640px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      .sub-vod {
+        width: calc(33% - 24px) !important;
+        margin: 12px !important;
+
+        .title {
+          height: 54px;
+          font-size: 15px;
+          padding: 8px;
+        }
+        .sub-title {
+          text-align: right;
+          padding: 8px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
 }
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
+  .pc {
+    display: none !important;
+  }
+  .vod-title {
+    width: 320px;
+    margin: 10px auto 10px auto;
+
+    .title {
+      font-size: 18px !important;
+    }
+  }
+  .mobile {
+    display: grid !important;
+    .vod-box {
+      box-shadow: none;
+      justify-self: center;
+      width: 320px;
+      .sub-vod {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .main-vod {
+      width: calc(100% - 8px) !important;
+      height: 180px;
+      margin: 4px;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0px 0px 0px !important;
+    }
+    .mobile-vod {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      .sub-vod {
+        width: calc(50% - 8px) !important;
+        margin: 4px !important;
+
+        .title {
+          height: 40px;
+          font-size: 14px;
+          padding: 8px;
+        }
+        .sub-title {
+          text-align: right;
+          padding: 8px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }
 
 .mainvod-section {
   height: auto;
   .vod-title {
-    margin: 50px auto 10px auto;
     padding: 12px;
     // width: 70%;
     display: flex;
@@ -240,12 +457,13 @@ export default {
       display: flex;
       justify-content: center;
       .sub-vod {
-        margin: 12px;
+        width: 25%;
         box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
         transition: all 0.3s ease;
 
         cursor: pointer;
         .thumbnail {
+          width: 100%;
           overflow: hidden;
         }
         .text {
@@ -263,54 +481,16 @@ export default {
         }
       }
       .main-vod {
-        margin: 12px;
+        width: 50%;
         box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
       }
       .advertise {
-        margin: 12px;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
-}
-
-.sub-vod:hover {
-  transform: scale(1.1);
-}
-.modal {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  .modal-content {
-    background-color: #fefefe;
-    margin: 13% auto;
-    // padding: 0px 20px 20px 20px;
-    border: 1px solid #888;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 750px;
-    max-height: 462px;
-  }
-}
-
-.close {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  position: relative;
-  width: 100%;
-  text-align: center;
-  float: right;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
 }
 </style>

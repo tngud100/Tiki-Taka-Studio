@@ -6,6 +6,11 @@ const routes = [
     name: "HomePage",
     component: () => import("@/View/HomeView.vue"),
   },
+  {
+    path: "/test",
+    name: "test",
+    component: () => import("@/components/Home/YoutubePopupModal.vue"),
+  },
 ];
 
 const router = createRouter({
