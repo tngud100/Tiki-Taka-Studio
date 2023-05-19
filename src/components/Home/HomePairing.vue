@@ -28,9 +28,7 @@
               card.img +
               '); background-size: cover; background-position: center;'
             "
-          >
-            <!-- <div>{{ card.youtube }}</div> -->
-          </div>
+          ></div>
         </div>
       </div>
     </div>
@@ -179,14 +177,14 @@ export default {
     width: 100%;
 
     .pairing-con {
-      width: 100%;
+      width: 1300px;
       display: flex;
       justify-content: center;
       margin-bottom: 30px;
       overflow: hidden;
 
       .box {
-        width: 70%;
+        width: 100%;
         display: flex;
         margin: 12px;
         box-shadow: 0px 0px 1px 0px black;

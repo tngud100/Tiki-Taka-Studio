@@ -2,37 +2,33 @@
   <Header />
   <HomeBanner />
   <HomeMainVod />
-  <!-- <HomeLongVod /> -->
-  <HomeAdverse />
   <HomeShortVod />
-  <!-- <HomeVod /> -->
+  <HomeAdverse />
   <HomePairing />
-  <HomeYoutube />
+  <HomeNewsEvents />
+  <FooterMain />
 </template>
 
 <script>
 import Header from "../components/Header/HeaderMain.vue";
 import HomeBanner from "../components/Home/HomeBanner.vue";
-import HomeMainVod from "../components/Home/HomeMainVod.vue";
-// import HomeLongVod from "../components/Home/HomeLongVod.vue";
+import HomeMainVod from "../components/Home/HomeMainVod";
 import HomeShortVod from "../components/Home/HomeShortVod.vue";
-// import HomeVod from "../components/Home/HomeVod.vue";
-
 import HomeAdverse from "../components/Home/HomeAdvertise.vue";
 import HomePairing from "../components/Home/HomePairing.vue";
-import HomeYoutube from "../components/Home/HomeYoutube.vue";
+import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
+import FooterMain from "../components/Footer/FooterMain.vue";
 export default {
   name: "HomeView",
   components: {
     Header,
     HomeBanner,
     HomeMainVod,
-    // HomeLongVod,
     HomeAdverse,
     HomeShortVod,
-    // HomeVod,
     HomePairing,
-    HomeYoutube,
+    HomeNewsEvents,
+    FooterMain,
   },
 };
 </script>

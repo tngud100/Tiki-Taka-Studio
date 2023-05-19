@@ -15,7 +15,7 @@ export default {};
   justify-content: center;
   width: 100%;
   .adver-con {
-    width: 55%;
+    width: 1300px;
     height: 110px;
     display: flex;
     justify-content: center;

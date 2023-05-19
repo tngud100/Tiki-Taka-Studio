@@ -436,6 +436,7 @@ export default {
 
 .mainvod-section {
   height: auto;
+  margin-bottom: 30px;
   .vod-title {
     padding: 12px;
     // width: 70%;
