@@ -9,7 +9,7 @@ const routes = [
   {
     path: "/test",
     name: "test",
-    component: () => import("@/components/Home/YoutubePopupModal.vue"),
+    component: () => import("@/components/Home/HomeSchedule.vue"),
   },
 ];
 

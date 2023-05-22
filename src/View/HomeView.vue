@@ -1,21 +1,23 @@
 <template>
   <Header />
   <HomeBanner />
-  <HomeMainVod />
+  <!-- <HomeSchedule /> -->
+  <HomeYoutubeVod />
   <HomeShortVod />
-  <HomeAdverse />
-  <HomePairing />
+  <!-- <HomePairing /> -->
   <HomeNewsEvents />
+  <HomeAdverse />
   <FooterMain />
 </template>
 
 <script>
 import Header from "../components/Header/HeaderMain.vue";
 import HomeBanner from "../components/Home/HomeBanner.vue";
-import HomeMainVod from "../components/Home/HomeMainVod";
+// import HomeSchedule from "../components/Home/HomeSchedule.vue";
+import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
 import HomeShortVod from "../components/Home/HomeShortVod.vue";
 import HomeAdverse from "../components/Home/HomeAdvertise.vue";
-import HomePairing from "../components/Home/HomePairing.vue";
+// import HomePairing from "../components/Home/HomePairing.vue";
 import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
 import FooterMain from "../components/Footer/FooterMain.vue";
 export default {
@@ -23,10 +25,11 @@ export default {
   components: {
     Header,
     HomeBanner,
-    HomeMainVod,
+    // HomeSchedule,
+    HomeYoutubeVod,
     HomeAdverse,
     HomeShortVod,
-    HomePairing,
+    // HomePairing,
     HomeNewsEvents,
     FooterMain,
   },

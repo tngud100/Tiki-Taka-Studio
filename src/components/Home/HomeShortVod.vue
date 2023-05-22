@@ -1,21 +1,23 @@
 <template>
-  <section class="longvod-section">
+  <section class="shortvod-section">
     <div class="short-con">
       <div class="short-title">
         <div>
           <p class="title">
-            <span style="display: flex; align-items: center"
+            <span class="title-text"
               ><img
+                class="short-icon"
                 src="@/assets/logo/shortYoutube.svg"
                 style="padding-right: 8px"
               />쇼츠동영상
             </span>
           </p>
           <span class="sub-title">
-            <p style="margin: 0; font-size: 16px">짧은 쇼츠 영상으로</p>
-            <p style="margin: 0; font-size: 16px">
-              중요한 장면을 놓치지 마세요.
-            </p>
+            <p style="margin: 0">짧은 쇼츠 영상으로</p>
+            <p style="margin: 0">중요한 장면을 놓치지 마세요.</p>
+          </span>
+          <span class="sub-title-mobile">
+            <p style="margin: 0">쇼츠 영상으로 만나보세요.</p>
           </span>
         </div>
       </div>
@@ -81,7 +83,7 @@ import "swiper/swiper-bundle.min.css";
 SwiperCore.use([Navigation, Autoplay]);
 
 export default {
-  name: "HomeLongVod",
+  name: "HomeShortVod",
   data() {
     return {
       showModal: false,
@@ -213,17 +215,17 @@ export default {
           // 화면 너비가 760px 이상일 때
           760: {
             slidesPerView: 3,
-            spaceBetween: 30,
+            spaceBetween: 25,
           },
           // 화면 너비가 640px 이상일 때
           640: {
-            slidesPerView: 2,
-            spaceBetween: 25,
+            slidesPerView: 4,
+            spaceBetween: 20,
           },
           // 화면 너비가 320px 이상일 때
           320: {
             slidesPerView: 1,
-            spaceBetween: 20,
+            spaceBetween: 10,
           },
         },
 
@@ -242,65 +244,217 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//PC XL
+@media screen and (min-width: 1300px) {
+  .short-con {
+    width: 1300px;
+    display: flex;
+    .short-title {
+      width: 300px;
+      .vod-content {
+        width: 200px !important;
+        height: 355px;
+      }
+      .title {
+        font-size: 24px;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
 
+        justify-content: left;
+        .short-icon {
+          width: 30px;
+          height: 30px;
+        }
+      }
+      .sub-title {
+        font-size: 16px;
+      }
+      .sub-title-mobile {
+        display: none;
+      }
+    }
+    .swiper-container {
+      width: 905px;
+    }
+  }
+}
 // PC
-@media screen and (min-width: 1080px) {
-  .swiper-container {
-    width: 905px;
+@media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .short-con {
+    width: 1040px;
+    display: flex;
+    .short-title {
+      width: 300px;
+      .vod-content {
+        width: 200px !important;
+        height: 355px;
+      }
+      .title {
+        font-size: 24px;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+
+        justify-content: left;
+        .short-icon {
+          width: 30px;
+          height: 30px;
+        }
+      }
+      .sub-title {
+        font-size: 16px;
+      }
+      .sub-title-mobile {
+        display: none;
+      }
+    }
+    .swiper-container {
+      width: 905px;
+    }
   }
 }
 
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
-  .swiper-container {
-    width: 660px;
-  }
-}
+  .short-con {
+    width: 760px;
+    display: flex;
+    .short-title {
+      width: 260px;
+      .vod-content {
+        width: 106px !important;
+        height: 188px;
+      }
+      .title {
+        font-size: 22px;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
 
-// 테블릿
-@media screen and (min-width: 640px) and (max-width: 759px) {
+        justify-content: left;
+        .short-icon {
+          width: 25px;
+          height: 25px;
+        }
+      }
+      .sub-title {
+        font-size: 14px;
+      }
+      .sub-title-mobile {
+        display: none;
+      }
+    }
+  }
   .swiper-container {
     width: 425px;
   }
 }
 
-// 모바일
-@media screen and (min-width: 320px) and (max-width: 639px) {
+// 테블릿
+@media screen and (min-width: 640px) and (max-width: 759px) {
+  .short-con {
+    width: 640px;
+    display: grid;
+    margin: 30px 0px 30px 0px !important;
+    .short-title {
+      width: 100%;
+      justify-content: center;
+      .vod-content {
+        width: 145px !important;
+        height: 257px;
+      }
+      .title {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: -1px;
+        .title-text {
+          justify-content: center;
+        }
+        .short-icon {
+          width: 25px;
+          height: 25px;
+        }
+      }
+      .sub-title {
+        display: none;
+      }
+      .sub-title-mobile {
+        display: block;
+        font-size: 14px;
+        margin: 15px 0px 30px 12px !important;
+      }
+    }
+  }
   .swiper-container {
-    width: 200px;
+    width: 640px;
   }
 }
 
-.longvod-section {
-  justify-items: center;
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 639px) {
+  .short-con {
+    width: 320px;
+    display: grid;
+    .short-title {
+      width: 100%;
+      margin-bottom: 10px;
+      justify-content: center;
+      .vod-content {
+        width: 250px !important;
+        height: 444px;
+      }
+      .title {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: -1px;
+        .title-text {
+          justify-content: center;
+        }
+        .short-icon {
+          width: 25px;
+          height: 25px;
+        }
+      }
+      .sub-title {
+        display: none;
+      }
+      .sub-title-mobile {
+        display: block;
+        font-size: 14px;
+        margin: 15px 0px 30px 12px !important;
+      }
+    }
+  }
+  .swiper-container {
+    width: 320px;
+  }
+}
+
+.shortvod-section {
+  justify-content: center;
   display: flex;
   width: 100%;
   background-color: whitesmoke;
   .short-con {
     margin-bottom: 10px;
-    width: 100%;
     margin: 50px 0px 50px 0px;
-    display: flex;
+
     justify-content: center;
     align-items: center;
     .short-title {
-      width: 300px;
       height: 100%;
       display: flex;
-      justify-content: left;
 
       .title {
         margin-top: 0;
-        margin-bottom: 16px;
         font-family: sans-serif;
         font-weight: bold;
-        font-size: 24px;
         letter-spacing: -1px;
+        .title-text {
+          display: flex;
+          align-items: center;
+        }
       }
-      .sub-title {
+      .sub-title,
+      .sub-title-mobile {
         font-family: sans-serif;
-        font-size: 16px;
         color: #8d8d8d;
       }
     }
@@ -310,11 +464,9 @@ export default {
     display: flex;
     overflow: hidden;
     z-index: 0;
-    height: 110%;
+    height: 105%;
   }
   .vod-content {
-    width: 200px !important;
-    height: 355px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
     border-radius: 5px;
     cursor: pointer;

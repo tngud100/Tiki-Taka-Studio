@@ -57,7 +57,7 @@ export default {
     ],
     menuR: [
       {
-        name: "광고문의",
+        name: "공지사항",
         href: "/",
       },
       {
@@ -65,7 +65,7 @@ export default {
         href: "/",
       },
       {
-        name: "편성표",
+        name: "문의",
         href: "/",
       },
     ],
