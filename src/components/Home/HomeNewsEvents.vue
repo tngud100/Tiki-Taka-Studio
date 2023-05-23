@@ -130,7 +130,7 @@ export default {
         display: none !important;
       }
       .pc {
-        display: block !important;
+        display: grid !important;
       }
       .title-con {
         .title {

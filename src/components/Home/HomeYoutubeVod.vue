@@ -3,10 +3,15 @@
     <div class="vod-title"><span class="title">최신 동영상</span></div>
     <div class="vod-box">
       <div class="first-con pc">
-        <div class="sub-vod" @click="openModal(firsts[0].num)">
+        <div
+          class="sub-vod"
+          @mouseover="firsts[0].hoverImage = true"
+          @mouseleave="firsts[0].hoverImage = false"
+          @click="openModal(firsts[0].num)"
+        >
           <div class="thumbnail">
             <img
-              :src="firsts[0].img"
+              :src="firsts[0].hoverImage ? firsts[0].hover : firsts[0].img"
               style="width: 100%; height: 100%"
               class="img"
             />
@@ -21,6 +26,7 @@
           <iframe
             width="100%"
             height="100%"
+            borderRadius="5px"
             :src="videoUrl[1]"
             frameborder="0"
             allowfullscreen
@@ -36,9 +42,15 @@
           class="sub-vod"
           :key="index"
           @click="openModal(index + 2)"
+          @mouseover="card.hoverImage = true"
+          @mouseleave="card.hoverImage = false"
         >
           <div class="thumbnail">
-            <img :src="card.src" style="width: 100%" class="img" />
+            <img
+              :src="card.hoverImage ? card.hover : card.img"
+              style="width: 100%; height: 100%"
+              class="img"
+            />
           </div>
           <div class="text">
             <p class="title">{{ card.title }}</p>
@@ -79,7 +91,7 @@
             @click="openModal(index + 2)"
           >
             <div class="thumbnail">
-              <img :src="card.src" style="width: 100%" class="img" />
+              <img :src="card.img" style="width: 100%" class="img" />
             </div>
             <div class="text">
               <p class="title">{{ card.title }}</p>
@@ -115,7 +127,7 @@ export default {
     return {
       videoUrl: [
         "https://www.youtube.com/embed/NIRhxNNKXdE",
-        "https://www.youtube.com/embed/Y3ArHWkokWA",
+        "https://www.youtube.com/embed/wh-DCVr1wOY",
         "https://www.youtube.com/embed/AUS7hVUMoKU",
         "https://www.youtube.com/embed/YCqp1kgJjXQ",
         "https://www.youtube.com/embed/HhBFwoWErlo",
@@ -123,10 +135,12 @@ export default {
       ],
       firsts: [
         {
-          img: require("@/assets/thumbnail/Top피파1.jpg"),
           title: "5연속 공식경기 1위의 불가능한 도전 l [TOP피파 1화]",
+          img: require("@/assets/thumbnail/Top피파1.jpg"),
           subTitle:
             "게임만 잘해서는 피파 1등이 될 수 없다! 팀도 잘 짜야 진정한 피파 최강자 대한민국 최고의 프로게이머를 찾아보는시간  [TOP피파]",
+          hover: require("@/assets/thumbnail/Top피파1GIF.webp"),
+          hoverImage: false,
           num: 0,
         },
         {
@@ -145,27 +159,35 @@ export default {
         {
           title:
             "저자본 추천 팀컬러 TOP5 그리고 공식경기 꿀팁 l TSL 우승자 인터뷰",
-          src: require("@/assets/thumbnail/TSL 우승자 인터뷰.jpg"),
+          img: require("@/assets/thumbnail/TSL 우승자 인터뷰.jpg"),
           desc: "TSL 프리시즌 우승자: 박찬화 선수와의 인터뷰.공식경기 꿀팁까지!",
+          hover: require("@/assets/thumbnail/TSL 우승자 인터뷰GIF.webp"),
+          hoverImage: false,
           num: 2,
         },
         {
           title: "사포 쓰고 골 넣는 여기는 TSL l TSL 프리시즌 4강&결승전 ",
-          src: require("@/assets/thumbnail/TSL 프리시즌 Highlight 4강,결승.jpg"),
+          img: require("@/assets/thumbnail/TSL 프리시즌 Highlight 4강,결승.jpg"),
           desc: "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
+          hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight 4강,결승GIF.webp"),
+          hoverImage: false,
           num: 3,
         },
         {
           title: "시원시원한 닥공 플레이의 정점! l TSL 프리시즌 8강전 ",
-          src: require("@/assets/thumbnail/TSL 프리시즌 Highlight 8강.jpg"),
+          img: require("@/assets/thumbnail/TSL 프리시즌 Highlight 8강.jpg"),
           desc: "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
+          hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight 8강GIF.webp"),
+          hoverImage: false,
           num: 4,
         },
         {
           title:
             "최호석 VS 김승섭! 패기와 관록의 대결 l TSL 프리시즌 조별리그 D조 ",
-          src: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조.webp"),
+          img: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조.webp"),
           desc: "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
+          hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조GIF.webp"),
+          hoverImage: false,
           num: 5,
         },
       ],
@@ -194,7 +216,7 @@ export default {
   }
   .vod-title {
     width: 1300px;
-    margin: 50px auto 10px auto;
+    margin: 60px auto 10px auto;
     .title {
       font-size: 26px !important;
     }
@@ -380,6 +402,9 @@ export default {
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
+  .mainvod-section {
+    margin-bottom: 40px !important;
+  }
   .pc {
     display: none !important;
   }
@@ -416,7 +441,7 @@ export default {
       justify-content: center;
       flex-wrap: wrap;
       .sub-vod {
-        width: calc(50% - 8px) !important;
+        width: calc(50% - 10px) !important;
         margin: 4px !important;
 
         .title {
@@ -435,8 +460,8 @@ export default {
 }
 
 .mainvod-section {
+  margin-bottom: 60px;
   height: auto;
-  margin-bottom: 30px;
   .vod-title {
     padding: 12px;
     // width: 70%;
@@ -459,13 +484,15 @@ export default {
       justify-content: center;
       .sub-vod {
         width: 25%;
-        box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+        border: solid 1px #e9e9e9;
         transition: all 0.3s ease;
+        border-radius: 5px;
 
         cursor: pointer;
         .thumbnail {
           width: 100%;
           overflow: hidden;
+          border-radius: 5px;
         }
         .text {
           height: auto;
@@ -484,6 +511,7 @@ export default {
       .main-vod {
         width: 50%;
         box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+        border-radius: 5px;
       }
       .advertise {
         width: 25%;

@@ -1,8 +1,8 @@
 <template>
   <Header />
   <HomeBanner />
-  <!-- <HomeSchedule /> -->
   <HomeYoutubeVod />
+  <HomeSchedule />
   <HomeShortVod />
   <!-- <HomePairing /> -->
   <HomeNewsEvents />
@@ -13,7 +13,7 @@
 <script>
 import Header from "../components/Header/HeaderMain.vue";
 import HomeBanner from "../components/Home/HomeBanner.vue";
-// import HomeSchedule from "../components/Home/HomeSchedule.vue";
+import HomeSchedule from "../components/Home/HomeSchedule.vue";
 import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
 import HomeShortVod from "../components/Home/HomeShortVod.vue";
 import HomeAdverse from "../components/Home/HomeAdvertise.vue";
@@ -25,7 +25,7 @@ export default {
   components: {
     Header,
     HomeBanner,
-    // HomeSchedule,
+    HomeSchedule,
     HomeYoutubeVod,
     HomeAdverse,
     HomeShortVod,
