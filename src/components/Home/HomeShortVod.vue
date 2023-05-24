@@ -47,34 +47,15 @@
         <div class="swiper-scrollbar"></div>
       </div>
     </div>
-    <!-- <div class="swipe_btn">
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-    </div> -->
-
-    <div class="modal" v-show="showModal">
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <iframe
-          class="youtubeVod"
-          v-if="showModal"
-          width="400"
-          height="711"
-          style="border-radius: 0px 0px 5px 5px"
-          :src="videoUrl[this.videoIndex]"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-        <div class="modal-btn">
-          <div class="prev-btn" @click="openModal(this.videoIndex - 1)"></div>
-          <div class="next-btn" @click="openModal(this.videoIndex + 1)"></div>
-        </div>
-      </div>
-    </div>
+    <ModalPopup />
   </section>
 </template>
 
 <script>
+import ModalPopup from "@/components/Home/ShortsPopupModal.vue";
+
+import { mapGetters, mapActions } from "vuex";
+
 import { onMounted, ref } from "vue";
 import Swiper from "swiper";
 import SwiperCore, { Navigation, Autoplay } from "swiper";
@@ -84,6 +65,13 @@ SwiperCore.use([Navigation, Autoplay]);
 
 export default {
   name: "HomeShortVod",
+  components: {
+    ModalPopup,
+  },
+  computed: {
+    ...mapGetters(["shortsVideoIndex", "shortsShowModal"]),
+  },
+
   data() {
     return {
       showModal: false,
@@ -91,17 +79,6 @@ export default {
       vodState: false,
       scrollLock: false,
 
-      videoUrl: [
-        "https://www.youtube.com/embed/b7D3C09UyP4",
-        "https://www.youtube.com/embed/k2IOXI9j270",
-        "https://www.youtube.com/embed/aLm0NkmQUy0",
-        "https://www.youtube.com/embed/opAfmk5S3us",
-        "https://www.youtube.com/embed/5BaWzofXFuE",
-        "https://www.youtube.com/embed/A7IPmKh1bOI",
-        "https://www.youtube.com/embed/AkwAI15UNgE",
-        "https://www.youtube.com/embed/X70MrarcM48",
-        "https://www.youtube.com/embed/Y135I3m4zhI",
-      ],
       long: [
         {
           title: "쇼츠영상1",
@@ -160,31 +137,26 @@ export default {
       ],
     };
   },
-
   methods: {
+    ...mapActions(["setShortsShowModal", "setShortsVideoNumber"]),
     openModal(index) {
+      this.setShortsVideoNumber(index);
+      this.setShortsShowModal(true);
+      document.body.classList.add("modal-shorts-open");
+
       const prev_btn = document.querySelector(".prev-btn");
       const next_btn = document.querySelector(".next-btn");
-      if (index <= 0) {
-        this.videoIndex = 0;
+      if (this.shortsVideoIndex <= 0) {
         prev_btn.style.display = "none";
-      } else if (index >= this.long.length - 1) {
-        this.videoIndex = this.long.length - 1;
+      } else if (this.shortsVideoIndex >= this.long.length - 1) {
         next_btn.style.display = "none";
       } else {
-        this.videoIndex = index;
         prev_btn.style.display = "block";
         next_btn.style.display = "block";
       }
-
-      this.showModal = true;
-      document.body.classList.add("modal-open");
-    },
-    closeModal() {
-      this.showModal = false;
-      document.body.classList.remove("modal-open");
     },
   },
+
   setup() {
     const swiperRef = ref(null);
 
@@ -482,62 +454,5 @@ export default {
       }
     }
   }
-}
-
-.modal {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  .modal-content {
-    background-color: #fefefe;
-    margin: 7% auto;
-    border-radius: 5px;
-    max-width: 400px;
-    max-height: 711px;
-
-    .prev-btn {
-      background-image: url("@/assets/btn/VodBtn.svg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      /* width: 35px; */
-      width: 40px;
-      height: 24px;
-      /* height: 19px; */
-      transform: rotate(90deg) translate3d(-405px, 60px, 0px);
-      cursor: pointer;
-    }
-    .next-btn {
-      background-image: url("@/assets/btn/VodBtn.svg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      width: 40px;
-      height: 24px;
-      transform: translateX(300px);
-      transform: rotate(-90deg) translate3d(423px, 420px, 0px);
-      cursor: pointer;
-    }
-  }
-}
-
-.close {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  position: relative;
-  width: 100%;
-  text-align: center;
-  float: right;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
 }
 </style>

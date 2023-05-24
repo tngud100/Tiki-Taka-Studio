@@ -204,7 +204,6 @@ export default {
   },
 };
 </script>
-
 <style lang="scss" scoped>
 //PC XL
 @media screen and (min-width: 1300px) {

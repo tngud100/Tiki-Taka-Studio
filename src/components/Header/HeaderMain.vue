@@ -9,12 +9,14 @@
             class="list"
             :style="linkMarginStyle"
           >
-            <router-link :to="list.href" class="a" :style="linkColorStyle">{{
+            <a :href="list.href" class="a" :style="linkColorStyle">{{
               list.name
-            }}</router-link>
+            }}</a>
           </li>
         </div>
-        <span class="nav-name" :style="nameStyle">TNT Studio</span>
+        <span class="nav-name"
+          ><router-link to="/" :style="nameStyle">TNT Studio</router-link></span
+        >
         <div class="right-list btn" :style="linkTopStyle">
           <li
             v-for="(list, index) in menuR"
@@ -40,29 +42,28 @@ export default {
   name: "HeaderMain",
   data: () => ({
     image: require("@/assets/header/logo.png"),
-    menu: ["Business", "Creator", "Contact"],
     menuL: [
       {
         name: "커뮤니티",
-        href: "/",
+        href: "http://xn--ef5bu9n7vbido5j.com/?page=0&sort=1&mod=0",
       },
       {
         name: "유튜브",
-        href: "/",
+        href: "https://www.youtube.com/@tikintaka",
       },
       {
         name: "SNS",
-        href: "/",
+        href: "https://www.instagram.com/tikintaka_official",
       },
     ],
     menuR: [
       {
         name: "공지사항",
-        href: "/",
+        href: "/news",
       },
       {
         name: "이벤트",
-        href: "/",
+        href: "/events",
       },
       {
         name: "문의",
@@ -112,11 +113,11 @@ export default {
     menuStyle() {
       if (window.innerWidth >= 1080) {
         return {
-          height: this.isScrolledUp ? "80px" : "20px",
+          height: this.isScrolledUp ? "80px" : "54px",
         };
       } else {
         return {
-          height: this.isScrolledUp ? "20px" : "20px",
+          height: this.isScrolledUp ? "54px" : "80px",
         };
       }
     },
@@ -263,6 +264,9 @@ header {
     align-items: center;
     font-family: sans-serif;
     font-weight: bold;
+    a {
+      text-decoration: none;
+    }
   }
   .left-list {
     justify-content: left;
