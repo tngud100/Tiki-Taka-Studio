@@ -11,7 +11,7 @@
       >
         <div class="mb-4">
           <span>
-            <v-icon class="mr-2">mdi-email-outline</v-icon>
+            <!-- <v-icon class="mr-2">mdi-email-outline</v-icon> -->
             지원 작성
           </span>
         </div>
@@ -166,7 +166,7 @@
         ></v-checkbox>
 
         <v-btn type="submit" class="mx-0 mt-4" color="primary">
-          <v-icon left>mdi-send</v-icon>
+          <!-- <v-icon left>mdi-send</v-icon> -->
           Submit
         </v-btn>
       </v-form>

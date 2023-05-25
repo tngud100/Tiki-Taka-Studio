@@ -21,6 +21,26 @@ const routes = [
     name: "AskPage",
     component: () => import("@/View/SubAskView.vue"),
   },
+  {
+    path: "/news/1",
+    name: "NewsDetail1",
+    component: () => import("@/components/Sub/NewsDetail/news1.vue"),
+  },
+  {
+    path: "/news/2",
+    name: "NewsDetail2",
+    component: () => import("@/components/Sub/NewsDetail/news2.vue"),
+  },
+  {
+    path: "/news/3",
+    name: "NewsDetail3",
+    component: () => import("@/components/Sub/NewsDetail/news3.vue"),
+  },
+  {
+    path: "/news/4",
+    name: "NewsDetail4",
+    component: () => import("@/components/Sub/NewsDetail/news4.vue"),
+  },
 ];
 
 const router = createRouter({

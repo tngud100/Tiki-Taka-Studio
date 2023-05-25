@@ -61,6 +61,9 @@ export default {
 <style lang="scss" scoped>
 // PC XL
 @media screen and (min-width: 1500px) {
+  nav {
+    padding: 12px 0px;
+  }
   .menu-list {
     width: 1500px;
     .nav-name {
@@ -79,6 +82,9 @@ export default {
 }
 //PC
 @media screen and (min-width: 1080px) and (max-width: 1500px) {
+  nav {
+    padding: 12px 0px;
+  }
   .menu-list {
     width: 1050px;
     .nav-name {
@@ -95,6 +101,9 @@ export default {
 }
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
+  nav {
+    padding: 12px 0px;
+  }
   .menu-list {
     width: 740px;
     .nav-name {
@@ -112,9 +121,6 @@ export default {
 
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
-  .nav {
-    padding: 4px 0px;
-  }
   .menu-list {
     width: 100%;
     .left-list {
@@ -140,9 +146,6 @@ export default {
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
-  .nav {
-    padding: 2px 0px;
-  }
   .menu-list {
     width: 100%;
     .left-list {
@@ -176,7 +179,6 @@ header {
   transition: background-color 0.2s ease;
   nav {
     width: 100%;
-    padding: 12px 0px;
   }
 }
 

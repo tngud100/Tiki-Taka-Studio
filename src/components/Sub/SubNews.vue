@@ -1,7 +1,7 @@
 <template>
   <section class="news_section">
+    <HeaderTitle :title-data="title" />
     <div class="table_con">
-      <div class="title">공지사항</div>
       <thead
         :headers="header"
         :items="desserts"
@@ -19,7 +19,7 @@
       </thead>
       <tbody style="display: grid; justify-content: center">
         <tr class="table_desserts" v-for="item in desserts" :key="item.num">
-          <router-link :to="'/News/' + item.num">
+          <router-link :to="'/news/' + item.num">
             <td class="desserts_align td_num">
               {{ item.num }}
             </td>
@@ -44,9 +44,16 @@
   </section>
 </template>
 <script>
+import HeaderTitle from "@/components/Header/SubTitle.vue";
+
 export default {
+  name: "SubNews",
+  components: {
+    HeaderTitle,
+  },
   data() {
     return {
+      title: "회사소식",
       header: ["번호", "제목", "작성일자"],
       desserts: [
         {
@@ -77,7 +84,6 @@ export default {
 <style lang="scss" scoped>
 .news_section {
   display: block;
-  margin-top: 80px;
 
   .title {
     display: flex;
@@ -94,11 +100,12 @@ export default {
   position: relative;
   justify-content: center;
   padding-bottom: 2%;
-
+  margin-top: 40px;
   .table_header {
     display: flex;
     text-align: center;
-    border-top: 2px solid #0174f5;
+    border-top: 1px solid #c4c4c4;
+    // border-top: 2px solid #0174f5;
     border-bottom: 1px solid #c4c4c4;
     justify-content: space-between;
     align-items: center;
@@ -143,6 +150,9 @@ a {
 
 // PC
 @media screen and (min-width: 1300px) {
+  .news_section {
+    margin-top: 75px;
+  }
   .title {
     font-size: 48px;
     padding-top: 5%;
@@ -189,6 +199,9 @@ a {
 
 // pc
 @media screen and (min-width: 760px) and (max-width: 1300px) {
+  .news_section {
+    margin-top: 75px;
+  }
   .title {
     font-size: 36px;
     padding-top: 5%;
@@ -235,56 +248,11 @@ a {
   }
 }
 
-// // 노트북
-// @media screen and (min-width: 760px) and (max-width: 1080px) {
-//   .title {
-//     font-size: 36px;
-//     padding-top: 5%;
-//     padding-bottom: 3%;
-//     width: 760px;
-//   }
-
-//   .table_header {
-//     height: 45px;
-//     font-size: 14px;
-
-//     .num {
-//       width: 60.8px;
-//     }
-//     .table_title {
-//       width: 608px;
-//     }
-//     .table_date {
-//       width: 91.5px;
-//     }
-//   }
-
-//   .table_desserts {
-//     font-size: 14px;
-
-//     .td_num {
-//       width: 60.8px;
-//       height: 40px;
-//     }
-//     .td_title {
-//       width: 608px;
-//       height: 40px;
-//     }
-//     .td_date {
-//       width: 91.5px;
-//       height: 40px;
-//     }
-//   }
-//   .btn_num {
-//     font-size: 14px;
-//   }
-//   .page_btn {
-//     font-size: 18px;
-//   }
-// }
-
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
+  .news_section {
+    margin-top: 50px;
+  }
   .title {
     font-size: 28px;
     padding-top: 5%;
@@ -333,6 +301,9 @@ a {
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
+  .news_section {
+    margin-top: 50px;
+  }
   .title {
     font-size: 20px;
     padding-top: 5%;

@@ -190,6 +190,8 @@ export default {
   }
   .menu-list {
     width: 100%;
+    height: 50px !important;
+
     .left-list {
       display: none !important;
     }
@@ -252,9 +254,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // height: 50px;
+  height: 50px !important;
   margin: auto;
-  padding: 15px;
   list-style-type: none;
   transition: all 0.3s ease;
   .nav-name {

@@ -1,8 +1,8 @@
 <template>
   <section class="events-section">
-    <div class="bg"></div>
+    <!-- <div class="bg"></div> -->
+    <HeaderTitle :title-data="title" />
     <div class="container">
-      <div class="title-text"><span class="main-title">Events</span></div>
       <div class="creator-con">
         <div
           :class="'card' + index"
@@ -17,11 +17,13 @@
           <div class="card-image">
             <img :class="'image' + index" :src="card.imageSrc" />
           </div>
-          <div class="card-subText">
-            <span class="creator-subscribe">{{ card.subscribe }}</span>
-          </div>
           <div class="card-titleText">
             <span class="creator-name">{{ card.name }}</span>
+          </div>
+          <div class="card-subText">
+            <span class="creator-subscribe"
+              ><span class="date-title">기간 </span>{{ card.date }}</span
+            >
           </div>
         </div>
       </div>
@@ -30,25 +32,30 @@
 </template>
 
 <script>
+import HeaderTitle from "@/components/Header/SubTitle.vue";
 export default {
   name: "CreatorPage",
+  components: {
+    HeaderTitle,
+  },
   data() {
     return {
+      title: "이벤트",
       creatorCard: [
         {
           name: "이벤트1",
-          subscribe: "슈퍼리그",
-          //   imageSrc: require("@/assets/Creator/logo.png"),
+          date: "2023.06.12 ~ 2023.08.12",
+          imageSrc: require("@/assets/pairing/mon/Top피파.svg"),
         },
         {
           name: "이벤트2",
-          subscribe: "TOP피파",
-          //   imageSrc: require("@/assets/Creator/logo.png"),
+          date: "2023.06.15 ~ 2023.06.21",
+          imageSrc: require("@/assets/pairing/mon/TSL.svg"),
         },
         {
           name: "이벤트3",
-          subscribe: "피파의 모든것",
-          //   imageSrc: require("@/assets/Creator/logo.png"),
+          date: "2023.06.17 ~ 2023.07.10",
+          imageSrc: require("@/assets/pairing/mon/피파의모든것.svg"),
         },
       ],
     };
@@ -57,49 +64,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bg {
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-  position: absolute;
-  background-color: whitesmoke;
+.events-section {
+  // background-color: whitesmoke;
 }
-
 .container {
   position: relative;
-  height: 100vh;
-  width: 1600px;
   margin: auto;
-  padding-top: 5%;
 
-  .title-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .main-title {
-      font-family: "Pretendard";
-      font-weight: bold;
-      font-size: 5rem;
-      color: rgb(129, 129, 129);
-    }
-  }
   .creator-con {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    margin: 16px;
+    // margin: 16px;
+    flex-wrap: wrap;
 
     @for $i from 0 through 3 {
       .card#{$i} {
-        width: 30%;
         height: 100%; // 수정된 부분
         margin: 12px;
         overflow: hidden;
         background-color: white;
         color: black;
         position: relative;
-        border-radius: 35px 0px 35px 35px;
+        border-radius: 10px;
       }
       .hover-filter#{$i} {
         position: absolute;
@@ -109,61 +97,218 @@ export default {
         z-index: 1;
         opacity: 0;
         width: 100%;
-        height: 100%;
-        transition: all 0.5s ease;
+        height: 66%;
+        border-radius: 10px;
+        transition: all 0.3s ease;
       }
       .image#{$i} {
         transform: scale(1);
-        transition: all 0.5s ease;
+        transition: all 0.3s ease;
+        border-radius: 10px;
       }
       .card#{$i}:hover {
+        cursor: pointer;
         .hover-filter#{$i} {
           opacity: 1;
           background-color: rgba(0, 0, 0, 0.5);
-          cursor: pointer;
         }
         .image#{$i} {
-          transform: scale(2);
+          transform: scale(1.3);
+          border-radius: 10px;
         }
       }
     }
   }
   .hover-text {
-    font-family: "Pretendard";
+    font-family: "Pretendard-Regular";
     font-weight: bold;
-    font-size: 1.625rem;
     color: white;
   }
   .card-image {
     width: 100%;
-    height: 300px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     padding: 0;
     margin: 0;
+    border-radius: 10px;
   }
   .card-titleText {
     display: grid;
     justify-content: left;
     align-items: center;
-    height: 50px;
-    padding: 0px 12px 12px 32px;
+    padding: 12px 12px 12px 0px;
     .creator-name {
-      font-family: "Pretendard";
+      font-family: "Pretendard-Regular";
       font-weight: bold;
-      font-size: 1.5rem;
     }
   }
   .card-subText {
     display: grid;
-    justify-content: right;
+    justify-content: left;
     align-items: center;
-    padding: 12px 12px 0px 12px;
+    padding: 0px 12px 12px 0px;
     .creator-subscribe {
-      font-family: "Pretendard";
+      font-family: "Pretendard-Regular";
+      color: rgb(196, 196, 196);
+    }
+    .date-title {
+      font-family: "Pretendard-Regular";
       font-weight: bold;
-      font-size: 0.89rem;
+      color: rgb(53, 53, 53);
+      margin-right: 12px;
+    }
+  }
+}
+
+//PC XL
+@media screen and (min-width: 1300px) {
+  @for $i from 0 through 3 {
+    .card#{$i} {
+      width: 30%;
+      height: 100%; // 수정된 부분
+    }
+    .image#{$i} {
+      width: 100%;
+      height: 30%;
+    }
+  }
+  .events-section {
+    margin-top: 75px;
+  }
+  .container {
+    width: 1300px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+
+    .card-image {
+      height: 30%;
+    }
+    .hover-text {
+      font-size: 26px;
+    }
+    .creator-name {
+      font-size: 22px;
+    }
+    .creator-subscribe {
+      font-size: 18px;
+    }
+  }
+}
+// PC
+@media screen and (min-width: 1080px) and (max-width: 1300px) {
+  @for $i from 0 through 3 {
+    .card#{$i} {
+      width: 30%;
+      height: 100%; // 수정된 부분
+    }
+  }
+  .events-section {
+    margin-top: 75px;
+  }
+  .container {
+    width: 1080px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+
+    .card-image {
+    }
+    .hover-text {
+      font-size: 24px;
+    }
+    .creator-name {
+      font-size: 22px;
+    }
+    .creator-subscribe {
+      font-size: 18px;
+    }
+  }
+}
+
+// 노트북
+@media screen and (min-width: 760px) and (max-width: 1080px) {
+  @for $i from 0 through 3 {
+    .card#{$i} {
+      width: 30%;
+      height: 100%; // 수정된 부분
+    }
+  }
+  .events-section {
+    margin-top: 75px;
+  }
+  .container {
+    width: 760px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    .card-image {
+    }
+    .hover-text {
+      font-size: 22px;
+    }
+    .creator-name {
+      font-size: 20px;
+    }
+    .creator-subscribe {
+      font-size: 12px;
+    }
+  }
+}
+
+// 테블릿
+@media screen and (min-width: 640px) and (max-width: 759px) {
+  @for $i from 0 through 3 {
+    .card#{$i} {
+      width: 45%;
+      height: 100%; // 수정된 부분
+    }
+  }
+  .events-section {
+    margin-top: 75px;
+  }
+  .container {
+    width: 640px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+
+    .card-image {
+    }
+    .hover-text {
+      font-size: 22px;
+    }
+    .creator-name {
+      font-size: 20px;
+    }
+    .creator-subscribe {
+      font-size: 12px;
+    }
+  }
+}
+
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 639px) {
+  @for $i from 0 through 3 {
+    .card#{$i} {
+      width: 100%;
+      height: 100%; // 수정된 부분
+    }
+  }
+  .events-section {
+    margin-top: 75px;
+  }
+  .container {
+    width: 320px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    .card-image {
+    }
+    .hover-text {
+      font-size: 22px;
+    }
+    .creator-name {
+      font-size: 20px;
+    }
+    .creator-subscribe {
+      font-size: 12px;
     }
   }
 }
