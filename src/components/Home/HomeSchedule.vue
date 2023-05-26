@@ -24,16 +24,13 @@
         <div class="swiper-wrapper">
           <!-- Slides -->
           <div class="swiper-slide">
-            <img src="@/assets/pairing/mon/Top피파.svg" class="banner-img" />
+            <img :src="img[0].src" class="banner-img" />
           </div>
           <div class="swiper-slide">
-            <img src="@/assets/pairing/mon/TSL.svg" class="banner-img" />
+            <img :src="img[1].src" class="banner-img" />
           </div>
           <div class="swiper-slide">
-            <img
-              src="@/assets/pairing/mon/피파의모든것.svg"
-              class="banner-img"
-            />
+            <img :src="img[2].src" class="banner-img" />
           </div>
           ...
         </div>
@@ -86,6 +83,17 @@ export default {
           title: "피파의 모든것",
           subtitle:
             "각 분야 전문가와 크리에이터들을 통해 알아보는 [피파의 모든 것]",
+        },
+      ],
+      img: [
+        {
+          src: require("@/assets/pairing/mon/Top피파.svg"),
+        },
+        {
+          src: require("@/assets/pairing/mon/TSL.svg"),
+        },
+        {
+          src: require("@/assets/pairing/mon/피파의모든것.svg"),
         },
       ],
     };

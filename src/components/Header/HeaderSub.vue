@@ -7,7 +7,9 @@
             <a :href="list.href" class="a">{{ list.name }}</a>
           </li>
         </div>
-        <span class="nav-name">TNT Studio</span>
+        <span class="nav-name"
+          ><router-link to="/" :style="nameStyle">TNT Studio</router-link></span
+        >
         <div class="right-list btn">
           <li v-for="(list, index) in menuR" :key="index" class="list">
             <router-link :to="list.href" class="a">{{ list.name }}</router-link>
@@ -51,7 +53,7 @@ export default {
         },
         {
           name: "문의",
-          href: "/",
+          href: "/ask",
         },
       ],
     };
@@ -197,6 +199,10 @@ header {
     align-items: center;
     font-family: sans-serif;
     font-weight: bold;
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
   .left-list {
     justify-content: left;

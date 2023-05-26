@@ -1,13 +1,20 @@
 <template>
   <section class="advertise-section">
-    <div class="adver-con">
-      <img src="@/assets/banner/belem.svg" class="img" />
-    </div>
+    <div class="adver-con"><img :src="banner.img" class="img" /></div>
   </section>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "HomeAdvertise",
+  data() {
+    return {
+      banner: {
+        img: require("@/assets/banner/belem.svg"),
+      },
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

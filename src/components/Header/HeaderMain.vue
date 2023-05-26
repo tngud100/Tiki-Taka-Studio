@@ -67,7 +67,7 @@ export default {
       },
       {
         name: "문의",
-        href: "/",
+        href: "/ask",
       },
     ],
     isScrolledUp: true,

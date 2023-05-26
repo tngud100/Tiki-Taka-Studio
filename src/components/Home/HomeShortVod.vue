@@ -6,8 +6,8 @@
           <p class="title">
             <span class="title-text"
               ><img
+                :src="shortLogo.src"
                 class="short-icon"
-                src="@/assets/logo/shortYoutube.svg"
                 style="padding-right: 8px"
               />쇼츠동영상
             </span>
@@ -78,7 +78,7 @@ export default {
       videoIndex: Number,
       vodState: false,
       scrollLock: false,
-
+      shortLogo: { src: require("@/assets/logo/shortYoutube.svg") },
       long: [
         {
           title: "쇼츠영상1",

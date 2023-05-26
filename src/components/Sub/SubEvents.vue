@@ -97,7 +97,6 @@ export default {
         z-index: 1;
         opacity: 0;
         width: 100%;
-        height: 66%;
         border-radius: 10px;
         transition: all 0.3s ease;
       }
@@ -126,6 +125,7 @@ export default {
   }
   .card-image {
     width: 100%;
+    height: 140px;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -170,7 +170,9 @@ export default {
     }
     .image#{$i} {
       width: 100%;
-      height: 30%;
+    }
+    .hover-filter#{$i} {
+      height: 156px;
     }
   }
   .events-section {
@@ -202,6 +204,9 @@ export default {
       width: 30%;
       height: 100%; // 수정된 부분
     }
+    .hover-filter#{$i} {
+      height: 140px;
+    }
   }
   .events-section {
     margin-top: 75px;
@@ -232,6 +237,9 @@ export default {
       width: 30%;
       height: 100%; // 수정된 부분
     }
+    .hover-filter#{$i} {
+      height: 140px;
+    }
   }
   .events-section {
     margin-top: 75px;
@@ -261,9 +269,12 @@ export default {
       width: 45%;
       height: 100%; // 수정된 부분
     }
+    .hover-filter#{$i} {
+      height: 140px;
+    }
   }
   .events-section {
-    margin-top: 75px;
+    margin-top: 50px;
   }
   .container {
     width: 640px;
@@ -291,9 +302,12 @@ export default {
       width: 100%;
       height: 100%; // 수정된 부분
     }
+    .hover-filter#{$i} {
+      height: 140px;
+    }
   }
   .events-section {
-    margin-top: 75px;
+    margin-top: 50px;
   }
   .container {
     width: 320px;

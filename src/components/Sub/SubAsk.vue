@@ -1,41 +1,61 @@
 <template>
-  <div class="bg"></div>
-  <section class="ask-section">
-    <!-- <div style="width: 50%; height: 70%"></div> -->
-    <div class="contact-con">
-      <v-form
-        class="py-3 form"
-        ref="form"
-        v-model="valid"
-        @submit.prevent="submitForm"
-      >
-        <div class="mb-4">
-          <span>
-            <!-- <v-icon class="mr-2">mdi-email-outline</v-icon> -->
-            지원 작성
-          </span>
+  <section class="contact_section">
+    <HeaderTitle :title-data="title" />
+    <div class="title_con">
+      <div class="title">
+        <p>티키앤타카 스튜디오에게</p>
+        <p>궁금한이야기를 전달하세요.</p>
+      </div>
+      <div class="sub_title">
+        <span>필요한 모든 것, 언제든지 연락주세요.</span>
+      </div>
+    </div>
+    <v-form
+      class="form_con"
+      ref="form"
+      v-model="valid"
+      @submit.prevent="submitForm"
+    >
+      <div class="info_form">
+        <div class="form_title content" style="margin-bottom: 12px">
+          <span>문의하기</span>
+        </div>
+        <div class="content" style="margin-bottom: 12px">
+          <span>기본정보</span>
         </div>
         <v-row>
-          <v-col cols="5" sm="6" md="4" style="padding-bottom: 3px">
+          <v-col md="4" sm="6" style="padding-bottom: 3px">
             <v-text-field
               v-model="form.name"
               label="이름"
               placeholder="이름을 입력해주세요."
               hint="ex) 홍길동"
               variant="outlined"
-              class="text-field"
               :rules="[(v) => !!v || '이름을 입력해주세요.']"
               required
             ></v-text-field>
           </v-col>
-          <v-col cols="4" style="padding-bottom: 3px">
+          <v-col md="3" sm="4" class="sex_check" style="padding-bottom: 3px">
+            <v-btn-toggle
+              v-model="form.sex"
+              :value="form.sex"
+              variant="outlined"
+              required
+              :rules="[(v) => !!v || '성별을 선택해 주세요']"
+              divided
+              width="100%"
+            >
+              <v-btn value="left" width="50%">남자</v-btn>
+              <v-btn value="center" width="50%">여자</v-btn>
+            </v-btn-toggle>
+          </v-col>
+          <v-col md="4" sm="12" cols="12" style="padding-bottom: 3px">
             <v-text-field
               v-model="form.born"
               label="생년월일"
               placeholder="yymmdd"
               hint="ex) 991223"
               variant="outlined"
-              class="text-field"
               :rules="[
                 (v) => !!v || '생년월일를 입력해주세요.',
                 (v) => (v && v.length > 5) || '생년월일을 확인해주세요.',
@@ -44,22 +64,9 @@
               required
             ></v-text-field>
           </v-col>
-          <v-col cols="3" sm="4" md="4" style="padding-bottom: 3px">
-            <v-btn-toggle
-              v-model="form.sex"
-              :value="form.sex"
-              variant="outlined"
-              required
-              :rules="[(v) => !!v || '성별을 선택해 주세요']"
-              divided
-            >
-              <v-btn value="left">남자</v-btn>
-              <v-btn value="center">여자</v-btn>
-            </v-btn-toggle>
-          </v-col>
         </v-row>
         <v-row>
-          <v-col cols="7" style="padding-top: 3px">
+          <v-col md="7" ms="7" cols="12" style="padding-top: 3px">
             <v-text-field
               v-model="form.email"
               label="이메일"
@@ -78,7 +85,7 @@
               class="text-field"
             ></v-text-field>
           </v-col>
-          <v-col cols="5" style="padding-top: 3px">
+          <v-col md="5" ms="5" cols="12" style="padding-top: 3px">
             <v-text-field
               v-model="form.phone"
               placeholder="01012345678"
@@ -97,110 +104,107 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="12" style="padding-bottom: 5px">
-            <v-text-field
-              v-model="form.url"
-              placeholder="yotube or twich or aficatv, etc"
-              hint="*해당 정보는 본인 채널 여부 및 기타 지표 확인을 위해서 사용되며, 자동 가입 등의 절차로 연결되지 않습니다."
-              label="운영 중인 채널 URL"
-              variant="outlined"
-              required
-              :rules="[(v) => !!v || '운영 중인 채널 url을 입력해주세요.']"
-              class="text-field"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <div>
+      </div>
+      <base-card>
+        <div class="content"><span>내용</span></div>
+        <v-form class="input_form">
           <v-row>
-            <v-col cols="6" style="padding-bottom: 3px">
+            <v-col cols="12">
               <v-text-field
-                v-model="form.nick"
-                placeholder="크리에이터 닉네임"
-                hint="ex) 티키타카"
-                label="크리에이터 명"
-                variant="outlined"
+                variant="underlined"
+                v-model="form.title"
+                label="제목"
+                hint="문의하실 제목을 입력해주세요"
                 required
-                :rules="[(v) => !!v || '크리에이터 닉네임을 입력해주세요.']"
-                class="text-field"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="6">
-              <v-text-field
-                v-model="form.channel_name"
-                placeholder="채널 이름"
-                hint="ex) 티키앤타카"
-                label="유튜브 채널 명"
-                variant="outlined"
-                :rules="[(v) => !!v || '채널 명을 입력해주세요.']"
-                class="text-field"
               ></v-text-field>
             </v-col>
           </v-row>
-        </div>
-        <v-row>
-          <div class="mail-content">
-            <v-col cols="12" class="pb-0">
-              <v-text-field
-                v-model="form.title"
-                label="제목"
-                class="text-field"
-                variant="outlined"
-              ></v-text-field>
-            </v-col>
+
+          <v-row>
             <v-col cols="12">
               <v-textarea
                 v-model="form.content"
-                label="내용"
                 variant="outlined"
-                class="text-field"
+                label="문의 내용"
+                placeholder="문의사항에 대한 자세한 내용을 적어주세요"
               ></v-textarea>
             </v-col>
-          </div>
-        </v-row>
-
-        <v-checkbox
-          v-model="form.rule_check"
-          color="secondary"
-          label="개인정보 수집 및 이용 동의 (필수*)"
-        ></v-checkbox>
-
-        <v-btn type="submit" class="mx-0 mt-4" color="primary">
-          <!-- <v-icon left>mdi-send</v-icon> -->
-          Submit
-        </v-btn>
-      </v-form>
-    </div>
-    <!-- <v-alert v-if="showMessage" type="success" dismissible class="mt-4">
-      지원이 완료되었습니다
-    </v-alert> -->
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-file-input
+                variant="underlined"
+                v-model="images"
+                :multiple="true"
+                label="이미지를 넣어주세요(중복 업로드 가능)"
+                accept="image/*"
+                @change="preview"
+              ></v-file-input>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col
+              variant="underlined"
+              v-for="(image, index) in imagePreviews"
+              :key="index"
+              cols="4"
+            >
+              <v-img :src="image" width="100%"></v-img>
+            </v-col>
+          </v-row>
+          <v-checkbox
+            v-model="form.rule_check"
+            label="개인정보 수집 및 이용약관에 동의합니다.(필수)"
+          ></v-checkbox>
+          <v-btn
+            class="d-flex my-color"
+            type="submit"
+            style="margin: auto; width: 240px; height: 60px"
+            >문의하기</v-btn
+          >
+        </v-form>
+      </base-card>
+    </v-form>
   </section>
 </template>
-
 <script>
+import HeaderTitle from "@/components/Header/SubTitle.vue";
+
 export default {
-  name: "AskPage",
-  data() {
-    return {
-      alignment: 1,
-      form: {
-        name: "",
-        born: "",
-        email: "",
-        phone: "",
-        sex: "",
-        url: "",
-        nick: "",
-        channel_name: "",
-        title: "",
-        content: "",
-        rule_check: false,
-      },
-      valid: false,
-      mockdata: [],
-    };
+  components: {
+    HeaderTitle,
   },
+  data: () => ({
+    title: "문의하기",
+    form: {
+      sex: "",
+      name: "",
+      born: "",
+      email: "",
+      phone: "",
+      title: "",
+      content: "",
+      rule_check: "",
+      images: [],
+      imagePreviews: [],
+    },
+    valid: false,
+    mockdata: [],
+  }),
   methods: {
+    preview() {
+      this.imagePreviews = [];
+      for (let i = 0; i < this.images.length; i++) {
+        let reader = new FileReader();
+        reader.readAsDataURL(this.images[i]);
+        reader.onloadend = () => {
+          this.imagePreviews.push(reader.result);
+        };
+      }
+    },
+    toggle() {
+      this.selectedClass = ".my-color";
+    },
     submitForm() {
       if (!this.valid) {
         if (!this.form.rule_check) {
@@ -229,13 +233,12 @@ export default {
       this.form = [
         {
           name: "",
+          sex: "",
           born: "",
           email: "",
-          message: "",
-          sex: "",
+          phone: "",
           title: "",
           content: "",
-          url: "",
           rule_check: false,
         },
       ];
@@ -243,51 +246,286 @@ export default {
   },
 };
 </script>
-
 <style lang="scss" scoped>
-.primary {
-  background-color: #3f51b5 !important;
-  color: #fff !important;
+.my-color {
+  background-color: #0174f5;
+  color: white;
 }
-.bg {
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-  position: absolute;
-  //   background-image: url("@/assets/Main/sky.jpg");
-  //   background-size: cover;
-  //   background-attachment: fixed;
+.content {
+  color: rgb(0, 0, 0);
+  font-family: "Pretendard-Regular";
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 20px;
 }
-.container {
-  margin: 0;
-  height: 100vh;
-  width: 80%;
-  margin: auto;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.contact-con {
-  background-color: white;
-  position: relative;
-  width: 50%;
-  margin-top: 5%;
-  padding: 16px;
-  border-radius: 30px;
-  .form {
-    border-top: 1px solid #8d8181;
-    border-bottom: 1px solid #8d8181;
-  }
-  .mail-content {
-    width: 100%;
-    height: 100%;
-    ::v-deep .v-input__details {
-      display: none !important;
+.contact_section {
+  .title_con {
+    padding: 5% 0% 2% 0%;
+    display: grid;
+    justify-content: left;
+    align-items: center;
+    .title {
+      color: rgb(0, 0, 0);
+      font-family: "Pretendard-Regular";
+      font-weight: bold;
+    }
+    .sub_title {
+      color: rgb(94, 94, 94);
+      font-family: "Pretendard-Regular";
+      font-weight: bold;
+      line-height: 45px;
     }
   }
+  .contact_con {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+  }
+
+  .form_con {
+    margin: 0% auto;
+    border: solid 1px rgb(65, 65, 65);
+    padding: 24px;
+    margin-bottom: 50px;
+
+    .form_head {
+      margin: 4px;
+      font-weight: bold;
+      font-family: "Pretendard-Regular";
+
+      .selected {
+        display: grid;
+        width: 100%;
+      }
+    }
+  }
+  .btn {
+    border-radius: 100px;
+    letter-spacing: -1px;
+    box-shadow: none;
+    border: solid #cfcfcf 1px;
+    font-family: "Pretendard-Regular";
+    width: 100px;
+    height: 50px;
+    // justify-content: center;
+    // align-items: center;
+    // display: flex;
+  }
+  // .btn:active {
+  //   background-color: #3180f1;
+  //   color: white;
+  // }
+  // .btn:visited {
+  //   background-color: #3180f1;
+  //   color: white;
+  // }
+
+  .info_form {
+    display: grid;
+    .form_title {
+      text-align: center;
+    }
+  }
+  .input_form {
+    margin-bottom: 100px;
+  }
 }
-.my-col-class {
-  padding: 8px;
+// PC XL
+@media screen and (min-width: 1300px) {
+  .contact_section {
+    margin-top: 75px;
+  }
+  .title_con {
+    width: 1300px;
+    margin: 0px auto;
+  }
+  .title {
+    font-size: 46px;
+    line-height: 60px;
+  }
+
+  .sub_title,
+  .content {
+    font-size: 20px;
+    line-height: 45px;
+  }
+  .form_con {
+    width: 800px;
+    .form_title {
+      font-size: 32px;
+    }
+  }
+
+  .form_head {
+    font-size: 20px;
+    .selected {
+      line-height: 65px;
+    }
+  }
+  .card {
+    width: 50%;
+  }
+  .btn {
+    font-size: 16px;
+    width: 100px;
+    height: 50px;
+  }
+}
+// PC
+@media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .contact_section {
+    margin-top: 75px;
+  }
+  .title_con {
+    width: 1080px;
+    margin: 0px auto;
+  }
+  .title {
+    font-size: 46px;
+    line-height: 60px;
+  }
+  .sub_title.content {
+    font-size: 20px;
+    line-height: 45px;
+  }
+  .form_con {
+    width: 800px;
+    .form_title {
+      font-size: 30px;
+    }
+  }
+  .form_head {
+    font-size: 20px;
+    .selected {
+      line-height: 65px;
+    }
+  }
+  .card {
+    width: 50%;
+  }
+  .btn {
+    font-size: 16px;
+    width: 100px;
+    height: 50px;
+  }
+}
+
+// 노트북
+@media screen and (min-width: 760px) and (max-width: 1080px) {
+  .contact_section {
+    margin-top: 75px;
+  }
+  .title_con {
+    width: 760px;
+    margin: 0px auto;
+  }
+  .title {
+    font-size: 36px;
+    line-height: 45px;
+  }
+  .sub_title.content {
+    font-size: 16px;
+    line-height: 30px;
+  }
+  .form_con {
+    width: 760px;
+    .form_title {
+      font-size: 26px;
+    }
+  }
+  .form_head {
+    font-size: 16px;
+    .selected {
+      line-height: 65px;
+    }
+  }
+  .card {
+    width: 75%;
+  }
+  .btn {
+    font-size: 14px;
+  }
+}
+
+// 테블릿
+@media screen and (min-width: 600px) and (max-width: 759px) {
+  .contact_section {
+    margin-top: 50px;
+  }
+  .title_con {
+    width: 640px;
+    margin: 0px auto;
+  }
+  .title {
+    font-size: 28px;
+    line-height: 35px;
+  }
+  .sub_title.content {
+    font-size: 16px;
+    line-height: 25px;
+  }
+  .form_con {
+    width: 640px;
+    .form_title {
+      font-size: 24px;
+    }
+  }
+  .form_head {
+    font-size: 14px;
+    .selected {
+      line-height: 65px;
+    }
+  }
+
+  .card {
+    width: 75%;
+  }
+  .btn {
+    font-size: 12px;
+  }
+}
+
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 600px) {
+  .contact_section {
+    margin-top: 50px;
+  }
+  .title_con {
+    width: 320px;
+    margin: 0px auto;
+  }
+  .title {
+    font-size: 21px;
+    line-height: 26px;
+  }
+  .sub_title.content {
+    font-size: 14px;
+    line-height: 25px;
+  }
+  .form_con {
+    width: 320px;
+    .form_title {
+      font-size: 22px;
+    }
+  }
+  .form_head {
+    font-size: 14px;
+    .selected {
+      line-height: 65px;
+    }
+  }
+  .type {
+    margin-bottom: 75px;
+  }
+  .card {
+    width: 75%;
+  }
+  .btn {
+    font-size: 12px;
+  }
+  .v-col-3 {
+    max-width: 45%;
+  }
 }
 </style>
