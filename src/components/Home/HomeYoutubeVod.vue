@@ -227,26 +227,42 @@ export default {
     gsap.registerPlugin(ScrollTrigger);
 
     const vod = gsap.timeline({ paused: true });
+    const vodSecond = gsap.timeline({ paused: true });
 
-    vod.to(".main-vod", { duration: 0.3, top: 0, opacity: 1 }, "start");
-    vod.to(".vod0", { duration: 0.3, left: 0, opacity: 1 }, "start");
-    vod.to(".vod1", { duration: 0.3, right: 0, opacity: 1 }, "start");
-    vod.to(".vod3", { duration: 0.3, bottom: 0, opacity: 1 }, "start+=.7");
-    vod.to(".vod4", { duration: 0.3, bottom: 0, opacity: 1 }, "start+=.9");
-    vod.to(".vod5", { duration: 0.3, bottom: 0, opacity: 1 }, "start+=1.1");
-    vod.to(".vod6", { duration: 0.3, bottom: 0, opacity: 1 }, "start+=1.3");
+    vod.play();
+
+    vod.to(".vod-title", { duration: 0.5, top: 0, opacity: 1 }, "start");
+    vod.to(".main-vod", { duration: 1, top: 0, opacity: 1 }, "start");
+    vod.to(".vod0", { duration: 0.5, left: 0, opacity: 1 }, "start+=.5");
+    vod.to(".vod1", { duration: 0.5, right: 0, opacity: 1 }, "start+=.8");
+
+    vodSecond.to(".vod3", { duration: 0.3, bottom: 0, opacity: 1 }, "start");
+    vodSecond.to(
+      ".vod4",
+      { duration: 0.3, bottom: 0, opacity: 1 },
+      "start+=.2"
+    );
+    vodSecond.to(
+      ".vod5",
+      { duration: 0.3, bottom: 0, opacity: 1 },
+      "start+=.4"
+    );
+    vodSecond.to(
+      ".vod6",
+      { duration: 0.3, bottom: 0, opacity: 1 },
+      "start+=.6"
+    );
 
     gsap.timeline({
       scrollTrigger: {
-        trigger: ".mainvod-section",
-        start: "top top",
-        end: "+=100%",
+        trigger: ".second-con",
+        start: "bottom bottom",
+        end: "+=50%",
         scrub: true,
-        animation: vod,
+        animation: vodSecond,
         onEnter: () => {
-          vod.play();
+          vodSecond.play();
         },
-        onLeave: () => {},
       },
     });
   },
@@ -515,6 +531,9 @@ export default {
     display: flex;
     justify-content: center;
     text-align: center;
+    top: -15px;
+    opacity: 0;
+    position: relative;
     .title {
       font-family: "pretendard-Regular";
       font-weight: bold;

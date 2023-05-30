@@ -50,6 +50,8 @@ import Swiper from "swiper";
 import SwiperCore, { Navigation, Autoplay } from "swiper";
 import "swiper/swiper-bundle.min.css";
 
+import { gsap, ScrollTrigger } from "gsap/all";
+
 SwiperCore.use([Navigation, Autoplay]);
 
 export default {
@@ -98,7 +100,34 @@ export default {
       ],
     };
   },
-  computed: {},
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const schedule = gsap.timeline({ paused: true });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".schedule-section",
+        start: "bottom center",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          schedule.play();
+        },
+      },
+    });
+    schedule.to(
+      ".schedule-con",
+      { duration: 0.5, left: 0, opacity: 1 },
+      "start"
+    );
+    schedule.to(
+      ".announcer-con",
+      { duration: 0.5, right: 0, opacity: 1 },
+      "start+=.2"
+    );
+  },
+
   setup() {
     const bannerRef = ref(null);
 
@@ -361,6 +390,9 @@ export default {
     border: solid 1px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     z-index: 0;
+    right: -30px;
+    opacity: 0;
+    position: relative;
     .banner-img {
       width: 100%;
       height: 100%;
@@ -377,7 +409,9 @@ export default {
     justify-content: center;
     border: solid 1px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-
+    left: -30px;
+    opacity: 0;
+    position: relative;
     .text-con {
       width: 125px;
       display: flex;

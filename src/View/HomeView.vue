@@ -2,10 +2,10 @@
   <Header />
   <HomeBanner />
   <HomeYoutubeVod />
-  <HomeSchedule />
   <HomeShortVod />
   <!-- <HomePairing /> -->
   <HomeNewsEvents />
+  <HomeSchedule />
   <HomeAdverse />
   <FooterMain />
 </template>

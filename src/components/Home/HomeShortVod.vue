@@ -63,6 +63,8 @@ import "swiper/swiper-bundle.min.css";
 
 SwiperCore.use([Navigation, Autoplay]);
 
+import { gsap, ScrollTrigger } from "gsap/all";
+
 export default {
   name: "HomeShortVod",
   components: {
@@ -201,6 +203,33 @@ export default {
           },
         },
       });
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const shortvod = gsap.timeline({ paused: true });
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: ".shortvod-section",
+          start: "top center",
+          end: "+=50%",
+          scrub: true,
+          onEnter: () => {
+            shortvod.play();
+          },
+        },
+      });
+      shortvod.to(".title", { duration: 0.5, left: 0, opacity: 1 }, "start");
+      shortvod.to(
+        ".sub-title",
+        { duration: 0.5, left: 0, opacity: 1 },
+        "start+=.2"
+      );
+      shortvod.to(
+        ".swiper-container ",
+        { duration: 1, bottom: 0, opacity: 1 },
+        "start"
+      );
     });
 
     return {
@@ -414,6 +443,9 @@ export default {
         font-family: sans-serif;
         font-weight: bold;
         letter-spacing: -1px;
+        left: -15px;
+        position: relative;
+        opacity: 0;
         .title-text {
           display: flex;
           align-items: center;
@@ -423,6 +455,9 @@ export default {
       .sub-title-mobile {
         font-family: sans-serif;
         color: #8d8d8d;
+        left: -15px;
+        position: relative;
+        opacity: 0;
       }
     }
   }
@@ -432,6 +467,8 @@ export default {
     overflow: hidden;
     z-index: 0;
     height: 105%;
+    bottom: -15%;
+    opacity: 0;
   }
   .vod-content {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);

@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { gsap, ScrollTrigger } from "gsap/all";
 export default {
   name: "HomeNewsEvents",
   data() {
@@ -57,14 +58,14 @@ export default {
           title: "공지1",
           subtitle: "이러이러한 공지사항이 있으며 ",
         },
-        {
-          title: "공지1",
-          subtitle: "이러이러한 공지사항이 있으며 ",
-        },
-        {
-          title: "공지1",
-          subtitle: "이러이러한 공지사항이 있으며 ",
-        },
+        // {
+        //   title: "공지1",
+        //   subtitle: "이러이러한 공지사항이 있으며 ",
+        // },
+        // {
+        //   title: "공지1",
+        //   subtitle: "이러이러한 공지사항이 있으며 ",
+        // },
       ],
       news_mobile: [
         {
@@ -89,14 +90,14 @@ export default {
           title: "이벤트1",
           subtitle: "이러이러한 이벤트가 있으며 ",
         },
-        {
-          title: "이벤트1",
-          subtitle: "이러이러한 이벤트가 있으며 ",
-        },
-        {
-          title: "이벤트1",
-          subtitle: "이러이러한 이벤트가 있으며 ",
-        },
+        // {
+        //   title: "이벤트1",
+        //   subtitle: "이러이러한 이벤트가 있으며 ",
+        // },
+        // {
+        //   title: "이벤트1",
+        //   subtitle: "이러이러한 이벤트가 있으며 ",
+        // },
       ],
       events_mobile: [
         {
@@ -115,6 +116,36 @@ export default {
     };
   },
   methods: {},
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const news_event = gsap.timeline({ paused: true });
+
+    news_event.to(".title", { duration: 0.5, left: 0, opacity: 1 }, "start");
+    news_event.to(
+      ".list-title",
+      { duration: 0.5, left: 0, opacity: 1 },
+      "start+=.2"
+    );
+    news_event.to(
+      ".list-detail",
+      { duration: 0.5, left: 0, opacity: 1 },
+      "start+=.4"
+    );
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".news-event-section",
+        start: "bottom bottom",
+        end: "+=50%",
+        scrub: true,
+        animation: news_event,
+        onEnter: () => {
+          news_event.play();
+        },
+      },
+    });
+  },
 };
 </script>
 
@@ -311,6 +342,9 @@ export default {
         .title {
           font-family: "pretendard-Regular";
           font-weight: bold;
+          left: -15px;
+          position: relative;
+          opacity: 0;
         }
         .detail {
           font-family: "pretendard-Regular";
@@ -326,11 +360,17 @@ export default {
         .list-title {
           font-family: "pretendard-Regular";
           font-weight: bold;
+          left: -15px;
+          position: relative;
+          opacity: 0;
         }
         .list-detail {
           font-family: "pretendard-Regular";
           color: rgb(109, 109, 109);
           padding: 12px 0px;
+          left: -15px;
+          position: relative;
+          opacity: 0;
         }
       }
       .list-con:hover {
