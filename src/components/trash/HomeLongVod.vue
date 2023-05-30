@@ -76,6 +76,8 @@
 </template>
 
 <script>
+import { gsap, ScrollTrigger } from "gsap/all";
+
 export default {
   name: "HomeMainVod",
   data() {
@@ -150,6 +152,27 @@ export default {
       this.showModal = false;
       document.body.classList.remove("modal-open");
     },
+  },
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const vod = gsap.timeline({ paused: true });
+
+    vod.to(".main-vod", { duration: 1, top: 0, opacity: 1 }, "start");
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".mainvod-section",
+        start: "top center",
+        end: "+=100%",
+        scrub: true,
+        animation: vod,
+        onEnter: () => {
+          vod.play();
+        },
+        onLeave: () => {},
+      },
+    });
   },
 };
 </script>
@@ -265,6 +288,9 @@ export default {
       .main-vod {
         margin: 12px;
         box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+        top: -15px;
+        position: relative;
+        opacity: 0;
       }
       .advertise {
         margin: 12px;
