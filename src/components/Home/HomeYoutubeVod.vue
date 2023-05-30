@@ -4,7 +4,7 @@
     <div class="vod-box">
       <div class="first-con pc">
         <div
-          class="sub-vod"
+          class="sub-vod vod0"
           @mouseover="firsts[0].hoverImage = true"
           @mouseleave="firsts[0].hoverImage = false"
           @click="openModal(firsts[0].num)"
@@ -32,16 +32,31 @@
             allowfullscreen
           ></iframe>
         </div>
-        <div class="advertise sub-vod">
-          <span>광고 배너</span>
+        <div
+          class="sub-vod vod1"
+          @mouseover="firsts[2].hoverImage = true"
+          @mouseleave="firsts[2].hoverImage = false"
+          @click="openModal(firsts[2].num)"
+        >
+          <div class="thumbnail">
+            <img
+              :src="firsts[2].hoverImage ? firsts[2].hover : firsts[2].img"
+              style="width: 100%; height: 100%"
+              class="img"
+            />
+          </div>
+          <div class="text">
+            <p class="title">{{ firsts[2].title }}</p>
+            <p class="sub-title">{{ firsts[2].subTitle }}</p>
+          </div>
         </div>
       </div>
       <div class="second-con pc">
         <div
           v-for="(card, index) in seconds"
-          class="sub-vod"
+          :class="'sub-vod vod' + (index + 3)"
           :key="index"
-          @click="openModal(index + 2)"
+          @click="openModal(index + 3)"
           @mouseover="card.hoverImage = true"
           @mouseleave="card.hoverImage = false"
         >
@@ -115,6 +130,8 @@ import ModalPopup from "@/components/Home/YoutubePopupModal.vue";
 
 import { mapGetters, mapActions } from "vuex";
 
+import { gsap, ScrollTrigger } from "gsap/all";
+
 export default {
   name: "HomeYoutubeVod",
   components: {
@@ -128,6 +145,7 @@ export default {
       videoUrl: [
         "https://www.youtube.com/embed/NIRhxNNKXdE",
         "https://www.youtube.com/embed/wh-DCVr1wOY",
+        "https://www.youtube.com/embed/xJAKV0DVlWE",
         "https://www.youtube.com/embed/AUS7hVUMoKU",
         "https://www.youtube.com/embed/YCqp1kgJjXQ",
         "https://www.youtube.com/embed/HhBFwoWErlo",
@@ -150,9 +168,13 @@ export default {
           num: 1,
         },
         {
-          src: "",
-          title: "",
-          subTitle: "",
+          title: "한준희가 말하는 출시되어야하는 아이콘 [피파의 모든것 5화]",
+          img: require("@/assets/thumbnail/출시되어야하는 아이콘GIF.webp"),
+          subTitle:
+            "각 분야 전문가와 크리에이터들을 통해 알아보는 [피파의 모든 것]",
+          hover: require("@/assets/thumbnail/출시되어야하는 아이콘GIF.webp"),
+          hoverImage: false,
+          num: 2,
         },
       ],
       seconds: [
@@ -163,7 +185,7 @@ export default {
           desc: "TSL 프리시즌 우승자: 박찬화 선수와의 인터뷰.공식경기 꿀팁까지!",
           hover: require("@/assets/thumbnail/TSL 우승자 인터뷰GIF.webp"),
           hoverImage: false,
-          num: 2,
+          num: 3,
         },
         {
           title: "사포 쓰고 골 넣는 여기는 TSL l TSL 프리시즌 4강&결승전 ",
@@ -171,7 +193,7 @@ export default {
           desc: "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
           hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight 4강,결승GIF.webp"),
           hoverImage: false,
-          num: 3,
+          num: 4,
         },
         {
           title: "시원시원한 닥공 플레이의 정점! l TSL 프리시즌 8강전 ",
@@ -179,7 +201,7 @@ export default {
           desc: "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
           hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight 8강GIF.webp"),
           hoverImage: false,
-          num: 4,
+          num: 5,
         },
         {
           title:
@@ -188,12 +210,11 @@ export default {
           desc: "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
           hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조GIF.webp"),
           hoverImage: false,
-          num: 5,
+          num: 6,
         },
       ],
     };
   },
-  mounted() {},
   methods: {
     ...mapActions(["setShowModal", "setVideoNumber"]),
     openModal(index) {
@@ -201,6 +222,33 @@ export default {
       this.setShowModal(true);
       document.body.classList.add("modal-open");
     },
+  },
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const vod = gsap.timeline({ paused: true });
+
+    vod.to(".main-vod", { duration: 0.3, top: 0, opacity: 1 }, "start");
+    vod.to(".vod0", { duration: 0.3, left: 0, opacity: 1 }, "start");
+    vod.to(".vod1", { duration: 0.3, right: 0, opacity: 1 }, "start");
+    vod.to(".vod3", { duration: 0.3, bottom: 0, opacity: 1 }, "start+=.7");
+    vod.to(".vod4", { duration: 0.3, bottom: 0, opacity: 1 }, "start+=.9");
+    vod.to(".vod5", { duration: 0.3, bottom: 0, opacity: 1 }, "start+=1.1");
+    vod.to(".vod6", { duration: 0.3, bottom: 0, opacity: 1 }, "start+=1.3");
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".mainvod-section",
+        start: "top top",
+        end: "+=100%",
+        scrub: true,
+        animation: vod,
+        onEnter: () => {
+          vod.play();
+        },
+        onLeave: () => {},
+      },
+    });
   },
 };
 </script>
@@ -511,7 +559,28 @@ export default {
         width: 50%;
         box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
         border-radius: 5px;
+        top: -15px;
+        position: relative;
+        opacity: 0;
       }
+      .vod0 {
+        left: -15px;
+        opacity: 0;
+        position: relative;
+      }
+      .vod1 {
+        right: -15px;
+        opacity: 0;
+        position: relative;
+      }
+      @for $i from 3 through 6 {
+        .vod#{$i} {
+          bottom: -15px;
+          opacity: 0;
+          position: relative;
+        }
+      }
+
       .advertise {
         width: 25%;
         display: flex;

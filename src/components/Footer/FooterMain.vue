@@ -3,7 +3,7 @@
   <section class="footer-section">
     <div class="footer">
       <v-row class="footer_con">
-        <v-col cols="9">
+        <v-col class="footer_box">
           <div class="logo_con">
             <router-link to="/">
               <!-- <img
@@ -11,6 +11,7 @@
                 alt=""
                 class="footer_logo"
               /> -->
+              로고
             </router-link>
           </div>
           <div class="footer_info">
@@ -36,42 +37,25 @@
                 "
               >
                 <v-row style="display: flex; width: 100%">
-                  <v-col
-                    cols="3"
-                    style="
-                      justify-content: center;
-                      display: flex;
-                      margin-left: 24px;
-                      margin-right: 15%;
-                    "
-                    ><router-link to="/contact">{{
+                  <v-col cols="3" style="justify-content: center; display: flex"
+                    ><router-link to="/events">{{
                       btn[2].text
                     }}</router-link></v-col
                   >
-                  <v-col
-                    cols="3"
-                    style="
-                      justify-content: center;
-                      display: flex;
-                      margin-right: 15%;
-                    "
+                  <v-col cols="3" style="justify-content: center; display: flex"
                     ><router-link to="/news">{{
                       btn[3].text
                     }}</router-link></v-col
                   >
                   <v-col
                     cols="3"
-                    style="
-                      justify-content: center;
-                      display: flex;
-                      margin-right: 15%;
-                    "
+                    style="justify-content: center; display: flex"
                     >{{ btn[4].text }}</v-col
                   >
                   <v-col
                     cols="3"
                     style="z-index: 1; justify-content: center; display: flex"
-                    ><router-link to="/Intro">
+                    ><router-link to="/">
                       {{ btn[5].text }}
                     </router-link></v-col
                   >
@@ -94,8 +78,6 @@
             </p>
           </div>
         </v-col>
-        <v-spacer />
-
         <v-col cols="3" class="contact_btn_con">
           <div class="contact_btn">
             <div v-for="(btnText, index) in btn" :key="index">
@@ -137,17 +119,17 @@ export default {
           logo_image: require("@/assets/footer/insta.svg"),
         },
         {
-          link: "/",
+          link: "/news",
           text: "공지사항",
           logo_image: require("@/assets/footer/certification.svg"),
         },
         {
-          link: "/",
+          link: "/events",
           text: "이벤트",
           logo_image: require("@/assets/footer/certification.svg"),
         },
         {
-          link: "/contact",
+          link: "/ask",
           text: "광고문의",
           logo_image: require("@/assets/footer/message.svg"),
         },
@@ -189,7 +171,7 @@ export default {
     width: 1300px;
   }
   .btn {
-    width: 150px;
+    width: 170px;
     height: 10px;
     font-size: 0.9rem;
     a {
@@ -216,7 +198,7 @@ export default {
     width: 1080px;
   }
   .btn {
-    width: 150px;
+    width: 160px;
     height: 10px;
     font-size: 0.9rem;
     a {
@@ -244,7 +226,7 @@ export default {
     width: 760px;
   }
   .btn {
-    width: 160px;
+    width: 140px;
     height: 8px;
     font-size: 0.725rem;
     a {
@@ -299,6 +281,9 @@ export default {
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .footer_con {
     width: 100%;
+    .footer_box {
+      width: 100% !important;
+    }
   }
   .btn {
     width: 100px;
@@ -356,7 +341,7 @@ export default {
   border: solid 1px rgb(0, 0, 0);
   display: flex;
   align-items: center;
-  padding: 12px;
+  padding: 16px 6px 12px 6px;
   margin: 3px;
 }
 a {

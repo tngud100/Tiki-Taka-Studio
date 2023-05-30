@@ -17,9 +17,39 @@
       @submit.prevent="submitForm"
     >
       <div class="info_form">
-        <div class="form_title content" style="margin-bottom: 12px">
+        <!-- <div class="form_title content" style="margin-bottom: 12px">
           <span>문의하기</span>
-        </div>
+        </div> -->
+        <!-- <div class="content" style="text-align: center">
+          <span>카테고리</span>
+        </div> -->
+        <v-row>
+          <v-container style="margin-bottom: 16px">
+            <v-item-group selected-class="my-color">
+              <v-row style="justify-content: center">
+                <v-col
+                  v-for="(item, index) in categoryList"
+                  :key="index"
+                  cols="3"
+                >
+                  <v-item v-slot="{ selectedClass, toggle }">
+                    <v-btn
+                      :class="['d-flex align-center', selectedClass, ' btn']"
+                      rounded="xl"
+                      :key="index"
+                      @click="toggle"
+                    >
+                      <div class="flex-grow-1 text-center">
+                        {{ item.list }}
+                      </div>
+                    </v-btn>
+                  </v-item>
+                </v-col>
+              </v-row>
+            </v-item-group>
+          </v-container>
+        </v-row>
+
         <div class="content" style="margin-bottom: 12px">
           <span>기본정보</span>
         </div>
@@ -188,6 +218,20 @@ export default {
       images: [],
       imagePreviews: [],
     },
+    categoryList: [
+      {
+        list: "유튜브 마켓팅",
+      },
+      {
+        list: "SNS 마케팅",
+      },
+      {
+        list: "바이럴 마케팅",
+      },
+      {
+        list: "기타",
+      },
+    ],
     valid: false,
     mockdata: [],
   }),
@@ -285,7 +329,7 @@ export default {
 
   .form_con {
     margin: 0% auto;
-    border: solid 1px rgb(65, 65, 65);
+    // border: solid 1px rgb(65, 65, 65);
     padding: 24px;
     margin-bottom: 50px;
 

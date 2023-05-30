@@ -26,7 +26,8 @@ export default {
     return {
       videoUrl: [
         "https://www.youtube.com/embed/NIRhxNNKXdE",
-        "https://www.youtube.com/embed/Y3ArHWkokWA",
+        "https://www.youtube.com/embed/wh-DCVr1wOY",
+        "https://www.youtube.com/embed/xJAKV0DVlWE",
         "https://www.youtube.com/embed/AUS7hVUMoKU",
         "https://www.youtube.com/embed/YCqp1kgJjXQ",
         "https://www.youtube.com/embed/HhBFwoWErlo",
