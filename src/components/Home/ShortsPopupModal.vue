@@ -11,6 +11,7 @@
         :src="videoUrl[this.shortsVideoIndex]"
         frameborder="0"
         allowfullscreen
+        autoplay
       ></iframe>
       <div class="modal-btn">
         <div
@@ -36,15 +37,15 @@ export default {
   data() {
     return {
       videoUrl: [
-        "https://www.youtube.com/embed/b7D3C09UyP4",
-        "https://www.youtube.com/embed/k2IOXI9j270",
-        "https://www.youtube.com/embed/aLm0NkmQUy0",
-        "https://www.youtube.com/embed/opAfmk5S3us",
-        "https://www.youtube.com/embed/5BaWzofXFuE",
-        "https://www.youtube.com/embed/A7IPmKh1bOI",
-        "https://www.youtube.com/embed/AkwAI15UNgE",
-        "https://www.youtube.com/embed/X70MrarcM48",
-        "https://www.youtube.com/embed/Y135I3m4zhI",
+        "https://www.youtube.com/embed/b7D3C09UyP4?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/k2IOXI9j270?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/aLm0NkmQUy0?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/opAfmk5S3us?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/5BaWzofXFuE?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/A7IPmKh1bOI?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/AkwAI15UNgE?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/X70MrarcM48?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/Y135I3m4zhI?autoplay=1&mute=1",
       ],
     };
   },

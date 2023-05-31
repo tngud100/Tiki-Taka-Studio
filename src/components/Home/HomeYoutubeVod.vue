@@ -229,12 +229,11 @@ export default {
     const vod = gsap.timeline({ paused: true });
     const vodSecond = gsap.timeline({ paused: true });
 
-    vod.play();
-
     vod.to(".vod-title", { duration: 0.5, top: 0, opacity: 1 }, "start");
-    vod.to(".main-vod", { duration: 1, top: 0, opacity: 1 }, "start");
+    vod.to(".main-vod", { duration: 0.5, top: 0, opacity: 1 }, "start");
     vod.to(".vod0", { duration: 0.5, left: 0, opacity: 1 }, "start+=.5");
     vod.to(".vod1", { duration: 0.5, right: 0, opacity: 1 }, "start+=.8");
+    vod.play();
 
     vodSecond.to(".vod3", { duration: 0.3, bottom: 0, opacity: 1 }, "start");
     vodSecond.to(
@@ -256,7 +255,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".second-con",
-        start: "bottom bottom",
+        start: "top bottom",
         end: "+=50%",
         scrub: true,
         animation: vodSecond,
@@ -265,6 +264,20 @@ export default {
         },
       },
     });
+
+    // const vod = gsap.timeline({
+    //   paused: true,
+    //   scrollTrigger: {
+    //     trigger: ".first-con",
+    //     start: "0%",
+    //     end: "+=50%",
+    //     scrub: true,
+    //     animation: vod,
+    //     onEnter: () => {
+    //       vod.play();
+    //     },
+    //   },
+    // });
   },
 };
 </script>

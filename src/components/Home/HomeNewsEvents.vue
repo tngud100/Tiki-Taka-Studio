@@ -136,7 +136,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".news-event-section",
-        start: "bottom bottom",
+        start: "top+=100px bottom",
         end: "+=50%",
         scrub: true,
         animation: news_event,

@@ -1,7 +1,8 @@
 <template>
   <Header />
   <HomeBanner />
-  <HomeYoutubeVod />
+  <HomeLongVod />
+  <!-- <HomeYoutubeVod /> -->
   <HomeShortVod />
   <!-- <HomePairing /> -->
   <HomeNewsEvents />
@@ -14,7 +15,8 @@
 import Header from "../components/Header/HeaderMain.vue";
 import HomeBanner from "../components/Home/HomeBanner.vue";
 import HomeSchedule from "../components/Home/HomeSchedule.vue";
-import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
+import HomeLongVod from "../components/trash/TestPageTrash.vue";
+// import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
 import HomeShortVod from "../components/Home/HomeShortVod.vue";
 import HomeAdverse from "../components/Home/HomeAdvertise.vue";
 // import HomePairing from "../components/Home/HomePairing.vue";
@@ -26,7 +28,8 @@ export default {
     Header,
     HomeBanner,
     HomeSchedule,
-    HomeYoutubeVod,
+    HomeLongVod,
+    // HomeYoutubeVod,
     HomeAdverse,
     HomeShortVod,
     // HomePairing,

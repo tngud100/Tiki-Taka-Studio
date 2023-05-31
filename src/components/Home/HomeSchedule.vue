@@ -60,31 +60,34 @@ export default {
     return {
       pairings: [
         {
-          date: "05/13",
-          title: "Top피파",
-          subtitle: "대한민국 최고의 프로게이머를 찾아보는시간",
+          date: "05/30",
+          title: "아이콘 더 모먼트 스탯 분석",
+          subtitle: "아이콘 파헤치기",
         },
         {
-          date: "07/20",
-          title: "피파의 모든것",
-          subtitle:
-            "각 분야 전문가와 크리에이터들을 통해 알아보는 [피파의 모든 것]",
+          date: "06/04",
+          title: "아이콘 더 모먼트 이야기",
+          subtitle: "아이콘 파헤치기",
         },
         {
-          date: "07/30",
-          title: "Top피파",
-          subtitle: "대한민국 최고의 프로게이머를 찾아보는시간",
+          date: "06/07",
+          title: "챔스 결승 1편",
+          subtitle: "챔피언스 리그 결승",
         },
         {
-          date: "10/20",
-          title: "TSL2",
-          subtitle: "볼돌없는 시원한 닥공 플레이 오직 TSL",
+          date: "06/14",
+          title: "챔스 결승 2편",
+          subtitle: "챔피언스 리그 결승",
         },
         {
-          date: "11/12",
-          title: "피파의 모든것",
-          subtitle:
-            "각 분야 전문가와 크리에이터들을 통해 알아보는 [피파의 모든 것]",
+          date: "06/18",
+          title: "토츠 1편",
+          subtitle: "FIFA22 토츠 선수",
+        },
+        {
+          date: "06/29",
+          title: "토츠 2편",
+          subtitle: "FIFA22 토츠 선수",
         },
       ],
       img: [
@@ -108,7 +111,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".schedule-section",
-        start: "bottom center",
+        start: "top+=100px bottom",
         end: "+=50%",
         scrub: true,
         onEnter: () => {
@@ -176,12 +179,12 @@ export default {
         width: 550px;
         .title {
           font-size: 15px;
-          width: 90px;
+          width: 200px;
         }
         .sub-title {
           font-size: 15px;
           margin-left: 20px;
-          width: 400px;
+          width: 250px;
         }
       }
     }
@@ -211,12 +214,12 @@ export default {
         width: 550px;
         .title {
           font-size: 13px;
-          width: 90px;
+          width: 150px;
         }
         .sub-title {
           font-size: 13px;
           margin-left: 20px;
-          width: 300px;
+          width: 250px;
         }
       }
     }
@@ -243,7 +246,7 @@ export default {
       }
     }
     .pairing-box {
-      width: 450px;
+      width: 410px;
       margin-left: 0px !important;
 
       .pairing-con {
@@ -254,15 +257,15 @@ export default {
         font-size: 11px;
       }
       .detail {
-        width: 380px;
+        width: 350px;
         .title {
           font-size: 11px;
-          width: 70px;
+          width: 150px;
         }
         .sub-title {
           font-size: 11px;
           margin-left: 20px;
-          width: 280px;
+          width: 250px;
         }
       }
     }

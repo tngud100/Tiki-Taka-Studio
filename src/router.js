@@ -41,6 +41,11 @@ const routes = [
     name: "NewsDetail4",
     component: () => import("@/components/Sub/NewsDetail/news4.vue"),
   },
+  {
+    path: "/TestPageTrash",
+    name: "TestPageTrash",
+    component: () => import("@/components/trash/TestPageTrash.vue"),
+  },
 ];
 
 const router = createRouter({
