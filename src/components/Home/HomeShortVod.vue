@@ -211,7 +211,7 @@ export default {
       gsap.timeline({
         scrollTrigger: {
           trigger: ".shortvod-section",
-          start: "top center",
+          start: "top+=100px bottom",
           end: "+=50%",
           scrub: true,
           onEnter: () => {
@@ -228,7 +228,7 @@ export default {
       shortvod.to(
         ".swiper-container ",
         { duration: 1, bottom: 0, opacity: 1 },
-        "start"
+        "start+=.4"
       );
     });
 
@@ -443,7 +443,7 @@ export default {
         font-family: sans-serif;
         font-weight: bold;
         letter-spacing: -1px;
-        left: -15px;
+        left: -30px;
         position: relative;
         opacity: 0;
         .title-text {
@@ -455,7 +455,7 @@ export default {
       .sub-title-mobile {
         font-family: sans-serif;
         color: #8d8d8d;
-        left: -15px;
+        left: -30px;
         position: relative;
         opacity: 0;
       }
