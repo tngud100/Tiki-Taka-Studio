@@ -2,14 +2,14 @@
   <Header />
   <HomeBanner />
   <HomeLongVod />
-  <!-- <HomeYoutubeVod /> -->
   <HomeShortVod />
-  <!-- <HomePairing /> -->
   <HomeNewsEvents />
   <HomeSchedule />
   <HomeAdverse />
   <FooterMain />
 </template>
+<!-- <HomeYoutubeVod /> -->
+<!-- <HomePairing /> -->
 
 <script>
 import Header from "../components/Header/HeaderMain.vue";

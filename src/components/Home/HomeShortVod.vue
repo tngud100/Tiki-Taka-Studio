@@ -58,10 +58,10 @@ import { mapGetters, mapActions } from "vuex";
 
 import { onMounted, ref } from "vue";
 import Swiper from "swiper";
-import SwiperCore, { Navigation, Autoplay } from "swiper";
+import SwiperCore, { Navigation, Autoplay, Scrollbar } from "swiper";
 import "swiper/swiper-bundle.min.css";
 
-SwiperCore.use([Navigation, Autoplay]);
+SwiperCore.use([Navigation, Autoplay, Scrollbar]);
 
 import { gsap, ScrollTrigger } from "gsap/all";
 

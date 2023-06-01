@@ -1,70 +1,76 @@
 <template>
-  <swiper
-    :spaceBetween="10"
-    :thumbs="{ swiper: thumbsSwiper }"
-    :modules="modules"
-    :allowTouchMove="false"
-    class="FirstSwiper"
-  >
-    <swiper-slide
-      :class="'FirstCon slide' + index"
-      v-for="(item, index) in SwiperImages"
-      :key="index"
+  <section class="HomeLongVod">
+    <div class="TextCon">
+      <span class="title">최신동영상</span>
+      <span class="viewMore">VIEW MORE +</span>
+    </div>
+    <swiper
+      @swiper="setThumbsSwiper"
+      :spaceBetween="10"
+      :thumbs="{ swiper: thumbsSwiper2 }"
+      :modules="modules"
+      :allowTouchMove="false"
+      class="FirstSwiper"
     >
-      <iframe
-        width="700px"
-        height="390px"
-        borderRadius="5px"
-        :src="videoUrl[item.num]"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
-      <!-- <img
-        class="FirstImg"
-        :src="item.img"
-        @click="updateThumbsSwiper(index)"
-      /> -->
-      <div class="FirstText">
-        <p class="title">티키앤타카</p>
-        <p class="subTitle">{{ item.subTitle }}</p>
+      <swiper-slide
+        :class="'FirstCon slide' + index"
+        v-for="(item, index) in SwiperImages"
+        :key="index"
+      >
+        <iframe
+          width="700px"
+          height="390px"
+          borderRadius="5px"
+          :src="videoUrl[item.num]"
+          allow="geolocation"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
 
-        <div class="GoToChannelBtn"><strong>바로가기</strong></div>
-      </div>
-    </swiper-slide>
-  </swiper>
+        <div class="FirstText">
+          <p class="title">티키앤타카</p>
+          <p class="subTitle">{{ item.subTitle }}</p>
+          <p class="date">{{ item.date }}</p>
 
-  <swiper
-    @swiper="setThumbsSwiper"
-    :spaceBetween="10"
-    :slidesPerView="5"
-    :freeMode="true"
-    :watchSlidesProgress="true"
-    :modules="modules"
-    :pagination="true"
-    :navigation="true"
-    :scrollbar="true"
-    :style="{
-      '--swiper-navigation-color': 'black',
-      '--swiper-pagination-color': 'black',
-    }"
-    class="SecondSwiper"
-  >
-    <swiper-slide
-      v-for="(item, index) in SwiperImages"
-      :key="index"
-      :class="'SecondCon slide' + index"
+          <div class="GoToChannelBtn"><strong>바로가기</strong></div>
+        </div>
+      </swiper-slide>
+    </swiper>
+
+    <swiper
+      @swiper="setThumbsSwiper2"
+      :spaceBetween="10"
+      :slidesPerView="5"
+      :freeMode="true"
+      :watchSlidesProgress="true"
+      :modules="modules"
+      :pagination="true"
+      :style="{
+        '--swiper-navigation-color': 'black',
+        '--swiper-pagination-color': 'black',
+      }"
+      class="SecondSwiper"
     >
-      <img :src="item.img" class="SecondImg" />
-      <div class="SecondText">
-        <p class="title">티키앤타카</p>
-        <p class="subTitle">{{ item.subTitle }}</p>
-      </div>
-    </swiper-slide>
-    <!-- <div class="swipe_btn">
-      <div class="swiper-button-prev" @click="updateThumbsSwiper(index)"></div>
-      <div class="swiper-button-next" @click="updateThumbsSwiper(index)"></div>
-    </div> -->
-  </swiper>
+      <swiper-slide
+        v-for="(item, index) in SwiperImages"
+        :key="index"
+        :class="'SecondCon slide' + index"
+        @click="clickThumbSwiper(index)"
+      >
+        <div class="imgCon">
+          <img :src="item.img" class="SecondImg" />
+        </div>
+        <div class="SecondText">
+          <p class="title">티키앤타카</p>
+          <p class="subTitle">{{ item.subTitle }}</p>
+        </div>
+      </swiper-slide>
+    </swiper>
+    <div class="SwiperBtn">
+      <div class="swiper-button-prev" @click="prevThumbsSwiper()"></div>
+      <div class="swiper-button-next" @click="nextThumbsSwiper()"></div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -73,7 +79,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import { FreeMode, Navigation, Thumbs } from "swiper";
+import { FreeMode, Navigation, Thumbs, Scrollbar } from "swiper";
 
 export default {
   name: "TestPageTrash",
@@ -84,7 +90,9 @@ export default {
   data() {
     return {
       thumbsSwiper: null,
-      modules: [FreeMode, Navigation, Thumbs],
+      thumbsSwiper2: null,
+      SwiperNum: 0,
+      modules: [FreeMode, Navigation, Thumbs, Scrollbar],
       videoUrl: [
         "https://www.youtube.com/embed/NIRhxNNKXdE",
         "https://www.youtube.com/embed/wh-DCVr1wOY",
@@ -102,6 +110,7 @@ export default {
             "게임만 잘해서는 피파 1등이 될 수 없다! 팀도 잘 짜야 진정한 피파 최강자 대한민국 최고의 프로게이머를 찾아보는시간  [TOP피파]",
           hover: require("@/assets/thumbnail/Top피파1GIF.webp"),
           hoverImage: false,
+          date: "2023. 5. 14",
           num: 0,
         },
         {
@@ -111,7 +120,8 @@ export default {
             "각 분야 전문가와 크리에이터들을 통해 알아보는 [피파의 모든 것]",
           hover: require("@/assets/thumbnail/출시되어야하는 아이콘GIF.webp"),
           hoverImage: false,
-          num: 2,
+          date: "2023. 5. 28",
+          num: 1,
         },
         {
           title:
@@ -121,7 +131,8 @@ export default {
             "TSL 프리시즌 우승자: 박찬화 선수와의 인터뷰.공식경기 꿀팁까지!",
           hover: require("@/assets/thumbnail/TSL 우승자 인터뷰GIF.webp"),
           hoverImage: false,
-          num: 3,
+          date: "2023. 4. 28",
+          num: 2,
         },
         {
           title: "사포 쓰고 골 넣는 여기는 TSL l TSL 프리시즌 4강&결승전 ",
@@ -130,7 +141,8 @@ export default {
             "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
           hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight 4강,결승GIF.webp"),
           hoverImage: false,
-          num: 4,
+          date: "2023. 4. 26",
+          num: 3,
         },
         {
           title: "시원시원한 닥공 플레이의 정점! l TSL 프리시즌 8강전 ",
@@ -139,6 +151,18 @@ export default {
             "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
           hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight 8강GIF.webp"),
           hoverImage: false,
+          date: "2023. 4. 24",
+          num: 4,
+        },
+        {
+          title:
+            "최호석 VS 김승섭! 패기와 관록의 대결 l TSL 프리시즌 조별리그 D조 ",
+          img: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조.webp"),
+          subTitle:
+            "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
+          hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조GIF.webp"),
+          hoverImage: false,
+          date: "2023. 4. 23",
           num: 5,
         },
         {
@@ -149,29 +173,97 @@ export default {
             "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
           hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조GIF.webp"),
           hoverImage: false,
+          date: "2023. 4. 23",
           num: 6,
         },
       ],
     };
+  },
+  mounted() {
+    let tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    let firstScriptTag = document.getElementsByTagName("script")[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
   },
 
   methods: {
     setThumbsSwiper(swiper) {
       this.thumbsSwiper = swiper;
     },
-    updateThumbsSwiper(index) {
-      if (this.thumbsSwiper) {
-        this.thumbsSwiper.slideTo(index);
+    setThumbsSwiper2(swiper) {
+      this.thumbsSwiper2 = swiper;
+    },
+    clickThumbSwiper(index) {
+      this.SwiperNum = index;
+      this.thumbsSwiper.slideTo(this.SwiperNum);
+      this.thumbsSwiper2.slideTo(this.SwiperNum);
+    },
+    prevThumbsSwiper() {
+      if (this.SwiperNum <= 0) {
+        return;
       }
+
+      if (this.thumbsSwiper2 && this.thumbsSwiper) {
+        this.SwiperNum -= 1;
+        this.thumbsSwiper.slideTo(this.SwiperNum);
+        this.thumbsSwiper2.slideTo(this.SwiperNum);
+      }
+    },
+    nextThumbsSwiper() {
+      if (this.SwiperNum >= this.SwiperImages.length - 1) {
+        return;
+      }
+
+      if (this.thumbsSwiper2 && this.thumbsSwiper) {
+        this.SwiperNum += 1;
+        this.thumbsSwiper.slideTo(this.SwiperNum);
+        this.thumbsSwiper2.slideTo(this.SwiperNum);
+      }
+    },
+    onYouTubeIframeAPIReady() {
+      this.$nextTick(() => {
+        const interval = setInterval(() => {
+          if (window.YT && window.YT.Player) {
+            clearInterval(interval);
+            const iframes = this.$el.querySelectorAll("iframe");
+            for (let i = 0; i < iframes.length; i++) {
+              this.players[i] = new YT.Player(iframes[i]);
+            }
+          }
+        }, 100);
+      });
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.HomeLongVod {
+  display: grid;
+  justify-content: center;
+  margin-top: 100px;
+}
+.TextCon {
+  width: 1300px;
+  display: flex;
+  justify-content: space-between;
+  .title {
+    font-size: 30px;
+    font-family: "Pretendard-Regular";
+    font-weight: bold;
+  }
+  .viewMore {
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #805bea;
+  }
+}
 .FirstSwiper {
   width: 1300px;
-  margin-top: 40px;
+  margin-top: 30px;
   margin-bottom: 50px;
 
   .FirstCon {
@@ -186,13 +278,13 @@ export default {
       margin-left: 80px;
       width: 360px;
       .title {
-        font-size: 20px;
+        font-size: 18px;
         color: #b0b0b0;
         font-family: "Pretendard-Regular";
         margin-bottom: 20px;
       }
       .subTitle {
-        font-size: 24px;
+        font-size: 22px;
         color: #000000;
         font-family: "Pretendard-Regular";
         font-weight: bold;
@@ -209,30 +301,47 @@ export default {
         height: 48px;
         margin-top: 50px;
         border-radius: 50px;
-        border: solid 1px black;
+        border: solid 1px #805bea;
         display: flex;
         justify-content: center;
         align-items: center;
         strong {
           font-size: 18px;
           font-family: "Pretendard-Regular";
+          color: #805bea;
         }
+      }
+      .date {
+        font-size: 16px;
+        font-family: "Pretendard-Regular";
+        margin-top: 15px;
+        color: #b0b0b0;
       }
     }
   }
 }
 .SecondSwiper {
-  width: 1300px;
+  width: 1180px;
   height: 190px;
   margin-bottom: 50px;
 
   .SecondCon {
-    .SecondImg {
-      object-fit: cover;
-      height: 120px;
+    width: 220px;
+    cursor: pointer;
+    .imgCon {
+      width: 220px;
+      height: 123px;
       border-radius: 5px;
+      overflow: hidden;
+      .SecondImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s ease;
+      }
     }
     .SecondText {
+      width: 220px;
       .title {
         font-size: 14px;
         color: #b0b0b0;
@@ -251,6 +360,21 @@ export default {
         -webkit-box-orient: vertical;
       }
     }
+  }
+}
+.SwiperBtn {
+  position: relative;
+  top: -160px;
+  --swiper-theme-color: black;
+}
+.swiper-slide-thumb-active .imgCon {
+  height: 114px !important;
+  border: solid 5px #805bea;
+}
+
+.SecondCon:hover {
+  .SecondImg {
+    transform: scale(1.2);
   }
 }
 </style>
