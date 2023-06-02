@@ -1,10 +1,11 @@
 <template>
-  <Header />
+  <!-- <Header /> -->
   <HomeBanner />
   <HomeLongVod />
   <HomeShortVod />
-  <HomeNewsEvents />
+  <TestPageTrash />
   <HomeSchedule />
+  <HomeNewsEvents />
   <HomeAdverse />
   <FooterMain />
 </template>
@@ -12,29 +13,31 @@
 <!-- <HomePairing /> -->
 
 <script>
-import Header from "../components/Header/HeaderMain.vue";
+// import Header from "../components/Header/HeaderMain.vue";
 import HomeBanner from "../components/Home/HomeBanner.vue";
-import HomeSchedule from "../components/Home/HomeSchedule.vue";
-import HomeLongVod from "../components/trash/TestPageTrash.vue";
-// import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
+import HomeLongVod from "../components/Home/HomeLongVod.vue";
 import HomeShortVod from "../components/Home/HomeShortVod.vue";
-import HomeAdverse from "../components/Home/HomeAdvertise.vue";
-// import HomePairing from "../components/Home/HomePairing.vue";
+import TestPageTrash from "../components/trash/TestPageTrash.vue";
+import HomeSchedule from "../components/Home/HomeSchedule.vue";
 import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
+import HomeAdverse from "../components/Home/HomeAdvertise.vue";
 import FooterMain from "../components/Footer/FooterMain.vue";
+// import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
+// import HomePairing from "../components/Home/HomePairing.vue";
 export default {
   name: "HomeView",
   components: {
-    Header,
+    // Header,
     HomeBanner,
-    HomeSchedule,
     HomeLongVod,
-    // HomeYoutubeVod,
-    HomeAdverse,
     HomeShortVod,
-    // HomePairing,
+    TestPageTrash,
+    HomeSchedule,
+    HomeAdverse,
     HomeNewsEvents,
     FooterMain,
+    // HomeYoutubeVod,
+    // HomePairing,
   },
 };
 </script>

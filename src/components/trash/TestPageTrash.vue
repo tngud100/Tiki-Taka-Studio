@@ -1,380 +1,177 @@
 <template>
-  <section class="HomeLongVod">
-    <div class="TextCon">
-      <span class="title">최신동영상</span>
-      <span class="viewMore">VIEW MORE +</span>
-    </div>
-    <swiper
-      @swiper="setThumbsSwiper"
-      :spaceBetween="10"
-      :thumbs="{ swiper: thumbsSwiper2 }"
-      :modules="modules"
-      :allowTouchMove="false"
-      class="FirstSwiper"
-    >
-      <swiper-slide
-        :class="'FirstCon slide' + index"
-        v-for="(item, index) in SwiperImages"
-        :key="index"
-      >
-        <iframe
-          width="700px"
-          height="390px"
-          borderRadius="5px"
-          :src="videoUrl[item.num]"
-          allow="geolocation"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-
-        <div class="FirstText">
-          <p class="title">티키앤타카</p>
-          <p class="subTitle">{{ item.subTitle }}</p>
-          <p class="date">{{ item.date }}</p>
-
-          <div class="GoToChannelBtn"><strong>바로가기</strong></div>
+  <Header>
+    <nav class="nav">
+      <ul class="menu-list">
+        <div class="logo">
+          <router-link to="/">
+            <img v-if="!isScrolledUp" :src="logo[0].mainLogo" alt="logo" />
+          </router-link>
+          <router-link to="/"
+            ><img
+              v-if="isScrolledUp"
+              :src="logo[0].scrollLogo"
+              alt="scrolllogo"
+            />
+          </router-link>
         </div>
-      </swiper-slide>
-    </swiper>
+        <div class="menu-li">
+          <li v-for="(list, index) in menuList" :key="index" class="list">
+            <router-link :to="list.href" class="list" :style="linkColorStyle">{{
+              list.name
+            }}</router-link>
+          </li>
+        </div>
 
-    <swiper
-      @swiper="setThumbsSwiper2"
-      :spaceBetween="10"
-      :slidesPerView="5"
-      :freeMode="true"
-      :watchSlidesProgress="true"
-      :modules="modules"
-      :pagination="true"
-      :style="{
-        '--swiper-navigation-color': 'black',
-        '--swiper-pagination-color': 'black',
-      }"
-      class="SecondSwiper"
-    >
-      <swiper-slide
-        v-for="(item, index) in SwiperImages"
-        :key="index"
-        :class="'SecondCon slide' + index"
-        @click="clickThumbSwiper(index)"
-      >
-        <div class="imgCon">
-          <img :src="item.img" class="SecondImg" />
+        <div class="menu-icon">
+          <li v-for="(list, index) in menuIcon" :key="index" class="list">
+            <a :href="list.href">
+              <img v-if="!isScrolledUp" :src="menuIcon[index].src" alt="icon" />
+            </a>
+            <a :href="list.href">
+              <img
+                v-if="isScrolledUp"
+                :src="scrollMenuIcon[index].src"
+                alt="icon"
+              />
+            </a>
+          </li>
         </div>
-        <div class="SecondText">
-          <p class="title">티키앤타카</p>
-          <p class="subTitle">{{ item.subTitle }}</p>
-        </div>
-      </swiper-slide>
-    </swiper>
-    <div class="SwiperBtn">
-      <div class="swiper-button-prev" @click="prevThumbsSwiper()"></div>
-      <div class="swiper-button-next" @click="nextThumbsSwiper()"></div>
-    </div>
-  </section>
+      </ul>
+    </nav>
+  </Header>
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
-import { FreeMode, Navigation, Thumbs, Scrollbar } from "swiper";
-
 export default {
-  name: "TestPageTrash",
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-  data() {
-    return {
-      thumbsSwiper: null,
-      thumbsSwiper2: null,
-      SwiperNum: 0,
-      modules: [FreeMode, Navigation, Thumbs, Scrollbar],
-      videoUrl: [
-        "https://www.youtube.com/embed/NIRhxNNKXdE",
-        "https://www.youtube.com/embed/wh-DCVr1wOY",
-        "https://www.youtube.com/embed/xJAKV0DVlWE",
-        "https://www.youtube.com/embed/AUS7hVUMoKU",
-        "https://www.youtube.com/embed/YCqp1kgJjXQ",
-        "https://www.youtube.com/embed/HhBFwoWErlo",
-        "https://www.youtube.com/embed/ibp7a5t9iJU",
-      ],
-      SwiperImages: [
-        {
-          title: "5연속 공식경기 1위의 불가능한 도전 l [TOP피파 1화]",
-          img: require("@/assets/thumbnail/Top피파1.jpg"),
-          subTitle:
-            "게임만 잘해서는 피파 1등이 될 수 없다! 팀도 잘 짜야 진정한 피파 최강자 대한민국 최고의 프로게이머를 찾아보는시간  [TOP피파]",
-          hover: require("@/assets/thumbnail/Top피파1GIF.webp"),
-          hoverImage: false,
-          date: "2023. 5. 14",
-          num: 0,
-        },
-        {
-          title: "한준희가 말하는 출시되어야하는 아이콘 [피파의 모든것 5화]",
-          img: require("@/assets/thumbnail/출시되어야하는 아이콘GIF.webp"),
-          subTitle:
-            "각 분야 전문가와 크리에이터들을 통해 알아보는 [피파의 모든 것]",
-          hover: require("@/assets/thumbnail/출시되어야하는 아이콘GIF.webp"),
-          hoverImage: false,
-          date: "2023. 5. 28",
-          num: 1,
-        },
-        {
-          title:
-            "저자본 추천 팀컬러 TOP5 그리고 공식경기 꿀팁 l TSL 우승자 인터뷰",
-          img: require("@/assets/thumbnail/TSL 우승자 인터뷰.jpg"),
-          subTitle:
-            "TSL 프리시즌 우승자: 박찬화 선수와의 인터뷰.공식경기 꿀팁까지!",
-          hover: require("@/assets/thumbnail/TSL 우승자 인터뷰GIF.webp"),
-          hoverImage: false,
-          date: "2023. 4. 28",
-          num: 2,
-        },
-        {
-          title: "사포 쓰고 골 넣는 여기는 TSL l TSL 프리시즌 4강&결승전 ",
-          img: require("@/assets/thumbnail/TSL 프리시즌 Highlight 4강,결승.jpg"),
-          subTitle:
-            "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
-          hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight 4강,결승GIF.webp"),
-          hoverImage: false,
-          date: "2023. 4. 26",
-          num: 3,
-        },
-        {
-          title: "시원시원한 닥공 플레이의 정점! l TSL 프리시즌 8강전 ",
-          img: require("@/assets/thumbnail/TSL 프리시즌 Highlight 8강.jpg"),
-          subTitle:
-            "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
-          hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight 8강GIF.webp"),
-          hoverImage: false,
-          date: "2023. 4. 24",
-          num: 4,
-        },
-        {
-          title:
-            "최호석 VS 김승섭! 패기와 관록의 대결 l TSL 프리시즌 조별리그 D조 ",
-          img: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조.webp"),
-          subTitle:
-            "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
-          hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조GIF.webp"),
-          hoverImage: false,
-          date: "2023. 4. 23",
-          num: 5,
-        },
-        {
-          title:
-            "최호석 VS 김승섭! 패기와 관록의 대결 l TSL 프리시즌 조별리그 D조 ",
-          img: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조.webp"),
-          subTitle:
-            "대한민국 최정상 프로게이머 TOP16. 6백, 볼돌없는 시원한 닥공 플레이 오직 TSL (Tiki&taka Super League) 에서!",
-          hover: require("@/assets/thumbnail/TSL 프리시즌 Highlight D조GIF.webp"),
-          hoverImage: false,
-          date: "2023. 4. 23",
-          num: 6,
-        },
-      ],
-    };
-  },
+  name: "HeaderMain",
+  data: () => ({
+    isScrolledUp: false,
+    logo: [
+      {
+        mainLogo: require("@/assets/header/logo.svg"),
+        scrollLogo: require("@/assets/header/scrollLogo.svg"),
+      },
+    ],
+
+    menuIcon: [
+      {
+        name: "커뮤니티",
+        href: "http://xn--ef5bu9n7vbido5j.com/?page=0&sort=1&mod=0",
+        src: require("@/assets/header/tkLogo.svg"),
+      },
+      {
+        name: "유튜브",
+        href: "https://www.youtube.com/@tikintaka",
+        src: require("@/assets/header/youtubeLogo.svg"),
+      },
+      {
+        name: "SNS",
+        href: "https://www.instagram.com/tikintaka_official",
+        src: require("@/assets/header/instaLogo.svg"),
+      },
+    ],
+    scrollMenuIcon: [
+      {
+        name: "커뮤니티",
+        href: "http://xn--ef5bu9n7vbido5j.com/?page=0&sort=1&mod=0",
+        src: require("@/assets/header/scrollTkLogo.svg"),
+      },
+      {
+        name: "유튜브",
+        href: "https://www.youtube.com/@tikintaka",
+        src: require("@/assets/header/scrollYoutubeLogo.svg"),
+      },
+      {
+        name: "SNS",
+        href: "https://www.instagram.com/tikintaka_official",
+        src: require("@/assets/header/scrollInstaLogo.svg"),
+      },
+    ],
+    menuList: [
+      {
+        name: "공지사항",
+        href: "/news",
+      },
+      {
+        name: "이벤트",
+        href: "/events",
+      },
+      {
+        name: "스튜디오",
+        href: "/",
+      },
+      {
+        name: "문의하기",
+        href: "/ask",
+      },
+    ],
+  }),
   mounted() {
-    let tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    let firstScriptTag = document.getElementsByTagName("script")[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    const header = document.querySelector("Header");
+    const list = document.querySelectorAll(".list");
 
-    window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
-  },
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 10) {
+        header.style.backgroundColor = "none";
+        for (let i = 0; i < list.length; i++) {
+          list[i].style.color = "black";
+        }
+        this.isScrolledUp = true;
+        console.log(this.isScrolledUp);
+      } else {
+        header.style.backgroundColor = "white";
+        for (let i = 0; i < list.length; i++) {
+          list[i].style.color = "black";
+        }
 
-  methods: {
-    setThumbsSwiper(swiper) {
-      this.thumbsSwiper = swiper;
-    },
-    setThumbsSwiper2(swiper) {
-      this.thumbsSwiper2 = swiper;
-    },
-    clickThumbSwiper(index) {
-      this.SwiperNum = index;
-      this.thumbsSwiper.slideTo(this.SwiperNum);
-      this.thumbsSwiper2.slideTo(this.SwiperNum);
-    },
-    prevThumbsSwiper() {
-      if (this.SwiperNum <= 0) {
-        return;
+        this.isScrolledUp = false;
+        console.log(this.isScrolledUp);
       }
-
-      if (this.thumbsSwiper2 && this.thumbsSwiper) {
-        this.SwiperNum -= 1;
-        this.thumbsSwiper.slideTo(this.SwiperNum);
-        this.thumbsSwiper2.slideTo(this.SwiperNum);
-      }
-    },
-    nextThumbsSwiper() {
-      if (this.SwiperNum >= this.SwiperImages.length - 1) {
-        return;
-      }
-
-      if (this.thumbsSwiper2 && this.thumbsSwiper) {
-        this.SwiperNum += 1;
-        this.thumbsSwiper.slideTo(this.SwiperNum);
-        this.thumbsSwiper2.slideTo(this.SwiperNum);
-      }
-    },
-    onYouTubeIframeAPIReady() {
-      this.$nextTick(() => {
-        const interval = setInterval(() => {
-          if (window.YT && window.YT.Player) {
-            clearInterval(interval);
-            const iframes = this.$el.querySelectorAll("iframe");
-            for (let i = 0; i < iframes.length; i++) {
-              this.players[i] = new YT.Player(iframes[i]);
-            }
-          }
-        }, 100);
-      });
-    },
+    });
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.HomeLongVod {
-  display: grid;
-  justify-content: center;
-  margin-top: 100px;
-}
-.TextCon {
-  width: 1300px;
-  display: flex;
-  justify-content: space-between;
-  .title {
-    font-size: 30px;
-    font-family: "Pretendard-Regular";
-    font-weight: bold;
-  }
-  .viewMore {
-    font-size: 18px;
-    font-family: sans-serif;
-    font-weight: bold;
-    color: #805bea;
-  }
-}
-.FirstSwiper {
-  width: 1300px;
-  margin-top: 30px;
-  margin-bottom: 50px;
-
-  .FirstCon {
-    display: flex;
-    align-items: center;
-    height: 390px;
-
-    .FirstImg {
-    }
-    .FirstText {
-      overflow: hidden;
-      margin-left: 80px;
-      width: 360px;
-      .title {
-        font-size: 18px;
-        color: #b0b0b0;
-        font-family: "Pretendard-Regular";
-        margin-bottom: 20px;
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  .nav {
+    width: 1300px;
+    height: 80px;
+    margin: auto;
+    .menu-list {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .logo {
+        height: 50px;
       }
-      .subTitle {
-        font-size: 22px;
-        color: #000000;
-        font-family: "Pretendard-Regular";
-        font-weight: bold;
-
-        text-overflow: ellipsis;
-        overflow: hidden;
-        word-break: break-word;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-      }
-      .GoToChannelBtn {
-        width: 140px;
-        height: 48px;
-        margin-top: 50px;
-        border-radius: 50px;
-        border: solid 1px #805bea;
+      .menu-li {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        strong {
-          font-size: 18px;
+        list-style: none;
+        a {
+          margin: 0px 25px;
+          text-decoration: none;
+          color: white;
           font-family: "Pretendard-Regular";
-          color: #805bea;
+          font-size: 20px;
         }
       }
-      .date {
-        font-size: 16px;
-        font-family: "Pretendard-Regular";
-        margin-top: 15px;
-        color: #b0b0b0;
+      .menu-icon {
+        display: flex;
+        list-style: none;
+        height: 26px;
+        a {
+          margin: 0px 10px;
+          text-decoration: none;
+          color: white;
+        }
       }
     }
-  }
-}
-.SecondSwiper {
-  width: 1180px;
-  height: 190px;
-  margin-bottom: 50px;
-
-  .SecondCon {
-    width: 220px;
-    cursor: pointer;
-    .imgCon {
-      width: 220px;
-      height: 123px;
-      border-radius: 5px;
-      overflow: hidden;
-      .SecondImg {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: all 0.5s ease;
-      }
-    }
-    .SecondText {
-      width: 220px;
-      .title {
-        font-size: 14px;
-        color: #b0b0b0;
-        font-family: "Pretendard-Regular";
-      }
-      .subTitle {
-        font-size: 16px;
-        color: #000000;
-        font-family: "Pretendard-Regular";
-        font-weight: bold;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        word-break: break-word;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-      }
-    }
-  }
-}
-.SwiperBtn {
-  position: relative;
-  top: -160px;
-  --swiper-theme-color: black;
-}
-.swiper-slide-thumb-active .imgCon {
-  height: 114px !important;
-  border: solid 5px #805bea;
-}
-
-.SecondCon:hover {
-  .SecondImg {
-    transform: scale(1.2);
   }
 }
 </style>
