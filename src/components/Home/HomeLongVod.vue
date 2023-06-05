@@ -53,6 +53,24 @@
         '--swiper-navigation-color': 'black',
         '--swiper-pagination-color': 'black',
       }"
+      :breakpoints="{
+        320: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        760: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        1080: {
+          slidesPerView: 5,
+          spaceBetween: 40,
+        },
+      }"
       class="SecondSwiper"
     >
       <swiper-slide
@@ -253,22 +271,244 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+//PC XL
+@media screen and (min-width: 1300px) {
+  .HomeLongVod {
+    margin-top: 100px;
+  }
+  .TextCon {
+    width: 1300px;
+    .title {
+      font-size: 30px;
+    }
+    .viewMore {
+      font-size: 18px;
+    }
+  }
+  .FirstSwiper {
+    width: 1300px;
+    .FirstCon {
+      height: 390px;
+      .FirstText {
+        margin-left: 80px;
+        width: 360px;
+        .title {
+          font-size: 18px;
+          margin-bottom: 20px;
+        }
+        .subTitle {
+          font-size: 22px;
+        }
+        .GoToChannelBtn {
+          width: 140px;
+          height: 48px;
+          margin-top: 50px;
+          strong {
+            font-size: 18px;
+          }
+        }
+        .date {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .SecondSwiper {
+    width: 1180px;
+    height: 190px;
+    margin-bottom: 50px;
+    .SecondCon {
+      width: 220px;
+      .imgCon {
+        width: 220px;
+        height: 123px;
+      }
+      .SecondText {
+        width: 220px;
+        .title {
+          font-size: 14px;
+        }
+        .subTitle {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .SwiperBtn {
+    top: -160px;
+    --swiper-navigation-size: 44px;
+  }
+  .swiper-slide-thumb-active .imgCon {
+    height: 114px !important;
+  }
+}
+// PC
+@media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .HomeLongVod {
+    margin-top: 100px;
+  }
+  .TextCon {
+    width: 1080px;
+    margin: auto;
+    .title {
+      font-size: 30px;
+    }
+    .viewMore {
+      font-size: 18px;
+    }
+  }
+  .FirstSwiper {
+    width: 1080px;
+    .FirstCon {
+      height: 350px;
+      .FirstText {
+        margin-left: 50px;
+        width: 360px;
+        .title {
+          font-size: 18px;
+          margin-bottom: 20px;
+        }
+        .subTitle {
+          font-size: 22px;
+        }
+        .GoToChannelBtn {
+          width: 140px;
+          height: 48px;
+          margin-top: 50px;
+          strong {
+            font-size: 18px;
+          }
+        }
+        .date {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .SecondSwiper {
+    width: 980px;
+    height: 140px;
+    margin-bottom: 50px;
+    .SecondCon {
+      width: 160px;
+      .imgCon {
+        width: 160px;
+        height: 90px;
+      }
+      .SecondText {
+        width: 160px;
+        .title {
+          font-size: 14px;
+        }
+        .subTitle {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .SwiperBtn {
+    top: -125px;
+    --swiper-navigation-size: 35px;
+  }
+  .swiper-slide-thumb-active .imgCon {
+    height: 90px !important;
+  }
+}
+
+// 노트북
+@media screen and (min-width: 760px) and (max-width: 1080px) {
+  .HomeLongVod {
+    margin-top: 50px;
+  }
+  .TextCon {
+    width: 760px;
+    margin: auto;
+    .title {
+      font-size: 24px;
+    }
+    .viewMore {
+      font-size: 16px;
+    }
+  }
+  .FirstSwiper {
+    width: 760px;
+    .FirstCon {
+      height: 260px;
+      .FirstText {
+        margin-left: 10px;
+        width: 260px;
+        .title {
+          font-size: 16px;
+          margin-bottom: 15px;
+        }
+        .subTitle {
+          font-size: 18px;
+        }
+        .GoToChannelBtn {
+          width: 100px;
+          height: 35px;
+          margin-top: 30px;
+          strong {
+            font-size: 15px;
+          }
+        }
+        .date {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .SecondSwiper {
+    width: 680px;
+    height: 115px;
+    margin-bottom: 30px;
+    .SecondCon {
+      width: 154px;
+      .imgCon {
+        width: 154px;
+        height: 90px;
+      }
+      .SecondText {
+        width: 154px;
+        .title {
+          font-size: 14px;
+        }
+        .subTitle {
+          display: none !important;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .SwiperBtn {
+    top: -95px;
+    --swiper-navigation-size: 30px;
+  }
+  .swiper-slide-thumb-active .imgCon {
+    height: 80px !important;
+  }
+}
+
+// 테블릿
+@media screen and (min-width: 640px) and (max-width: 759px) {
+}
+
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 639px) {
+}
+
 .HomeLongVod {
   display: grid;
   justify-content: center;
-  margin-top: 100px;
 }
 .TextCon {
-  width: 1300px;
   display: flex;
   justify-content: space-between;
   .title {
-    font-size: 30px;
     font-family: "Pretendard-Regular";
     font-weight: bold;
   }
   .viewMore {
-    font-size: 18px;
     font-family: sans-serif;
     font-weight: bold;
     color: #805bea;
@@ -276,14 +516,12 @@ export default {
   }
 }
 .FirstSwiper {
-  width: 1300px;
   margin-top: 30px;
   margin-bottom: 50px;
 
   .FirstCon {
     display: flex;
     align-items: center;
-    height: 390px;
 
     .FirstImg {
     }
@@ -292,13 +530,10 @@ export default {
       margin-left: 80px;
       width: 360px;
       .title {
-        font-size: 18px;
         color: #b0b0b0;
         font-family: "Pretendard-Regular";
-        margin-bottom: 20px;
       }
       .subTitle {
-        font-size: 22px;
         color: #000000;
         font-family: "Pretendard-Regular";
         font-weight: bold;
@@ -311,9 +546,6 @@ export default {
         -webkit-box-orient: vertical;
       }
       .GoToChannelBtn {
-        width: 140px;
-        height: 48px;
-        margin-top: 50px;
         border-radius: 50px;
         border: solid 1px #805bea;
         display: flex;
@@ -321,13 +553,11 @@ export default {
         align-items: center;
         text-decoration: none;
         strong {
-          font-size: 18px;
           font-family: "Pretendard-Regular";
           color: #805bea;
         }
       }
       .date {
-        font-size: 16px;
         font-family: "Pretendard-Regular";
         margin-top: 15px;
         color: #b0b0b0;
@@ -336,16 +566,9 @@ export default {
   }
 }
 .SecondSwiper {
-  width: 1180px;
-  height: 190px;
-  margin-bottom: 50px;
-
   .SecondCon {
-    width: 220px;
     cursor: pointer;
     .imgCon {
-      width: 220px;
-      height: 123px;
       border-radius: 5px;
       overflow: hidden;
       .SecondImg {
@@ -356,14 +579,11 @@ export default {
       }
     }
     .SecondText {
-      width: 220px;
       .title {
-        font-size: 14px;
         color: #b0b0b0;
         font-family: "Pretendard-Regular";
       }
       .subTitle {
-        font-size: 16px;
         color: #000000;
         font-family: "Pretendard-Regular";
         font-weight: bold;
@@ -379,11 +599,9 @@ export default {
 }
 .SwiperBtn {
   position: relative;
-  top: -160px;
   --swiper-theme-color: black;
 }
 .swiper-slide-thumb-active .imgCon {
-  height: 114px !important;
   border: solid 5px #805bea;
 }
 

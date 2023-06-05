@@ -24,15 +24,11 @@
 
         <div class="menu-icon">
           <li v-for="(list, index) in menuIcon" :key="index">
-            <a :href="list.href">
-              <img v-if="isScrolledUp" :src="menuIcon[index].src" alt="icon" />
+            <a v-if="isScrolledUp" :href="list.href">
+              <img :src="menuIcon[index].src" alt="icon" />
             </a>
-            <a :href="list.href">
-              <img
-                v-if="!isScrolledUp"
-                :src="scrollMenuIcon[index].src"
-                alt="icon"
-              />
+            <a v-if="!isScrolledUp" :href="list.href">
+              <img :src="scrollMenuIcon[index].src" alt="icon" />
             </a>
           </li>
         </div>
@@ -66,7 +62,7 @@ export default {
       },
       {
         name: "SNS",
-        href: "https://www.instagram.com/tikintaka_official",
+        href: "https://www.instagram.com/tikintaka_official/",
         src: require("@/assets/header/instaLogo.svg"),
       },
     ],
