@@ -94,7 +94,7 @@ export default {
       },
       {
         name: "스튜디오",
-        href: "/",
+        href: "/studio",
       },
       {
         name: "문의하기",
@@ -108,14 +108,14 @@ export default {
 
     window.addEventListener("scroll", () => {
       if (window.scrollY <= 0) {
-        header.style.backgroundColor = "transparent";
+        header.style.backgroundColor = "rgba(0,0,0,0)";
         for (let i = 0; i < list.length; i++) {
           list[i].style.color = "white";
         }
         this.isScrolledUp = true;
         console.log(this.isScrolledUp);
       } else {
-        header.style.backgroundColor = "white";
+        header.style.backgroundColor = "rgba(255,255,255,1)";
         for (let i = 0; i < list.length; i++) {
           list[i].style.color = "black";
         }
@@ -133,7 +133,8 @@ header {
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 3;
+  transition: all .3s ease;
   .nav {
     width: 1300px;
     height: 80px;

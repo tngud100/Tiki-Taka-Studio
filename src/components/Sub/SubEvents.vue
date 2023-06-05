@@ -4,11 +4,13 @@
     <HeaderTitle :title-data="title" />
     <div class="container">
       <div class="creator-con">
+        
         <div
           :class="'card' + index"
           v-for="(card, index) in creatorCard"
           :key="index"
         >
+        <router-link :to="'/events' + (index+1)" style="text-decoration: none;">
           <div :class="'hover-filter' + index">
             <span class="hover-text">
               {{ card.name }}
@@ -25,6 +27,7 @@
               ><span class="date-title">기간 </span>{{ card.date }}</span
             >
           </div>
+        </router-link>
         </div>
       </div>
     </div>
@@ -43,20 +46,20 @@ export default {
       title: "이벤트",
       creatorCard: [
         {
-          name: "이벤트1",
-          date: "2023.06.12 ~ 2023.08.12",
-          imageSrc: require("@/assets/pairing/mon/Top피파.svg"),
+          name: "[구독 이벤트] 티키앤타카 채널 구독",
+          date: "2023.05.01 ~",
+          imageSrc: require("@/assets/events/subScribeEvents.svg"),
         },
-        {
-          name: "이벤트2",
-          date: "2023.06.15 ~ 2023.06.21",
-          imageSrc: require("@/assets/pairing/mon/TSL.svg"),
-        },
-        {
-          name: "이벤트3",
-          date: "2023.06.17 ~ 2023.07.10",
-          imageSrc: require("@/assets/pairing/mon/피파의모든것.svg"),
-        },
+        // {
+        //   name: "이벤트2",
+        //   date: "2023.06.15 ~ 2023.06.21",
+        //   imageSrc: require("@/assets/pairing/mon/TSL.svg"),
+        // },
+        // {
+        //   name: "이벤트3",
+        //   date: "2023.06.17 ~ 2023.07.10",
+        //   imageSrc: require("@/assets/pairing/mon/피파의모든것.svg"),
+        // },
       ],
     };
   },
@@ -85,6 +88,7 @@ export default {
         margin: 12px;
         overflow: hidden;
         background-color: white;
+        text-decoration: none;
         color: black;
         position: relative;
         border-radius: 10px;
@@ -141,6 +145,7 @@ export default {
     .creator-name {
       font-family: "Pretendard-Regular";
       font-weight: bold;
+      color: black;
     }
   }
   .card-subText {
@@ -172,7 +177,7 @@ export default {
       width: 100%;
     }
     .hover-filter#{$i} {
-      height: 156px;
+      height: 224px;
     }
   }
   .events-section {
@@ -301,6 +306,7 @@ export default {
     .card#{$i} {
       width: 100%;
       height: 100%; // 수정된 부분
+      
     }
     .hover-filter#{$i} {
       height: 140px;
