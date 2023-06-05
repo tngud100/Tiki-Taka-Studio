@@ -4,13 +4,18 @@
       <div class="news">
         <div class="title-con">
           <span class="title">공지사항</span>
-          <span class="detail">detail view</span>
+          <router-link to="/news" class="detail">detail view</router-link>
         </div>
         <hr class="hr-margin" />
-        <div v-for="(item, index) in news" :key="index" class="list-con pc">
+        <router-link
+          :to="'news' + (index + 1)"
+          v-for="(item, index) in news"
+          :key="index"
+          class="list-con pc"
+        >
           <span class="list-title">{{ item.title }}</span>
           <span class="list-detail"> - {{ item.subtitle }}</span>
-        </div>
+        </router-link>
         <div
           v-for="(item, index) in news_mobile"
           :key="index"
@@ -23,13 +28,18 @@
       <div class="events">
         <div class="title-con">
           <span class="title">이벤트</span>
-          <span class="detail">detail view</span>
+          <router-link to="/events" class="detail">detail view</router-link>
         </div>
         <hr class="hr-margin" />
-        <div v-for="(item, index) in events" :key="index" class="list-con pc">
+        <router-link
+          :to="'events' + (index + 1)"
+          v-for="(item, index) in events"
+          :key="index"
+          class="list-con pc"
+        >
           <span class="list-title">{{ item.title }}</span>
           <span class="list-detail"> - {{ item.subtitle }}</span>
-        </div>
+        </router-link>
         <div
           v-for="(item, index) in events_mobile"
           :key="index"
@@ -51,13 +61,13 @@ export default {
     return {
       news: [
         {
-          title: "공지1",
-          subtitle: "이러이러한 공지사항이 있으며 ",
+          title: "TNT Studio Grand Opening",
+          subtitle: "2023년 6월 10일, TNT Studio가 그랜드 오픈을 하였습니다!",
         },
-        {
-          title: "공지1",
-          subtitle: "이러이러한 공지사항이 있으며 ",
-        },
+        // {
+        //   title: "공지1",
+        //   subtitle: "이러이러한 공지사항이 있으며 ",
+        // },
         // {
         //   title: "공지1",
         //   subtitle: "이러이러한 공지사항이 있으며 ",
@@ -83,13 +93,13 @@ export default {
       ],
       events: [
         {
-          title: "이벤트1",
-          subtitle: "이러이러한 이벤트가 있으며 ",
+          title: "유튜브 채널 구독 EVENT",
+          subtitle: "구독 인증을 하면 티키앤타카 포인트 쏜다!",
         },
-        {
-          title: "이벤트1",
-          subtitle: "이러이러한 이벤트가 있으며 ",
-        },
+        // {
+        //   title: "이벤트1",
+        //   subtitle: "이러이러한 이벤트가 있으며 ",
+        // },
         // {
         //   title: "이벤트1",
         //   subtitle: "이러이러한 이벤트가 있으며 ",
@@ -101,17 +111,17 @@ export default {
       ],
       events_mobile: [
         {
-          title: "이벤트1",
-          subtitle: "이러이러한 이벤트가 있으며 ",
+          title: "유튜브 채널 구독 EVENT",
+          subtitle: "구독 인증을 하면 티키앤타카 포인트 쏜다!",
         },
-        {
-          title: "이벤트1",
-          subtitle: "이러이러한 이벤트가 있으며 ",
-        },
-        {
-          title: "이벤트1",
-          subtitle: "이러이러한 이벤트가 있으며 ",
-        },
+        // {
+        //   title: "이벤트1",
+        //   subtitle: "이러이러한 이벤트가 있으며 ",
+        // },
+        // {
+        //   title: "이벤트1",
+        //   subtitle: "이러이러한 이벤트가 있으며 ",
+        // },
       ],
     };
   },
@@ -350,6 +360,8 @@ export default {
           font-family: "pretendard-Regular";
           padding: 0px 20px;
           align-self: center;
+          text-decoration: none;
+          color: black;
           cursor: pointer;
         }
       }
@@ -357,12 +369,14 @@ export default {
         display: grid;
         padding: 10px 0px;
         cursor: pointer;
+        text-decoration: none;
         .list-title {
           font-family: "pretendard-Regular";
           font-weight: bold;
           left: -15px;
           position: relative;
           opacity: 0;
+          color: black;
         }
         .list-detail {
           font-family: "pretendard-Regular";

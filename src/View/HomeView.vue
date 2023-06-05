@@ -1,9 +1,9 @@
 <template>
-  <!-- <Header /> -->
+  <Header />
   <HomeBanner />
   <HomeLongVod />
   <HomeShortVod />
-  <TestPageTrash />
+  <!-- <TestPageTrash /> -->
   <HomeSchedule />
   <HomeNewsEvents />
   <HomeAdverse />
@@ -13,11 +13,11 @@
 <!-- <HomePairing /> -->
 
 <script>
-// import Header from "../components/Header/HeaderMain.vue";
+import Header from "../components/Header/HeaderMain.vue";
 import HomeBanner from "../components/Home/HomeBanner.vue";
 import HomeLongVod from "../components/Home/HomeLongVod.vue";
 import HomeShortVod from "../components/Home/HomeShortVod.vue";
-import TestPageTrash from "../components/trash/TestPageTrash.vue";
+// import TestPageTrash from "../components/trash/TestPageTrash.vue";
 import HomeSchedule from "../components/Home/HomeSchedule.vue";
 import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
 import HomeAdverse from "../components/Home/HomeAdvertise.vue";
@@ -27,11 +27,11 @@ import FooterMain from "../components/Footer/FooterMain.vue";
 export default {
   name: "HomeView",
   components: {
-    // Header,
+    Header,
     HomeBanner,
     HomeLongVod,
     HomeShortVod,
-    TestPageTrash,
+    // TestPageTrash,
     HomeSchedule,
     HomeAdverse,
     HomeNewsEvents,

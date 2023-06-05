@@ -19,7 +19,7 @@
       </thead>
       <tbody style="display: grid; justify-content: center">
         <tr class="table_desserts" v-for="item in desserts" :key="item.num">
-          <router-link :to="'/news/' + item.num">
+          <router-link :to="'/news' + item.num">
             <td class="desserts_align td_num">
               {{ item.num }}
             </td>
@@ -57,24 +57,9 @@ export default {
       header: ["번호", "제목", "작성일자"],
       desserts: [
         {
-          num: "4",
-          title: "티키앤 타카 방송국 서브페이지 컨텐츠",
-          date: "2022.11.02",
-        },
-        {
-          num: "3",
-          title: "티키앤 타카 방송국 서브페이지 컨텐츠",
-          date: "2022.10.27",
-        },
-        {
-          num: "2",
-          title: "티키앤 타카 방송국 서브페이지 컨텐츠",
-          date: "2022.10.13",
-        },
-        {
           num: "1",
-          title: "티키앤 타카 방송국 서브페이지 컨텐츠",
-          date: "2022.08.31",
+          title: "TNT Studio Grand Opening",
+          date: "2023.06.10",
         },
       ],
     };

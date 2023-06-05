@@ -4,11 +4,11 @@
       <ul class="menu-list">
         <div class="logo">
           <router-link to="/">
-            <img v-if="!isScrolledUp" :src="logo[0].mainLogo" alt="logo" />
+            <img v-if="isScrolledUp" :src="logo[0].mainLogo" alt="logo" />
           </router-link>
           <router-link to="/"
             ><img
-              v-if="isScrolledUp"
+              v-if="!isScrolledUp"
               :src="logo[0].scrollLogo"
               alt="scrolllogo"
             />
@@ -23,13 +23,13 @@
         </div>
 
         <div class="menu-icon">
-          <li v-for="(list, index) in menuIcon" :key="index" class="list">
+          <li v-for="(list, index) in menuIcon" :key="index">
             <a :href="list.href">
-              <img v-if="!isScrolledUp" :src="menuIcon[index].src" alt="icon" />
+              <img v-if="isScrolledUp" :src="menuIcon[index].src" alt="icon" />
             </a>
             <a :href="list.href">
               <img
-                v-if="isScrolledUp"
+                v-if="!isScrolledUp"
                 :src="scrollMenuIcon[index].src"
                 alt="icon"
               />
@@ -111,10 +111,10 @@ export default {
     const list = document.querySelectorAll(".list");
 
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 10) {
-        header.style.backgroundColor = "none";
+      if (window.scrollY <= 0) {
+        header.style.backgroundColor = "transparent";
         for (let i = 0; i < list.length; i++) {
-          list[i].style.color = "black";
+          list[i].style.color = "white";
         }
         this.isScrolledUp = true;
         console.log(this.isScrolledUp);
@@ -137,6 +137,7 @@ header {
   width: 100%;
   position: fixed;
   top: 0;
+  z-index: 1;
   .nav {
     width: 1300px;
     height: 80px;
