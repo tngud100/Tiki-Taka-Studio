@@ -20,13 +20,12 @@
         :key="index"
       >
         <iframe
-          width="700px"
-          height="390px"
           borderRadius="5px"
           :src="videoUrl[item.num]"
           allow="geolocation"
           frameborder="0"
           allowfullscreen
+          class="YoutubePlayer"
         ></iframe>
 
         <div class="FirstText">
@@ -55,12 +54,24 @@
       }"
       :breakpoints="{
         320: {
-          slidesPerView: 2,
+          slidesPerView: 2.2,
           spaceBetween: 10,
         },
+        360: {
+          slidesPerView: 2.5,
+          spaceBetween: 13,
+        },
+        400: {
+          slidesPerView: 2.8,
+          spaceBetween: 14,
+        },
+        500: {
+          slidesPerView: 3.3,
+          spaceBetween: 14,
+        },
         640: {
-          slidesPerView: 3,
-          spaceBetween: 20,
+          slidesPerView: 3.5,
+          spaceBetween: 15,
         },
         760: {
           slidesPerView: 4,
@@ -68,7 +79,7 @@
         },
         1080: {
           slidesPerView: 5,
-          spaceBetween: 40,
+          spaceBetween: 20,
         },
       }"
       class="SecondSwiper"
@@ -289,6 +300,10 @@ export default {
     width: 1300px;
     .FirstCon {
       height: 390px;
+      .YoutubePlayer {
+        width: 694px;
+        height: 390px;
+      }
       .FirstText {
         margin-left: 80px;
         width: 360px;
@@ -320,7 +335,7 @@ export default {
     .SecondCon {
       width: 220px;
       .imgCon {
-        width: 220px;
+        width: 210px;
         height: 123px;
       }
       .SecondText {
@@ -361,6 +376,10 @@ export default {
     width: 1080px;
     .FirstCon {
       height: 350px;
+      .YoutubePlayer {
+        width: 622px;
+        height: 350px;
+      }
       .FirstText {
         margin-left: 50px;
         width: 360px;
@@ -434,8 +453,12 @@ export default {
     width: 760px;
     .FirstCon {
       height: 260px;
+      .YoutubePlayer {
+        width: 609px;
+        height: 260px;
+      }
       .FirstText {
-        margin-left: 10px;
+        margin-left: 25px !important;
         width: 260px;
         .title {
           font-size: 16px;
@@ -491,10 +514,168 @@ export default {
 
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
+  .HomeLongVod {
+    margin-top: 50px;
+  }
+  .TextCon {
+    width: 600px;
+    margin: auto;
+    .title {
+      font-size: 24px;
+    }
+    .viewMore {
+      font-size: 16px;
+    }
+  }
+  .FirstSwiper {
+    width: 600px;
+    margin-bottom: 30px !important;
+    .FirstCon {
+      display: grid !important;
+      height: auto;
+      .YoutubePlayer {
+        width: 600px;
+        height: 338px;
+      }
+      .FirstText {
+        margin-top: 15px;
+        margin-left: 0px !important;
+        width: 260px;
+        .title {
+          font-size: 16px;
+          margin-bottom: 5px;
+        }
+        .subTitle {
+          font-size: 18px;
+        }
+        .GoToChannelBtn {
+          width: 130px;
+          height: 45px;
+          margin-top: 15px;
+          strong {
+            font-size: 18px;
+          }
+        }
+        .date {
+          font-size: 14px;
+          margin-top: 10px !important;
+        }
+      }
+    }
+  }
+  .SecondSwiper {
+    width: 600px;
+    height: 115px;
+    margin-bottom: 30px;
+    .SecondCon {
+      .imgCon {
+        width: 160px;
+        height: 88px;
+      }
+      .SecondText {
+        width: 154px;
+        .title {
+          font-size: 14px;
+        }
+        .subTitle {
+          display: none !important;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .SwiperBtn {
+    display: none !important;
+    // top: -95px;
+    // --swiper-navigation-size: 30px;
+  }
+  .swiper-slide-thumb-active .imgCon {
+    height: 80px !important;
+  }
 }
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
+  .HomeLongVod {
+    margin-top: 50px;
+  }
+  .TextCon {
+    width: 90%;
+    margin: auto;
+    .title {
+      font-size: 24px;
+    }
+    .viewMore {
+      font-size: 16px;
+    }
+  }
+  .FirstSwiper {
+    width: 90%;
+    height: auto;
+    margin-bottom: 30px !important;
+    .FirstCon {
+      display: grid !important;
+      height: auto;
+      width: 100%;
+      .YoutubePlayer {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+      }
+      .FirstText {
+        margin-top: 15px;
+        margin-left: 0px !important;
+        width: 100% !important;
+        .title {
+          font-size: 16px;
+          margin-bottom: 5px;
+        }
+        .subTitle {
+          font-size: 18px;
+        }
+        .GoToChannelBtn {
+          width: 130px;
+          height: 45px;
+          margin-top: 15px;
+          strong {
+            font-size: 18px;
+          }
+        }
+        .date {
+          font-size: 14px;
+          margin-top: 10px !important;
+        }
+      }
+    }
+  }
+  .SecondSwiper {
+    width: 90%;
+    height: 115px;
+    margin-bottom: 30px;
+    .SecondCon {
+      .imgCon {
+        width: 120px;
+        height: 66px;
+      }
+      .SecondText {
+        width: 100%;
+        .title {
+          font-size: 14px;
+        }
+        .subTitle {
+          display: none !important;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .SwiperBtn {
+    display: none !important;
+    // top: -95px;
+    // --swiper-navigation-size: 30px;
+  }
+  .swiper-slide-thumb-active .imgCon {
+    height: 57px !important;
+  }
 }
 
 .HomeLongVod {
@@ -504,6 +685,7 @@ export default {
 .TextCon {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   .title {
     font-family: "Pretendard-Regular";
     font-weight: bold;
@@ -513,6 +695,7 @@ export default {
     font-weight: bold;
     color: #805bea;
     text-decoration: none;
+    text-align: center;
   }
 }
 .FirstSwiper {
@@ -600,6 +783,7 @@ export default {
 .SwiperBtn {
   position: relative;
   --swiper-theme-color: black;
+  z-index: 0;
 }
 .swiper-slide-thumb-active .imgCon {
   border: solid 5px #805bea;

@@ -64,8 +64,10 @@
       </div>
     </div>
     <!-- 스튜디오 소개 -->
-    <!-- <div class="Studio-con">
+    <div class="Studio-con">
       <p class="Studio-Title">스튜디오 소개</p>
+      ※ 현재 스튜디오에 대한 사진 및 정보가 없으므로 개발 보류
+
       <div class="tab-con">
         <div class="tab">
           <div
@@ -79,7 +81,6 @@
         </div>
       </div>
       <div class="intro-con">
-        현재 스튜디오에 대한 사진 및 정보가 없으므로 개발 보류
         <div
           v-for="(studio, index) in studioIntro"
           :key="index"
@@ -97,7 +98,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </section>
 </template>
 

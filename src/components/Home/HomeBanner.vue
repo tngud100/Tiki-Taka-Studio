@@ -61,13 +61,11 @@ export default {
 // 테블릿
 @media screen and (max-width: 760px) {
   .banner-section {
-    margin-top: 58px;
   }
 }
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 759px) {
   .banner-section {
-    margin-top: 54px;
   }
 }
 

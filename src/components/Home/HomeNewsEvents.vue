@@ -16,14 +16,15 @@
           <span class="list-title">{{ item.title }}</span>
           <span class="list-detail"> - {{ item.subtitle }}</span>
         </router-link>
-        <div
+        <router-link
+          :to="'news' + (index + 1)"
           v-for="(item, index) in news_mobile"
           :key="index"
           class="list-con mobile"
         >
           <span class="list-title">{{ item.title }}</span>
           <span class="list-detail"> - {{ item.subtitle }}</span>
-        </div>
+        </router-link>
       </div>
       <div class="events">
         <div class="title-con">
@@ -40,14 +41,15 @@
           <span class="list-title">{{ item.title }}</span>
           <span class="list-detail"> - {{ item.subtitle }}</span>
         </router-link>
-        <div
+        <router-link
+          :to="'events' + (index + 1)"
           v-for="(item, index) in events_mobile"
           :key="index"
           class="list-con mobile"
         >
           <span class="list-title">{{ item.title }}</span>
           <span class="list-detail"> - {{ item.subtitle }}</span>
-        </div>
+        </router-link>
       </div>
     </div>
   </section>
@@ -79,17 +81,17 @@ export default {
       ],
       news_mobile: [
         {
-          title: "공지1",
-          subtitle: "이러이러한 공지사항이 있으며 ",
+          title: "TNT Studio Grand Opening",
+          subtitle: "2023년 6월 10일, TNT Studio가 그랜드 오픈을 하였습니다!",
         },
-        {
-          title: "공지1",
-          subtitle: "이러이러한 공지사항이 있으며 ",
-        },
-        {
-          title: "공지1",
-          subtitle: "이러이러한 공지사항이 있으며 ",
-        },
+        // {
+        //   title: "공지1",
+        //   subtitle: "이러이러한 공지사항이 있으며 ",
+        // },
+        // {
+        //   title: "공지1",
+        //   subtitle: "이러이러한 공지사항이 있으며 ",
+        // },
       ],
       events: [
         {

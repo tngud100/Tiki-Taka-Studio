@@ -17,7 +17,7 @@
             <p style="margin: 0">중요한 장면을 놓치지 마세요.</p>
           </span>
           <span class="sub-title-mobile">
-            <p style="margin: 0">쇼츠 영상으로 만나보세요.</p>
+            <p style="margin: 0">쇼츠 영상으로 티키앤타카와 만나보세요.</p>
           </span>
         </div>
       </div>
@@ -167,7 +167,7 @@ export default {
         direction: "horizontal",
         loop: false,
         mousewheel: false,
-        slidesPerView: 4, // only one slide per view
+        slidesPerView: 4,
         spaceBetween: 35,
         speed: 300,
         autoplay: {
@@ -198,7 +198,7 @@ export default {
           },
           // 화면 너비가 320px 이상일 때
           320: {
-            slidesPerView: 1,
+            slidesPerView: 2.5,
             spaceBetween: 10,
           },
         },
@@ -226,6 +226,11 @@ export default {
         "start+=.2"
       );
       shortvod.to(
+        ".sub-title-mobile",
+        { duration: 0.5, left: 0, opacity: 1 },
+        "start+=.2"
+      );
+      shortvod.to(
         ".swiper-container ",
         { duration: 1, bottom: 0, opacity: 1 },
         "start+=.4"
@@ -244,6 +249,8 @@ export default {
   .short-con {
     width: 1300px;
     display: flex;
+    margin: 75px 0px 75px 0px;
+
     .short-title {
       width: 300px;
       .vod-content {
@@ -278,6 +285,7 @@ export default {
   .short-con {
     width: 1040px;
     display: flex;
+    margin: 75px 0px 75px 0px;
     .short-title {
       width: 300px;
       .vod-content {
@@ -313,6 +321,7 @@ export default {
   .short-con {
     width: 760px;
     display: flex;
+    margin: 50px 0px 50px 0px;
     .short-title {
       width: 260px;
       .vod-content {
@@ -348,7 +357,7 @@ export default {
   .short-con {
     width: 640px;
     display: grid;
-    margin: 30px 0px 30px 0px !important;
+    margin: 30px 0px 40px 0px;
     .short-title {
       width: 100%;
       justify-content: center;
@@ -388,13 +397,14 @@ export default {
   .short-con {
     width: 320px;
     display: grid;
+    margin: 30px 0px 40px 0px;
     .short-title {
       width: 100%;
       margin-bottom: 10px;
       justify-content: center;
       .vod-content {
-        width: 250px !important;
-        height: 444px;
+        width: 145px !important;
+        height: 257px;
       }
       .title {
         margin: 0;
@@ -429,9 +439,6 @@ export default {
   width: 100%;
   background-color: whitesmoke;
   .short-con {
-    margin-bottom: 10px;
-    margin: 50px 0px 50px 0px;
-
     justify-content: center;
     align-items: center;
     .short-title {
@@ -453,7 +460,7 @@ export default {
       }
       .sub-title,
       .sub-title-mobile {
-        font-family: sans-serif;
+        font-family: "Pretendard-Regular";
         color: #8d8d8d;
         left: -30px;
         position: relative;
