@@ -378,7 +378,7 @@ export default {
 // PC XL
 @media screen and (min-width: 1300px) {
   .contact_section {
-    margin-top: 75px;
+    margin-top: 80px;
   }
   .title_con {
     width: 1300px;
@@ -419,7 +419,7 @@ export default {
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .contact_section {
-    margin-top: 75px;
+    margin-top: 70px;
   }
   .title_con {
     width: 1080px;
@@ -458,7 +458,7 @@ export default {
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .contact_section {
-    margin-top: 75px;
+    margin-top: 60px;
   }
   .title_con {
     width: 760px;
@@ -495,7 +495,7 @@ export default {
 // 테블릿
 @media screen and (min-width: 600px) and (max-width: 759px) {
   .contact_section {
-    margin-top: 50px;
+    margin-top: 55px;
   }
   .title_con {
     width: 640px;

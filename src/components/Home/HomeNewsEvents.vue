@@ -166,6 +166,7 @@ export default {
 @media screen and (min-width: 1300px) {
   .news-event-section {
     width: 1300px;
+    margin: 100px auto 30px auto;
     .container {
       display: flex;
       justify-content: space-between;
@@ -198,6 +199,7 @@ export default {
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .news-event-section {
     width: 1080px;
+    margin: 100px auto 30px auto;
     .container {
       display: flex;
       justify-content: space-between;
@@ -232,6 +234,7 @@ export default {
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .news-event-section {
     width: 760px;
+    margin: 80px auto 30px auto;
     .container {
       display: flex;
       justify-content: space-between;
@@ -265,8 +268,10 @@ export default {
 @media screen and (min-width: 640px) and (max-width: 759px) {
   .news-event-section {
     width: 640px;
+    margin: 65px auto 30px auto;
     .container {
       display: grid;
+      padding: 12px;
       .mobile {
         display: grid !important;
       }
@@ -300,8 +305,10 @@ export default {
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .news-event-section {
     width: 320px;
+    margin: 50px auto 30px auto;
     .container {
       display: grid;
+      padding: 10px;
       .mobile {
         display: grid !important;
       }
@@ -335,7 +342,7 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
-  margin: 50px auto 30px auto;
+  margin-bottom: 100px;
   .container {
     width: 100%;
 
@@ -345,7 +352,7 @@ export default {
       margin: 0 1%;
 
       .hr-margin {
-        margin: 20px 0px;
+        margin: 12px 0px;
       }
       .title-con {
         width: 100%;
@@ -383,10 +390,17 @@ export default {
         .list-detail {
           font-family: "pretendard-Regular";
           color: rgb(109, 109, 109);
-          padding: 12px 0px;
+          margin: 12px 0px;
           left: -15px;
           position: relative;
           opacity: 0;
+
+          text-overflow: ellipsis;
+          overflow: hidden;
+          word-break: break-word;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
         }
       }
       .list-con:hover {

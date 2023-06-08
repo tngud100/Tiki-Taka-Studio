@@ -5,8 +5,9 @@
   <HomeShortVod />
   <!-- <TestPageTrash /> -->
   <HomeSchedule />
+  <HomeStudioEquipment />
   <HomeNewsEvents />
-  <HomeAdverse />
+  <!-- <HomeAdverse /> -->
   <FooterMain />
 </template>
 <!-- <HomeYoutubeVod /> -->
@@ -18,9 +19,10 @@ import HomeBanner from "../components/Home/HomeBanner.vue";
 import HomeLongVod from "../components/Home/HomeLongVod.vue";
 import HomeShortVod from "../components/Home/HomeShortVod.vue";
 import HomeSchedule from "../components/Home/HomeStudioLental.vue";
+import HomeStudioEquipment from "../components/Home/HomeStudioEquipment.vue";
 // import TestPageTrash from "../components/trash/TestPageTrash.vue";
 import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
-import HomeAdverse from "../components/Home/HomeAdvertise.vue";
+// import HomeAdverse from "../components/Home/HomeAdvertise.vue";
 import FooterMain from "../components/Footer/FooterMain.vue";
 // import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
 // import HomePairing from "../components/Home/HomePairing.vue";
@@ -33,7 +35,8 @@ export default {
     HomeShortVod,
     // TestPageTrash,
     HomeSchedule,
-    HomeAdverse,
+    HomeStudioEquipment,
+    // HomeAdverse,
     HomeNewsEvents,
     FooterMain,
     // HomeYoutubeVod,

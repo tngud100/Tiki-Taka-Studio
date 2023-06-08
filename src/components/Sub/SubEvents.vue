@@ -183,7 +183,7 @@ export default {
     }
   }
   .events-section {
-    margin-top: 75px;
+    margin-top: 80px;
   }
   .container {
     width: 1300px;
@@ -212,11 +212,11 @@ export default {
       height: 100%; // 수정된 부분
     }
     .hover-filter#{$i} {
-      height: 140px;
+      height: 185px;
     }
   }
   .events-section {
-    margin-top: 75px;
+    margin-top: 70px;
   }
   .container {
     width: 1080px;
@@ -224,15 +224,16 @@ export default {
     padding-bottom: 50px;
 
     .card-image {
+      height: 185px;
     }
     .hover-text {
-      font-size: 24px;
-    }
-    .creator-name {
       font-size: 22px;
     }
+    .creator-name {
+      font-size: 20px;
+    }
     .creator-subscribe {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
 }
@@ -245,23 +246,24 @@ export default {
       height: 100%; // 수정된 부분
     }
     .hover-filter#{$i} {
-      height: 140px;
+      height: 130px;
     }
   }
   .events-section {
-    margin-top: 75px;
+    margin-top: 60px;
   }
   .container {
     width: 760px;
     padding-top: 30px;
     padding-bottom: 50px;
     .card-image {
+      height: 130px;
     }
     .hover-text {
-      font-size: 22px;
+      font-size: 15px;
     }
     .creator-name {
-      font-size: 20px;
+      font-size: 14px;
     }
     .creator-subscribe {
       font-size: 12px;
@@ -277,11 +279,11 @@ export default {
       height: 100%; // 수정된 부분
     }
     .hover-filter#{$i} {
-      height: 140px;
+      height: 162px;
     }
   }
   .events-section {
-    margin-top: 50px;
+    margin-top: 55px;
   }
   .container {
     width: 640px;
@@ -289,15 +291,16 @@ export default {
     padding-bottom: 50px;
 
     .card-image {
+      height: 162px;
     }
     .hover-text {
-      font-size: 22px;
+      font-size: 18px;
     }
     .creator-name {
-      font-size: 20px;
+      font-size: 18px;
     }
     .creator-subscribe {
-      font-size: 12px;
+      font-size: 15px;
     }
   }
 }
@@ -310,7 +313,7 @@ export default {
       height: 100%; // 수정된 부분
     }
     .hover-filter#{$i} {
-      height: 140px;
+      height: 156px;
     }
   }
   .events-section {
@@ -321,15 +324,16 @@ export default {
     padding-top: 30px;
     padding-bottom: 50px;
     .card-image {
+      height: 156px;
     }
     .hover-text {
-      font-size: 22px;
+      font-size: 18px;
     }
     .creator-name {
-      font-size: 20px;
+      font-size: 18px;
     }
     .creator-subscribe {
-      font-size: 12px;
+      font-size: 15px;
     }
   }
 }

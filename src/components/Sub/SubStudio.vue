@@ -9,7 +9,11 @@
     <div class="Service-con">
       <p class="Sevice-Title">서비스 소개</p>
       <div class="Service-cardCon">
-        <div v-for="(item, index) in service" :key="index" class="service-card">
+        <div
+          v-for="(item, index) in service"
+          :key="index"
+          :class="'service-card card' + index"
+        >
           <div class="icon-con">
             <img :src="item.img" alt="icon" class="icon" />
           </div>
@@ -64,7 +68,7 @@
       </div>
     </div>
     <!-- 스튜디오 소개 -->
-    <div class="Studio-con">
+    <!-- <div class="Studio-con">
       <p class="Studio-Title">스튜디오 소개</p>
       ※ 현재 스튜디오에 대한 사진 및 정보가 없으므로 개발 보류
 
@@ -98,7 +102,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </section>
 </template>
 
@@ -136,13 +140,13 @@ export default {
           desc2: "",
           desc3: "",
         },
-        {
-          img: require("@/assets/studio/locate.svg"),
-          title: "비대면 토탈솔루션",
-          desc1: "비대면 방송",
-          desc2: "타운홀 미팅",
-          desc3: "비디오 컨퍼런스, 등",
-        },
+        // {
+        //   img: require("@/assets/studio/locate.svg"),
+        //   title: "비대면 토탈솔루션",
+        //   desc1: "비대면 방송",
+        //   desc2: "타운홀 미팅",
+        //   desc3: "비디오 컨퍼런스, 등",
+        // },
         {
           img: require("@/assets/studio/message.svg"),
           title: "실시간 스트리밍 서비스",
@@ -255,88 +259,626 @@ export default {
 //PC XL
 @media screen and (min-width: 1300px) {
   .studio_section {
-    margin-top: 75px;
+    margin-top: 80px;
+    .Text-con {
+      margin: 100px auto 0px auto;
+      .Title {
+        font-size: 30px;
+      }
+      .subTitle {
+        font-size: 20px;
+        margin-top: 10px;
+      }
+    }
+    .Service-con {
+      margin: 100px auto 0px auto;
+
+      .Sevice-Title {
+        width: 1300px;
+        margin-bottom: 50px;
+        font-size: 30px;
+      }
+    }
+  }
+  .Service-cardCon {
+    width: 1300px;
+    .card1 {
+      margin-left: 60px;
+    }
+    .card2 {
+      margin-left: 60px;
+    }
+    .card3 {
+      margin-left: 60px;
+    }
+    .service-card {
+      height: 280px;
+      padding: 20px 10px;
+      .icon-con {
+        padding: 20px 0px;
+        .icon {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      .Title {
+        font-size: 24px;
+      }
+      .subTitle {
+        font-size: 20px;
+        letter-spacing: -1.7px;
+      }
+    }
+  }
+  .Rental-con {
+    margin: 100px auto 100px auto;
+    .Rental-Title {
+      width: 1300px;
+      margin-bottom: 50px;
+      font-size: 30px;
+    }
+    .tab-con {
+      .tab {
+        width: 1300px;
+        .tab-list {
+          width: 33%;
+          padding: 18px;
+          margin: 18px;
+          .list-text {
+            font-size: 20px;
+          }
+        }
+      }
+      table {
+        width: 1300px;
+        thead {
+          .thead0 {
+            width: 40%;
+            padding: 10px;
+            .thead-text {
+              font-size: 16px;
+            }
+          }
+          .thead1 {
+            width: 60%;
+            padding: 10px;
+            .thead-text {
+              font-size: 16px;
+            }
+          }
+        }
+        tbody {
+          .td0 {
+            width: 40%;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+          .td1 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+          .td2 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+        }
+      }
+    }
   }
 }
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .studio_section {
+    margin-top: 70px;
+    .Text-con {
+      margin: 100px auto 0px auto;
+      .Title {
+        font-size: 30px;
+      }
+      .subTitle {
+        font-size: 20px;
+        margin-top: 10px;
+      }
+    }
+    .Service-con {
+      margin: 100px auto 0px auto;
+
+      .Sevice-Title {
+        width: 1080px;
+        margin-bottom: 50px;
+        font-size: 30px;
+      }
+    }
+  }
+  .Service-cardCon {
+    width: 1080px;
+    .card1 {
+      margin-left: 24px;
+    }
+    .card2 {
+      margin-left: 24px;
+    }
+    .card3 {
+      margin-left: 24px;
+    }
+    .service-card {
+      height: 280px;
+      padding: 30px 10px;
+      .icon-con {
+        padding: 12px 0px;
+        .icon {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      .Title {
+        font-size: 20px;
+      }
+      .subTitle {
+        font-size: 18px;
+        letter-spacing: -1.7px;
+      }
+    }
+  }
+  .Rental-con {
+    margin: 100px auto 100px auto;
+    .Rental-Title {
+      width: 1080px;
+      margin-bottom: 50px;
+      font-size: 30px;
+    }
+    .tab-con {
+      .tab {
+        width: 1080px;
+        .tab-list {
+          width: 33%;
+          padding: 18px;
+          margin: 18px;
+          .list-text {
+            font-size: 20px;
+          }
+        }
+      }
+      table {
+        width: 1080px;
+        thead {
+          .thead0 {
+            width: 40%;
+            padding: 10px;
+            .thead-text {
+              font-size: 16px;
+            }
+          }
+          .thead1 {
+            width: 60%;
+            padding: 10px;
+            .thead-text {
+              font-size: 16px;
+            }
+          }
+        }
+        tbody {
+          .td0 {
+            width: 40%;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+          .td1 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+          .td2 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
 }
 
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
+  .studio_section {
+    margin-top: 60px;
+    .Text-con {
+      margin: 80px auto 0px auto;
+      .Title {
+        font-size: 26px;
+      }
+      .subTitle {
+        font-size: 18px;
+        margin-top: 10px;
+      }
+    }
+    .Service-con {
+      margin: 80px auto 0px auto;
+
+      .Sevice-Title {
+        width: 760px;
+        margin-bottom: 40px;
+        font-size: 26px;
+      }
+    }
+  }
+  .Service-cardCon {
+    width: 760px;
+    .card1 {
+      margin-left: 24px;
+    }
+    .card2 {
+      margin-left: 24px;
+    }
+    .card3 {
+      margin-left: 24px;
+    }
+    .service-card {
+      height: 200px;
+      padding: 10px 8px;
+      .icon-con {
+        padding: 12px 0px;
+        .icon {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      .Title {
+        font-size: 16px;
+      }
+      .subTitle {
+        font-size: 14px;
+        letter-spacing: -1.7px;
+      }
+    }
+  }
+  .Rental-con {
+    margin: 80px auto;
+    .Rental-Title {
+      width: 760px;
+      margin-bottom: 40px;
+      font-size: 24px;
+    }
+    .tab-con {
+      .tab {
+        width: 760px;
+        .tab-list {
+          width: 33%;
+          padding: 14px;
+          margin: 18px;
+          .list-text {
+            font-size: 18px;
+          }
+        }
+      }
+      table {
+        width: 760px;
+        thead {
+          .thead0 {
+            width: 40%;
+            padding: 10px;
+            .thead-text {
+              font-size: 15px;
+            }
+          }
+          .thead1 {
+            width: 60%;
+            padding: 10px;
+            .thead-text {
+              font-size: 15px;
+            }
+          }
+        }
+        tbody {
+          .td0 {
+            width: 40%;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+          .td1 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+          .td2 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
 }
 
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
+  .studio_section {
+    margin-top: 55px;
+    .Text-con {
+      margin: 80px auto 0px auto;
+      .Title {
+        font-size: 26px;
+      }
+      .subTitle {
+        font-size: 18px;
+        margin-top: 10px;
+      }
+    }
+    .Service-con {
+      margin: 80px auto 0px auto;
+
+      .Sevice-Title {
+        width: 640px;
+        margin-bottom: 40px;
+        font-size: 26px;
+      }
+    }
+  }
+  .Service-cardCon {
+    width: 640px;
+    flex-wrap: wrap !important;
+
+    .service-card {
+      margin: 12px;
+      width: calc(50% - 24px) !important;
+      height: 200px;
+      padding: 10px 8px;
+      .icon-con {
+        padding: 12px 0px;
+        .icon {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      .Title {
+        font-size: 16px;
+      }
+      .subTitle {
+        font-size: 14px;
+        letter-spacing: -1.7px;
+      }
+    }
+  }
+  .Rental-con {
+    margin: 80px auto;
+    .Rental-Title {
+      width: 640px;
+      margin-bottom: 40px;
+      font-size: 22px;
+    }
+    .tab-con {
+      .tab {
+        width: 640px;
+        .tab-list {
+          width: 33%;
+          padding: 12px;
+          margin: 16px;
+          .list-text {
+            font-size: 16px;
+          }
+        }
+      }
+      table {
+        width: 640px;
+        padding: 0px 12px;
+
+        thead {
+          .thead0 {
+            width: 40%;
+            padding: 10px;
+            .thead-text {
+              font-size: 15px;
+            }
+          }
+          .thead1 {
+            width: 60%;
+            padding: 10px;
+            .thead-text {
+              font-size: 15px;
+            }
+          }
+        }
+        tbody {
+          .td0 {
+            width: 40%;
+            line-height: 1.6;
+            font-size: 14px;
+          }
+          .td1 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+          .td2 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
 }
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
-}
+  .studio_section {
+    margin-top: 55px;
+    .Text-con {
+      margin: 70px auto 0px auto;
+      .Title {
+        font-size: 26px;
+      }
+      .subTitle {
+        font-size: 18px;
+        margin-top: 10px;
+      }
+    }
+    .Service-con {
+      margin: 60px auto 0px auto;
 
+      .Sevice-Title {
+        width: 320px;
+        margin-bottom: 40px;
+        font-size: 26px;
+      }
+    }
+  }
+  .Service-cardCon {
+    width: 320px;
+    flex-wrap: wrap !important;
+
+    .service-card {
+      margin: 12px;
+      width: calc(50% - 24px) !important;
+      height: 200px;
+      padding: 10px 8px;
+      .icon-con {
+        padding: 12px 0px;
+        .icon {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      .Title {
+        font-size: 16px;
+      }
+      .subTitle {
+        font-size: 14px;
+        letter-spacing: -1.7px;
+      }
+    }
+  }
+  .Rental-con {
+    margin: 60px auto;
+    .Rental-Title {
+      width: 320px;
+      margin-bottom: 40px;
+      font-size: 20px;
+    }
+    .tab-con {
+      .tab {
+        width: 320px;
+        .tab-list {
+          width: 33%;
+          padding: 12px;
+          margin: 16px;
+          border-radius: 5px !important;
+          .list-text {
+            font-size: 14px;
+          }
+        }
+      }
+      table {
+        width: 320px;
+        padding: 0px 10px;
+
+        thead {
+          .thead0 {
+            width: 40%;
+            padding: 8px;
+            .thead-text {
+              font-size: 13px;
+            }
+          }
+          .thead1 {
+            width: 60%;
+            padding: 10px;
+            .thead-text {
+              font-size: 13px;
+            }
+          }
+        }
+        tbody {
+          .td0 {
+            width: 40%;
+            line-height: 1.6;
+            font-size: 12px;
+          }
+          .td1 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 13px;
+          }
+          .td2 {
+            width: 60%;
+            padding: 10px;
+            line-height: 1.6;
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}
 .studio_section {
-  width: 100%;
   .Text-con {
-    width: 1300px;
-    margin: 100px auto 0px auto;
     text-align: center;
-    // display: grid;
-    // justify-content: center;
-    // align-items: center;
+    display: grid;
+    justify-content: center;
+    align-items: center;
     .Title {
       font-family: "Pretendard-Regular";
-      font-size: 30px;
       font-weight: bold;
     }
     .subTitle {
       font-family: "Pretendard-Regular";
-      font-size: 20px;
       font-weight: bold;
-      margin-top: 10px;
     }
   }
   .Service-con {
     display: grid;
     justify-content: center;
-    margin: 100px auto 0px auto;
 
     .Sevice-Title {
-      width: 1300px;
-      margin-bottom: 50px;
       text-align: center;
       font-family: "Pretendard-Regular";
-      font-size: 30px;
       font-weight: bold;
+      background-position: center;
+      background-image: url("@/assets/studio/titleLine.svg");
     }
     .Service-cardCon {
       display: flex;
       flex-wrap: nowrap;
       justify-content: center;
+      margin: auto;
       .service-card {
         width: 25%;
-        height: 300px;
-        padding: 30px 10px;
-        margin: 12px;
+        // height: 300px;
+        // padding: 30px 10px;
+        // margin: 12px;
         border: solid 1px black;
         text-align: center;
         .icon-con {
-          padding: 20px 0px;
+          // padding: 20px 0px;
           .icon {
-            width: 40px;
-            height: 40px;
+            // width: 40px;
+            // height: 40px;
           }
         }
         .Title {
           font-family: "Pretendard-Regular";
-          font-size: 20px;
+          // font-size: 20px;
           font-weight: bold;
         }
         .subTitle {
           font-family: "Pretendard-Regular";
-          font-size: 18px;
+          // font-size: 18px;
           color: #727272;
-          letter-spacing: -1.7px;
-          line-height: 23spx;
+          // letter-spacing: -1.7px;
         }
       }
       .service-card:hover {
@@ -347,26 +889,24 @@ export default {
   .Rental-con {
     display: grid;
     justify-content: center;
-    margin: 100px auto 100px auto;
     .Rental-Title {
-      width: 1300px;
-      margin-bottom: 50px;
       text-align: center;
       font-family: "Pretendard-Regular";
-      font-size: 30px;
       font-weight: bold;
+      background-position: center;
+      background-image: url("@/assets/studio/titleLine.svg");
     }
     .tab-con {
       display: grid;
       .tab {
-        width: 1300px;
+        // width: 1300px;
         display: flex;
         justify-content: center;
         align-items: center;
         .tab-list {
-          width: 33%;
-          padding: 18px;
-          margin: 18px;
+          // width: 33%;
+          // padding: 18px;
+          // margin: 18px;
           text-align: center;
           border: solid 1px #b89ffc;
           border-radius: 40px;
@@ -374,7 +914,7 @@ export default {
           cursor: pointer;
           .list-text {
             font-family: "Pretendard-Regular";
-            font-size: 20px;
+            // font-size: 20px;
             font-weight: bold;
           }
         }
@@ -385,7 +925,7 @@ export default {
       }
 
       table {
-        width: 1300px;
+        // width: 1300px;
         margin: auto;
         border-spacing: 0px;
         thead {
@@ -395,22 +935,22 @@ export default {
           border-top: solid 2px #805bea;
           border-bottom: solid 1px #c2c2c2;
           .thead0 {
-            width: 40%;
-            padding: 10px;
+            // width: 40%;
+            // padding: 10px;
             border-right: solid 1px #c2c2c2;
             .thead-text {
               font-family: "Pretendard-Regular";
-              font-size: 16px;
+              // font-size: 16px;
               font-weight: bold;
             }
           }
           .thead1 {
-            width: 60%;
-            padding: 10px;
+            // width: 60%;
+            // padding: 10px;
             border-right: solid 1px #c2c2c2;
             .thead-text {
               font-family: "Pretendard-Regular";
-              font-size: 16px;
+              // font-size: 16px;
               font-weight: bold;
             }
           }
@@ -420,30 +960,30 @@ export default {
           display: table;
           text-align: center;
           .td0 {
-            width: 40%;
-            padding: 10px;
+            // width: 40%;
+            // padding: 10px;
             border-bottom: solid 1px #c2c2c2;
             border-right: solid 1px #c2c2c2;
-            line-height: 1.6;
+            // line-height: 1.6;
             font-family: "Pretendard-Regular";
-            font-size: 15px;
+            // font-size: 15px;
           }
           .td1 {
-            width: 60%;
-            padding: 10px;
+            // width: 60%;
+            // padding: 10px;
             border-bottom: solid 1px #c2c2c2;
             border-right: solid 1px #c2c2c2;
-            line-height: 1.6;
+            // line-height: 1.6;
             font-family: "Pretendard-Regular";
-            font-size: 15px;
+            // font-size: 15px;
           }
           .td2 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
+            // width: 60%;
+            // padding: 10px;
+            // line-height: 1.6;
             border-bottom: solid 1px #c2c2c2;
             font-family: "Pretendard-Regular";
-            font-size: 15px;
+            // font-size: 15px;
           }
         }
       }

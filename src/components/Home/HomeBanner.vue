@@ -21,17 +21,17 @@ export default {
     return {
       imgs: [
         {
-          src: require("@/assets/banner/youtubetiki.svg"),
+          src: require("@/assets/banner/mainBanner.svg"),
         },
         {
-          src: require("@/assets/banner/youtubetiki.svg"),
+          src: require("@/assets/banner/mainBanner.svg"),
         },
-        {
-          src: require("@/assets/banner/youtubetiki.svg"),
-        },
-        {
-          src: require("@/assets/banner/youtubetiki.svg"),
-        },
+        // {
+        //   src: require("@/assets/banner/youtubetiki.svg"),
+        // },
+        // {
+        //   src: require("@/assets/banner/youtubetiki.svg"),
+        // },
       ],
     };
   },

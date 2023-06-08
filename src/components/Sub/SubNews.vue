@@ -136,7 +136,7 @@ a {
 // PC
 @media screen and (min-width: 1300px) {
   .news_section {
-    margin-top: 75px;
+    margin-top: 80px;
   }
   .title {
     font-size: 48px;
@@ -181,11 +181,16 @@ a {
     font-size: 20px;
   }
 }
+@media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .news_section {
+    margin-top: 70px !important;
+  }
+}
 
 // pc
 @media screen and (min-width: 760px) and (max-width: 1300px) {
   .news_section {
-    margin-top: 75px;
+    margin-top: 60px;
   }
   .title {
     font-size: 36px;
@@ -236,7 +241,7 @@ a {
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
   .news_section {
-    margin-top: 50px;
+    margin-top: 55px;
   }
   .title {
     font-size: 28px;
