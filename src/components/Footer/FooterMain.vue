@@ -1,353 +1,361 @@
 <template>
-  <!-- 풋터 -->
   <section class="footer-section">
-    <div class="footer">
-      <v-row class="footer_con">
-        <v-col class="footer_box">
-          <div class="logo_con">
-            <router-link to="/">
-              <!-- <img
-                src="../../assets/logo/whitelogo.svg"
-                alt=""
-                class="footer_logo"
-              /> -->
-              로고
-            </router-link>
+    <div class="footer-con">
+      <div class="logo-con">
+        <router-link to="/">
+          <img :src="logo" alt="logo" class="logo" />
+        </router-link>
+      </div>
+      <div class="contact-con">
+        <div class="location contact">
+          <div class="text-con">
+            <p class="text-title">Location</p>
+            <p>부산광역시 사상구 백양대로684 4F</p>
           </div>
-          <div class="footer_info">
-            <p>부산광역시 사상구 백양대로684 5F</p>
-            <p>
-              TEL 051-301-5908 | FAX 3030-3448-0523 | E-mail:
-              gameinscokr@naver.com
-            </p>
-            <p>
-              (주)게임인스 | 대표이사: 김웅겸 | 사업자등록번호: 362-88-00435 |
-              통신판매업 등록번호: 1649-3196-3663-0809
-            </p>
-
-            <!-- 모바일 푸터 아이콘 -->
-            <div class="small_btn_con" style="display: none">
-              <hr style="margin: 12px 0px" />
-              <div
-                class="small_btn"
-                style="
-                  justify-content: center;
-                  align-items: center;
-                  display: flex;
-                "
-              >
-                <v-row style="display: flex; width: 100%">
-                  <v-col cols="3" style="justify-content: center; display: flex"
-                    ><router-link to="/events">{{
-                      btn[2].text
-                    }}</router-link></v-col
-                  >
-                  <v-col cols="3" style="justify-content: center; display: flex"
-                    ><router-link to="/news">{{
-                      btn[3].text
-                    }}</router-link></v-col
-                  >
-                  <v-col
-                    cols="3"
-                    style="justify-content: center; display: flex"
-                    >{{ btn[4].text }}</v-col
-                  >
-                  <v-col
-                    cols="3"
-                    style="z-index: 1; justify-content: center; display: flex"
-                    ><router-link to="/">
-                      {{ btn[5].text }}
-                    </router-link></v-col
-                  >
-                </v-row>
-              </div>
-              <div style="display: flex; padding: 12px 0px">
-                <a href=""
-                  ><img :src="btn[0].logo_image" style="margin-right: 16px"
-                /></a>
-                <a href="">
-                  <img :src="btn[1].logo_image" style="margin-right: 16px" />
-                </a>
-                <a href=""
-                  ><img :src="btn[2].logo_image" style="margin-right: 16px" />
-                </a>
-              </div>
-            </div>
-            <p class="footer_info_reserve">
-              copyright 2022 GAMEINS All right reserved
-            </p>
+        </div>
+        <div class="email contact">
+          <div class="text-con">
+            <p class="text-title">Email</p>
+            <p>{{ text.email }}</p>
           </div>
-        </v-col>
-        <v-col cols="3" class="contact_btn_con">
-          <div class="contact_btn">
-            <div v-for="(btnText, index) in btn" :key="index">
-              <div class="btn">
-                <a
-                  v-if="btnText.text === 'INSTAGRAM' || btnText.text === 'BLOG'"
-                  :href="btnText.link"
-                >
-                  {{ btnText.text }}
-                  <img :src="btnText.logo_image" />
-                </a>
-                <router-link v-else :to="btnText.link">
-                  {{ btnText.text }}
-                  <img :src="btnText.logo_image" />
-                </router-link>
-              </div>
-            </div>
+        </div>
+        <div class="tel contact">
+          <div class="text-con">
+            <p class="text-title">Tel</p>
+            <p>{{ text.tel }}</p>
           </div>
-        </v-col>
-      </v-row>
+        </div>
+      </div>
+      <div class="icon-con">
+        <div class="icon-div" v-for="(item, index) in icon" :key="index">
+          <a :href="item.href">
+            <img :src="item.src" alt="logo" class="icon" />
+          </a>
+        </div>
+      </div>
+      <div class="copyright-con">
+        <div class="copyright">
+          Copyright 2023 TNT STUDIO All right reserved
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
 export default {
-  name: "FooterMain",
   data() {
     return {
-      btn: [
+      logo: require("@/assets/footer/scrollLogo.svg"),
+      text: {
+        location: "부산광역시 사상구 백양대로684 5F",
+        email: "gameinscokr@naver.com",
+        tel: "051-301-5908",
+      },
+      icon: [
         {
-          link: "https://blog.naver.com/gameinscokr",
-          text: "BLOG",
-          logo_image: require("@/assets/footer/blog.svg"),
+          src: require("@/assets/footer/TKlogo.svg"),
+          href: "http://xn--ef5bu9n7vbido5j.com/?page=0&sort=1&mod=0",
         },
         {
-          link: "https://www.instagram.com/tikintaka_official",
-          text: "INSTAGRAM",
-          logo_image: require("@/assets/footer/insta.svg"),
+          src: require("@/assets/footer/Youtubelogo.svg"),
+          href: "https://www.youtube.com/@tikintaka",
         },
         {
-          link: "/news",
-          text: "공지사항",
-          logo_image: require("@/assets/footer/certification.svg"),
+          src: require("@/assets/footer/Instalogo.svg"),
+          href: "https://www.instagram.com/tikintaka_official/",
         },
-        {
-          link: "/events",
-          text: "이벤트",
-          logo_image: require("@/assets/footer/certification.svg"),
-        },
-        {
-          link: "/ask",
-          text: "광고문의",
-          logo_image: require("@/assets/footer/message.svg"),
-        },
-        {
-          link: "/",
-          text: "개인정보처리방침",
-          logo_image: require("@/assets/footer/personal.svg"),
-        },
-        // {
-        //   link: "/way",
-        //   text: "오시는길",
-        //   logo_image: require("@/assets/footer/locate.svg"),
-        // },
       ],
     };
-  },
-  computed: {},
-  mounted() {
-    const mobile_reactive = document.querySelector(".small_btn_con");
-    const expand_reactive = document.querySelector(".contact_btn_con");
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth < 640) {
-        mobile_reactive.style.display = "block";
-        expand_reactive.style.display = "none";
-      } else {
-        mobile_reactive.style.display = "none";
-        expand_reactive.style.display = "block";
-      }
-    });
   },
 };
 </script>
 
 <style lang="scss" scoped>
+//PC XL
 @media screen and (min-width: 1300px) {
-  .footer_con {
-    display: flex;
+  .footer-con {
     width: 1300px;
-  }
-  .btn {
-    width: 170px;
-    height: 10px;
-    font-size: 0.9rem;
-    a {
-      width: 100%;
+    padding: 30px 0px;
+    .logo-con {
+      width: 10%;
+      display: flex;
+      .logo {
+        width: 117px;
+        height: 51px;
+      }
+    }
+    .contact-con {
+      width: 80%;
+      display: flex;
+      justify-content: left;
+      margin-left: 70px;
+      .email {
+        margin-left: 40px;
+      }
+      .tel {
+        margin-left: 40px;
+      }
+      .text-con {
+        font-size: 16px;
+        .text-title {
+          font-size: 18px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+    .icon-con {
+      display: flex;
+      width: 10%;
+      align-items: center;
+      justify-content: right;
+      .icon-div {
+        margin-left: 18px;
+        .icon {
+          width: 26px;
+          height: 26px;
+        }
+      }
     }
   }
-  .footer_info {
-    font-size: 0.9rem;
-  }
-  .logo_con {
-    margin-bottom: 8%;
-  }
-  .footer_logo {
-    width: 150px;
-    height: 36px;
-  }
-  .footer_info_reserve {
-    padding-top: 26px;
-  }
 }
+// PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
-  .footer_con {
-    display: flex;
+  .footer-con {
     width: 1080px;
-  }
-  .btn {
-    width: 160px;
-    height: 10px;
-    font-size: 0.9rem;
-    a {
-      width: 100%;
+    padding: 30px 0px;
+    .logo-con {
+      width: 10%;
+      display: flex;
+      .logo {
+        width: 117px;
+        height: 51px;
+      }
+    }
+    .contact-con {
+      width: 80%;
+      display: flex;
+      justify-content: left;
+      margin-left: 70px;
+      .email {
+        margin-left: 40px;
+      }
+      .tel {
+        margin-left: 40px;
+      }
+      .text-con {
+        font-size: 16px;
+        .text-title {
+          font-size: 18px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+    .icon-con {
+      display: flex;
+      width: 10%;
+      justify-content: right;
+      align-items: center;
+      .icon-div {
+        margin-left: 18px;
+        .icon {
+          width: 26px;
+          height: 26px;
+        }
+      }
     }
   }
-  .footer_info {
-    font-size: 0.9rem;
-  }
-  .logo_con {
-    margin-bottom: 8%;
-  }
-  .footer_logo {
-    width: 150px;
-    height: 36px;
-  }
-  .footer_info_reserve {
-    padding-top: 26px;
-  }
 }
+
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
-  .footer_con {
-    display: flex;
+  .footer-con {
     width: 760px;
-  }
-  .btn {
-    width: 140px;
-    height: 8px;
-    font-size: 0.725rem;
-    a {
-      width: 100%;
+    padding: 30px 0px;
+    .logo-con {
+      width: 10%;
+      display: flex;
+      .logo {
+        width: 80px;
+        height: 34px;
+      }
+    }
+    .contact-con {
+      width: 80%;
+      display: flex;
+      justify-content: left;
+      margin-left: 60px;
+      .email {
+        margin-left: 30px;
+      }
+      .tel {
+        margin-left: 30px;
+      }
+      .text-con {
+        font-size: 12px;
+        .text-title {
+          font-size: 14px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+    .icon-con {
+      display: flex;
+      width: 20%;
+      align-items: center;
+      justify-content: right;
+      .icon-div {
+        margin-left: 4px;
+        .icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
     }
   }
-  .footer_info {
-    font-size: 0.725rem;
-  }
-  .logo_con {
-    margin-bottom: 8%;
-  }
-  .footer_logo {
-    width: 130px;
-    height: 30px;
-  }
-  .footer_info_reserve {
-    padding-top: 26px;
-  }
 }
-// 태블릿
+
+// 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
-  .footer_con {
-    display: flex;
+  .footer-con {
     width: 640px;
-  }
-  .btn {
-    width: 120px;
-    height: 6px;
-    font-size: 0.425rem;
-    a {
+    padding: 30px 0px;
+    display: grid !important;
+    .logo-con {
       width: 100%;
+      text-align: center;
+      .logo {
+        width: 120px;
+        height: 53px;
+      }
     }
-  }
-  .footer_info {
-    font-size: 0.425rem;
-  }
-  .logo_con {
-    margin-bottom: 8%;
-  }
-  .footer_logo {
-    width: 130px;
-    height: 30px;
-  }
-
-  .footer_info_reserve {
-    padding-top: 26px;
+    .contact-con {
+      display: grid;
+      justify-content: center;
+      text-align: center;
+      margin-top: 20px;
+      .email {
+      }
+      .tel {
+      }
+      .text-con {
+        font-size: 15px;
+        .text-title {
+          display: none;
+          // font-size: 14px;
+          // margin-bottom: 4px;
+        }
+      }
+    }
+    .icon-con {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      .icon-div {
+        margin: 8px !important;
+        .icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    .copyright-con {
+      display: flex !important;
+    }
   }
 }
 
-// 휴대폰
+// 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
-  .footer_con {
-    width: 100%;
-    .footer_box {
-      width: 100% !important;
+  .footer-con {
+    width: 320px;
+    padding: 30px 0px;
+    display: grid !important;
+    .logo-con {
+      width: 100%;
+      text-align: center;
+      .logo {
+        width: 120px;
+        height: 53px;
+      }
     }
-  }
-  .btn {
-    width: 100px;
-    height: 20px;
-    font-size: 12px;
-    a {
-      width: 0;
+    .contact-con {
+      display: grid;
+      justify-content: center;
+      text-align: center;
+      margin-top: 20px;
+      .email {
+      }
+      .tel {
+      }
+      .text-con {
+        font-size: 15px;
+        .text-title {
+          display: none;
+          // font-size: 14px;
+          // margin-bottom: 4px;
+        }
+      }
     }
-  }
-  .footer_info {
-    font-size: 12px;
-  }
-  .footer_logo {
-    width: 80px;
-    height: 18px;
-  }
-  .logo_con {
-    margin-bottom: 12px;
+    .icon-con {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      .icon-div {
+        margin: 8px !important;
+        .icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    .copyright-con {
+      display: flex !important;
+    }
   }
 }
 
-/* 풋터 */
-
-.footer {
-  position: relative;
+.footer-section {
   width: 100%;
-  height: auto;
+  border-top: solid 1px rgb(230, 230, 230);
   background-color: #ffffff;
-  box-shadow: 0px 0px 1px 0px grey;
-}
+  .footer-con {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    .logo-con {
+      align-items: center;
+    }
+    .contact-con {
+      .email {
+      }
+      .tel {
+      }
+      .text-con {
+        font-family: "Pretendard-Regular";
+        .text-title {
+          color: rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+    .icon-con {
+      display: flex;
 
-.footer_con {
-  margin: auto;
-  justify-content: space-between;
-}
-
-.logo_con {
-  padding-top: 12px;
-}
-.footer_logo {
-  cursor: pointer;
-}
-.footer_info {
-  color: #000000;
-  font-family: "Pretendard-Regular";
-  margin-top: 12px;
-}
-.contact_btn {
-  display: grid;
-  width: 100%;
-  padding-top: 12px;
-  justify-content: right;
-}
-.btn {
-  border: solid 1px rgb(0, 0, 0);
-  display: flex;
-  align-items: center;
-  padding: 16px 6px 12px 6px;
-  margin: 3px;
-}
-a {
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-  justify-content: space-between;
-  display: flex;
+      .icon-div {
+        margin-left: 18px;
+      }
+    }
+  }
+  .copyright-con {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    .copyright {
+      font-family: "Pretendard-Regular";
+      font-size: 15px;
+      padding-top: 6px;
+    }
+  }
 }
 </style>

@@ -10,12 +10,8 @@
         <span>필요한 모든 것, 언제든지 연락주세요.</span>
       </div>
     </div>
-    <v-form
-      class="form_con"
-      ref="form"
-      v-model="valid"
-      @submit.prevent="submitForm"
-    >
+    <v-form class="form_con" ref="form" v-model="valid">
+      <!-- @submit.prevent="submitForm" -->
       <div class="info_form">
         <!-- <div class="form_title content" style="margin-bottom: 12px">
           <span>문의하기</span>
@@ -164,7 +160,7 @@
             <v-col cols="12">
               <v-file-input
                 variant="underlined"
-                v-model="images"
+                v-model="form.images"
                 :multiple="true"
                 label="이미지를 넣어주세요(중복 업로드 가능)"
                 accept="image/*"
@@ -175,7 +171,7 @@
           <v-row>
             <v-col
               variant="underlined"
-              v-for="(image, index) in imagePreviews"
+              v-for="(image, index) in form.imagePreviews"
               :key="index"
               cols="4"
             >
@@ -237,14 +233,16 @@ export default {
   }),
   methods: {
     preview() {
-      this.imagePreviews = [];
-      for (let i = 0; i < this.images.length; i++) {
+      console.log(this.form.images);
+      this.form.imagePreviews = [];
+      for (let i = 0; i < this.form.images.length; i++) {
         let reader = new FileReader();
-        reader.readAsDataURL(this.images[i]);
+        reader.readAsDataURL(this.form.images[i]);
         reader.onloadend = () => {
-          this.imagePreviews.push(reader.result);
+          this.form.imagePreviews.push(reader.result);
         };
       }
+      console.log(this.imagePreviews);
     },
     toggle() {
       this.selectedClass = ".my-color";
@@ -290,6 +288,11 @@ export default {
   },
 };
 </script>
+<style>
+.v-selection-control__input:hover::before {
+  opacity: 0.2;
+}
+</style>
 <style lang="scss" scoped>
 .my-color {
   background-color: #0174f5;
@@ -375,6 +378,7 @@ export default {
     margin-bottom: 100px;
   }
 }
+
 // PC XL
 @media screen and (min-width: 1300px) {
   .contact_section {

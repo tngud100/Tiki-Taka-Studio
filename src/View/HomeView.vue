@@ -1,11 +1,11 @@
 <template>
   <Header />
   <HomeBanner />
-  <HomeLongVod />
-  <HomeShortVod />
   <!-- <TestPageTrash /> -->
+  <HomeLongVod />
   <HomeSchedule />
   <HomeStudioEquipment />
+  <HomeShortVod />
   <HomeNewsEvents />
   <!-- <HomeAdverse /> -->
   <FooterMain />

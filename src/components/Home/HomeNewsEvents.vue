@@ -166,7 +166,7 @@ export default {
 @media screen and (min-width: 1300px) {
   .news-event-section {
     width: 1300px;
-    margin: 100px auto 30px auto;
+    margin: 100px auto 100px auto;
     .container {
       display: flex;
       justify-content: space-between;
@@ -199,7 +199,7 @@ export default {
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .news-event-section {
     width: 1080px;
-    margin: 100px auto 30px auto;
+    margin: 75px auto 75px auto;
     .container {
       display: flex;
       justify-content: space-between;
@@ -234,7 +234,7 @@ export default {
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .news-event-section {
     width: 760px;
-    margin: 80px auto 30px auto;
+    margin: 50px auto 50px auto;
     .container {
       display: flex;
       justify-content: space-between;
@@ -268,7 +268,7 @@ export default {
 @media screen and (min-width: 640px) and (max-width: 759px) {
   .news-event-section {
     width: 640px;
-    margin: 65px auto 30px auto;
+    margin: 50px auto 50px auto;
     .container {
       display: grid;
       padding: 12px;
@@ -305,7 +305,7 @@ export default {
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .news-event-section {
     width: 320px;
-    margin: 50px auto 30px auto;
+    margin: 30px auto 30px auto;
     .container {
       display: grid;
       padding: 10px;
@@ -342,7 +342,6 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
-  margin-bottom: 100px;
   .container {
     width: 100%;
 

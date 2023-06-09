@@ -3,7 +3,9 @@
     <HeaderTitle :title-data="title" />
     <div class="Text-con">
       <p class="Title">실시간 / 녹화 방송제작</p>
-      <p class="subTitle">당신의 컨텐츠가 만들어 지는곳</p>
+      <p class="subTitle">
+        모두를 위한 스튜디오 이곳에서 함께 콘텐츠를 만들어보세요
+      </p>
     </div>
     <!-- 서비스 안내 -->
     <div class="Service-con">
@@ -129,15 +131,15 @@ export default {
         {
           img: require("@/assets/studio/insta.svg"),
           title: "최첨단 방송장비",
-          desc1: "카메라, 조명, 음향",
+          desc1: "카메라, 조명, PC장비",
           desc2: "모든걸 한방에 해결!",
-          desc3: "전문 오퍼레이터 지원",
+          desc3: "",
         },
         {
           img: require("@/assets/studio/personal.svg"),
-          title: "양방향 방송제작",
-          desc1: "양방향 방송",
-          desc2: "",
+          title: "영상 촬영 및 편집 전문 인력",
+          desc1: "촬영팀 운영",
+          desc2: "편집팀 운영",
           desc3: "",
         },
         // {
@@ -302,10 +304,10 @@ export default {
         }
       }
       .Title {
-        font-size: 24px;
+        font-size: 22px;
       }
       .subTitle {
-        font-size: 20px;
+        font-size: 19px;
         letter-spacing: -1.7px;
       }
     }

@@ -23,7 +23,7 @@
           display: flex;
         "
       >
-        <hr style="width: 80%; margin: 15px 0px 30px 0px" color="#e6e6e6" />
+        <!-- <hr style="width: 80%; margin: 15px 0px 30px 0px" color="#e6e6e6" /> -->
       </div>
       <!-- <div class="icon-con">
         <a

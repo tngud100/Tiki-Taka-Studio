@@ -73,6 +73,7 @@ export default {
 @media screen and (min-width: 1300px) {
   .Service-cardCon {
     width: 1300px;
+    margin-bottom: 75px;
     .card1 {
       margin-left: 60px;
     }
@@ -106,6 +107,7 @@ export default {
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .Service-cardCon {
     width: 1080px;
+    margin-bottom: 75px;
     .card1 {
       margin-left: 24px;
     }
@@ -140,6 +142,7 @@ export default {
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .Service-cardCon {
     width: 760px;
+    margin-bottom: 50px;
     .card1 {
       margin-left: 24px;
     }
@@ -176,6 +179,7 @@ export default {
     width: 640px;
     flex-wrap: wrap !important;
 
+    margin-bottom: 30px;
     .service-card {
       margin: 12px;
       width: calc(50% - 24px) !important;
@@ -205,6 +209,7 @@ export default {
     width: 320px;
     flex-wrap: wrap !important;
 
+    margin-bottom: 30px;
     .service-card {
       margin: 12px;
       width: calc(50% - 24px) !important;
