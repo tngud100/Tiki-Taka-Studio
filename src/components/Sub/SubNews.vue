@@ -1,6 +1,6 @@
 <template>
   <section class="news_section">
-    <HeaderTitle :title-data="title" />
+    <HeaderTitle :title-data="title" :bg-image="bgImage"/>
     <div class="table_con">
       <thead
         :headers="header"
@@ -54,6 +54,11 @@ export default {
   data() {
     return {
       title: "회사소식",
+      bgImage: [
+        require("@/assets/banner/banner2560.svg"),
+        require("@/assets/banner/banner1300.svg"),
+        require("@/assets/banner/banner760.svg")
+      ],
       header: ["번호", "제목", "작성일자"],
       desserts: [
         {
@@ -84,8 +89,8 @@ export default {
   display: grid;
   position: relative;
   justify-content: center;
-  padding-bottom: 2%;
-  margin-top: 40px;
+  padding-bottom: 30px;
+  margin-top: 100px;
   .table_header {
     display: flex;
     text-align: center;
@@ -115,7 +120,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-bottom: 5%;
+  margin-bottom: 100px;
   .page_btn {
     margin: 0% 0.5%;
     cursor: pointer;

@@ -1,6 +1,6 @@
 <template>
   <section class="studio_section">
-    <HeaderTitle :title-data="title" />
+    <HeaderTitle :title-data="title" :bg-image="bgImage"/>
     <div class="Text-con">
       <p class="Title">실시간 / 녹화 방송제작</p>
       <p class="subTitle">
@@ -118,6 +118,11 @@ export default {
   data() {
     return {
       title: "스튜디오",
+      bgImage: [
+        require("@/assets/banner/banner2560.svg"),
+        require("@/assets/banner/banner1300.svg"),
+        require("@/assets/banner/banner760.svg")
+      ],
       rentalState: 0,
       studioState: 0,
       service: [
@@ -163,35 +168,35 @@ export default {
           thead: ["종류", "세부항목"],
           tbody: [
             {
-              td1: "오디오",
-              td2: "12채널 오디오 믹서 Focusrite 18i20 오디오 인터페이스 Mtrack 2x2 Cubase, Pro tools 프로그램",
+              td1: "촬영장비",
+              td2: "소니 FX3, 렌즈 (Meike-프라임 50mm T2.1), 렌즈 (ZEISS-Batis 18mm f/2.8), 마이크 (NEUMANN KK184+KM), 마이크 (RODE VideoMic NTG), 캠코더 ( HXRNX5R 789419)",
             },
             {
-              td1: "마이크",
-              td2: "COMICA WIRELESS 5대 (CVM - WM100) 젠하이저 핸드마이크2대 (xsw2 835) 젠하이저 핀마이크 3대 (xsw2 me2)",
-            },
-            {
-              td1: "카메라",
-              td2: "Panasonic X2000 4K 3대 USB CAM 광각 PTZ CAM",
+              td1: "PC 장비",
+              td2: "웹캠 (DSLR + 렌즈세트), 모니터 (32인치), PC (i9/DDR5 64G/M2 2TB/4090), PC (i7/DDR4 64G/M2 2TB/3060)",
             },
             {
               td1: "조명",
-              td2: "스탠드 조명 4대",
+              td2: "면조명",
+            },
+            {
+              td1: "악세사리",
+              td2: "삼각대 (Marsace MT2542), 짐벌 (DJI RONIN SC 2 PRO), 짐벌 (DJI 오리지널 RSC 2), 조명 (파보튜브2), 드론 (DJI Mavic 3 매빅 프리미엄)",
             },
           ],
         },
         {
-          thead: ["장소", "1시간", "2시간"],
+          thead: ["장소", "N시간"],
           tbody: [
             {
-              td1: "2층 대회의실",
-              td2: "4만원",
-              td3: "24만원",
+              td1: "5층 대회의실",
+              td2: "미정",
+              // td3: "24만원",
             },
             {
-              td1: "1층 소회의실",
-              td2: "3만원",
-              td3: "18만원",
+              td1: "4층 소회의실",
+              td2: "미정",
+              // td3: "18만원",
             },
           ],
         },
@@ -200,15 +205,15 @@ export default {
           tbody: [
             {
               td1: "양방향 운용(4시간)",
-              td2: "20만원",
+              td2: "미정",
             },
             {
               td1: "양방향 운용(1일)",
-              td2: "35만원",
+              td2: "미정",
             },
             {
               td1: "기획/연출/편집",
-              td2: "별도문의",
+              td2: "미정",
             },
           ],
         },

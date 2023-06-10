@@ -1,7 +1,7 @@
 <template>
   <section class="news_section">
     <HeaderNav />
-    <HeaderTitle :title-data="title" />
+    <HeaderTitle :title-data="title" :bg-image="bgImage" />
     <div class="container">
       <div class="box">
         <div class="title_con">
@@ -77,7 +77,13 @@ export default {
   data() {
     return {
       title: "회사소식",
+      bgImage: [
+        require("@/assets/banner/banner2560.svg"),
+        require("@/assets/banner/banner1300.svg"),
+        require("@/assets/banner/banner760.svg")
+      ],
     };
+    
   },
   components: {
     HeaderNav,

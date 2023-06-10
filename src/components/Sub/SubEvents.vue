@@ -1,7 +1,7 @@
 <template>
   <section class="events-section">
     <!-- <div class="bg"></div> -->
-    <HeaderTitle :title-data="title" />
+    <HeaderTitle :title-data="title" :bg-image="bgImage" />
     <div class="container">
       <div class="creator-con">
         <div
@@ -43,9 +43,15 @@ export default {
   components: {
     HeaderTitle,
   },
+  
   data() {
     return {
       title: "이벤트",
+      bgImage: [
+        require("@/assets/banner/banner2560.svg"),
+        require("@/assets/banner/banner1300.svg"),
+        require("@/assets/banner/banner760.svg")
+      ],
       creatorCard: [
         {
           name: "[구독 이벤트] 티키앤타카 채널 구독",

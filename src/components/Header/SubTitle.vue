@@ -1,14 +1,45 @@
 <template>
-  <div class="title-text">
-    <span class="main-title">{{ titleData }}</span>
+  <div class="title-text" :style="{ backgroundImage: `url(${currentBgImage})` }">
+    <span class="main-title" >{{ titleData }}</span>
   </div>
 </template>
 
 <script>
+// import { debounce } from 'lodash';
+
 export default {
   name: "SubTitle",
   props: {
     titleData: String,
+    bgImage: Array,
+  },
+  data() {
+    return {
+      currentBgImage: '',
+    };
+  },
+  methods: {
+    handleResize() {
+    const width = window.innerWidth;
+    console.log(this.bgImage[0])
+    console.log(this.bgImage[1])
+    console.log(this.bgImage[2])
+
+    if (width > 1300) {
+      this.currentBgImage = this.bgImage[0];
+    } else if (width > 760) {
+      this.currentBgImage = this.bgImage[1];
+    } else {
+      this.currentBgImage = this.bgImage[2];
+    }
+  },
+},
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   },
 };
 </script>
@@ -21,7 +52,7 @@ export default {
   width: 100%;
   position: relative;
   height: 200px;
-  background-color: cadetblue;
+  // background-color: cadetblue;
   .main-title {
     font-family: "Pretendard-Regular";
     font-weight: bold;

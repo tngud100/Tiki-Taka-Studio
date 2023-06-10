@@ -1,6 +1,6 @@
 <template>
   <section class="contact_section">
-    <HeaderTitle :title-data="title" />
+    <SubTitle :title-data="title" :bg-image="bgImage"/>
     <div class="title_con">
       <div class="title">
         <p>티키앤타카 스튜디오에게</p>
@@ -194,14 +194,19 @@
   </section>
 </template>
 <script>
-import HeaderTitle from "@/components/Header/SubTitle.vue";
+import SubTitle from "@/components/Header/SubTitle.vue";
 
 export default {
   components: {
-    HeaderTitle,
+    SubTitle,
   },
   data: () => ({
     title: "문의하기",
+    bgImage: [
+      require("@/assets/banner/banner2560.svg"),
+      require("@/assets/banner/banner1300.svg"),
+      require("@/assets/banner/banner760.svg")
+    ],
     form: {
       sex: "",
       name: "",
@@ -216,13 +221,13 @@ export default {
     },
     categoryList: [
       {
-        list: "유튜브 마켓팅",
+        list: "제작지원",
       },
       {
-        list: "SNS 마케팅",
+        list: "협찬문의",
       },
       {
-        list: "바이럴 마케팅",
+        list: "영상제작문의",
       },
       {
         list: "기타",
