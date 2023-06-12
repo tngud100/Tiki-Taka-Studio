@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { gsap, ScrollTrigger } from "gsap/all";
 export default {
   name: "StudioEquipment",
   data() {
@@ -64,6 +65,27 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const equip = gsap.timeline({ paused: true });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".studioLental-section",
+        start: "top+=150px bottom",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          equip.play();
+        },
+      },
+    });
+    equip.to(".card0", { duration: 1, bottom: 0, opacity: 1 }, "start+=1");
+    equip.to(".card1", { duration: 1, bottom: 0, opacity: 1 }, "start+=1.2");
+    equip.to(".card2", { duration: 1, bottom: 0, opacity: 1 }, "start+=1.4");
+    equip.to(".card3", { duration: 1, bottom: 0, opacity: 1 }, "start+=1.6");
   },
 };
 </script>
@@ -206,8 +228,10 @@ export default {
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .Service-cardCon {
-    width: 320px;
+    width: calc(100% - 20px);
     flex-wrap: wrap !important;
+    margin-bottom: 30px;
+    margin: 0px auto 30px auto;
 
     margin-bottom: 30px;
     .service-card {
@@ -241,11 +265,15 @@ export default {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
+
     .service-card {
       width: 25%;
       border: solid 1px rgb(163, 163, 163);
       text-align: center;
       border-radius: 5px;
+      bottom: -30px;
+      position: relative;
+      opacity: 0;
       .icon-con {
         .icon {
         }

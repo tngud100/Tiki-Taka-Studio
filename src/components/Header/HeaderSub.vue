@@ -233,7 +233,7 @@ export default {
       }
       a {
         margin: 0px 25px;
-        font-size: 20px;
+        font-size: 18px;
       }
       .menu-icon {
         a {
@@ -262,7 +262,7 @@ export default {
       }
       a {
         margin: 0px 25px;
-        font-size: 20px;
+        font-size: 18px;
       }
       .menu-icon {
         a {
@@ -292,7 +292,7 @@ export default {
       }
       a {
         margin: 0px 15px;
-        font-size: 16px;
+        font-size: 18px;
       }
       .menu-icon {
         a {
@@ -401,6 +401,9 @@ header {
           text-decoration: none;
           color: rgb(0, 0, 0);
           font-family: "Pretendard-Regular";
+        }
+        a:hover {
+          color: #805bea !important;
         }
       }
       .menu-icon {

@@ -2,7 +2,10 @@
   <section class="banner-section">
     <div class="carousel">
       <div class="image-container" id="imgs">
-        <div class="banner-img"></div>
+        <video muted autoplay loop class="banner-img">
+          <source :src="mov" type="video/mp4" />
+        </video>
+        <!-- <div class="banner-img"></div> -->
         <!-- <img
           :src="img.src2560"
           v-for="(img, index) in imgs"
@@ -16,10 +19,12 @@
 </template>
 
 <script>
+import { gsap } from "gsap/all";
 export default {
   name: "HomeBanner",
   data() {
     return {
+      mov: require("@/assets/banner/teaser.mp4"),
       // imgs: [
       //   {
       //     src2560: require("@/assets/banner/banner2560.svg"),
@@ -39,8 +44,15 @@ export default {
     };
   },
   mounted() {
-    //   const imgs = document.getElementById("imgs");
-    //   const img = document.querySelectorAll("#imgs img");
+    let tl = gsap.timeline();
+    tl.to(".image-container", {
+      height: "600px",
+      ease: 0.5,
+      duration: 1.3,
+      delay: 3,
+    });
+    // const banner = document.getElementById("image-container");
+    // const img = document.querySelectorAll("#imgs img");
     //   let idx = 0;
     //   function run() {
     //     idx++;
@@ -59,51 +71,34 @@ export default {
 //PC XL
 @media screen and (min-width: 1300px) {
   .image-container {
+    height: 600px;
     .banner-img {
-      background-image: url("@/assets/banner/banner2560.svg");
-      height: 600px !important;
-      width: 100%;
     }
   }
 }
 // PC
 @media screen and (min-width: 760px) and (max-width: 1300px) {
   .image-container {
+    height: 600px;
     .banner-img {
-      background-image: url("@/assets/banner/banner1300.svg");
-      height: 600px !important;
-      width: 100%;
+    }
+  }
+}
+//노트북
+@media screen and (min-width: 760px) and (max-width: 1080px) {
+  .image-container {
+    height: 600px;
+
+    .banner-img {
     }
   }
 }
 
-// 노트북
-// @media screen and (min-width: 760px) and (max-width: 1080px) {
-//   .image-container {
-//     .banner-img {
-//       background-image: url("@/assets/banner/banner1920.svg");
-//     }
-//     height: 600px;
-//   }
-// }
-
-// 테블릿
-// @media screen and (min-width: 640px) and (max-width: 759px) {
-//   .image-container {
-//     .banner-img {
-//       background-image: url("@/assets/banner/banner320.svg");
-//     }
-//     height: 320px;
-//   }
-// }
-
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 760px) {
   .image-container {
+    height: 320px !important;
     .banner-img {
-      background-image: url("@/assets/banner/banner760.svg");
-      height: 320px !important;
-      width: 100%;
     }
   }
 }
@@ -119,9 +114,14 @@ export default {
       display: flex;
       transition: transform 0.5s ease-in-out;
       transform: translateX(0);
+      width: 100%;
+      height: 100%;
       .banner-img {
-        background-size: cover;
-        background-position: center;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        // background-size: cover;
+        // background-position: center;
       }
     }
     .filter {
@@ -141,5 +141,21 @@ export default {
 
 a {
   text-decoration: none;
+}
+@keyframes openingPC {
+  from {
+    height: 100vh;
+  }
+  to {
+    height: 600px;
+  }
+}
+@keyframes openingMobile {
+  from {
+    height: 100vh;
+  }
+  to {
+    height: 320px;
+  }
 }
 </style>

@@ -4,7 +4,7 @@
       <div class="news">
         <div class="title-con">
           <span class="title">공지사항</span>
-          <router-link to="/news" class="detail">detail view</router-link>
+          <router-link to="/news" class="detail">VIEW MORE +</router-link>
         </div>
         <hr class="hr-margin" />
         <router-link
@@ -29,7 +29,7 @@
       <div class="events">
         <div class="title-con">
           <span class="title">이벤트</span>
-          <router-link to="/events" class="detail">detail view</router-link>
+          <router-link to="/events" class="detail">VIEW MORE +</router-link>
         </div>
         <hr class="hr-margin" />
         <router-link
@@ -148,7 +148,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".news-event-section",
-        start: "top+=100px bottom",
+        start: "top bottom",
         end: "+=50%",
         scrub: true,
         animation: news_event,
@@ -181,7 +181,7 @@ export default {
           font-size: 24px;
         }
         .detail {
-          font-size: 13px;
+          font-size: 16px;
         }
       }
       .list-con {
@@ -215,7 +215,7 @@ export default {
           font-size: 22px;
         }
         .detail {
-          font-size: 12px;
+          font-size: 14px;
         }
       }
       .list-con {
@@ -249,7 +249,7 @@ export default {
           font-size: 20px;
         }
         .detail {
-          font-size: 12px;
+          font-size: 13px;
         }
       }
       .list-con {
@@ -323,7 +323,7 @@ export default {
           font-size: 20px;
         }
         .detail {
-          font-size: 12px;
+          font-size: 13px;
         }
       }
       .list-con {
@@ -371,6 +371,9 @@ export default {
           text-decoration: none;
           color: black;
           cursor: pointer;
+        }
+        .detail:hover {
+          color: #805bea;
         }
       }
       .list-con {

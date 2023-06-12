@@ -1,6 +1,6 @@
 <template>
   <section class="news_section">
-    <HeaderTitle :title-data="title" :bg-image="bgImage"/>
+    <HeaderTitle :title-data="title" :bg-image="bgImage" />
     <div class="table_con">
       <thead
         :headers="header"
@@ -55,9 +55,9 @@ export default {
     return {
       title: "회사소식",
       bgImage: [
-        require("@/assets/banner/banner2560.svg"),
-        require("@/assets/banner/banner1300.svg"),
-        require("@/assets/banner/banner760.svg")
+        require("@/assets/banner/notify1920.svg"),
+        require("@/assets/banner/notify1300.svg"),
+        require("@/assets/banner/notify760.svg"),
       ],
       header: ["번호", "제목", "작성일자"],
       desserts: [

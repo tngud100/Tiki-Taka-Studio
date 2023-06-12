@@ -26,16 +26,18 @@
           </div>
         </div>
       </div>
-      <div class="icon-con">
-        <div class="icon-div" v-for="(item, index) in icon" :key="index">
-          <a :href="item.href">
-            <img :src="item.src" alt="logo" class="icon" />
-          </a>
+      <div>
+        <div class="icon-con">
+          <div class="icon-div" v-for="(item, index) in icon" :key="index">
+            <a :href="item.href">
+              <img :src="item.src" alt="logo" class="icon" />
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="copyright-con">
-        <div class="copyright">
-          Copyright 2023 TNT STUDIO All right reserved
+        <div class="copyright-con">
+          <div class="copyright">
+            <img :src="copyright" /> 2023 TNT STUDIO All right reserved
+          </div>
         </div>
       </div>
     </div>
@@ -47,6 +49,7 @@ export default {
   data() {
     return {
       logo: require("@/assets/footer/scrollLogo.svg"),
+      copyright: require("@/assets/footer/copyright.svg"),
       text: {
         location: "부산광역시 사상구 백양대로684 5F",
         email: "gameinscokr@naver.com",
@@ -54,8 +57,16 @@ export default {
       },
       icon: [
         {
+          src: require("@/assets/footer/Bloglogo.svg"),
+          href: "https://blog.naver.com/gameinscokr",
+        },
+        {
+          src: require("@/assets/footer/Bloglogo.svg"),
+          href: "https://blog.naver.com/bourjois13",
+        },
+        {
           src: require("@/assets/footer/TKlogo.svg"),
-          href: "http://xn--ef5bu9n7vbido5j.com/?page=0&sort=1&mod=0",
+          href: "http://www.xn--ef5bu9n7vbido5j.com/",
         },
         {
           src: require("@/assets/footer/Youtubelogo.svg"),
@@ -86,7 +97,7 @@ export default {
       }
     }
     .contact-con {
-      width: 80%;
+      width: 63%;
       display: flex;
       justify-content: left;
       margin-left: 70px;
@@ -106,15 +117,19 @@ export default {
     }
     .icon-con {
       display: flex;
-      width: 10%;
       align-items: center;
       justify-content: right;
       .icon-div {
-        margin-left: 18px;
+        margin-left: 10px;
         .icon {
           width: 26px;
           height: 26px;
         }
+      }
+    }
+    .copyright-con {
+      .copyright {
+        font-size: 14px;
       }
     }
   }
@@ -133,7 +148,7 @@ export default {
       }
     }
     .contact-con {
-      width: 80%;
+      width: 61%;
       display: flex;
       justify-content: left;
       margin-left: 70px;
@@ -153,15 +168,19 @@ export default {
     }
     .icon-con {
       display: flex;
-      width: 10%;
       justify-content: right;
       align-items: center;
       .icon-div {
-        margin-left: 18px;
+        margin-left: 10px;
         .icon {
-          width: 26px;
-          height: 26px;
+          width: 24px;
+          height: 24px;
         }
+      }
+    }
+    .copyright-con {
+      .copyright {
+        font-size: 14px;
       }
     }
   }
@@ -181,35 +200,39 @@ export default {
       }
     }
     .contact-con {
-      width: 80%;
+      width: 54%;
       display: flex;
       justify-content: left;
       margin-left: 60px;
+      align-items: center;
       .email {
-        margin-left: 30px;
+        margin-left: 8px;
       }
       .tel {
-        margin-left: 30px;
+        margin-left: 8px;
       }
       .text-con {
         font-size: 12px;
         .text-title {
           font-size: 14px;
-          margin-bottom: 4px;
         }
       }
     }
     .icon-con {
       display: flex;
-      width: 20%;
       align-items: center;
       justify-content: right;
       .icon-div {
-        margin-left: 4px;
+        margin-left: 5px;
         .icon {
           width: 20px;
           height: 20px;
         }
+      }
+    }
+    .copyright-con {
+      .copyright {
+        font-size: 12px;
       }
     }
   }
@@ -252,7 +275,7 @@ export default {
       justify-content: center;
       text-align: center;
       .icon-div {
-        margin: 8px !important;
+        margin: 4px !important;
         .icon {
           width: 20px;
           height: 20px;
@@ -302,7 +325,7 @@ export default {
       justify-content: center;
       text-align: center;
       .icon-div {
-        margin: 8px !important;
+        margin: 4px !important;
         .icon {
           width: 20px;
           height: 20px;
@@ -342,19 +365,15 @@ export default {
       display: flex;
 
       .icon-div {
-        margin-left: 18px;
       }
     }
   }
   .copyright-con {
-    display: none;
     align-items: center;
     justify-content: center;
     margin: auto;
     .copyright {
       font-family: "Pretendard-Regular";
-      font-size: 15px;
-      padding-top: 6px;
     }
   }
 }

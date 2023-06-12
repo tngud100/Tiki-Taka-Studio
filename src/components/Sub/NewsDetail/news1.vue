@@ -17,9 +17,8 @@
             <p>2023년 6월 10일, TNT Studio가 그랜드 오픈을 하게 되었습니다!</p>
             <br />
             <p>
-              TNT Studio에서는 창의력과 열정이 넘치는 컨텐츠를 제작하며, 다양한
-              장르의 풍부한 프로그램을 통해 여러분에게 새로운 경험을 제공할
-              것입니다.
+              TNT Studio에서는 창의력과 열정이 넘치는 콘텐츠를 제작하며, 다양한
+              장르로도 그 영역을 뻗어 여러분에게 새로운 경험을 제공할 것입니다.
             </p>
             <p>
               아티스트, 크리에이터, 그리고 팬들을 위한 이 공간이 여러분의 열정과
@@ -32,8 +31,12 @@
             </p>
             <p>
               최신 소식, 이벤트, 콘텐츠를 보다 빠르게 접하실 수 있으니, 아직
-              구독하지 않으셨다면 지금 바로 '티키앤타카' 유튜브 채널 구독과
-              커뮤니티 가입을 해주세요!
+              <span style="font-weight: bold; font-size: 17px">구독/가입</span>
+              하지 않으셨다면 지금 바로 티키앤타카 유튜브 채널
+              <span style="font-weight: bold; font-size: 17px">구독</span>과
+              티키앤타카 커뮤니티
+              <span style="font-weight: bold; font-size: 17px">가입</span>을
+              해주세요!
             </p>
             <br />
             <p>
@@ -78,12 +81,11 @@ export default {
     return {
       title: "회사소식",
       bgImage: [
-        require("@/assets/banner/banner2560.svg"),
-        require("@/assets/banner/banner1300.svg"),
-        require("@/assets/banner/banner760.svg")
+        require("@/assets/banner/notify1920.svg"),
+        require("@/assets/banner/notify1300.svg"),
+        require("@/assets/banner/notify760.svg"),
       ],
     };
-    
   },
   components: {
     HeaderNav,

@@ -73,9 +73,9 @@ export default {
     return {
       title: "이벤트",
       bgImage: [
-        require("@/assets/banner/banner2560.svg"),
-        require("@/assets/banner/banner1300.svg"),
-        require("@/assets/banner/banner760.svg")
+        require("@/assets/banner/event1920.svg"),
+        require("@/assets/banner/event1300.svg"),
+        require("@/assets/banner/event760.svg"),
       ],
     };
   },

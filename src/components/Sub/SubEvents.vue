@@ -43,14 +43,14 @@ export default {
   components: {
     HeaderTitle,
   },
-  
+
   data() {
     return {
       title: "이벤트",
       bgImage: [
-        require("@/assets/banner/banner2560.svg"),
-        require("@/assets/banner/banner1300.svg"),
-        require("@/assets/banner/banner760.svg")
+        require("@/assets/banner/event1920.svg"),
+        require("@/assets/banner/event1300.svg"),
+        require("@/assets/banner/event760.svg"),
       ],
       creatorCard: [
         {
@@ -200,7 +200,7 @@ export default {
       height: 30%;
     }
     .hover-text {
-      font-size: 26px;
+      font-size: 24px;
     }
     .creator-name {
       font-size: 22px;
@@ -303,7 +303,7 @@ export default {
       font-size: 18px;
     }
     .creator-name {
-      font-size: 18px;
+      font-size: 15px;
     }
     .creator-subscribe {
       font-size: 15px;
@@ -333,10 +333,10 @@ export default {
       height: 156px;
     }
     .hover-text {
-      font-size: 18px;
+      font-size: 16px;
     }
     .creator-name {
-      font-size: 18px;
+      font-size: 14px;
     }
     .creator-subscribe {
       font-size: 15px;

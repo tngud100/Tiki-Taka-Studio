@@ -1,6 +1,6 @@
 <template>
   <section class="studio_section">
-    <HeaderTitle :title-data="title" :bg-image="bgImage"/>
+    <HeaderTitle :title-data="title" :bg-image="bgImage" />
     <div class="Text-con">
       <p class="Title">실시간 / 녹화 방송제작</p>
       <p class="subTitle">
@@ -119,9 +119,9 @@ export default {
     return {
       title: "스튜디오",
       bgImage: [
-        require("@/assets/banner/banner2560.svg"),
-        require("@/assets/banner/banner1300.svg"),
-        require("@/assets/banner/banner760.svg")
+        require("@/assets/banner/studio1920.svg"),
+        require("@/assets/banner/studio1300.svg"),
+        require("@/assets/banner/studio760.svg"),
       ],
       rentalState: 0,
       studioState: 0,
@@ -725,6 +725,7 @@ export default {
     margin-top: 55px;
     .Text-con {
       margin: 70px auto 0px auto;
+      padding: 0px 12px;
       .Title {
         font-size: 26px;
       }
@@ -737,14 +738,14 @@ export default {
       margin: 60px auto 0px auto;
 
       .Sevice-Title {
-        width: 320px;
+        width: 100%;
         margin-bottom: 40px;
         font-size: 26px;
       }
     }
   }
   .Service-cardCon {
-    width: 320px;
+    width: calc(100% - 24px);
     flex-wrap: wrap !important;
 
     .service-card {
@@ -771,17 +772,21 @@ export default {
   .Rental-con {
     margin: 60px auto;
     .Rental-Title {
-      width: 320px;
+      width: 100%;
       margin-bottom: 40px;
       font-size: 20px;
     }
     .tab-con {
       .tab {
-        width: 320px;
+        width: calc(100% - 12px);
         .tab-list {
           width: 33%;
+          height: 75px;
           padding: 12px;
           margin: 16px;
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
           border-radius: 5px !important;
           .list-text {
             font-size: 14px;
@@ -789,7 +794,7 @@ export default {
         }
       }
       table {
-        width: 320px;
+        width: calc(100% - 20px);
         padding: 0px 10px;
 
         thead {

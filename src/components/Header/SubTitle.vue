@@ -1,6 +1,9 @@
 <template>
-  <div class="title-text" :style="{ backgroundImage: `url(${currentBgImage})` }">
-    <span class="main-title" >{{ titleData }}</span>
+  <div
+    class="title-text"
+    :style="{ backgroundImage: `url(${currentBgImage})` }"
+  >
+    <!-- <span class="main-title">{{ titleData }}</span> -->
   </div>
 </template>
 
@@ -15,31 +18,31 @@ export default {
   },
   data() {
     return {
-      currentBgImage: '',
+      currentBgImage: "",
     };
   },
   methods: {
     handleResize() {
-    const width = window.innerWidth;
-    console.log(this.bgImage[0])
-    console.log(this.bgImage[1])
-    console.log(this.bgImage[2])
+      const width = window.innerWidth;
+      console.log(this.bgImage[0]);
+      console.log(this.bgImage[1]);
+      console.log(this.bgImage[2]);
 
-    if (width > 1300) {
-      this.currentBgImage = this.bgImage[0];
-    } else if (width > 760) {
-      this.currentBgImage = this.bgImage[1];
-    } else {
-      this.currentBgImage = this.bgImage[2];
-    }
+      if (width > 1300) {
+        this.currentBgImage = this.bgImage[0];
+      } else if (width > 760) {
+        this.currentBgImage = this.bgImage[1];
+      } else {
+        this.currentBgImage = this.bgImage[2];
+      }
+    },
   },
-},
   mounted() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
     this.handleResize();
   },
   beforeUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>
@@ -50,8 +53,10 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 320px;
   position: relative;
-  height: 200px;
+  background-position: center center;
+  background-size: cover;
   // background-color: cadetblue;
   .main-title {
     font-family: "Pretendard-Regular";

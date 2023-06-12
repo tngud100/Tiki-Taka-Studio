@@ -1,14 +1,14 @@
 <template>
   <section class="studioLental-section">
     <div class="Title-con">
-      <span class="title">콘텐츠 맞춤 대여 서비스</span>
+      <span class="title">제공 서비스</span>
     </div>
     <div class="Schedule-con">
       <div class="TextCon">
-        <p class="textTitle">고객 맞춤 스튜디오 대여</p>
-        <p class="subTitle">서비스를 한 눈에</p>
-        <a class="viewMore" href="https://www.youtube.com/@tikintaka/playlists"
-          ><strong>자세히 보기</strong></a
+        <p class="textTitle">티키앤타카 스튜디오는</p>
+        <p class="subTitle">다양한 서비스를 제공합니다.</p>
+        <router-link to="/studio" class="viewMore"
+          ><strong>자세히 보기</strong></router-link
         >
       </div>
       <div class="swiper" ref="studioRef">
@@ -38,6 +38,8 @@ import SwiperCore, { Navigation, Autoplay } from "swiper";
 import "swiper/swiper-bundle.min.css";
 
 SwiperCore.use([Navigation, Autoplay]);
+
+import { gsap, ScrollTrigger } from "gsap/all";
 
 export default {
   name: "HomeStudioLental",
@@ -79,7 +81,24 @@ export default {
       ],
     };
   },
-  mounted() {},
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lental = gsap.timeline({ paused: true });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".studioLental-section",
+        start: "top+=100px bottom",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          lental.play();
+        },
+      },
+    });
+    lental.to(".Schedule-con", { duration: 1, left: 0, opacity: 1 }, "start");
+  },
 
   setup() {
     const studioRef = ref(null);
@@ -398,11 +417,12 @@ export default {
       }
     }
     .Schedule-con {
-      width: 300px;
+      width: calc(100% - 40px);
       height: auto;
       padding: 20px 20px;
+      margin: auto;
       display: grid !important;
-      justify-content: left;
+      justify-content: center;
       text-align: left;
       box-shadow: 1px 1px 5px 0px #c5c5c5;
       .TextCon {
@@ -446,7 +466,7 @@ export default {
     .swiper {
       width: 100%;
       .banner-img {
-        width: 234px;
+        width: 100%;
         height: 147px;
       }
       .banner-text {
@@ -473,6 +493,8 @@ export default {
     justify-content: right;
     border: solid 6px #f5f5f5;
     border-radius: 5px;
+    left: -30px;
+    opacity: 0;
     .TextCon {
       height: auto;
       .textTitle,
