@@ -155,7 +155,7 @@ export default {
 //PC XL
 @media screen and (min-width: 1300px) {
   .studioLental-section {
-    // margin-top: 100px;
+    margin-top: 100px;
     .Title-con {
       margin-bottom: 40px;
       .title {
@@ -215,7 +215,7 @@ export default {
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .studioLental-section {
-    // margin-top: 80px;
+    margin-top: 80px;
     .Title-con {
       margin-bottom: 35px;
       .title {
@@ -277,7 +277,7 @@ export default {
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .studioLental-section {
-    // margin-top: 50px;
+    margin-top: 50px;
     .Title-con {
       margin-bottom: 30px;
       .title {
@@ -341,7 +341,7 @@ export default {
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
   .studioLental-section {
-    // margin-top: 50px;
+    margin-top: 50px;
     .Title-con {
       margin-bottom: 30px;
       text-align: left;
@@ -408,7 +408,7 @@ export default {
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .studioLental-section {
-    // margin-top: 50px;
+    margin-top: 50px;
     .Title-con {
       margin-bottom: 30px;
       text-align: center;

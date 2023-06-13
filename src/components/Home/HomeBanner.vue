@@ -2,7 +2,7 @@
   <section class="banner-section">
     <div class="carousel">
       <div class="image-container" id="imgs">
-        <video muted autoplay loop class="banner-img">
+        <video :controls="false" muted autoplay loop class="banner-img">
           <source :src="mov" type="video/mp4" />
         </video>
         <!-- <div class="banner-img"></div> -->
@@ -24,7 +24,7 @@ export default {
   name: "HomeBanner",
   data() {
     return {
-      mov: require("@/assets/banner/teaser.mp4"),
+      mov: require("@/assets/banner/1920_2.mp4"),
       // imgs: [
       //   {
       //     src2560: require("@/assets/banner/banner2560.svg"),
@@ -49,7 +49,7 @@ export default {
       height: "600px",
       ease: 0.5,
       duration: 1.3,
-      delay: 3,
+      delay: 4.5,
     });
     // const banner = document.getElementById("image-container");
     // const img = document.querySelectorAll("#imgs img");
