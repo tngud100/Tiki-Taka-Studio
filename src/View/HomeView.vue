@@ -4,10 +4,10 @@
   <!-- <TestPageTrash /> -->
   <!-- <HomeSlogan /> -->
   <HomeInfo />
-  <HomeSchedule />
-  <!-- <HomeStudioEquipment /> -->
-  <!-- <HomeShortVod /> -->
+  <HomeStudioEquipment />
+  <HomeStudioLental />
   <HomeLongVod />
+  <!-- <HomeShortVod /> -->
   <HomeNewsEvents />
   <!-- <HomeAdverse /> -->
   <FooterMain />
@@ -22,8 +22,8 @@ import HomeBanner from "../components/Home/HomeBanner.vue";
 import HomeInfo from "../components/Home/HomeInfo.vue";
 
 // import HomeShortVod from "../components/Home/HomeShortVod.vue";
-import HomeSchedule from "../components/Home/HomeStudioLental.vue";
-// import HomeStudioEquipment from "../components/Home/HomeStudioEquipment.vue";
+import HomeStudioLental from "../components/Home/HomeStudioLental.vue";
+import HomeStudioEquipment from "../components/Home/HomeStudioEquipment.vue";
 // import TestPageTrash from "../components/trash/TestPageTrash.vue";
 import HomeLongVod from "../components/Home/HomeLongVod.vue";
 import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
@@ -40,8 +40,8 @@ export default {
     HomeInfo,
     // HomeShortVod,
     // TestPageTrash,
-    HomeSchedule,
-    // HomeStudioEquipment,
+    HomeStudioLental,
+    HomeStudioEquipment,
     // HomeAdverse,
     HomeLongVod,
     HomeNewsEvents,
