@@ -102,7 +102,7 @@ export default {
         href: "/events",
       },
       {
-        name: "스튜디오",
+        name: "서비스",
         href: "/studio",
       },
       {

@@ -1,8 +1,8 @@
 <template>
   <section class="studioLental-section">
-    <div class="Title-con">
+    <!-- <div class="Title-con">
       <span class="title">제공 서비스</span>
-    </div>
+    </div> -->
     <div class="Schedule-con">
       <div class="TextCon">
         <p class="textTitle">티키앤타카 스튜디오는</p>
@@ -47,36 +47,20 @@ export default {
     return {
       schedule: [
         {
+          src: require("@/assets/info/studio.svg"),
+          title: "영상 제작",
+        },
+        {
           src: require("@/assets/studio/studio1.svg"),
-          title: "로비A",
+          title: "촬영 공간/장비 대여",
         },
         {
-          src: require("@/assets/studio/studio2.svg"),
-          title: "로비B",
+          src: require("@/assets/info/education.svg"),
+          title: "교육",
         },
         {
-          src: require("@/assets/studio/studio3.svg"),
-          title: "로비C",
-        },
-        {
-          src: require("@/assets/studio/studio4.svg"),
-          title: "의상실",
-        },
-        {
-          src: require("@/assets/studio/studio5.svg"),
-          title: "크로마키(대)",
-        },
-        {
-          src: require("@/assets/studio/studio6.svg"),
-          title: "사무공간",
-        },
-        {
-          src: require("@/assets/studio/studio7.svg"),
-          title: "개인 방송실",
-        },
-        {
-          src: require("@/assets/studio/studio8.svg"),
-          title: "기획실",
+          src: require("@/assets/info/advertise.svg"),
+          title: "광고",
         },
       ],
     };
@@ -88,8 +72,8 @@ export default {
 
     gsap.timeline({
       scrollTrigger: {
-        trigger: ".studioLental-section",
-        start: "top+=100px bottom",
+        trigger: ".Schedule-con",
+        start: "top bottom",
         end: "+=50%",
         scrub: true,
         onEnter: () => {
@@ -155,7 +139,7 @@ export default {
 //PC XL
 @media screen and (min-width: 1300px) {
   .studioLental-section {
-    margin-top: 100px;
+    margin-top: 50px;
     .Title-con {
       margin-bottom: 40px;
       .title {
@@ -215,7 +199,7 @@ export default {
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .studioLental-section {
-    margin-top: 80px;
+    margin-top: 50px;
     .Title-con {
       margin-bottom: 35px;
       .title {
@@ -277,7 +261,7 @@ export default {
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .studioLental-section {
-    margin-top: 50px;
+    margin-top: 40px;
     .Title-con {
       margin-bottom: 30px;
       .title {
@@ -341,7 +325,7 @@ export default {
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
   .studioLental-section {
-    margin-top: 50px;
+    margin-top: 30px;
     .Title-con {
       margin-bottom: 30px;
       text-align: left;
@@ -408,7 +392,7 @@ export default {
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .studioLental-section {
-    margin-top: 50px;
+    margin-top: 30px;
     .Title-con {
       margin-bottom: 30px;
       text-align: center;

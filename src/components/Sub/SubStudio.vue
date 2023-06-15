@@ -1,6 +1,10 @@
 <template>
   <section class="studio_section">
-    <HeaderTitle :title-data="title" :bg-image="bgImage" />
+    <HeaderTitle
+      :title-data="title"
+      :sub-title-data="subTitle"
+      :bg-image="bgImage"
+    />
     <div class="Text-con">
       <p class="Title">실시간 / 녹화 방송제작</p>
       <p class="subTitle">
@@ -118,6 +122,7 @@ export default {
   data() {
     return {
       title: "스튜디오",
+      subTitle: "Studio",
       bgImage: [
         require("@/assets/banner/studio1920.svg"),
         require("@/assets/banner/studio1300.svg"),
@@ -128,24 +133,24 @@ export default {
       service: [
         {
           img: require("@/assets/studio/certification.svg"),
-          title: "스튜디오 대여",
-          desc1: "약 40평의",
-          desc2: "공간과 장비를",
-          desc3: "합리적인 가격에 대여",
+          title: "영상 제작",
+          desc1: "전문 영상제작팀이",
+          desc2: "업체의 목적에 부합하는",
+          desc3: "맞춤 영상 제작",
         },
         {
           img: require("@/assets/studio/insta.svg"),
-          title: "최첨단 방송장비",
-          desc1: "카메라, 조명, PC장비",
-          desc2: "모든걸 한방에 해결!",
-          desc3: "",
+          title: "촬영 공간/장비 대여",
+          desc1: "100평 규모의",
+          desc2: "스튜디오와 전문 촬영",
+          desc3: "장비 대여",
         },
         {
           img: require("@/assets/studio/personal.svg"),
-          title: "영상 촬영 및 편집 전문 인력",
-          desc1: "촬영팀 운영",
-          desc2: "편집팀 운영",
-          desc3: "",
+          title: "교육",
+          desc1: "1인 크리에이터",
+          desc2: "전문 강사진의 교육",
+          desc3: "자격증 발급",
         },
         // {
         //   img: require("@/assets/studio/locate.svg"),
@@ -156,10 +161,10 @@ export default {
         // },
         {
           img: require("@/assets/studio/message.svg"),
-          title: "실시간 스트리밍 서비스",
-          desc1: "유튜브",
-          desc2: "아프리카TV",
-          desc3: "양방향 소통 가능",
+          title: "광고",
+          desc1: "확실한 타깃의",
+          desc2: "채널을 이용해 브랜드와",
+          desc3: "제품을 효과적으로 마케팅",
         },
       ],
       tabList: ["스튜디오 기본장비", "회의실 임대", "스튜디오 임대"],

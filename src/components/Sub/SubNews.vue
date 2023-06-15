@@ -1,6 +1,10 @@
 <template>
   <section class="news_section">
-    <HeaderTitle :title-data="title" :bg-image="bgImage" />
+    <HeaderTitle
+      :title-data="title"
+      :sub-title-data="subTitle"
+      :bg-image="bgImage"
+    />
     <div class="table_con">
       <thead
         :headers="header"
@@ -53,7 +57,8 @@ export default {
   },
   data() {
     return {
-      title: "회사소식",
+      title: "공지사항",
+      subTitle: "Notify",
       bgImage: [
         require("@/assets/banner/notify1920.svg"),
         require("@/assets/banner/notify1300.svg"),

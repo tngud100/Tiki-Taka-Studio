@@ -1,6 +1,10 @@
 <template>
   <section class="contact_section">
-    <SubTitle :title-data="title" :bg-image="bgImage" />
+    <SubTitle
+      :title-data="title"
+      :sub-title-data="subTitle"
+      :bg-image="bgImage"
+    />
     <div class="title_con">
       <div class="title">
         <p>티키앤타카 스튜디오에게</p>
@@ -202,6 +206,7 @@ export default {
   },
   data: () => ({
     title: "문의하기",
+    subTitle: "Contact",
     bgImage: [
       require("@/assets/banner/contact1920.svg"),
       require("@/assets/banner/contact1300.svg"),

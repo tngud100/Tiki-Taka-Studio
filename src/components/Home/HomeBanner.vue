@@ -46,7 +46,7 @@ export default {
   mounted() {
     let tl = gsap.timeline();
     tl.to(".image-container", {
-      height: "600px",
+      height: "65vh",
       ease: 0.5,
       duration: 1.3,
       delay: 4.5,
@@ -71,7 +71,7 @@ export default {
 //PC XL
 @media screen and (min-width: 1300px) {
   .image-container {
-    height: 600px;
+    height: 65vh;
     .banner-img {
     }
   }
@@ -79,7 +79,7 @@ export default {
 // PC
 @media screen and (min-width: 760px) and (max-width: 1300px) {
   .image-container {
-    height: 600px;
+    height: 65vh;
     .banner-img {
     }
   }
@@ -87,7 +87,7 @@ export default {
 //노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .image-container {
-    height: 600px;
+    height: 65vh;
 
     .banner-img {
     }
@@ -97,7 +97,7 @@ export default {
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 760px) {
   .image-container {
-    height: 320px !important;
+    height: 65vh !important;
     .banner-img {
     }
   }
@@ -115,7 +115,7 @@ export default {
       transition: transform 0.5s ease-in-out;
       transform: translateX(0);
       width: 100%;
-      height: 100%;
+      height: 100vh;
       .banner-img {
         object-fit: cover;
         width: 100%;
@@ -147,15 +147,7 @@ a {
     height: 100vh;
   }
   to {
-    height: 600px;
-  }
-}
-@keyframes openingMobile {
-  from {
-    height: 100vh;
-  }
-  to {
-    height: 320px;
+    height: 65vh;
   }
 }
 </style>

@@ -1,7 +1,11 @@
 <template>
   <section class="events-section">
     <!-- <div class="bg"></div> -->
-    <HeaderTitle :title-data="title" :bg-image="bgImage" />
+    <HeaderTitle
+      :title-data="title"
+      :sub-title-data="subTitle"
+      :bg-image="bgImage"
+    />
     <div class="container">
       <div class="creator-con">
         <div
@@ -47,6 +51,7 @@ export default {
   data() {
     return {
       title: "이벤트",
+      subTitle: "Events",
       bgImage: [
         require("@/assets/banner/event1920.svg"),
         require("@/assets/banner/event1300.svg"),

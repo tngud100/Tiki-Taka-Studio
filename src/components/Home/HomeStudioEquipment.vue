@@ -1,19 +1,23 @@
 <template>
   <section class="Service-con">
-    <!-- <p class="Sevice-Title">서비스 소개</p> -->
+    <div class="Title-con">
+      <span class="title">제공 서비스</span>
+    </div>
     <div class="Service-cardCon">
       <div
         v-for="(item, index) in service"
         :key="index"
         :class="'service-card card' + index"
       >
-        <div class="icon-con">
-          <img :src="item.img" alt="icon" class="icon" />
-        </div>
-        <p class="Title">{{ item.title }}</p>
-        <p class="subTitle">{{ item.desc1 }}</p>
-        <p class="subTitle">{{ item.desc2 }}</p>
-        <p class="subTitle">{{ item.desc3 }}</p>
+        <router-link to="/studio">
+          <div class="icon-con">
+            <img :src="item.img" alt="icon" class="icon" />
+          </div>
+          <p class="Title">{{ item.title }}</p>
+          <p class="subTitle">{{ item.desc1 }}</p>
+          <p class="subTitle">{{ item.desc2 }}</p>
+          <p class="subTitle">{{ item.desc3 }}</p>
+        </router-link>
       </div>
     </div>
   </section>
@@ -30,24 +34,24 @@ export default {
       service: [
         {
           img: require("@/assets/studio/certification.svg"),
-          title: "스튜디오 대여",
-          desc1: "약 40평의",
-          desc2: "공간과 장비를",
-          desc3: "합리적인 가격에 대여",
+          title: "영상 제작",
+          desc1: "전문 영상제작팀이",
+          desc2: "업체의 목적에 부합하는",
+          desc3: "맞춤 영상 제작",
         },
         {
           img: require("@/assets/studio/insta.svg"),
-          title: "최첨단 방송장비",
-          desc1: "카메라, 조명, 음향",
-          desc2: "모든걸 한방에 해결!",
-          desc3: "전문 오퍼레이터 지원",
+          title: "촬영 공간/장비 대여",
+          desc1: "100평 규모의",
+          desc2: "스튜디오와 전문 촬영",
+          desc3: "장비 대여",
         },
         {
           img: require("@/assets/studio/personal.svg"),
-          title: "양방향 방송제작",
-          desc1: "양방향 방송",
-          desc2: "",
-          desc3: "",
+          title: "교육",
+          desc1: "1인 크리에이터",
+          desc2: "전문 강사진의 교육",
+          desc3: "자격증 발급",
         },
         // {
         //   img: require("@/assets/studio/locate.svg"),
@@ -58,10 +62,10 @@ export default {
         // },
         {
           img: require("@/assets/studio/message.svg"),
-          title: "실시간 스트리밍 서비스",
-          desc1: "유튜브",
-          desc2: "아프리카TV",
-          desc3: "양방향 소통 가능",
+          title: "광고",
+          desc1: "확실한 타깃의",
+          desc2: "채널을 이용해 브랜드와",
+          desc3: "제품을 효과적으로 마케팅",
         },
       ],
     };
@@ -73,8 +77,8 @@ export default {
 
     gsap.timeline({
       scrollTrigger: {
-        trigger: ".studioLental-section",
-        start: "top+=150px bottom",
+        trigger: ".Title-con",
+        start: "top bottom",
         end: "+=50%",
         scrub: true,
         onEnter: () => {
@@ -93,6 +97,12 @@ export default {
 <style lang="scss" scoped>
 //PC XL
 @media screen and (min-width: 1300px) {
+  .Title-con {
+    margin-bottom: 40px;
+    .title {
+      font-size: 30px;
+    }
+  }
   .Service-cardCon {
     width: 1300px;
     .card1 {
@@ -126,6 +136,12 @@ export default {
 }
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .Title-con {
+    margin-bottom: 35px;
+    .title {
+      font-size: 30px;
+    }
+  }
   .Service-cardCon {
     width: 1080px;
     .card1 {
@@ -160,6 +176,12 @@ export default {
 
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
+  .Title-con {
+    margin-bottom: 30px;
+    .title {
+      font-size: 24px;
+    }
+  }
   .Service-cardCon {
     width: 760px;
     .card1 {
@@ -194,6 +216,13 @@ export default {
 
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
+  .Title-con {
+    margin-bottom: 30px;
+    text-align: left;
+    .title {
+      font-size: 24px;
+    }
+  }
   .Service-cardCon {
     width: 640px;
     flex-wrap: wrap !important;
@@ -223,6 +252,13 @@ export default {
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
+  .Title-con {
+    margin-bottom: 30px;
+    text-align: center;
+    .title {
+      font-size: 24px;
+    }
+  }
   .Service-cardCon {
     width: calc(100% - 20px);
     flex-wrap: wrap !important;
@@ -249,10 +285,17 @@ export default {
     }
   }
 }
+
 .Service-con {
   display: grid;
   justify-content: center;
   margin: 15px auto 0px auto;
+  .Title-con {
+    .title {
+      font-family: "Pretendard-Regular";
+      font-weight: bold;
+    }
+  }
 
   .Service-cardCon {
     display: flex;
@@ -274,6 +317,7 @@ export default {
       .Title {
         font-family: "Pretendard-Regular";
         font-weight: bold;
+        color: black;
       }
       .subTitle {
         font-family: "Pretendard-Regular";
@@ -284,5 +328,8 @@ export default {
       border: solid 1px #805bea;
     }
   }
+}
+a {
+  text-decoration: none;
 }
 </style>

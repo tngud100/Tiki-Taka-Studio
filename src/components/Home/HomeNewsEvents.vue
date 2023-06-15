@@ -26,30 +26,28 @@
           <span class="list-detail"> - {{ item.subtitle }}</span>
         </router-link>
       </div>
-      <div class="events">
-        <div class="title-con">
-          <span class="title">이벤트</span>
-          <router-link to="/events" class="detail">VIEW MORE +</router-link>
+      <div class="announcer-con">
+        <div class="swiper" ref="bannerRef">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <img :src="img[0].src" class="banner-img" />
+            </div>
+            <div class="swiper-slide">
+              <img :src="img[1].src" class="banner-img" />
+            </div>
+            <div class="swiper-slide">
+              <img :src="img[2].src" class="banner-img" />
+            </div>
+            ...
+          </div>
+          <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev swiper-btn"></div>
+          <div class="swiper-button-next swiper-btn"></div>
+
+          <!-- If we need scrollbar -->
         </div>
-        <hr class="hr-margin" />
-        <router-link
-          :to="'events' + (index + 1)"
-          v-for="(item, index) in events"
-          :key="index"
-          class="list-con pc"
-        >
-          <span class="list-title">{{ item.title }}</span>
-          <span class="list-detail"> - {{ item.subtitle }}</span>
-        </router-link>
-        <router-link
-          :to="'events' + (index + 1)"
-          v-for="(item, index) in events_mobile"
-          :key="index"
-          class="list-con mobile"
-        >
-          <span class="list-title">{{ item.title }}</span>
-          <span class="list-detail"> - {{ item.subtitle }}</span>
-        </router-link>
       </div>
     </div>
   </section>
@@ -57,6 +55,15 @@
 
 <script>
 import { gsap, ScrollTrigger } from "gsap/all";
+
+import { onMounted, ref } from "vue";
+
+import Swiper from "swiper";
+import SwiperCore, { Navigation, Autoplay } from "swiper";
+import "swiper/swiper-bundle.min.css";
+
+SwiperCore.use([Navigation, Autoplay]);
+
 export default {
   name: "HomeNewsEvents",
   data() {
@@ -93,37 +100,16 @@ export default {
         //   subtitle: "이러이러한 공지사항이 있으며 ",
         // },
       ],
-      events: [
+      img: [
         {
-          title: "유튜브 채널 구독 EVENT",
-          subtitle: "구독 인증을 하면 티키앤타카 포인트 쏜다!",
+          src: require("@/assets/pairing/mon/Top피파.svg"),
         },
-        // {
-        //   title: "이벤트1",
-        //   subtitle: "이러이러한 이벤트가 있으며 ",
-        // },
-        // {
-        //   title: "이벤트1",
-        //   subtitle: "이러이러한 이벤트가 있으며 ",
-        // },
-        // {
-        //   title: "이벤트1",
-        //   subtitle: "이러이러한 이벤트가 있으며 ",
-        // },
-      ],
-      events_mobile: [
         {
-          title: "유튜브 채널 구독 EVENT",
-          subtitle: "구독 인증을 하면 티키앤타카 포인트 쏜다!",
+          src: require("@/assets/pairing/mon/TSL.svg"),
         },
-        // {
-        //   title: "이벤트1",
-        //   subtitle: "이러이러한 이벤트가 있으며 ",
-        // },
-        // {
-        //   title: "이벤트1",
-        //   subtitle: "이러이러한 이벤트가 있으며 ",
-        // },
+        {
+          src: require("@/assets/pairing/mon/피파의모든것.svg"),
+        },
       ],
     };
   },
@@ -144,11 +130,16 @@ export default {
       { duration: 0.5, left: 0, opacity: 1 },
       "start+=.4"
     );
+    news_event.to(
+      ".announcer-con",
+      { duration: 0.5, right: 0, opacity: 1 },
+      "start+=.4"
+    );
 
     gsap.timeline({
       scrollTrigger: {
         trigger: ".news-event-section",
-        start: "top bottom",
+        start: "top-=20% bottom",
         end: "+=50%",
         scrub: true,
         animation: news_event,
@@ -157,6 +148,26 @@ export default {
         },
       },
     });
+  },
+  setup() {
+    const bannerRef = ref(null);
+
+    onMounted(() => {
+      bannerRef.value = new Swiper(bannerRef.value, {
+        direction: "horizontal",
+        loop: false,
+        mousewheel: false,
+        speed: 300,
+
+        navigation: {
+          prevEl: ".swiper-button-prev",
+          nextEl: ".swiper-button-next",
+        },
+      });
+    });
+    return {
+      bannerRef,
+    };
   },
 };
 </script>
@@ -167,6 +178,10 @@ export default {
   .news-event-section {
     width: 1300px;
     margin: 100px auto 100px auto;
+    .announcer-con {
+      width: 450px;
+      margin-left: 20px;
+    }
     .container {
       display: flex;
       justify-content: space-between;
@@ -200,6 +215,10 @@ export default {
   .news-event-section {
     width: 1080px;
     margin: 75px auto 75px auto;
+    .announcer-con {
+      width: 400px;
+      margin-left: 10px;
+    }
     .container {
       display: flex;
       justify-content: space-between;
@@ -235,6 +254,10 @@ export default {
   .news-event-section {
     width: 760px;
     margin: 50px auto 50px auto;
+    .announcer-con {
+      width: 400px;
+      margin-left: 10px;
+    }
     .container {
       display: flex;
       justify-content: space-between;
@@ -269,6 +292,10 @@ export default {
   .news-event-section {
     width: 640px;
     margin: 50px auto 50px auto;
+    .announcer-con {
+      width: 400px;
+      margin-left: 10px;
+    }
     .container {
       display: grid;
       padding: 12px;
@@ -306,6 +333,10 @@ export default {
   .news-event-section {
     width: 320px;
     margin: 30px auto 30px auto;
+    .announcer-con {
+      width: 400px;
+      margin-left: 10px;
+    }
     .container {
       display: grid;
       padding: 10px;
@@ -360,8 +391,8 @@ export default {
         .title {
           font-family: "pretendard-Regular";
           font-weight: bold;
-          left: -15px;
           position: relative;
+          left: -15px;
           opacity: 0;
         }
         .detail {
@@ -384,17 +415,17 @@ export default {
         .list-title {
           font-family: "pretendard-Regular";
           font-weight: bold;
-          left: -15px;
           position: relative;
-          opacity: 0;
           color: black;
+          left: -15px;
+          opacity: 0;
         }
         .list-detail {
           font-family: "pretendard-Regular";
           color: rgb(109, 109, 109);
           margin: 12px 0px;
-          left: -15px;
           position: relative;
+          left: -15px;
           opacity: 0;
 
           text-overflow: ellipsis;
@@ -408,6 +439,25 @@ export default {
       .list-con:hover {
         background-color: whitesmoke;
       }
+    }
+  }
+  .announcer-con {
+    display: flex;
+    justify-content: right;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 0;
+    right: -30px;
+    opacity: 0;
+    position: relative;
+    .banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .swiper-btn {
+      color: white;
     }
   }
 }
