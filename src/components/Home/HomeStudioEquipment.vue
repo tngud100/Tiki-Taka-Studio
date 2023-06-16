@@ -86,10 +86,10 @@ export default {
         },
       },
     });
-    equip.to(".card0", { duration: 1, bottom: 0, opacity: 1 }, "start+=1");
-    equip.to(".card1", { duration: 1, bottom: 0, opacity: 1 }, "start+=1.2");
-    equip.to(".card2", { duration: 1, bottom: 0, opacity: 1 }, "start+=1.4");
-    equip.to(".card3", { duration: 1, bottom: 0, opacity: 1 }, "start+=1.6");
+    equip.to(".card0", { duration: 1, bottom: 0, opacity: 1 }, "start");
+    equip.to(".card1", { duration: 1, bottom: 0, opacity: 1 }, "start+=.2");
+    equip.to(".card2", { duration: 1, bottom: 0, opacity: 1 }, "start+=.4");
+    equip.to(".card3", { duration: 1, bottom: 0, opacity: 1 }, "start+=.6");
   },
 };
 </script>

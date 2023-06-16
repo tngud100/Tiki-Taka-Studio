@@ -12,9 +12,9 @@ const routes = [
     component: () => import("@/View/SubNewsView.vue"),
   },
   {
-    path: "/events",
-    name: "EventsPage",
-    component: () => import("@/View/SubEventsView.vue"),
+    path: "/intro",
+    name: "IntroPage",
+    component: () => import("@/View/SubIntroView.vue"),
   },
   {
     path: "/ask",

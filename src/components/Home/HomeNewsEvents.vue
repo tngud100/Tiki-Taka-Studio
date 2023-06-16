@@ -179,7 +179,7 @@ export default {
     width: 1300px;
     margin: 100px auto 100px auto;
     .announcer-con {
-      width: 450px;
+      width: 400px;
       margin-left: 20px;
     }
     .container {
@@ -255,7 +255,7 @@ export default {
     width: 760px;
     margin: 50px auto 50px auto;
     .announcer-con {
-      width: 400px;
+      width: 300px;
       margin-left: 10px;
     }
     .container {
@@ -293,7 +293,7 @@ export default {
     width: 640px;
     margin: 50px auto 50px auto;
     .announcer-con {
-      width: 400px;
+      width: 640px;
       margin-left: 10px;
     }
     .container {
@@ -331,11 +331,11 @@ export default {
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .news-event-section {
-    width: 320px;
+    width: 320;
     margin: 30px auto 30px auto;
     .announcer-con {
-      width: 400px;
-      margin-left: 10px;
+      width: 320px;
+      margin: auto;
     }
     .container {
       display: grid;

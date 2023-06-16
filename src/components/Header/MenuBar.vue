@@ -54,16 +54,16 @@ export default {
     return {
       menus: [
         {
-          title: "공지사항",
-          value: "/news",
+          title: "회사소개",
+          value: "/intro",
         },
         {
-          title: "이벤트",
-          value: "/events",
-        },
-        {
-          title: "스튜디오",
+          title: "서비스",
           value: "/studio",
+        },
+        {
+          title: "회사소식",
+          value: "/news",
         },
         {
           title: "문의하기",

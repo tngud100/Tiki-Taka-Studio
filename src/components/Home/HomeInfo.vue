@@ -17,7 +17,9 @@
             </span>
           </div>
           <div class="btn-box">
-            <div class="btn"><span class="btn-text">VIEW MORE</span></div>
+            <router-link to="/intro">
+              <div class="btn"><span class="btn-text">VIEW MORE</span></div>
+            </router-link>
           </div>
         </div>
         <div class="desc-image">
@@ -42,6 +44,9 @@ export default {
 <style lang="scss" scoped>
 //PC XL
 @media screen and (min-width: 1300px) {
+  .info-section {
+    background-image: url("@/assets/info/homeBG.svg");
+  }
   .info-con {
     width: 1000px;
     padding: 100px 0px 50px 0px;
@@ -86,6 +91,9 @@ export default {
 }
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .info-section {
+    background-image: url("@/assets/info/homeBG.svg");
+  }
   .info-con {
     width: 800px;
     padding: 100px 0px 0px 0px;
@@ -129,6 +137,9 @@ export default {
 
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
+  .info-section {
+    background-image: url("@/assets/info/homeBG.svg");
+  }
   .info-con {
     width: 700px;
     padding: 50px 0px 0px 0px;
@@ -174,6 +185,9 @@ export default {
 
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
+  .info-section {
+    background-image: url("@/assets/info/homeBG720.svg");
+  }
   .info-con {
     width: 600px;
     padding: 40px 0px 0px 0px;
@@ -219,6 +233,9 @@ export default {
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
+  .info-section {
+    background-image: url("@/assets/info/homeBG720.svg");
+  }
   .info-con {
     width: calc(100% - 24px);
     padding: 40px 0px 40px 0px;
@@ -269,7 +286,6 @@ export default {
 }
 .info-section {
   width: 100%;
-  background-image: url("@/assets/info/homeBG.svg");
   background-size: cover;
   background-position: center;
   .info-con {
@@ -314,11 +330,15 @@ export default {
           justify-content: center;
           text-align: center;
           align-items: center;
+
           cursor: pointer;
           .btn-text {
             font-family: "sans-serif";
             color: rgb(0, 0, 0);
           }
+        }
+        a {
+          text-decoration: none;
         }
         .btn:hover {
           background-color: rgb(221, 221, 221);

@@ -94,16 +94,16 @@ export default {
     ],
     menuList: [
       {
-        name: "공지사항",
-        href: "/news",
-      },
-      {
-        name: "이벤트",
-        href: "/events",
+        name: "회사소개",
+        href: "/intro",
       },
       {
         name: "서비스",
         href: "/studio",
+      },
+      {
+        name: "회사소식",
+        href: "/news",
       },
       {
         name: "문의하기",

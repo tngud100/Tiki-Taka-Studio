@@ -38,7 +38,7 @@
     </div>
     <div class="member-container">
       <div class="title-con">
-        <span class="title">MEMBER</span>
+        <span class="title">OUR MEMBERS</span>
       </div>
       <div class="card-con">
         <div
@@ -50,9 +50,8 @@
             <img class="card-img" :src="member.src" alt="member" />
           </div>
           <div class="text-con">
-            <span class="name"
-              ><p>{{ member.name }}</p></span
-            >
+            <span class="name">{{ member.name }}</span
+            ><br />
             <span class="position">{{ member.position }}</span>
 
             <p class="spec" v-for="(spec, index) in member.spec" :key="index">
@@ -68,7 +67,7 @@
 <script>
 import HeaderTitle from "@/components/Header/SubTitle.vue";
 export default {
-  name: "IntroPage",
+  // name: "IntroPage",
   components: {
     HeaderTitle,
   },
@@ -153,7 +152,7 @@ export default {
   }
   .ceo-container {
     width: 1300px;
-    height: 600px;
+    height: 350px;
     margin: 50px auto;
     padding: 15px;
     display: flex;
@@ -174,12 +173,11 @@ export default {
     }
     .CeoImg-con {
       position: absolute;
-      bottom: 0;
-      right: 150px;
+      top: -200px;
+      right: 0;
       padding: 12px;
       .ceo-img {
-        width: 100%;
-        height: 100%;
+        width: 75%;
         object-fit: cover;
       }
     }
@@ -208,11 +206,12 @@ export default {
       justify-content: left;
       margin: auto;
       align-items: center;
+      margin: 100px 0px;
     }
     .card {
       width: calc(25% - 24px);
-      height: 400px;
       margin: 12px;
+      position: relative;
       .img-con {
         height: 70%;
         width: 100%;
@@ -225,8 +224,22 @@ export default {
       }
       .text-con {
         font-family: "Pretendard-Regular";
-        font-size: 16px;
         text-align: center;
+        position: relative;
+        .name {
+          font-weight: bold;
+          font-size: 18px;
+          position: relative;
+          padding: 30px 0px 10px 0px;
+        }
+        .position {
+          position: relative;
+          font-size: 16px;
+          padding: 20px 0px;
+        }
+        .spec {
+          font-size: 14px;
+        }
       }
     }
   }

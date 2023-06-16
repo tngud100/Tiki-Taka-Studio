@@ -317,7 +317,7 @@ export default {
 }
 .contact_section {
   .title_con {
-    padding: 5% 0% 2% 0%;
+    padding: 5% 12px 2% 12px;
     display: grid;
     justify-content: left;
     align-items: center;
@@ -396,6 +396,7 @@ export default {
   }
   .title_con {
     width: 1300px;
+    padding: 5% 12px 2% 12px;
     margin: 0px auto;
   }
   .title {
@@ -437,6 +438,7 @@ export default {
   }
   .title_con {
     width: 1080px;
+    padding: 5% 12px 2% 12px;
     margin: 0px auto;
   }
   .title {
@@ -476,6 +478,7 @@ export default {
   }
   .title_con {
     width: 760px;
+    padding: 5% 12px 2% 12px;
     margin: 0px auto;
   }
   .title {
@@ -513,6 +516,7 @@ export default {
   }
   .title_con {
     width: 640px;
+    padding: 5% 12px 2% 12px;
     margin: 0px auto;
   }
   .title {
@@ -551,6 +555,7 @@ export default {
   }
   .title_con {
     width: 320px;
+    padding: 5% 12px 2% 12px;
     margin: 0px auto;
   }
   .title {

@@ -19,6 +19,7 @@
           v-for="(item, index) in service"
           :key="index"
           :class="'service-card card' + index"
+          @click="ServiceState(index)"
         >
           <div class="icon-con">
             <img :src="item.img" alt="icon" class="icon" />
@@ -30,106 +31,45 @@
         </div>
       </div>
     </div>
-    <!-- 임대비용 안내 -->
-    <div class="Rental-con">
-      <p class="Rental-Title">임대비용 안내</p>
-      <div class="tab-con">
-        <div class="tab">
-          <div
-            v-for="(item, index) in tabList"
-            :key="index"
-            class="tab-list"
-            :class="{ '--active': rentalState === index }"
-            @click="RentalState(index)"
-          >
-            <span class="list-text">{{ item }}</span>
-          </div>
-        </div>
-        <table
-          v-for="(table, index) in table"
-          :key="index"
-          :class="['tab' + index, { '--active': rentalState === index }]"
-        >
-          <thead>
-            <th
-              v-for="(thead, index) in table.thead"
-              :key="index"
-              :class="'thead' + index"
-            >
-              <span class="thead-text">{{ thead }}</span>
-            </th>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(tbody, index) in table.tbody"
-              :key="index"
-              class="tbody"
-            >
-              <td class="td0">{{ tbody.td1 }}</td>
-              <td class="td1">{{ tbody.td2 }}</td>
-              <td v-if="tbody.td3" class="td2">{{ tbody.td3 }}</td>
-            </tr>
-          </tbody>
-        </table>
+    <MakeFilm v-if="serviceState === 0" />
+    <EquipmentSpace v-if="serviceState === 1" />
+    <Education v-if="serviceState === 2" />
+    <Advertise v-if="serviceState === 3" />
+    <div class="btn-box">
+      <div class="btn">
+        <router-link to="/ask">
+          <span class="btn-text">문의하기</span>
+        </router-link>
       </div>
     </div>
-    <!-- 스튜디오 소개 -->
-    <!-- <div class="Studio-con">
-      <p class="Studio-Title">스튜디오 소개</p>
-      ※ 현재 스튜디오에 대한 사진 및 정보가 없으므로 개발 보류
-
-      <div class="tab-con">
-        <div class="tab">
-          <div
-            v-for="(item, index) in studioTab"
-            :key="index"
-            class="tab-list"
-            @click="StudioState(index)"
-          >
-            <span class="list-text">{{ item }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="intro-con">
-        <div
-          v-for="(studio, index) in studioIntro"
-          :key="index"
-          :class="['tab' + index, { '--active': studio === index }]"
-        >
-          <div
-            v-for="(instrument, index) in studio.instrument"
-            :key="index"
-            class="instrument-card"
-          >
-            <div class="img-con">
-              <img :src="instrument.src" class="img" />
-            </div>
-            <p class="instrument-text">{{ instrument.title }}</p>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </section>
 </template>
 
 <script>
 import HeaderTitle from "@/components/Header/SubTitle.vue";
+import EquipmentSpace from "./StudioDetail/EquipmentSapceRental.vue";
+import MakeFilm from "./StudioDetail/MakeFilm.vue";
+import Education from "./StudioDetail/Education.vue";
+import Advertise from "./StudioDetail/Advertise.vue";
 export default {
   name: "SubStudio",
   components: {
     HeaderTitle,
+    EquipmentSpace,
+    MakeFilm,
+    Education,
+    Advertise,
   },
   data() {
     return {
       title: "스튜디오",
       subTitle: "Studio",
+      serviceState: 1,
       bgImage: [
         require("@/assets/banner/studio1920.svg"),
         require("@/assets/banner/studio1300.svg"),
         require("@/assets/banner/studio760.svg"),
       ],
-      rentalState: 0,
-      studioState: 0,
       service: [
         {
           img: require("@/assets/studio/certification.svg"),
@@ -167,101 +107,11 @@ export default {
           desc3: "제품을 효과적으로 마케팅",
         },
       ],
-      tabList: ["스튜디오 기본장비", "회의실 임대", "스튜디오 임대"],
-      table: [
-        {
-          thead: ["종류", "세부항목"],
-          tbody: [
-            {
-              td1: "촬영장비",
-              td2: "소니 FX3, 렌즈 (Meike-프라임 50mm T2.1), 렌즈 (ZEISS-Batis 18mm f/2.8), 마이크 (NEUMANN KK184+KM), 마이크 (RODE VideoMic NTG), 캠코더 ( HXRNX5R 789419)",
-            },
-            {
-              td1: "PC 장비",
-              td2: "웹캠 (DSLR + 렌즈세트), 모니터 (32인치), PC (i9/DDR5 64G/M2 2TB/4090), PC (i7/DDR4 64G/M2 2TB/3060)",
-            },
-            {
-              td1: "조명",
-              td2: "면조명",
-            },
-            {
-              td1: "악세사리",
-              td2: "삼각대 (Marsace MT2542), 짐벌 (DJI RONIN SC 2 PRO), 짐벌 (DJI 오리지널 RSC 2), 조명 (파보튜브2), 드론 (DJI Mavic 3 매빅 프리미엄)",
-            },
-          ],
-        },
-        {
-          thead: ["장소", "N시간"],
-          tbody: [
-            {
-              td1: "5층 대회의실",
-              td2: "미정",
-              // td3: "24만원",
-            },
-            {
-              td1: "4층 소회의실",
-              td2: "미정",
-              // td3: "18만원",
-            },
-          ],
-        },
-        {
-          thead: ["구분", "비용 안내"],
-          tbody: [
-            {
-              td1: "양방향 운용(4시간)",
-              td2: "미정",
-            },
-            {
-              td1: "양방향 운용(1일)",
-              td2: "미정",
-            },
-            {
-              td1: "기획/연출/편집",
-              td2: "미정",
-            },
-          ],
-        },
-      ],
-      studioTab: ["스튜디오", "장비", "스트리밍"],
-      studioIntro: [
-        {
-          instrument: [
-            {
-              src: require("@/assets/studio/certification.svg"),
-              title: "제1스튜디오(라이브방송)",
-            },
-            {
-              src: require("@/assets/studio/certification.svg"),
-              title: "제1스튜디오(라이브방송)",
-            },
-            {
-              src: require("@/assets/studio/certification.svg"),
-              title: "제1스튜디오(라이브방송)",
-            },
-            {
-              src: require("@/assets/studio/certification.svg"),
-              title: "제1스튜디오(라이브방송)",
-            },
-            {
-              src: require("@/assets/studio/certification.svg"),
-              title: "제1스튜디오(라이브방송)",
-            },
-            {
-              src: require("@/assets/studio/certification.svg"),
-              title: "제1스튜디오(라이브방송)",
-            },
-          ],
-        },
-      ],
     };
   },
   methods: {
-    RentalState(index) {
-      this.rentalState = index;
-    },
-    StudioState(index) {
-      this.studioState = index;
+    ServiceState(index) {
+      this.serviceState = index;
     },
   },
 };
@@ -322,65 +172,6 @@ export default {
       }
     }
   }
-  .Rental-con {
-    margin: 100px auto 100px auto;
-    .Rental-Title {
-      width: 1300px;
-      margin-bottom: 50px;
-      font-size: 30px;
-    }
-    .tab-con {
-      .tab {
-        width: 1300px;
-        .tab-list {
-          width: 33%;
-          padding: 18px;
-          margin: 18px;
-          .list-text {
-            font-size: 20px;
-          }
-        }
-      }
-      table {
-        width: 1300px;
-        thead {
-          .thead0 {
-            width: 40%;
-            padding: 10px;
-            .thead-text {
-              font-size: 16px;
-            }
-          }
-          .thead1 {
-            width: 60%;
-            padding: 10px;
-            .thead-text {
-              font-size: 16px;
-            }
-          }
-        }
-        tbody {
-          .td0 {
-            width: 40%;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-          .td1 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-          .td2 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-        }
-      }
-    }
-  }
 }
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
@@ -433,65 +224,6 @@ export default {
       .subTitle {
         font-size: 18px;
         letter-spacing: -1.7px;
-      }
-    }
-  }
-  .Rental-con {
-    margin: 100px auto 100px auto;
-    .Rental-Title {
-      width: 1080px;
-      margin-bottom: 50px;
-      font-size: 30px;
-    }
-    .tab-con {
-      .tab {
-        width: 1080px;
-        .tab-list {
-          width: 33%;
-          padding: 18px;
-          margin: 18px;
-          .list-text {
-            font-size: 20px;
-          }
-        }
-      }
-      table {
-        width: 1080px;
-        thead {
-          .thead0 {
-            width: 40%;
-            padding: 10px;
-            .thead-text {
-              font-size: 16px;
-            }
-          }
-          .thead1 {
-            width: 60%;
-            padding: 10px;
-            .thead-text {
-              font-size: 16px;
-            }
-          }
-        }
-        tbody {
-          .td0 {
-            width: 40%;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-          .td1 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-          .td2 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-        }
       }
     }
   }
@@ -551,65 +283,6 @@ export default {
       }
     }
   }
-  .Rental-con {
-    margin: 80px auto;
-    .Rental-Title {
-      width: 760px;
-      margin-bottom: 40px;
-      font-size: 24px;
-    }
-    .tab-con {
-      .tab {
-        width: 760px;
-        .tab-list {
-          width: 33%;
-          padding: 14px;
-          margin: 18px;
-          .list-text {
-            font-size: 18px;
-          }
-        }
-      }
-      table {
-        width: 760px;
-        thead {
-          .thead0 {
-            width: 40%;
-            padding: 10px;
-            .thead-text {
-              font-size: 15px;
-            }
-          }
-          .thead1 {
-            width: 60%;
-            padding: 10px;
-            .thead-text {
-              font-size: 15px;
-            }
-          }
-        }
-        tbody {
-          .td0 {
-            width: 40%;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-          .td1 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-          .td2 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-        }
-      }
-    }
-  }
 }
 
 // 테블릿
@@ -658,67 +331,6 @@ export default {
       .subTitle {
         font-size: 14px;
         letter-spacing: -1.7px;
-      }
-    }
-  }
-  .Rental-con {
-    margin: 80px auto;
-    .Rental-Title {
-      width: 640px;
-      margin-bottom: 40px;
-      font-size: 22px;
-    }
-    .tab-con {
-      .tab {
-        width: 640px;
-        .tab-list {
-          width: 33%;
-          padding: 12px;
-          margin: 16px;
-          .list-text {
-            font-size: 16px;
-          }
-        }
-      }
-      table {
-        width: 640px;
-        padding: 0px 12px;
-
-        thead {
-          .thead0 {
-            width: 40%;
-            padding: 10px;
-            .thead-text {
-              font-size: 15px;
-            }
-          }
-          .thead1 {
-            width: 60%;
-            padding: 10px;
-            .thead-text {
-              font-size: 15px;
-            }
-          }
-        }
-        tbody {
-          .td0 {
-            width: 40%;
-            line-height: 1.6;
-            font-size: 14px;
-          }
-          .td1 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-          .td2 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 15px;
-          }
-        }
       }
     }
   }
@@ -774,73 +386,8 @@ export default {
       }
     }
   }
-  .Rental-con {
-    margin: 60px auto;
-    .Rental-Title {
-      width: 100%;
-      margin-bottom: 40px;
-      font-size: 20px;
-    }
-    .tab-con {
-      .tab {
-        width: calc(100% - 12px);
-        .tab-list {
-          width: 33%;
-          height: 75px;
-          padding: 12px;
-          margin: 16px;
-          display: flex !important;
-          align-items: center;
-          justify-content: center;
-          border-radius: 5px !important;
-          .list-text {
-            font-size: 14px;
-          }
-        }
-      }
-      table {
-        width: calc(100% - 20px);
-        padding: 0px 10px;
-
-        thead {
-          .thead0 {
-            width: 40%;
-            padding: 8px;
-            .thead-text {
-              font-size: 13px;
-            }
-          }
-          .thead1 {
-            width: 60%;
-            padding: 10px;
-            .thead-text {
-              font-size: 13px;
-            }
-          }
-        }
-        tbody {
-          .td0 {
-            width: 40%;
-            line-height: 1.6;
-            font-size: 12px;
-          }
-          .td1 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 13px;
-          }
-          .td2 {
-            width: 60%;
-            padding: 10px;
-            line-height: 1.6;
-            font-size: 13px;
-          }
-        }
-      }
-    }
-  }
 }
+
 .studio_section {
   .Text-con {
     text-align: center;
@@ -879,6 +426,7 @@ export default {
         // margin: 12px;
         border: solid 1px black;
         text-align: center;
+        cursor: pointer;
         .icon-con {
           // padding: 20px 0px;
           .icon {
@@ -903,189 +451,38 @@ export default {
       }
     }
   }
-  .Rental-con {
-    display: grid;
+}
+.btn-box {
+  margin: 0px auto 100px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .btn {
+    width: 150px;
+    height: 50px;
+    border: solid 1px rgb(0, 0, 0);
+    border-radius: 25px;
+    display: flex;
     justify-content: center;
-    .Rental-Title {
-      text-align: center;
-      font-family: "Pretendard-Regular";
-      font-weight: bold;
-      background-position: center;
-      background-image: url("@/assets/studio/titleLine.svg");
-    }
-    .tab-con {
-      display: grid;
-      .tab {
-        // width: 1300px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .tab-list {
-          // width: 33%;
-          // padding: 18px;
-          // margin: 18px;
-          text-align: center;
-          border: solid 1px #b89ffc;
-          border-radius: 40px;
-          box-sizing: border-box;
-          cursor: pointer;
-          .list-text {
-            font-family: "Pretendard-Regular";
-            // font-size: 20px;
-            font-weight: bold;
-          }
-        }
-        .--active {
-          background-color: #805bea;
-          color: white;
-        }
-      }
+    text-align: center;
+    align-items: center;
 
-      table {
-        // width: 1300px;
-        margin: auto;
-        border-spacing: 0px;
-        thead {
-          display: table;
-          width: 100%;
-          background-color: #ffffff;
-          border-top: solid 2px #805bea;
-          border-bottom: solid 1px #c2c2c2;
-          .thead0 {
-            // width: 40%;
-            // padding: 10px;
-            border-right: solid 1px #c2c2c2;
-            .thead-text {
-              font-family: "Pretendard-Regular";
-              // font-size: 16px;
-              font-weight: bold;
-            }
-          }
-          .thead1 {
-            // width: 60%;
-            // padding: 10px;
-            border-right: solid 1px #c2c2c2;
-            .thead-text {
-              font-family: "Pretendard-Regular";
-              // font-size: 16px;
-              font-weight: bold;
-            }
-          }
-        }
-        tbody {
-          width: 100%;
-          display: table;
-          text-align: center;
-          .td0 {
-            // width: 40%;
-            // padding: 10px;
-            border-bottom: solid 1px #c2c2c2;
-            border-right: solid 1px #c2c2c2;
-            // line-height: 1.6;
-            font-family: "Pretendard-Regular";
-            // font-size: 15px;
-          }
-          .td1 {
-            // width: 60%;
-            // padding: 10px;
-            border-bottom: solid 1px #c2c2c2;
-            border-right: solid 1px #c2c2c2;
-            // line-height: 1.6;
-            font-family: "Pretendard-Regular";
-            // font-size: 15px;
-          }
-          .td2 {
-            // width: 60%;
-            // padding: 10px;
-            // line-height: 1.6;
-            border-bottom: solid 1px #c2c2c2;
-            font-family: "Pretendard-Regular";
-            // font-size: 15px;
-          }
-        }
-      }
-      @for $i from 0 through 2 {
-        .tab#{$i} {
-          display: none;
-        }
-        @if $i == 1 {
-          .tab#{$i} {
-            .thead#{$i} {
-              width: 30%;
-              padding: 10px;
-            }
-            .td#{$i} {
-              width: 30%;
-              padding: 10px;
-            }
-          }
-        }
-      }
-      .--active {
-        display: block;
-      }
+    cursor: pointer;
+    .btn-text {
+      font-family: "sans-serif";
+      color: rgb(0, 0, 0);
     }
   }
+  a {
+    text-decoration: none;
+  }
+  .btn:hover {
+    background-color: #805bea;
+    border: solid 1px #805bea;
+    box-shadow: 1px 1px 5px 1px whitesmoke;
 
-  .Studio-con {
-    display: grid;
-    justify-content: center;
-    margin: 100px auto 0px auto;
-    .Studio-Title {
-      width: 1300px;
-      margin-bottom: 50px;
-      text-align: center;
-      font-family: "Pretendard-Regular";
-      font-size: 30px;
-      font-weight: bold;
-    }
-    .tab-con {
-      display: grid;
-      .tab {
-        width: 1300px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .tab-list {
-          width: 33%;
-          padding: 18px;
-          margin: 18px;
-          text-align: center;
-          border: solid 1px black;
-          border-radius: 40px;
-          box-sizing: border-box;
-          .list-text {
-            font-family: "Pretendard-Regular";
-            font-size: 20px;
-            font-weight: bold;
-          }
-        }
-      }
-    }
-    .intro-con {
-      width: 1300px;
-      margin-bottom: 100px;
-      .tab0 {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        .instrument-card {
-          width: 30%;
-          border: solid 1px #727272;
-          margin: 12px;
-          .img-con {
-            width: 100%;
-            height: 150px;
-            // object-fit: cover;
-          }
-          .instrument-text {
-            padding: 20px;
-            border-top: solid 1px #727272;
-            font-family: "Pretendard-Regular";
-            font-size: 16px;
-          }
-        }
-      }
+    .btn-text {
+      color: rgb(255, 255, 255);
     }
   }
 }

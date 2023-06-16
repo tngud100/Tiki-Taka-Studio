@@ -1,7 +1,7 @@
 <template>
   <!-- 임대비용 안내 -->
   <div class="Rental-con">
-    <p class="Rental-Title">임대비용 안내</p>
+    <p class="Rental-Title">촬영 공간 및 장비 대여</p>
     <div class="tab-con">
       <div class="tab">
         <div
@@ -47,7 +47,6 @@
         :class="{ '--active': rentalState === 1 }"
       >
         <!-- <p class="Studio-Title">스튜디오 소개</p> -->
-        ※ 현재 스튜디오에 대한 사진 및 정보가 없으므로 개발 보류
 
         <div class="tab-con">
           <div class="tab">
@@ -163,15 +162,27 @@ export default {
             },
             {
               src: require("@/assets/studio/studio4.svg"),
-              title: "의상실",
+              title: "드레스룸",
             },
             {
               src: require("@/assets/studio/studio5.svg"),
-              title: "제1스튜디오(라이브방송)",
+              title: "사무공간",
             },
             {
               src: require("@/assets/studio/studio6.svg"),
-              title: "사무공간",
+              title: "주방",
+            },
+            {
+              src: require("@/assets/studio/studio7.svg"),
+              title: "개인방송실",
+            },
+            {
+              src: require("@/assets/studio/studio8.svg"),
+              title: "크로마키실",
+            },
+            {
+              src: require("@/assets/studio/studio9.svg"),
+              title: "편집실",
             },
           ],
         },
@@ -550,7 +561,7 @@ export default {
     table {
       // width: 1300px;
       margin: auto;
-      margin-top: 100px;
+      margin-top: 50px;
 
       border-spacing: 0px;
       thead {
@@ -637,7 +648,7 @@ export default {
   .Studio-con {
     display: grid;
     justify-content: center;
-    margin: 100px auto 0px auto;
+    margin: 50px auto 0px auto;
 
     .Studio-Title {
       width: 1300px;
@@ -672,15 +683,14 @@ export default {
     }
     .instrument-con {
       width: 1300px;
-      margin-bottom: 100px;
       .instrument-wrap {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: left;
       }
       .instrument-card {
-        width: 30%;
+        width: calc(33% - 24px);
         border: solid 1px #b9b9b9;
         margin: 12px;
         border-radius: 5px;
