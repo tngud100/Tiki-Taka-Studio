@@ -3,7 +3,7 @@
     <div class="info-con">
       <div class="container">
         <div class="content">
-          <span class="company"> 티키앤타카 스튜디오 </span>
+          <span class="company">우리의 회사는</span>
           <span class="Title"> ABOUT US </span>
           <div class="text-con">
             <span class="describe">
@@ -305,7 +305,7 @@ export default {
         margin: 0px 0px 10px 0px;
       }
       .Title {
-        margin: 20px 0px 10px 0px;
+        margin: 0px 0px 10px 0px;
         font-family: "Pretendard-Regular";
         font-weight: bold;
         color: rgb(0, 0, 0);
@@ -341,7 +341,7 @@ export default {
           text-decoration: none;
         }
         .btn:hover {
-          background-color: rgb(221, 221, 221);
+          background-color: #f3f2ff;
           color: black;
           .btn-text {
             color: rgb(2, 2, 2);

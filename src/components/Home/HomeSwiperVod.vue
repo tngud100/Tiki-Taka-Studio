@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <carousel-3d :itemsToShow="1" :wrapAround="true" :transition="500">
+    <carousel-3d :display="3">
       <Slide v-for="(slide, i) in videoUrl" :key="slide" :index="i">
         <iframe
           borderRadius="5px"
@@ -36,7 +36,7 @@
 import { Carousel3d, Slide } from "vue3-carousel-3d";
 
 export default {
-  name: "HomeVodPage",
+  name: "HomeSwiperVod",
   components: {
     Carousel3d,
     Slide,
@@ -64,9 +64,9 @@ export default {
 
 <style lang="scss" scoped>
 .HomeVod {
-  width: 1300px;
+  width: 1000px;
   display: flex;
-  margin: 100px auto;
+  margin: 200px auto 100px;
 }
 .title-con {
   position: relative;
@@ -93,6 +93,7 @@ export default {
   }
 }
 .btn-box {
+  width: 50%;
   margin: 20px 0px 10px 0px;
   .btn {
     width: 150px;
@@ -101,6 +102,7 @@ export default {
     justify-content: center;
     text-align: center;
     align-items: center;
+    display: flex;
 
     cursor: pointer;
     .btn-text {
@@ -119,12 +121,18 @@ export default {
     }
   }
 }
+.carousel-3d-container {
+  width: 75%;
+  margin-left: 50px;
+  height: 200px !important;
+}
 .carousel-3d-slide {
   width: 360px !important;
   height: 200px !important;
   .YoutubePlayer {
     width: 100%;
     aspect-ratio: 16 / 9;
+    pointer-events: none;
   }
 }
 </style>

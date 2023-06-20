@@ -101,7 +101,7 @@ export default {
           spec: ["現 더크리에이터 대표이사", "現 TNT Studio 운영 실무 팀장"],
         },
         {
-          name: "하채원 Ha Chea Won",
+          name: "하채원 HaChea Won",
           src: require("@/assets/info/정시후 팀장.svg"),
 
           // src: require("@/assets/info/하채원 팀장.svg"),
@@ -121,6 +121,7 @@ export default {
 //PC XL
 @media screen and (min-width: 1300px) {
   .Intro-section {
+    margin-top: 80px;
     .Text-con {
       width: 1300px;
       margin: 100px auto 30px auto;
@@ -206,6 +207,7 @@ export default {
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .Intro-section {
+    margin-top: 70px;
     .Text-con {
       width: 1080px;
       margin: 100px auto 30px auto;
@@ -292,6 +294,7 @@ export default {
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .Intro-section {
+    margin-top: 60px;
     .Text-con {
       width: 760px;
       margin: 50px auto 30px auto;
@@ -344,7 +347,7 @@ export default {
     }
     .card-con {
       width: 760px;
-      margin: 50px auto;
+      margin: 50px auto 100px;
     }
     .card {
       width: calc(25% - 12px);
@@ -378,6 +381,7 @@ export default {
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
   .Intro-section {
+    margin-top: 55px;
     .Text-con {
       width: 640px;
       margin: 30px auto 0px auto;
@@ -406,7 +410,7 @@ export default {
     width: 640px;
     margin: 20px auto;
     padding: 15px;
-    height: 500px;
+    height: 650px;
     justify-content: center;
 
     .intro-con {
@@ -422,10 +426,10 @@ export default {
       }
     }
     .CeoImg-con {
-      bottom: -50px;
-      right: 150px;
+      bottom: -10px;
+      right: 120px;
       padding: 12px;
-      width: 45%;
+      width: 60%;
     }
   }
   .member-container {
@@ -437,12 +441,12 @@ export default {
       }
     }
     .card-con {
-      width: 760px;
-      margin: 50px auto;
+      width: 640px;
+      margin: 50px auto 75px;
+      justify-content: center !important;
     }
     .card {
-      width: calc(25% - 12px);
-      height: 285px;
+      width: calc(50% - 24px);
       margin: 6px;
       .img-con {
         height: 70%;
@@ -454,6 +458,8 @@ export default {
       }
     }
     .text-con {
+      padding-top: 6px !important;
+      padding-bottom: 12px;
       .name {
         font-size: 16px;
         padding: 30px 0px 10px 0px;
@@ -471,6 +477,106 @@ export default {
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
+  .Intro-section {
+    margin-top: 50px;
+    .Text-con {
+      width: calc(100% - 24px);
+      margin: 30px auto 0px auto;
+      justify-content: center !important;
+      text-align: center;
+      padding: 6px;
+      .sub-title {
+        font-size: 18px;
+        margin: 10px 15px 0px;
+        width: calc(100% - 24px);
+      }
+      .title {
+        font-size: 26px;
+        margin: 20px 15px;
+        width: calc(100% - 24px);
+      }
+      .detail-about {
+        font-size: 16px;
+        padding: 0px 0px;
+        margin: auto;
+
+        width: 100%;
+        .detail-point {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  .ceo-container {
+    width: 320px;
+    margin: 10px auto;
+    padding: 8px;
+    height: 570px;
+    justify-content: center;
+
+    .intro-con {
+      width: calc(100%);
+
+      .title {
+        font-size: 16px;
+        text-align: left;
+        line-height: 42px;
+      }
+      .title-value {
+        font-size: 16px;
+        line-height: 42px;
+      }
+    }
+    .CeoImg-con {
+      bottom: 0px;
+      right: 0px;
+      padding: 12px;
+      width: 100%;
+    }
+  }
+  .member-container {
+    .title-con {
+      width: calc(100% - 24px);
+
+      .title {
+        font-size: 26px;
+        margin: 20px 15px;
+      }
+    }
+    .card-con {
+      width: 100%;
+      margin: 30px auto 55px;
+      justify-content: center !important;
+    }
+    .card {
+      width: calc(50% - 24px);
+      margin: 6px;
+      .img-con {
+        height: 70%;
+        width: 100%;
+        .card-img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .text-con {
+      padding-top: 6px !important;
+      padding-bottom: 12px;
+      height: 150px;
+      .name {
+        font-size: 16px;
+        padding: 30px 0px 10px 0px;
+      }
+      .position {
+        font-size: 15px;
+        padding: 20px 0px;
+      }
+      .spec {
+        font-size: 13px;
+      }
+    }
+  }
 }
 .Intro-section {
   width: 100%;
@@ -560,11 +666,11 @@ export default {
         }
         .position {
           position: relative;
-          font-size: 16px;
+          font-size: 14px;
           padding: 20px 0px;
         }
         .spec {
-          font-size: 14px;
+          font-size: 11px;
         }
       }
     }

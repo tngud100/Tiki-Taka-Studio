@@ -43,7 +43,7 @@
 <script>
 import HeaderTitle from "@/components/Header/SubTitle.vue";
 export default {
-  name: "CreatorPage",
+  name: "SubEvents",
   components: {
     HeaderTitle,
   },

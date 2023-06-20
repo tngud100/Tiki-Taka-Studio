@@ -331,15 +331,15 @@ export default {
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .news-event-section {
-    width: 320;
-    margin: 30px auto 30px auto;
+    width: calc(100%-24px);
+    margin: 30px auto 70px auto;
     .announcer-con {
-      width: 320px;
+      width: 296px;
       margin: auto;
     }
     .container {
       display: grid;
-      padding: 10px;
+      padding: 8px;
       .mobile {
         display: grid !important;
       }
@@ -347,7 +347,7 @@ export default {
         display: none !important;
       }
       .news {
-        margin: 0px 1% 50px 1% !important;
+        margin: 20px 0px !important;
       }
       .title-con {
         .title {

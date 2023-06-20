@@ -4,11 +4,14 @@
   <!-- <TestPageTrash /> -->
   <!-- <HomeSlogan /> -->
   <HomeInfo />
-  <HomeStudioEquipment />
-  <HomeStudioLental />
-  <HomeLongVod />
+  <HomeService />
+  <!-- <HomeStudioEquipment />
+  <HomeStudioLental /> -->
+  <!-- <HomeLongVod /> -->
+  <HomeSwiperVod />
   <!-- <HomeShortVod /> -->
-  <HomeNewsEvents />
+  <!-- <HomeNewsEvents /> -->
+  <HomeNewsEdu />
   <!-- <HomeAdverse /> -->
   <FooterMain />
 </template>
@@ -20,13 +23,16 @@ import Header from "../components/Header/HeaderMain.vue";
 import HomeBanner from "../components/Home/HomeBanner.vue";
 // import HomeSlogan from "../components/Home/HomeSlogan.vue";
 import HomeInfo from "../components/Home/HomeInfo.vue";
+import HomeService from "../components/Home/HomeService.vue";
 
 // import HomeShortVod from "../components/Home/HomeShortVod.vue";
-import HomeStudioLental from "../components/Home/HomeStudioLental.vue";
-import HomeStudioEquipment from "../components/Home/HomeStudioEquipment.vue";
+// import HomeStudioLental from "../components/Home/HomeStudioLental.vue";
+// import HomeStudioEquipment from "../components/Home/HomeStudioEquipment.vue";
 // import TestPageTrash from "../components/trash/TestPageTrash.vue";
-import HomeLongVod from "../components/Home/HomeLongVod.vue";
-import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
+// import HomeLongVod from "../components/Home/HomeLongVod.vue";
+import HomeSwiperVod from "../components/Home/HomeSwiperVod.vue";
+// import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
+import HomeNewsEdu from "../components/Home/HomeNewsEdu.vue";
 // import HomeAdverse from "../components/Home/HomeAdvertise.vue";
 import FooterMain from "../components/Footer/FooterMain.vue";
 // import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
@@ -38,13 +44,16 @@ export default {
     HomeBanner,
     // HomeSlogan,
     HomeInfo,
+    HomeService,
     // HomeShortVod,
     // TestPageTrash,
-    HomeStudioLental,
-    HomeStudioEquipment,
+    // HomeStudioLental,
+    // HomeStudioEquipment,
     // HomeAdverse,
-    HomeLongVod,
-    HomeNewsEvents,
+    // HomeLongVod,
+    HomeSwiperVod,
+    // HomeNewsEvents,
+    HomeNewsEdu,
     FooterMain,
     // HomeYoutubeVod,
     // HomePairing,
