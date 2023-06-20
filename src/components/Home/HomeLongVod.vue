@@ -1,10 +1,26 @@
 <template>
   <section class="HomeLongVod">
+    <div class="title-con">
+      <div class="bgIcon">
+        <img :src="bgicon" alt="bgIcon" />
+      </div>
+      <p class="company">우리의 이야기는</p>
+      <p class="title">Our Program</p>
+      <p class="subtitle">저희는 자체적인 프로그램으로 다양한 영상을</p>
+      <p class="subtitle">
+        지속적으로 꾸준히 업로드하고 콘텐츠를 제작하고 있습니다.
+      </p>
+    </div>
+    <div class="btn-box">
+      <router-link to="/intro">
+        <div class="btn"><span class="btn-text">VIEW MORE</span></div>
+      </router-link>
+    </div>
     <div class="TextCon">
-      <span class="title">최신동영상</span>
-      <a class="viewMore" href="https://www.youtube.com/@tikintaka"
+      <!-- <span class="title">최신동영상</span> -->
+      <!-- <a class="viewMore" href="https://www.youtube.com/@tikintaka"
         >VIEW MORE +</a
-      >
+      > -->
     </div>
     <swiper
       @swiper="setThumbsSwiper"
@@ -122,6 +138,7 @@ export default {
   },
   data() {
     return {
+      bgicon: require("@/assets/service/bg_element1.svg"),
       players: [],
       thumbsSwiper: null,
       thumbsSwiper2: null,
@@ -659,7 +676,6 @@ export default {
   .SecondSwiper {
     width: 90%;
     height: 115px;
-    margin-bottom: 30px;
     .SecondCon {
       .imgCon {
         width: 120px;
@@ -690,6 +706,60 @@ export default {
 .HomeLongVod {
   display: grid;
   justify-content: center;
+  background-image: url(@/assets/Vodbackground.svg);
+  z-index: -2;
+}
+.title-con {
+  position: relative;
+  text-align: left;
+  .bgIcon {
+    position: absolute;
+    top: 0;
+    left: -30px;
+    z-index: -1;
+  }
+  .company {
+    font-family: "Pretendard-Regular";
+    font-size: 20px;
+  }
+  .title {
+    font-family: "Pretendard-Regular";
+    font-size: 38px;
+    font-weight: bold;
+    padding-bottom: 18px;
+  }
+  .subtitle {
+    font-family: "Pretendard-Regular";
+    font-size: 18px;
+  }
+}
+.btn-box {
+  margin: 20px 0px 10px 0px;
+  .btn {
+    width: 150px;
+    height: 50px;
+    border: solid 1px rgb(0, 0, 0);
+    display: none;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+    cursor: pointer;
+    .btn-text {
+      font-family: "sans-serif";
+      color: rgb(0, 0, 0);
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+  .btn:hover {
+    background-color: #f3f2ff;
+    color: black;
+    .btn-text {
+      color: rgb(2, 2, 2);
+    }
+  }
 }
 .TextCon {
   display: flex;
@@ -714,16 +784,23 @@ export default {
   .FirstCon {
     display: flex;
     align-items: center;
+    flex-direction: row-reverse;
+    justify-content: left;
 
     .FirstImg {
     }
     .FirstText {
-      overflow: hidden;
-      margin-left: 80px;
+      margin-left: 0px;
       width: 360px;
+      height: 100%;
+      align-items: center;
+      padding: 0px 80px;
+      background-color: #f3f2ff;
+
       .title {
         color: #b0b0b0;
         font-family: "Pretendard-Regular";
+        margin-top: 60px;
       }
       .subTitle {
         color: #000000;
