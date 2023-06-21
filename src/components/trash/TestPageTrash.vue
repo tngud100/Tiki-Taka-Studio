@@ -1,130 +1,183 @@
 <template>
-  <section class="HomeVod">
-    <div class="title-con">
-      <div class="bgIcon">
-        <img :src="bgicon" alt="bgIcon" />
-      </div>
-      <p class="company">우리의 이야기는</p>
-      <p class="title">Our Program</p>
-      <p class="subtitle">저희는 자체적인 프로그램으로 다양한 영상을</p>
-      <p class="subtitle">
-        지속적으로 꾸준히 업로드하고 콘텐츠를 제작하고 있습니다.
-      </p>
-      <div class="btn-box">
-        <router-link to="/intro">
-          <div class="btn"><span class="btn-text">VIEW MORE</span></div>
-        </router-link>
+  <section class="schedule-section">
+    <div class="Title-con"><span class="title">TNT 프로그램</span></div>
+    <div class="Schedule-con">
+      <div class="swiper" ref="bannerRef" :style="{}">
+        <div class="swiper-wrapper">
+          <div
+            class="swiper-slide slide-con"
+            v-for="(item, index) in schedule"
+            :key="index"
+          >
+            <img :src="item.src" class="banner-img" />
+            <div class="TextCon">
+              <p class="textTitle">{{ item.title }}</p>
+              <p class="subTitle">{{ item.subTitle }}</p>
+              <a
+                class="viewMore"
+                href="https://www.youtube.com/@tikintaka/playlists"
+                ><strong>바로가기</strong></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="swiper-btn">
+          <div
+            class="swiper-button-prev swiper-btn"
+            style="
+              color: black;
+              background-color: #f5f5f5;
+              position: relative;
+              width: 77px;
+              height: 77px;
+              border-radius: 10px 0px 0px 10px;
+            "
+          ></div>
+          <div
+            class="swiper-button-next swiper-btn"
+            style="
+              color: black;
+              background-color: #f5f5f5;
+              position: relative;
+              width: 77px;
+              height: 77px;
+            "
+          ></div>
+        </div>
       </div>
     </div>
-
-    <carousel-3d :itemsToShow="1" :wrapAround="true" :transition="500">
-      <Slide v-for="(slide, i) in videoUrl" :key="slide" :index="i">
-        <iframe
-          borderRadius="5px"
-          :src="slide"
-          allow="geolocation"
-          frameborder="0"
-          allowfullscreen
-          class="YoutubePlayer"
-        ></iframe>
-      </Slide>
-    </carousel-3d>
   </section>
 </template>
 
 <script>
-import { Carousel3d, Slide } from "vue3-carousel-3d";
+import { onMounted, ref } from "vue";
+import Swiper from "swiper";
+import SwiperCore, { Navigation, Autoplay } from "swiper";
+import "swiper/swiper-bundle.min.css";
+
+SwiperCore.use([Navigation, Autoplay]);
 
 export default {
-  name: "HomeVodPage",
-  components: {
-    Carousel3d,
-    Slide,
-  },
-
+  name: "TestPageTrash",
   data() {
     return {
-      bgicon: require("@/assets/service/bg_element1.svg"),
-      videoUrl: [
-        "https://www.youtube.com/embed/dVyLFjjs3J4?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/AjBQvuHZ86o?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/-TZdot4JA7w?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/E16qlkAKwtY?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/1gED0_NSmXU?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/xJAKV0DVlWE?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/auUgzMmrqP8?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/wh-DCVr1wOY?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/NIRhxNNKXdE?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/Tl_oXL9YQEM?rel=0&enablejsapi=1",
+      schedule: [
+        {
+          src: require("@/assets/pairing/mon/Top피파.svg"),
+          title: "TOP피파",
+          subTitle: "대한민국 최고의 프로게이머를 찾아보는 시간",
+        },
+        {
+          src: require("@/assets/pairing/mon/TSL.svg"),
+          title: "TOP피파",
+          subTitle: "대한민국 최고의 프로게이머를 찾아보는 시간",
+        },
+        {
+          src: require("@/assets/pairing/mon/피파의모든것.svg"),
+          title: "TOP피파",
+          subTitle: "대한민국 최고의 프로게이머를 찾아보는 시간",
+        },
       ],
+    };
+  },
+  mounted() {},
+
+  setup() {
+    const bannerRef = ref(null);
+
+    onMounted(() => {
+      bannerRef.value = new Swiper(bannerRef.value, {
+        direction: "horizontal",
+        loop: false,
+        mousewheel: false,
+        speed: 300,
+
+        navigation: {
+          prevEl: ".swiper-button-prev",
+          nextEl: ".swiper-button-next",
+        },
+      });
+    });
+    return {
+      bannerRef,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.HomeVod {
-  width: 1300px;
-  display: flex;
-  margin: 100px auto;
-}
-.title-con {
-  position: relative;
-  text-align: left;
-  .bgIcon {
-    position: absolute;
-    top: 0;
-    left: -30px;
-    z-index: -1;
+.schedule-section {
+  width: 100%;
+  display: grid;
+  margin-top: 100px;
+  margin-bottom: 60px;
+  justify-content: center;
+  .Title-con {
+    margin-bottom: 20;
+    .title {
+      font-family: "Pretendard-Regular";
+      font-size: 30px;
+      font-weight: bold;
+    }
   }
-  .company {
-    font-family: "Pretendard-Regular";
-    font-size: 20px;
-  }
-  .title {
-    font-family: "Pretendard-Regular";
-    font-size: 38px;
-    font-weight: bold;
-    padding-bottom: 18px;
-  }
-  .subtitle {
-    font-family: "Pretendard-Regular";
-    font-size: 18px;
-  }
-}
-.btn-box {
-  margin: 20px 0px 10px 0px;
-  .btn {
-    width: 150px;
-    height: 50px;
-    border: solid 1px rgb(0, 0, 0);
-    justify-content: center;
-    text-align: center;
+  .Schedule-con {
+    width: 1300px;
+    display: flex;
     align-items: center;
+    justify-content: right;
+    border: solid 6px #f5f5f5;
+    border-radius: 5px;
+    .slide-con {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      .banner-img {
+        width: 630px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .TextCon {
+        height: auto;
+        margin-left: 40px;
+        .textTitle {
+          font-family: "Pretendard-Regular";
+          font-size: 22px;
+          font-weight: bold;
+        }
+        .subTitle {
+          font-family: "Pretendard-Regular";
+          font-size: 18px;
+        }
+      }
+      .viewMore {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 140px;
+        height: 48px;
+        margin-top: 50px;
+        border-radius: 50px;
+        border: solid 1px #805bea;
+        text-decoration: none;
 
-    cursor: pointer;
-    .btn-text {
-      font-family: "sans-serif";
-      color: rgb(0, 0, 0);
+        strong {
+          font-size: 18px;
+          font-family: "Pretendard-Regular";
+          font-weight: bold;
+          color: #805bea;
+        }
+      }
     }
-  }
-  a {
-    text-decoration: none;
-  }
-  .btn:hover {
-    background-color: #f3f2ff;
-    color: black;
-    .btn-text {
-      color: rgb(2, 2, 2);
+
+    .swiper-btn {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 0;
+      bottom: 0;
     }
-  }
-}
-.carousel-3d-slide {
-  width: 360px !important;
-  height: 200px !important;
-  .YoutubePlayer {
-    width: 100%;
-    aspect-ratio: 16 / 9;
   }
 }
 </style>

@@ -5,13 +5,14 @@
   <!-- <HomeSlogan /> -->
   <HomeInfo />
   <HomeService />
-  <!-- <HomeStudioEquipment />
-  <HomeStudioLental /> -->
+  <!-- <HomeStudioEquipment /> -->
+  <!-- <HomeStudioLental /> -->
   <!-- <HomeLongVod /> -->
-  <HomeSwiperVod />
+  <!-- <HomeSwiperVod /> -->
+  <HomeSlideVod />
   <!-- <HomeShortVod /> -->
-  <!-- <HomeNewsEvents /> -->
-  <HomeNewsEdu />
+  <HomeNewsEvents />
+  <!-- <HomeNewsEdu /> -->
   <!-- <HomeAdverse /> -->
   <FooterMain />
 </template>
@@ -30,9 +31,10 @@ import HomeService from "../components/Home/HomeService.vue";
 // import HomeStudioEquipment from "../components/Home/HomeStudioEquipment.vue";
 // import TestPageTrash from "../components/trash/TestPageTrash.vue";
 // import HomeLongVod from "../components/Home/HomeLongVod.vue";
-import HomeSwiperVod from "../components/Home/HomeSwiperVod.vue";
-// import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
-import HomeNewsEdu from "../components/Home/HomeNewsEdu.vue";
+// import HomeSwiperVod from "../components/Home/HomeSwiperVod.vue";
+import HomeSlideVod from "../components/Home/HomeSlideVod.vue";
+import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
+// import HomeNewsEdu from "../components/Home/HomeNewsEdu.vue";
 // import HomeAdverse from "../components/Home/HomeAdvertise.vue";
 import FooterMain from "../components/Footer/FooterMain.vue";
 // import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
@@ -51,9 +53,10 @@ export default {
     // HomeStudioEquipment,
     // HomeAdverse,
     // HomeLongVod,
-    HomeSwiperVod,
-    // HomeNewsEvents,
-    HomeNewsEdu,
+    // HomeSwiperVod,
+    HomeSlideVod,
+    HomeNewsEvents,
+    // HomeNewsEdu,
     FooterMain,
     // HomeYoutubeVod,
     // HomePairing,

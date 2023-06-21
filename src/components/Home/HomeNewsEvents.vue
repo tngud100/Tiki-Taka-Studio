@@ -1,5 +1,14 @@
 <template>
   <section class="news-event-section">
+    <div class="title-con">
+      <div class="bgIcon">
+        <img :src="bgicon" alt="icon" />
+      </div>
+      <p class="company">우리의 소식은</p>
+      <p class="title">Our News</p>
+      <p class="subtitle">TNT Studio의 소식을 누구보다</p>
+      <p class="subtitle">빨리 접할 수 있도록 최선을 다 합니다</p>
+    </div>
     <div class="container">
       <div class="news">
         <div class="title-con">
@@ -68,6 +77,7 @@ export default {
   name: "HomeNewsEvents",
   data() {
     return {
+      bgicon: require("@/assets/service/bg_element1.svg"),
       news: [
         {
           title: "TNT Studio Grand Opening",
@@ -176,7 +186,7 @@ export default {
 //PC XL
 @media screen and (min-width: 1300px) {
   .news-event-section {
-    width: 1300px;
+    width: 1200px;
     margin: 100px auto 100px auto;
     .announcer-con {
       width: 400px;
@@ -370,11 +380,40 @@ export default {
 }
 
 .news-event-section {
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  .title-con {
+    width: 1300px;
+    margin: auto;
+    position: relative;
+    text-align: left;
+    margin: 0px auto 0px auto;
+    padding: 12px;
+    .bgIcon {
+      position: absolute;
+      top: 0;
+      left: -30px;
+      z-index: -1;
+    }
+    .company {
+      font-family: "Pretendard-Regular";
+      font-size: 20px;
+    }
+    .title {
+      font-family: "Pretendard-Regular";
+      font-size: 38px;
+      font-weight: bold;
+      // padding-bottom: 18px;
+    }
+    .subtitle {
+      font-family: "Pretendard-Regular";
+      font-size: 18px;
+    }
+  }
+
   .container {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 
     .news,
     .events {

@@ -64,9 +64,9 @@ export default {
 
 <style lang="scss" scoped>
 .HomeVod {
-  width: 1000px;
+  width: 1200px;
   display: flex;
-  margin: 200px auto 100px;
+  margin: 250px auto 200px;
 }
 .title-con {
   position: relative;
@@ -80,16 +80,19 @@ export default {
   .company {
     font-family: "Pretendard-Regular";
     font-size: 20px;
+    color: #101010;
   }
   .title {
     font-family: "Pretendard-Regular";
-    font-size: 38px;
+    font-size: 30px;
     font-weight: bold;
+    color: #101010;
     padding-bottom: 18px;
   }
   .subtitle {
     font-family: "Pretendard-Regular";
     font-size: 18px;
+    color: #101010;
   }
 }
 .btn-box {
@@ -103,6 +106,7 @@ export default {
     text-align: center;
     align-items: center;
     display: flex;
+    border-radius: 5px;
 
     cursor: pointer;
     .btn-text {
@@ -114,25 +118,34 @@ export default {
     text-decoration: none;
   }
   .btn:hover {
-    background-color: #f3f2ff;
-    color: black;
+    border: solid 1px #805bea;
+    color: #805bea;
     .btn-text {
-      color: rgb(2, 2, 2);
+      color: #805bea;
     }
   }
 }
 .carousel-3d-container {
   width: 75%;
   margin-left: 50px;
-  height: 200px !important;
-}
-.carousel-3d-slide {
-  width: 360px !important;
-  height: 200px !important;
-  .YoutubePlayer {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    pointer-events: none;
+  // height: 200px !important;
+  .carousel-3d-slider {
+    width: 500px !important;
+    aspect-ratio: 16 / 9 !important;
+    .carousel-3d-slide {
+      width: 100% !important;
+      .YoutubePlayer {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 16 / 9;
+        pointer-events: none;
+      }
+    }
+    .current {
+      .YoutubePlayer {
+        pointer-events: auto !important;
+      }
+    }
   }
 }
 </style>

@@ -17,9 +17,11 @@
             </span>
           </div>
           <div class="btn-box">
-            <router-link to="/intro">
-              <div class="btn"><span class="btn-text">VIEW MORE</span></div>
-            </router-link>
+            <div class="btn">
+              <router-link to="/intro">
+                <span class="btn-text">VIEW MORE</span>
+              </router-link>
+            </div>
           </div>
         </div>
         <div class="desc-image">
@@ -48,8 +50,8 @@ export default {
     background-image: url("@/assets/info/homeBG.svg");
   }
   .info-con {
-    width: 1000px;
-    padding: 100px 0px 50px 0px;
+    width: 1200px;
+    padding: 100px 0px 0px 0px;
     .container {
       display: flex;
       justify-content: space-between;
@@ -59,7 +61,7 @@ export default {
           font-size: 18px;
         }
         .Title {
-          font-size: 34px;
+          font-size: 30px;
         }
         .text-con {
           .describe {
@@ -95,7 +97,7 @@ export default {
     background-image: url("@/assets/info/homeBG.svg");
   }
   .info-con {
-    width: 800px;
+    width: 1000px;
     padding: 100px 0px 0px 0px;
     .container {
       display: flex;
@@ -301,14 +303,14 @@ export default {
       .company {
         font-family: "Pretendard-Regular";
         font-weight: bold;
-        color: rgb(0, 0, 0);
+        color: #101010;
         margin: 0px 0px 10px 0px;
       }
       .Title {
         margin: 0px 0px 10px 0px;
         font-family: "Pretendard-Regular";
         font-weight: bold;
-        color: rgb(0, 0, 0);
+        color: #101010;
       }
       .text-con {
         margin: 20px 0px 10px 0px;
@@ -318,14 +320,15 @@ export default {
           align-items: center;
           .desc-text {
             font-family: "Pretendard-Regular";
-            color: rgb(0, 0, 0);
+            color: #101010;
           }
         }
       }
       .btn-box {
         margin: 20px 0px 10px 0px;
         .btn {
-          border: solid 1px rgb(0, 0, 0);
+          border: solid 1px #101010;
+          border-radius: 5px;
           display: flex;
           justify-content: center;
           text-align: center;
@@ -334,17 +337,17 @@ export default {
           cursor: pointer;
           .btn-text {
             font-family: "sans-serif";
-            color: rgb(0, 0, 0);
+            color: #101010;
           }
         }
         a {
           text-decoration: none;
         }
         .btn:hover {
-          background-color: #f3f2ff;
-          color: black;
+          border: solid 1px #805bea;
+          color: #805bea;
           .btn-text {
-            color: rgb(2, 2, 2);
+            color: #805bea;
           }
         }
       }

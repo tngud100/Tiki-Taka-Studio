@@ -34,12 +34,12 @@
         </div>
       </div>
       <div class="container-bg">
-        <div class="bg-icon1">
+        <!-- <div class="bg-icon1">
           <img :src="bgIcon[0].bg1" alt="backIcon1" />
         </div>
         <div class="bg-icon2">
           <img :src="bgIcon[0].bg2" alt="backIcon2" />
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
@@ -80,7 +80,7 @@ export default {
           class: "education left",
           img: require("@/assets/service/test1.svg"),
           subtitle: "education",
-          title: "교육",
+          title: "크리에이터 교육",
           desc: "크리에이터",
           desc1: "전문 강사진의 교육",
           desc2: "자격증 발급",
@@ -89,7 +89,7 @@ export default {
           class: "advertise right",
           img: require("@/assets/service/test2.svg"),
           subtitle: "advertisement",
-          title: "광고",
+          title: "광고 대행",
           desc: "확실한 타깃의",
           desc1: "채널을 이용해 브랜드와",
           desc2: "제품을 효과적으로 마케팅",
@@ -101,91 +101,45 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.service-section {
-  display: grid;
-  width: 100%;
+//PC XL
+@media screen and (min-width: 1300px) {
   .title-con {
-    position: relative;
-    width: 1300px;
+    width: 1200px;
     margin: 50px auto 30px;
     .title-icon {
-      position: absolute;
       top: -30px;
       left: -40px;
-      z-index: -1;
     }
     .company {
-      font-size: 18px;
-      font-weight: bold;
-      font-family: "Pretendard-Regular";
+      font-size: 20px;
     }
     .title {
-      font-size: 38px;
-      font-weight: bold;
-      font-family: "Pretendard-Regular";
-      padding: 12px 0px;
+      font-size: 30px;
     }
     .subTitle {
-      font-size: 20px;
-      font-family: "Pretendard-Regular";
+      font-size: 18px;
     }
   }
   .container {
-    position: relative;
-    height: 920px;
+    height: 1100px;
     .container-bg {
       top: 5%;
-      position: absolute;
-      background-color: #f3f2ff;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      .bg-icon1 {
-        position: absolute;
-        margin: auto;
-        top: -60px;
-        left: 210px;
-      }
-      .bg-icon2 {
-        position: absolute;
-        margin: auto;
-        bottom: -60px;
-        right: 210px;
-      }
     }
     .service-container {
-      width: 1300px;
-      margin: auto;
-      height: 100%;
+      width: 1200px;
       .card {
-        width: 100%;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         .img-con {
-          width: 20%;
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
+          width: 400px;
         }
         .text-con {
-          width: 50%;
-          display: grid;
           .service-title {
             padding-bottom: 16px;
             line-height: 36px;
             .title {
-              font-size: 26px;
-              font-weight: bold;
-              font-family: "Pretendard-Regular";
+              font-size: 24px;
             }
             .subtitle {
               font-size: 20px;
-              font-family: "Pretendard-Regular";
-              color: #805bea;
             }
           }
         }
@@ -193,32 +147,406 @@ export default {
           line-height: 27px;
           .desc {
             font-size: 18px;
-            font-family: "Pretendard-Regular";
           }
         }
       }
       .left {
         .text-con {
+          padding-left: 40px;
+        }
+      }
+      .right {
+        .text-con {
+          padding-right: 40px;
+        }
+      }
+      .rental {
+        top: -125px;
+      }
+      .education {
+        top: -300px;
+      }
+      .advertise {
+        top: -450px;
+      }
+    }
+  }
+}
+// PC
+@media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .title-con {
+    width: 1000px;
+    margin: 40px auto 30px;
+    .title-icon {
+    }
+    .company {
+      font-size: 18px;
+    }
+    .title {
+      font-size: 28px;
+    }
+    .subTitle {
+      font-size: 16px;
+    }
+  }
+  .container {
+    height: 850px;
+    .container-bg {
+      top: 5%;
+    }
+    .service-container {
+      width: 1000px;
+      .card {
+        .img-con {
+          width: 300px;
+        }
+        .text-con {
+          .service-title {
+            line-height: 30px;
+            padding-bottom: 10px;
+            .title {
+              font-size: 22px;
+            }
+            .subtitle {
+              font-size: 18px;
+            }
+          }
+        }
+        .desc-con {
+          line-height: 22px;
+          .desc {
+            font-size: 16px;
+          }
+        }
+      }
+      .left {
+        .text-con {
+          padding-left: 50px;
+        }
+      }
+      .right {
+        .text-con {
+          padding-right: 50px;
+        }
+      }
+      .rental {
+        top: -100px;
+      }
+      .education {
+        top: -200px;
+      }
+      .advertise {
+        top: -300px;
+      }
+    }
+  }
+}
+
+// 노트북
+@media screen and (min-width: 760px) and (max-width: 1080px) {
+  .title-con {
+    width: 700px;
+    margin: 30px auto 30px;
+    .title-icon {
+      width: 80px;
+      height: 65px;
+    }
+    .company {
+      font-size: 18px;
+    }
+    .title {
+      font-size: 28px;
+    }
+    .subTitle {
+      font-size: 16px;
+    }
+  }
+  .container {
+    height: 720px;
+    .container-bg {
+      top: 2%;
+    }
+    .service-container {
+      width: 700px;
+      .card {
+        .img-con {
+          width: 200px;
+        }
+        .text-con {
+          .service-title {
+            line-height: 27px;
+            padding-bottom: 10px;
+            .title {
+              font-size: 20px;
+            }
+            .subtitle {
+              font-size: 16px;
+            }
+          }
+        }
+        .desc-con {
+          line-height: 22px;
+          .desc {
+            font-size: 14px;
+          }
+        }
+      }
+      .left {
+        .text-con {
+          padding-left: 30px;
+        }
+      }
+      .right {
+        .text-con {
+          padding-right: 30px;
+        }
+      }
+      .rental {
+        top: -20px;
+      }
+      .education {
+        top: -50px;
+      }
+      .advertise {
+        top: -65px;
+      }
+    }
+  }
+}
+
+// 테블릿
+@media screen and (min-width: 640px) and (max-width: 759px) {
+  .title-con {
+    width: 600px;
+    margin: 30px auto 50px;
+    text-align: center;
+    .title-icon {
+      width: 80px;
+      height: 65px;
+      display: none;
+    }
+    .company {
+      font-size: 18px;
+    }
+    .title {
+      font-size: 24px;
+    }
+    .subTitle {
+      font-size: 16px;
+    }
+  }
+  .container {
+    height: 1300px;
+    .container-bg {
+      top: 2%;
+    }
+    .service-container {
+      width: 600px;
+      .card {
+        .img-con {
+          width: 350px;
+        }
+        .text-con {
+          .service-title {
+            line-height: 27px;
+            padding-bottom: 10px;
+            .title {
+              font-size: 24px;
+            }
+            .subtitle {
+              font-size: 18px;
+            }
+          }
+        }
+        .desc-con {
+          line-height: 19px;
+          .desc {
+            font-size: 16px;
+          }
+        }
+      }
+      .left {
+        .text-con {
+          padding-left: 30px;
+        }
+      }
+      .right {
+        .text-con {
+          padding-right: 30px;
+        }
+      }
+      .rental {
+        top: -20px;
+      }
+      .education {
+        top: -50px;
+      }
+      .advertise {
+        top: -65px;
+      }
+    }
+  }
+}
+
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 639px) {
+  .title-con {
+    width: 100%;
+    margin: 30px auto 50px;
+    text-align: center;
+    .title-icon {
+      width: 80px;
+      height: 65px;
+      display: none;
+    }
+    .company {
+      font-size: 18px;
+    }
+    .title {
+      font-size: 24px;
+    }
+    .subTitle {
+      font-size: 16px;
+    }
+  }
+  .container {
+    height: 1300px;
+    .container-bg {
+      top: 2%;
+    }
+    .service-container {
+      width: calc(100% -24px);
+      .card {
+        .img-con {
+          width: 65%;
+        }
+        .text-con {
+          .service-title {
+            line-height: 27px;
+            padding-bottom: 10px;
+            .title {
+              font-size: 24px;
+            }
+            .subtitle {
+              font-size: 18px;
+            }
+          }
+        }
+        .desc-con {
+          line-height: 19px;
+          .desc {
+            font-size: 16px;
+          }
+        }
+      }
+      .left {
+        .text-con {
+          padding-left: 30px;
+        }
+      }
+      .right {
+        .text-con {
+          padding-right: 30px;
+        }
+      }
+      .rental {
+        top: -20px;
+      }
+      .education {
+        top: -50px;
+      }
+      .advertise {
+        top: -65px;
+      }
+    }
+  }
+}
+
+.service-section {
+  display: grid;
+  width: 100%;
+  .title-con {
+    position: relative;
+    .title-icon {
+      position: absolute;
+      top: -30px;
+      left: -40px;
+      z-index: -1;
+    }
+    .company {
+      font-weight: bold;
+      font-family: "Pretendard-Regular";
+      color: #101010;
+    }
+    .title {
+      font-weight: bold;
+      font-family: "Pretendard-Regular";
+      color: #101010;
+      padding: 12px 0px;
+    }
+    .subTitle {
+      font-family: "Pretendard-Regular";
+    }
+  }
+  .container {
+    position: relative;
+    .container-bg {
+      position: absolute;
+      background-color: #f3f2ff;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .service-container {
+      margin: auto;
+      height: 100%;
+      .card {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        .img-con {
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .text-con {
+          display: grid;
+          .service-title {
+            .title {
+              font-weight: bold;
+              font-family: "Pretendard-Regular";
+            }
+            .subtitle {
+              font-family: "Pretendard-Regular";
+              color: #805bea;
+            }
+          }
+        }
+        .desc-con {
+          .desc {
+            font-family: "Pretendard-Regular";
+          }
+        }
+      }
+      .left {
+        justify-content: left;
+        .text-con {
           justify-content: center;
-          padding-left: 100px;
         }
       }
       .right {
         flex-direction: row-reverse;
         .text-con {
-          justify-content: center;
-          padding-right: 100px;
-          text-align: right;
         }
       }
       .rental {
-        top: -50px;
       }
       .education {
-        top: -100px;
       }
       .advertise {
-        top: -130px;
       }
     }
   }
