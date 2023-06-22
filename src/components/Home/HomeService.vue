@@ -4,10 +4,16 @@
       <img :src="bgIcon[0].titleIcon" alt="titleIcon" class="title-icon" />
       <p class="company">우리가 제공하는 것은</p>
       <p class="title">Our Service</p>
-      <p class="subTitle">크리에이터에게 보다 즐겁고 성장하기 쉬운 환경을</p>
-      <p class="subTitle">
-        제공하기 위해 저희는 최선을 다해 지원하고 있습니다.
-      </p>
+      <div class="subTitle-con">
+        <p class="subTitle">크리에이터에게 보다 즐겁고 성장하기 쉬운 환경을</p>
+        <p class="subTitle">
+          제공하기 위해 저희는 최선을 다해 지원하고 있습니다.
+        </p>
+        <p class="subTitle-mobile">
+          크리에이터에게 보다 즐겁고 성장하기 쉬운 환경을 제공하기 위해 저희는
+          최선을 다해 지원하고 있습니다.
+        </p>
+      </div>
     </div>
     <div class="container">
       <div class="service-container">
@@ -319,7 +325,6 @@ export default {
   .title-con {
     width: 600px;
     margin: 30px auto 50px;
-    text-align: center;
     .title-icon {
       width: 80px;
       height: 65px;
@@ -393,49 +398,58 @@ export default {
   .title-con {
     width: 100%;
     margin: 30px auto 50px;
-    text-align: center;
+    display: grid;
+    padding: 12px;
     .title-icon {
       width: 80px;
       height: 65px;
       display: none;
     }
     .company {
-      font-size: 18px;
+      font-size: 14px;
     }
     .title {
       font-size: 24px;
     }
-    .subTitle {
-      font-size: 16px;
+    .subTitle-con {
+      width: 300px;
+      .subTitle {
+        display: none;
+      }
+      .subTitle-mobile {
+        font-size: 14px;
+        display: block !important;
+      }
     }
   }
   .container {
-    height: 1300px;
+    height: 112%;
     .container-bg {
-      top: 2%;
+      top: -2%;
     }
     .service-container {
-      width: calc(100% -24px);
+      width: calc(100% - 24px);
       .card {
         .img-con {
           width: 65%;
         }
         .text-con {
           .service-title {
-            line-height: 27px;
+            line-height: 22px;
             padding-bottom: 10px;
             .title {
-              font-size: 24px;
+              font-size: 18px;
+              padding-top: 10px;
             }
             .subtitle {
-              font-size: 18px;
+              font-size: 16px;
             }
           }
         }
         .desc-con {
           line-height: 19px;
           .desc {
-            font-size: 16px;
+            font-size: 14px;
           }
         }
       }
@@ -450,13 +464,13 @@ export default {
         }
       }
       .rental {
-        top: -20px;
+        top: 20px;
       }
       .education {
-        top: -50px;
+        top: 50px;
       }
       .advertise {
-        top: -65px;
+        top: 70px;
       }
     }
   }
@@ -486,6 +500,10 @@ export default {
     }
     .subTitle {
       font-family: "Pretendard-Regular";
+    }
+    .subTitle-mobile {
+      font-family: "Pretendard-Regular";
+      display: none;
     }
   }
   .container {
