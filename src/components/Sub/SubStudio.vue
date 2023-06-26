@@ -62,8 +62,8 @@ export default {
   },
   data() {
     return {
-      title: "스튜디오",
-      subTitle: "Studio",
+      title: "서비스",
+      subTitle: "Service",
       serviceState: 1,
       bgImage: [
         require("@/assets/banner/studio1920.svg"),
@@ -477,12 +477,11 @@ export default {
     text-decoration: none;
   }
   .btn:hover {
-    background-color: #805bea;
     border: solid 1px #805bea;
     box-shadow: 1px 1px 5px 1px whitesmoke;
 
     .btn-text {
-      color: rgb(255, 255, 255);
+      color: #805bea;
     }
   }
 }
