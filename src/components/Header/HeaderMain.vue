@@ -102,6 +102,10 @@ export default {
         href: "/studio",
       },
       {
+        name: "프로그램",
+        href: "/program",
+      },
+      {
         name: "회사소식",
         href: "/news",
       },

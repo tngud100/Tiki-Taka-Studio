@@ -318,8 +318,8 @@ export default {
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .schedule-section {
-    margin-top: 70px;
-    margin-bottom: 30px;
+    margin-top: 80px;
+    margin-bottom: 80px;
     .title-con {
       margin-bottom: 30px;
       .company {
@@ -446,9 +446,9 @@ export default {
     margin-top: 120px;
     margin-bottom: 30px;
     .title-con {
-      width: 300px;
-      margin-bottom: 30px;
-      padding: 4px;
+      width: calc(100vw - 6px);
+      margin-bottom: 21px;
+      padding: 12px;
       .company {
         font-size: 14px;
       }
@@ -466,7 +466,8 @@ export default {
     }
   }
   .Schedule-con {
-    width: calc(100vw - 16px);
+    width: calc(100vw - 30px);
+    margin: auto;
 
     .slide-con {
       display: grid !important;

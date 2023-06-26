@@ -14,6 +14,7 @@
           <span class="list-text">{{ item }}</span>
         </div>
       </div>
+      <!-- 스튜디오 기본장비-->
       <table
         v-for="(equipment, index) in equipment"
         :key="index"
@@ -46,20 +47,6 @@
         style="display: none"
         :class="{ '--active': rentalState === 1 }"
       >
-        <!-- <p class="Studio-Title">스튜디오 소개</p> -->
-
-        <div class="tab-con">
-          <div class="tab">
-            <div
-              v-for="(item, index) in studioTab"
-              :key="index"
-              class="tab-list"
-              @click="StudioState(index)"
-            >
-              <span class="list-text">{{ item }}</span>
-            </div>
-          </div>
-        </div>
         <div class="instrument-con">
           <div
             v-for="(studio, index) in studioIntro"
@@ -257,6 +244,22 @@ export default {
           }
         }
       }
+      .Studio-con {
+        .instrument-con {
+          width: 1300px;
+          .instrument-card {
+            width: calc(33% - 24px);
+            margin: 12px;
+            .img-con {
+              height: 150px;
+            }
+            .instrument-text {
+              padding: 20px;
+              font-size: 16px;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -316,6 +319,22 @@ export default {
             padding: 10px;
             line-height: 1.6;
             font-size: 15px;
+          }
+        }
+      }
+      .Studio-con {
+        .instrument-con {
+          width: 1080px;
+          .instrument-card {
+            width: calc(33% - 24px);
+            margin: 12px;
+            .img-con {
+              height: 150px;
+            }
+            .instrument-text {
+              padding: 20px;
+              font-size: 16px;
+            }
           }
         }
       }
@@ -382,6 +401,22 @@ export default {
           }
         }
       }
+      .Studio-con {
+        .instrument-con {
+          width: 760px;
+          .instrument-card {
+            width: calc(33% - 24px);
+            margin: 12px;
+            .img-con {
+              height: 150px;
+            }
+            .instrument-text {
+              padding: 20px;
+              font-size: 16px;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -444,6 +479,22 @@ export default {
             padding: 10px;
             line-height: 1.6;
             font-size: 15px;
+          }
+        }
+      }
+      .Studio-con {
+        .instrument-con {
+          width: 620px;
+          .instrument-card {
+            width: calc(50% - 24px);
+            margin: 12px;
+            .img-con {
+              height: 150px;
+            }
+            .instrument-text {
+              padding: 20px;
+              font-size: 16px;
+            }
           }
         }
       }
@@ -514,6 +565,22 @@ export default {
             padding: 10px;
             line-height: 1.6;
             font-size: 13px;
+          }
+        }
+      }
+      .Studio-con {
+        .instrument-con {
+          width: 100%;
+          .instrument-card {
+            width: calc(50% - 24px);
+            margin: 12px;
+            .img-con {
+              height: 150px;
+            }
+            .instrument-text {
+              padding: 20px;
+              font-size: 16px;
+            }
           }
         }
       }
@@ -682,7 +749,6 @@ export default {
       }
     }
     .instrument-con {
-      width: 1300px;
       .instrument-wrap {
         width: 100%;
         display: flex;
@@ -690,13 +756,10 @@ export default {
         justify-content: left;
       }
       .instrument-card {
-        width: calc(33% - 24px);
         border: solid 1px #b9b9b9;
-        margin: 12px;
         border-radius: 5px;
         .img-con {
           width: 100%;
-          height: 150px;
           .img {
             object-fit: cover;
             width: 100%;
@@ -704,9 +767,7 @@ export default {
           }
         }
         .instrument-text {
-          padding: 20px;
           font-family: "Pretendard-Regular";
-          font-size: 16px;
         }
       }
     }

@@ -1,6 +1,6 @@
 <template>
   <section class="HomeLongVod">
-    <div class="title-con">
+    <!-- <div class="title-con">
       <div class="bgIcon">
         <img :src="bgicon" alt="bgIcon" />
       </div>
@@ -15,19 +15,19 @@
       <router-link to="/intro">
         <div class="btn"><span class="btn-text">VIEW MORE</span></div>
       </router-link>
-    </div>
+    </div>-->
     <div class="TextCon">
-      <!-- <span class="title">최신동영상</span> -->
-      <!-- <a class="viewMore" href="https://www.youtube.com/@tikintaka"
+      <span class="title"></span>
+      <a class="viewMore" href="https://www.youtube.com/@tikintaka"
         >VIEW MORE +</a
-      > -->
+      >
     </div>
     <swiper
       @swiper="setThumbsSwiper"
       :spaceBetween="10"
       :thumbs="{ swiper: thumbsSwiper2 }"
       :modules="modules"
-      :allowTouchMove="false"
+      :allowTouchMove="true"
       class="FirstSwiper"
     >
       <swiper-slide
@@ -484,11 +484,11 @@ export default {
         height: 260px;
       }
       .FirstText {
-        margin-left: 25px !important;
         width: 260px;
         .title {
           font-size: 16px;
           margin-bottom: 15px;
+          margin-top: 30px !important;
         }
         .subTitle {
           font-size: 18px;
@@ -564,20 +564,23 @@ export default {
         height: 338px;
       }
       .FirstText {
-        margin-top: 15px;
         margin-left: 0px !important;
-        width: 260px;
+        width: 100% !important;
+        padding: 12px !important;
         .title {
           font-size: 16px;
           margin-bottom: 5px;
+          margin-top: 30px !important;
         }
         .subTitle {
           font-size: 18px;
+          width: 360px;
         }
         .GoToChannelBtn {
           width: 130px;
           height: 45px;
           margin-top: 15px;
+          margin-bottom: 30px !important;
           strong {
             font-size: 18px;
           }
@@ -623,10 +626,11 @@ export default {
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .HomeLongVod {
-    margin-top: 50px;
+    margin: 50px auto 0px auto;
+    width: calc(100% - 24px);
   }
   .TextCon {
-    width: 90%;
+    width: 100%;
     margin: auto;
     .title {
       font-size: 24px;
@@ -636,32 +640,38 @@ export default {
     }
   }
   .FirstSwiper {
-    width: 90%;
+    width: 100%;
     height: auto;
     margin-bottom: 30px !important;
     .FirstCon {
       display: grid !important;
       height: auto;
       width: 100%;
+
       .YoutubePlayer {
         width: 100%;
         aspect-ratio: 16 / 9;
       }
       .FirstText {
-        margin-top: 15px;
         margin-left: 0px !important;
         width: 100% !important;
+        padding: 0px 12px 0px 12px !important;
+
         .title {
           font-size: 16px;
           margin-bottom: 5px;
+          margin-top: 12px !important;
+          padding-top: 12px !important;
         }
         .subTitle {
           font-size: 18px;
+          width: 70%;
         }
         .GoToChannelBtn {
           width: 130px;
           height: 45px;
           margin-top: 15px;
+          margin-bottom: 30px;
           strong {
             font-size: 18px;
           }
@@ -784,7 +794,6 @@ export default {
   .FirstCon {
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
     justify-content: left;
 
     .FirstImg {

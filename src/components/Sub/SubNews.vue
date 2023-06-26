@@ -21,7 +21,7 @@
           </th>
         </tr>
       </thead>
-      <tbody style="display: grid; justify-content: center">
+      <tbody>
         <tr class="table_desserts" v-for="item in desserts" :key="item.num">
           <router-link :to="'/news' + item.num">
             <td class="desserts_align td_num">
@@ -104,12 +104,31 @@ export default {
     border-bottom: 1px solid #c4c4c4;
     justify-content: space-between;
     align-items: center;
+    .num {
+      width: 15%;
+    }
+    .table_title {
+      width: 70%;
+    }
+    .table_date {
+      width: 15%;
+    }
   }
   .table_desserts {
     display: table;
     text-align: center;
     border-bottom: 1px solid #e7e7e7;
     font-family: "Pretendard-Regular";
+    width: 100%;
+    .td_num {
+      width: 15%;
+    }
+    .td_title {
+      width: 70%;
+    }
+    .td_date {
+      width: 15%;
+    }
     .desserts_align {
       display: inline-flex;
       align-items: center;
@@ -143,7 +162,7 @@ a {
   display: flex;
 }
 
-// PC
+// PC XL
 @media screen and (min-width: 1300px) {
   .news_section {
     margin-top: 80px;
@@ -156,31 +175,20 @@ a {
   }
 
   .table_header {
+    width: 1300px;
     height: 60px;
     font-size: 16px;
-    .num {
-      width: 125px;
-    }
-    .table_title {
-      width: 1000px;
-    }
-    .table_date {
-      width: 175px;
-    }
   }
 
   .table_desserts {
     font-size: 16px;
     .td_num {
-      width: 125px;
       height: 50px;
     }
     .td_title {
-      width: 1000px;
       height: 50px;
     }
     .td_date {
-      width: 175px;
       height: 50px;
     }
   }
@@ -193,12 +201,43 @@ a {
 }
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .news_section {
-    margin-top: 70px !important;
+    margin-top: 80px;
+  }
+  .title {
+    font-size: 48px;
+    padding-top: 5%;
+    padding-bottom: 3%;
+    width: 1080px;
+  }
+
+  .table_header {
+    width: 1080px;
+    height: 60px;
+    font-size: 16px;
+  }
+
+  .table_desserts {
+    font-size: 16px;
+    .td_num {
+      height: 50px;
+    }
+    .td_title {
+      height: 50px;
+    }
+    .td_date {
+      height: 50px;
+    }
+  }
+  .btn_num {
+    font-size: 16px;
+  }
+  .page_btn {
+    font-size: 20px;
   }
 }
 
 // pc
-@media screen and (min-width: 760px) and (max-width: 1300px) {
+@media screen and (min-width: 760px) and (max-width: 1080px) {
   .news_section {
     margin-top: 60px;
   }
@@ -210,33 +249,21 @@ a {
   }
 
   .table_header {
+    width: 760px;
     height: 45px;
     font-size: 14px;
-
-    .num {
-      width: 60.8px;
-    }
-    .table_title {
-      width: 608px;
-    }
-    .table_date {
-      width: 91.5px;
-    }
   }
 
   .table_desserts {
     font-size: 14px;
 
     .td_num {
-      width: 60.8px;
       height: 40px;
     }
     .td_title {
-      width: 608px;
       height: 40px;
     }
     .td_date {
-      width: 91.5px;
       height: 40px;
     }
   }
@@ -261,33 +288,21 @@ a {
   }
 
   .table_header {
+    width: 640px;
     height: 45px;
     font-size: 12px;
-
-    .num {
-      width: 51.2px;
-    }
-    .table_title {
-      width: 512px;
-    }
-    .table_date {
-      width: 76.8px;
-    }
   }
 
   .table_desserts {
     font-size: 14px;
 
     .td_num {
-      width: 51.2px;
       height: 40px;
     }
     .td_title {
-      width: 512px;
       height: 40px;
     }
     .td_date {
-      width: 76.8px;
       height: 40px;
     }
   }
@@ -308,37 +323,25 @@ a {
     font-size: 20px;
     padding-top: 5%;
     padding-bottom: 3%;
-    width: 320px;
+    width: calc(100% - 24px);
   }
 
   .table_header {
     height: 30px;
     font-size: 8px;
-
-    .num {
-      width: 25.6px;
-    }
-    .table_title {
-      width: 256px;
-    }
-    .table_date {
-      width: 38.4px;
-    }
+    width: calc(100% - 24px);
   }
 
   .table_desserts {
     font-size: 8px;
 
     .td_num {
-      width: 25.6px;
       height: 30px;
     }
     .td_title {
-      width: 256px;
       height: 30px;
     }
     .td_date {
-      width: 38.4px;
       height: 30px;
     }
   }

@@ -62,6 +62,10 @@ export default {
           value: "/studio",
         },
         {
+          title: "프로그램",
+          value: "/program",
+        },
+        {
           title: "회사소식",
           value: "/news",
         },

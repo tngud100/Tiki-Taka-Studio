@@ -11,10 +11,10 @@
     </div>
     <div class="container">
       <div class="news">
-        <div class="title-con">
+        <!-- <div class="title-con">
           <span class="title">공지사항</span>
           <router-link to="/news" class="detail">VIEW MORE +</router-link>
-        </div>
+        </div> -->
         <hr class="hr-margin" />
         <router-link
           :to="'news' + (index + 1)"
@@ -22,8 +22,12 @@
           :key="index"
           class="list-con pc"
         >
-          <span class="list-title">{{ item.title }}</span>
-          <span class="list-detail"> - {{ item.subtitle }}</span>
+          <span class="num">{{ item.num }}</span>
+          <div class="con">
+            <span class="list-title">{{ item.title }}</span>
+            <span class="list-detail"> - {{ item.subtitle }}</span>
+          </div>
+          <span class="date"> {{ item.date }}</span>
         </router-link>
         <router-link
           :to="'news' + (index + 1)"
@@ -31,15 +35,17 @@
           :key="index"
           class="list-con mobile"
         >
-          <span class="list-title">{{ item.title }}</span>
-          <span class="list-detail"> - {{ item.subtitle }}</span>
+          <span class="num">{{ item.num }}</span>
+          <div class="con">
+            <span class="list-title">{{ item.title }}</span>
+            <span class="list-detail"> - {{ item.subtitle }}</span>
+          </div>
+          <span class="date"> {{ item.date }}</span>
         </router-link>
       </div>
-      <div class="announcer-con">
+      <!-- <div class="announcer-con">
         <div class="swiper" ref="bannerRef">
-          <!-- Additional required wrapper -->
           <div class="swiper-wrapper">
-            <!-- Slides -->
             <div class="swiper-slide">
               <img :src="img[0].src" class="banner-img" />
             </div>
@@ -51,13 +57,11 @@
             </div>
             ...
           </div>
-          <!-- If we need navigation buttons -->
           <div class="swiper-button-prev swiper-btn"></div>
           <div class="swiper-button-next swiper-btn"></div>
 
-          <!-- If we need scrollbar -->
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
@@ -80,8 +84,10 @@ export default {
       bgicon: require("@/assets/service/bg_element1.svg"),
       news: [
         {
+          num: 1,
           title: "TNT Studio Grand Opening",
-          subtitle: "2023년 6월 10일, TNT Studio가 그랜드 오픈을 하였습니다!",
+          subtitle: "2023년 TNT Studio가 그랜드 오픈을 하였습니다!",
+          date: "2023.06.10",
         },
         // {
         //   title: "공지1",
@@ -98,8 +104,10 @@ export default {
       ],
       news_mobile: [
         {
+          num: 1,
           title: "TNT Studio Grand Opening",
-          subtitle: "2023년 6월 10일, TNT Studio가 그랜드 오픈을 하였습니다!",
+          subtitle: "2023년 TNT Studio가 그랜드 오픈을 하였습니다!",
+          date: "2023.06.10",
         },
         // {
         //   title: "공지1",
@@ -188,33 +196,42 @@ export default {
   .news-event-section {
     width: 1200px;
     margin: 100px auto 100px auto;
-    .announcer-con {
-      width: 400px;
-      margin-left: 20px;
+    display: flex;
+    .company {
+      font-size: 20px;
     }
+    .title {
+      font-size: 38px;
+      padding-bottom: 30px;
+    }
+    .subtitle {
+      font-size: 18px;
+    }
+
     .container {
       display: flex;
       justify-content: space-between;
+      width: 70%;
       .mobile {
         display: none !important;
       }
       .pc {
-        display: grid !important;
-      }
-      .title-con {
-        .title {
-          font-size: 24px;
-        }
-        .detail {
-          font-size: 16px;
-        }
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
       }
       .list-con {
+        .num {
+          font-size: 24px;
+        }
         .list-title {
-          font-size: 18px;
+          font-size: 20px;
         }
         .list-detail {
-          font-size: 16px;
+          font-size: 15px;
+        }
+        .date {
+          font-size: 15px;
         }
       }
     }
@@ -225,33 +242,42 @@ export default {
   .news-event-section {
     width: 1080px;
     margin: 75px auto 75px auto;
-    .announcer-con {
-      width: 400px;
-      margin-left: 10px;
+    display: flex;
+    .company {
+      font-size: 20px;
     }
+    .title {
+      font-size: 30px;
+      padding-bottom: 18px;
+    }
+    .subtitle {
+      font-size: 18px;
+    }
+
     .container {
       display: flex;
       justify-content: space-between;
+      width: 70%;
       .mobile {
         display: none !important;
       }
       .pc {
-        display: grid !important;
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
       }
 
-      .title-con {
-        .title {
-          font-size: 22px;
-        }
-        .detail {
-          font-size: 14px;
-        }
-      }
       .list-con {
+        .num {
+          font-size: 24px;
+        }
         .list-title {
-          font-size: 16px;
+          font-size: 20px;
         }
         .list-detail {
+          font-size: 14px;
+        }
+        .date {
           font-size: 14px;
         }
       }
@@ -262,35 +288,47 @@ export default {
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .news-event-section {
-    width: 760px;
+    width: 700px;
     margin: 50px auto 50px auto;
-    .announcer-con {
-      width: 300px;
-      margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    .title-con {
+      margin: 0 !important;
+      .company {
+        font-size: 18px;
+      }
+      .title {
+        font-size: 28px;
+        padding-bottom: 18px;
+      }
+      .subtitle {
+        font-size: 16px;
+      }
     }
+
     .container {
-      display: flex;
-      justify-content: space-between;
+      width: 70%;
       .mobile {
         display: none !important;
       }
       .pc {
-        display: grid !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
       }
-      .title-con {
-        .title {
-          font-size: 20px;
-        }
-        .detail {
-          font-size: 13px;
-        }
-      }
+
       .list-con {
+        .num {
+          font-size: 22px;
+        }
         .list-title {
-          font-size: 15px;
+          font-size: 18px;
         }
         .list-detail {
-          font-size: 13px;
+          font-size: 14px;
+        }
+        .date {
+          font-size: 14px;
         }
       }
     }
@@ -300,38 +338,54 @@ export default {
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
   .news-event-section {
-    width: 640px;
-    margin: 50px auto 50px auto;
-    .announcer-con {
-      width: 640px;
-      margin-left: 10px;
+    width: 600px;
+    margin: 100px auto 100px auto;
+    display: flex;
+    justify-content: space-between;
+    .title-con {
+      margin: 0 !important;
+      .company {
+        font-size: 18px;
+      }
+      .title {
+        font-size: 24px;
+        padding-bottom: 18px;
+      }
+      .subtitle {
+        font-size: 16px;
+      }
     }
     .container {
-      display: grid;
+      width: 70%;
       padding: 12px;
       .mobile {
-        display: grid !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2px 0px;
       }
       .pc {
         display: none !important;
       }
-      .news {
-        margin: 0px 1% 50px 1% !important;
-      }
-      .title-con {
-        .title {
-          font-size: 20px;
-        }
-        .detail {
-          font-size: 12px;
-        }
-      }
+
       .list-con {
-        .list-title {
-          font-size: 15px;
+        padding: 2px 0px;
+        .num {
+          width: 7% !important;
+          font-size: 18px;
         }
-        .list-detail {
-          font-size: 13px;
+        .con {
+          width: 59% !important;
+          .list-title {
+            font-size: 16px;
+          }
+          .list-detail {
+            font-size: 12px;
+          }
+        }
+        .date {
+          width: 20% !important;
+          font-size: 12px;
         }
       }
     }
@@ -343,36 +397,51 @@ export default {
   .news-event-section {
     width: calc(100%-24px);
     margin: 30px auto 70px auto;
-    .announcer-con {
-      width: 296px;
-      margin: auto;
+
+    .title-con {
+      margin: 0 !important;
+      .company {
+        font-size: 14px;
+      }
+      .title {
+        font-size: 24px;
+        padding-bottom: 18px;
+      }
+      .subtitle {
+        font-size: 14px;
+      }
     }
     .container {
       display: grid;
       padding: 8px;
       .mobile {
-        display: grid !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2px 0px;
       }
       .pc {
         display: none !important;
       }
-      .news {
-        margin: 20px 0px !important;
-      }
-      .title-con {
-        .title {
-          font-size: 20px;
-        }
-        .detail {
-          font-size: 13px;
-        }
-      }
+
       .list-con {
-        .list-title {
-          font-size: 15px;
+        padding: 2px 0px;
+        .num {
+          width: 7% !important;
+          font-size: 18px;
         }
-        .list-detail {
-          font-size: 13px;
+        .con {
+          width: 59% !important;
+          .list-title {
+            font-size: 16px;
+          }
+          .list-detail {
+            font-size: 12px;
+          }
+        }
+        .date {
+          width: 20% !important;
+          font-size: 14px;
         }
       }
     }
@@ -381,7 +450,6 @@ export default {
 
 .news-event-section {
   .title-con {
-    width: 1300px;
     margin: auto;
     position: relative;
     text-align: left;
@@ -395,22 +463,18 @@ export default {
     }
     .company {
       font-family: "Pretendard-Regular";
-      font-size: 20px;
     }
     .title {
       font-family: "Pretendard-Regular";
-      font-size: 38px;
       font-weight: bold;
-      // padding-bottom: 18px;
     }
     .subtitle {
       font-family: "Pretendard-Regular";
-      font-size: 18px;
     }
   }
 
   .container {
-    width: 100%;
+    // width: 100%;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -447,56 +511,52 @@ export default {
         }
       }
       .list-con {
-        display: grid;
         padding: 10px 0px;
         cursor: pointer;
         text-decoration: none;
-        .list-title {
+        .num {
           font-family: "pretendard-Regular";
           font-weight: bold;
-          position: relative;
           color: black;
-          left: -15px;
-          opacity: 0;
-        }
-        .list-detail {
-          font-family: "pretendard-Regular";
-          color: rgb(109, 109, 109);
-          margin: 12px 0px;
-          position: relative;
-          left: -15px;
-          opacity: 0;
+          width: 7%;
 
-          text-overflow: ellipsis;
-          overflow: hidden;
-          word-break: break-word;
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
+          text-align: right;
+        }
+        .con {
+          width: 65%;
+          .list-title {
+            font-family: "pretendard-Regular";
+            font-weight: bold;
+            position: relative;
+            color: black;
+            left: -15px;
+            opacity: 0;
+          }
+          .list-detail {
+            font-family: "pretendard-Regular";
+            color: rgb(109, 109, 109);
+            position: relative;
+            left: -15px;
+            opacity: 0;
+
+            text-overflow: ellipsis;
+            overflow: hidden;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+          }
+        }
+        .date {
+          width: 15%;
+          font-family: "pretendard-Regular";
+          font-weight: bold;
+          color: black;
         }
       }
       .list-con:hover {
         background-color: whitesmoke;
       }
-    }
-  }
-  .announcer-con {
-    display: flex;
-    justify-content: right;
-    border: solid 1px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    z-index: 0;
-    right: -30px;
-    opacity: 0;
-    position: relative;
-    .banner-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 5px;
-    }
-    .swiper-btn {
-      color: white;
     }
   }
 }

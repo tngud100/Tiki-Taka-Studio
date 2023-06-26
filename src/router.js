@@ -27,6 +27,11 @@ const routes = [
     component: () => import("@/View/SubStudioView.vue"),
   },
   {
+    path: "/program",
+    name: "ProgramPage",
+    component: () => import("@/View/SubProgramView.vue"),
+  },
+  {
     path: "/events1",
     name: "EventsDetail1",
     component: () => import("@/components/Sub/EventsDetail/events1.vue"),
