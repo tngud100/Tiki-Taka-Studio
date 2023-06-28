@@ -246,6 +246,7 @@ export default {
     let firstScriptTag = document.getElementsByTagName("script")[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+    console.log(this.players);
     window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
   },
 
@@ -254,6 +255,7 @@ export default {
       this.thumbsSwiper = swiper;
       swiper.on("slideChange", () => {
         const player = this.players[swiper.previousIndex];
+        console.log(this.players);
         if (player && player.stopVideo) {
           player.stopVideo();
         }
