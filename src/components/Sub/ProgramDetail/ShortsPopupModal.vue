@@ -162,18 +162,32 @@ export default {
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .modal-content {
     margin: 30% auto;
-    width: 200px;
-    height: 355px;
+    width: calc(100% - 125px) !important;
+    // height: 60% !important;
+    .youtubeVod {
+      position: fixed;
+      width: calc(100% - 125px) !important;
+      height: calc(65%);
+      margin-top: 42px;
+      aspect-ratio: 9 / 16;
+    }
     .modal-btn {
+      position: absolute;
+      display: flex;
+      top: 50vh;
+      width: 90vw;
+      left: 4vw;
+      justify-content: space-between;
+      margin: auto;
       .prev-btn {
+        transform: rotateZ(90deg);
         width: 40px;
         height: 24px;
-        transform: rotate(90deg) translate3d(-215px, 50px, 0px);
       }
       .next-btn {
+        transform: rotateZ(-90deg);
         width: 40px;
         height: 24px;
-        transform: rotate(-90deg) translate3d(237px, 207px, 0px);
       }
     }
   }
@@ -188,27 +202,26 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   .modal-content {
-    background-color: #fefefe;
-
-    border-radius: 5px;
-
-    .prev-btn {
-      background-image: url("@/assets/btn/VodBtn.svg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      /* width: 35px; */
-      width: 40px;
-      height: 24px;
-      /* height: 19px; */
-      cursor: pointer;
-    }
-    .next-btn {
-      background-image: url("@/assets/btn/VodBtn.svg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      width: 40px;
-      height: 24px;
-      cursor: pointer;
+    .modal-btn {
+      .prev-btn {
+        background-image: url("@/assets/btn/VodBtn.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* width: 35px; */
+        width: 40px;
+        height: 24px;
+        /* height: 19px; */
+        cursor: pointer;
+      }
+      .next-btn {
+        background-image: url("@/assets/btn/VodBtn.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 40px;
+        height: 24px;
+        cursor: pointer;
+        position: relative;
+      }
     }
   }
 }
@@ -222,6 +235,8 @@ export default {
   width: 100%;
   text-align: center;
   float: right;
+  background-color: white;
+  border-radius: 5px 5px 0px 0px;
 }
 
 .close:hover,

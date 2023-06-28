@@ -13,7 +13,7 @@
       </p>
     </div>
     <div class="Schedule-con">
-      <div class="swiper" ref="bannerRef" :style="{}">
+      <div class="swiper" ref="bannerRef">
         <div class="swiper-wrapper">
           <div
             class="swiper-slide slide-con"
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, nextTick } from "vue";
 import Swiper from "swiper";
 import SwiperCore, { Navigation, Autoplay } from "swiper";
 import "swiper/swiper-bundle.min.css";
@@ -174,28 +174,64 @@ export default {
       ],
     };
   },
-  mounted() {},
+  /* global YT */
+  mounted() {
+    let tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    let firstScriptTag = document.getElementsByTagName("script")[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    console.log(this.players);
+    window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
+  },
 
   setup() {
     const bannerRef = ref(null);
+    const players = ref([]);
 
     onMounted(() => {
-      bannerRef.value = new Swiper(bannerRef.value, {
-        direction: "horizontal",
-        loop: false,
-        mousewheel: false,
-        speed: 300,
+      if (bannerRef.value) {
+        bannerRef.value = new Swiper(bannerRef.value, {
+          direction: "horizontal",
+          loop: false,
+          mousewheel: false,
+          speed: 300,
+          navigation: {
+            prevEl: ".swiper-button-prev",
+            nextEl: ".swiper-button-next",
+          },
+        });
 
-        navigation: {
-          prevEl: ".swiper-button-prev",
-          nextEl: ".swiper-button-next",
-        },
-      });
+        bannerRef.value.on("slideChange", () => {
+          const player = players[bannerRef.value.previousIndex];
+          if (player && player.stopVideo) {
+            player.stopVideo();
+          }
+        });
+      }
     });
+
+    const onYouTubeIframeAPIReady = () => {
+      nextTick(() => {
+        const interval = setInterval(() => {
+          if (window.YT && window.YT.Player) {
+            clearInterval(interval);
+            const iframes = bannerRef.value.$el.querySelectorAll("iframe");
+            for (let i = 0; i < iframes.length; i++) {
+              players[i] = new YT.Player(iframes[i]);
+            }
+          }
+        }, 100);
+      });
+    };
+
     return {
       bannerRef,
+      onYouTubeIframeAPIReady,
+      players,
     };
   },
+  methods: {},
 };
 </script>
 

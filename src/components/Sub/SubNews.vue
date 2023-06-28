@@ -323,30 +323,38 @@ a {
     font-size: 20px;
     padding-top: 5%;
     padding-bottom: 3%;
-    width: calc(100% - 24px);
+    width: calc(100vw - 40px);
   }
 
   .table_header {
     height: 30px;
-    font-size: 8px;
-    width: calc(100% - 24px);
+    font-size: 11px;
+    width: calc(100vw - 40px);
+    .table_title {
+      width: 60% !important;
+    }
+    .table_date {
+      width: 25% !important;
+    }
   }
 
   .table_desserts {
-    font-size: 8px;
+    font-size: 11px;
 
     .td_num {
       height: 30px;
     }
     .td_title {
+      width: 60% !important;
       height: 30px;
     }
     .td_date {
+      width: 25% !important;
       height: 30px;
     }
   }
   .btn_num {
-    font-size: 10px;
+    font-size: 14px;
   }
   .page_btn {
     font-size: 12px;

@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import ModalPopup from "@/components/Home/ShortsPopupModal.vue";
+import ModalPopup from "@/components/Sub/ProgramDetail/ShortsPopupModal.vue";
 
 import { mapGetters, mapActions } from "vuex";
 
