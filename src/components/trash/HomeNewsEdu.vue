@@ -29,9 +29,7 @@
     </div>
     <div class="announcer-con">
       <div class="swiper" ref="bannerRef">
-        <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
-          <!-- Slides -->
           <div class="swiper-slide">
             <img :src="img[0].src" class="banner-img" />
           </div>
@@ -43,11 +41,8 @@
           </div>
           ...
         </div>
-        <!-- If we need navigation buttons -->
         <div class="swiper-button-prev swiper-btn"></div>
         <div class="swiper-button-next swiper-btn"></div>
-
-        <!-- If we need scrollbar -->
       </div>
     </div>
   </section>

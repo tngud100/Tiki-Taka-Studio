@@ -78,8 +78,10 @@ import "swiper/swiper-bundle.min.css";
 
 SwiperCore.use([Navigation, Autoplay]);
 
+import { gsap, ScrollTrigger } from "gsap/all";
+
 export default {
-  name: "TestPageTrash",
+  name: "HomeSlideVod",
   data() {
     return {
       videoUrl: [
@@ -176,22 +178,62 @@ export default {
   },
   /* global YT */
   mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const vod = gsap.timeline({ paused: true });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".schedule-section",
+        start: "top-=100px center",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          vod.play();
+        },
+      },
+    });
+
+    vod.to(
+      ".schedule-section > .title-con > .company",
+      { duration: 1, bottom: 0, opacity: 1 },
+      "start"
+    );
+    vod.to(
+      ".schedule-section > .title-con > .title",
+      { duration: 1, bottom: 0, opacity: 1 },
+      "start+=.3"
+    );
+    vod.to(
+      ".schedule-section > .title-con > .subtitle",
+      { duration: 1, bottom: 0, opacity: 1 },
+      "start+=.5"
+    );
+    vod.to(
+      ".schedule-section > .title-con > .subtitle-mobile",
+      { duration: 1, bottom: 0, opacity: 1 },
+      "start+=.5"
+    );
+    vod.to(
+      ".Schedule-con",
+      { duration: 1.5, bottom: 0, opacity: 1 },
+      "start+=.7"
+    );
+
     let tag = document.createElement("script");
     tag.src = "https://www.youtube.com/iframe_api";
     let firstScriptTag = document.getElementsByTagName("script")[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    console.log(this.players);
     window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
   },
-
   setup() {
     const bannerRef = ref(null);
     const players = ref([]);
 
     onMounted(() => {
       if (bannerRef.value) {
-        bannerRef.value = new Swiper(bannerRef.value, {
+        const swiperInstance = new Swiper(bannerRef.value, {
           direction: "horizontal",
           loop: false,
           mousewheel: false,
@@ -202,8 +244,8 @@ export default {
           },
         });
 
-        bannerRef.value.on("slideChange", () => {
-          const player = players[bannerRef.value.previousIndex];
+        swiperInstance.on("slideChange", () => {
+          const player = players.value[swiperInstance.previousIndex];
           if (player && player.stopVideo) {
             player.stopVideo();
           }
@@ -213,15 +255,10 @@ export default {
 
     const onYouTubeIframeAPIReady = () => {
       nextTick(() => {
-        const interval = setInterval(() => {
-          if (window.YT && window.YT.Player) {
-            clearInterval(interval);
-            const iframes = bannerRef.value.$el.querySelectorAll("iframe");
-            for (let i = 0; i < iframes.length; i++) {
-              players[i] = new YT.Player(iframes[i]);
-            }
-          }
-        }, 100);
+        const iframes = document.querySelectorAll(".swiper-slide iframe");
+        for (let i = 0; i < iframes.length; i++) {
+          players.value[i] = new YT.Player(iframes[i]);
+        }
       });
     };
 
@@ -231,7 +268,6 @@ export default {
       players,
     };
   },
-  methods: {},
 };
 </script>
 
@@ -556,18 +592,30 @@ export default {
     .company {
       font-family: "Pretendard-Regular";
       font-weight: bold;
+      position: relative;
+      bottom: -30px;
+      opacity: 0;
     }
     .title {
       font-family: "Pretendard-Regular";
       font-weight: bold;
+      position: relative;
+      bottom: -30px;
+      opacity: 0;
     }
     .subtitle {
       font-family: "Pretendard-Regular";
       font-weight: bold;
+      position: relative;
+      bottom: -30px;
+      opacity: 0;
     }
     .subtitle-mobile {
       font-family: "Pretendard-Regular";
       display: none;
+      position: relative;
+      bottom: -45px;
+      opacity: 0;
     }
   }
 }
@@ -577,6 +625,9 @@ export default {
   justify-content: right;
   border: solid 6px #f5f5f5;
   border-radius: 5px;
+  position: relative;
+  bottom: -30px;
+  opacity: 0;
   .slide-con {
     width: 100%;
     display: flex;

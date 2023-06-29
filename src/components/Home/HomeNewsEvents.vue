@@ -137,27 +137,31 @@ export default {
 
     const news_event = gsap.timeline({ paused: true });
 
-    news_event.to(".title", { duration: 0.5, left: 0, opacity: 1 }, "start");
     news_event.to(
-      ".list-title",
-      { duration: 0.5, left: 0, opacity: 1 },
-      "start+=.2"
+      ".news-event-section > .title-con > .company",
+      { duration: 1, left: 0, opacity: 1 },
+      "start"
     );
     news_event.to(
-      ".list-detail",
-      { duration: 0.5, left: 0, opacity: 1 },
-      "start+=.4"
+      ".news-event-section > .title-con > .title",
+      { duration: 1, left: 0, opacity: 1 },
+      "start+=.3"
     );
     news_event.to(
-      ".announcer-con",
-      { duration: 0.5, right: 0, opacity: 1 },
-      "start+=.4"
+      ".news-event-section > .title-con > .subtitle",
+      { duration: 1, left: 0, opacity: 1 },
+      "start+=.5"
+    );
+    news_event.to(
+      ".news-event-section > .container > .news > .list-con",
+      { duration: 1, right: 0, opacity: 1 },
+      "start+=.7"
     );
 
     gsap.timeline({
       scrollTrigger: {
         trigger: ".news-event-section",
-        start: "top-=20% bottom",
+        start: "top-=100px bottom",
         end: "+=50%",
         scrub: true,
         animation: news_event,
@@ -463,13 +467,22 @@ export default {
     }
     .company {
       font-family: "Pretendard-Regular";
+      position: relative;
+      left: -30px;
+      opacity: 0;
     }
     .title {
       font-family: "Pretendard-Regular";
       font-weight: bold;
+      position: relative;
+      left: -30px;
+      opacity: 0;
     }
     .subtitle {
       font-family: "Pretendard-Regular";
+      position: relative;
+      left: -30px;
+      opacity: 0;
     }
   }
 
@@ -514,6 +527,9 @@ export default {
         padding: 10px 0px;
         cursor: pointer;
         text-decoration: none;
+        position: relative;
+        right: -30px;
+        opacity: 0;
         .num {
           font-family: "pretendard-Regular";
           font-weight: bold;
@@ -529,16 +545,17 @@ export default {
             font-weight: bold;
             position: relative;
             color: black;
-            left: -15px;
-            opacity: 0;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
           }
           .list-detail {
             font-family: "pretendard-Regular";
             color: rgb(109, 109, 109);
             position: relative;
-            left: -15px;
-            opacity: 0;
-
             text-overflow: ellipsis;
             overflow: hidden;
             word-break: break-word;

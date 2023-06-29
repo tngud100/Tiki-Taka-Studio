@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import { gsap, ScrollTrigger } from "gsap/all";
+
 export default {
   name: "HomeService",
   data() {
@@ -102,6 +104,92 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const service = gsap.timeline({ paused: true });
+    const video = gsap.timeline({ paused: true });
+    const rental = gsap.timeline({ paused: true });
+    const education = gsap.timeline({ paused: true });
+    const advertise = gsap.timeline({ paused: true });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".service-section",
+        start: "top+=300px bottom",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          service.play();
+        },
+      },
+    });
+    service.to(
+      ".service-section > .title-con > .company",
+      { duration: 1.5, bottom: 0, opacity: 1 },
+      "start"
+    );
+    service.to(
+      ".service-section > .title-con > .title",
+      { duration: 1.5, bottom: 0, opacity: 1 },
+      "start+=.3"
+    );
+    service.to(
+      ".service-section > .title-con > .subTitle-con",
+      { duration: 1.5, bottom: 0, opacity: 1 },
+      "start+=.5"
+    );
+
+    video.to(".video", { duration: 1, left: 0, opacity: 1 }, "start");
+    rental.to(".rental", { duration: 1, right: 0, opacity: 1 }, "start");
+    education.to(".education", { duration: 1, left: 0, opacity: 1 }, "start");
+    advertise.to(".advertise", { duration: 1, right: 0, opacity: 1 }, "start");
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".video",
+        start: "top+=300px bottom",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          video.play();
+        },
+      },
+    });
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".rental",
+        start: "top+=300px bottom",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          rental.play();
+        },
+      },
+    });
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".education",
+        start: "top+=300px bottom",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          education.play();
+        },
+      },
+    });
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".advertise",
+        start: "top+=300px bottom",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          advertise.play();
+        },
+      },
+    });
   },
 };
 </script>
@@ -491,19 +579,30 @@ export default {
       font-weight: bold;
       font-family: "Pretendard-Regular";
       color: #101010;
+      bottom: -30px;
+      position: relative;
+      opacity: 0;
     }
     .title {
       font-weight: bold;
       font-family: "Pretendard-Regular";
       color: #101010;
       padding: 12px 0px;
+      bottom: -30px;
+      position: relative;
+      opacity: 0;
     }
-    .subTitle {
-      font-family: "Pretendard-Regular";
-    }
-    .subTitle-mobile {
-      font-family: "Pretendard-Regular";
-      display: none;
+    .subTitle-con {
+      position: relative;
+      opacity: 0;
+      bottom: -45px;
+      .subTitle {
+        font-family: "Pretendard-Regular";
+      }
+      .subTitle-mobile {
+        font-family: "Pretendard-Regular";
+        display: none;
+      }
     }
   }
   .container {
@@ -532,6 +631,11 @@ export default {
         }
         .text-con {
           display: grid;
+          // text-overflow: ellipsis;
+          // overflow: hidden;
+          // word-break: break-word;
+          // display: -webkit-box;
+          // -webkit-box-orient: vertical;
           .service-title {
             .title {
               font-weight: bold;
@@ -551,12 +655,18 @@ export default {
       }
       .left {
         justify-content: left;
+        left: -50px;
+        position: relative;
+        opacity: 0;
         .text-con {
           justify-content: center;
         }
       }
       .right {
         flex-direction: row-reverse;
+        right: -50px;
+        position: relative;
+        opacity: 0;
         .text-con {
         }
       }

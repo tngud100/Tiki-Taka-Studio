@@ -26,6 +26,7 @@
         </div>
         <div class="desc-image">
           <img :src="infoPhone" alt="phone" style="width: 100%; height: 100%" />
+          <img :src="infoPhoneSecondText" alt="phone" class="phone-text2" />
         </div>
       </div>
     </div>
@@ -33,12 +34,60 @@
 </template>
 
 <script>
+import { gsap, ScrollTrigger } from "gsap/all";
+
 export default {
   name: "HomeInfo",
   data() {
     return {
       infoPhone: require("@/assets/info/infophone.svg"),
+      infoPhoneFirstText: require("@/assets/info/infophone_firstText.svg"),
+      infoPhoneSecondText: require("@/assets/info/infophone_afterText.svg"),
     };
+  },
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const info = gsap.timeline({ paused: true });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".info-section",
+        start: "top-=100px center",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          info.play();
+        },
+      },
+    });
+    info.to(
+      ".info-con > .container > .content > .company",
+      { duration: 1, bottom: 0, opacity: 1 },
+      "start"
+    );
+    info.to(
+      ".info-con > .container > .content > .Title",
+      { duration: 1, bottom: 0, opacity: 1 },
+      "start+=.3"
+    );
+    info.to(
+      ".info-con > .container > .content > .text-con",
+      { duration: 1, bottom: 0, opacity: 1 },
+      "start+=.5"
+    );
+    info.to(".btn-box", { duration: 1, bottom: 0, opacity: 1 }, "start+=.7");
+    info.to(".desc-image", { duration: 1, right: 0, opacity: 1 }, "start+=.4");
+
+    info.to(
+      ".phone-text2",
+      {
+        duration: 1.5,
+        boxShadow: "0px 0px 7px 5px #EEEEF6",
+        scale: 1.12,
+      },
+      "start+=.9"
+    );
   },
 };
 </script>
@@ -84,8 +133,13 @@ export default {
             }
           }
         }
-        .desc-image {
-          width: 350px;
+      }
+      .desc-image {
+        width: 450px;
+        margin: 0px 60px;
+        .phone-text2 {
+          width: 410px;
+          transform: translate3d(-430px, 152px, 10px) !important;
         }
       }
     }
@@ -132,6 +186,11 @@ export default {
       }
       .desc-image {
         width: 350px;
+        margin: 0px 50px;
+        .phone-text2 {
+          width: 315px;
+          transform: translate3d(-332px, 121px, 10px) !important;
+        }
       }
     }
   }
@@ -179,7 +238,12 @@ export default {
         }
       }
       .desc-image {
-        width: 330px;
+        width: 300px;
+        margin: 0px 10px;
+        .phone-text2 {
+          width: 270px;
+          transform: translate3d(-285px, 102px, 10px) !important;
+        }
       }
     }
   }
@@ -227,7 +291,11 @@ export default {
         }
       }
       .desc-image {
-        width: 330px;
+        width: 250px;
+        .phone-text2 {
+          width: 225px;
+          transform: translate3d(-237px, 84px, 10px) !important;
+        }
       }
     }
   }
@@ -282,6 +350,13 @@ export default {
       }
       .desc-image {
         width: calc(100% - 20px);
+        margin: 50px 0px 0px 0px;
+        .phone-text2 {
+          width: calc(100% - 40px);
+          left: 8%;
+          top: 26%;
+          // transform: translate3d(-405px, 150px, 10px) !important;
+        }
       }
     }
   }
@@ -299,21 +374,39 @@ export default {
       .content {
         display: grid;
       }
+      .desc-image {
+        position: relative;
+        right: -100px;
+        opacity: 0;
+        .phone-text2 {
+          position: absolute;
+          box-shadow: 0px 0px 0px 0px #eeeef6;
+        }
+      }
 
       .company {
         font-family: "Pretendard-Regular";
         font-weight: bold;
         color: #101010;
         margin: 0px 0px 10px 0px;
+        bottom: -30px;
+        position: relative;
+        opacity: 0;
       }
       .Title {
         margin: 0px 0px 10px 0px;
         font-family: "Pretendard-Regular";
         font-weight: bold;
         color: #101010;
+        bottom: -30px;
+        position: relative;
+        opacity: 0;
       }
       .text-con {
         margin: 20px 0px 10px 0px;
+        position: relative;
+        opacity: 0;
+        bottom: -45px;
         .describe {
           display: grid;
           justify-content: left;
@@ -326,6 +419,9 @@ export default {
       }
       .btn-box {
         margin: 20px 0px 10px 0px;
+        position: relative;
+        opacity: 0;
+        bottom: -45px;
         .btn {
           border: solid 1px #101010;
           border-radius: 5px;
