@@ -31,6 +31,7 @@
         </div>
       </div>
     </div>
+    <!-- 서비스 상세 내용 -->
     <MakeFilm v-if="serviceState === 0" />
     <EquipmentSpace v-if="serviceState === 1" />
     <Education v-if="serviceState === 2" />
@@ -46,6 +47,8 @@
 </template>
 
 <script>
+import { gsap, ScrollTrigger } from "gsap/all";
+
 import HeaderTitle from "@/components/Header/SubTitle.vue";
 import EquipmentSpace from "./StudioDetail/EquipmentSapceRental.vue";
 import MakeFilm from "./StudioDetail/MakeFilm.vue";
@@ -77,6 +80,7 @@ export default {
           desc1: "전문 영상제작팀이",
           desc2: "업체의 목적에 부합하는",
           desc3: "맞춤 영상 제작",
+          num: 0,
         },
         {
           img: require("@/assets/studio/insta.svg"),
@@ -84,6 +88,7 @@ export default {
           desc1: "100평 규모의",
           desc2: "스튜디오와 전문 촬영",
           desc3: "장비 대여",
+          num: 1,
         },
         {
           img: require("@/assets/studio/personal.svg"),
@@ -91,6 +96,7 @@ export default {
           desc1: "1인 크리에이터",
           desc2: "전문 강사진의 교육",
           desc3: "자격증 발급",
+          num: 2,
         },
         // {
         //   img: require("@/assets/studio/locate.svg"),
@@ -105,13 +111,61 @@ export default {
           desc1: "확실한 타깃의",
           desc2: "채널을 이용해 브랜드와",
           desc3: "제품을 효과적으로 마케팅",
+          num: 3,
         },
       ],
     };
   },
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const studio = gsap.timeline({ paused: true });
+    const card = gsap.timeline({ paused: true });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".studio_section",
+        scrub: true,
+        onEnter: () => {
+          studio.play();
+        },
+      },
+    });
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".Service-con",
+        start: "top+=200px bottom",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          card.play();
+        },
+      },
+    });
+    studio.to(".Text-con", { duration: 1, bottom: 0, opacity: 1 }, "start");
+    studio.to(
+      ".Sevice-Title",
+      { duration: 1, bottom: 0, opacity: 1 },
+      "start+=.5"
+    );
+
+    card.to(".card0", { duration: 0.5, bottom: 0, opacity: 1 }, "start");
+    card.to(".card1", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=.2");
+    card.to(".card2", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=.4");
+    card.to(".card3", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=.6");
+  },
   methods: {
     ServiceState(index) {
       this.serviceState = index;
+      const border = document.querySelectorAll(".service-card");
+
+      for (let i = 0; i < border.length; i++) {
+        border[i].style.border = "solid 1px black";
+        console.log(this.serviceState);
+        if (this.serviceState === i) {
+          border[this.serviceState].style.border = "solid 2px #805bea";
+        }
+      }
     },
   },
 };
@@ -394,6 +448,9 @@ export default {
     display: grid;
     justify-content: center;
     align-items: center;
+    position: relative;
+    bottom: -30px;
+    opacity: 0;
     .Title {
       font-family: "Pretendard-Regular";
       font-weight: bold;
@@ -406,13 +463,23 @@ export default {
   .Service-con {
     display: grid;
     justify-content: center;
-
     .Sevice-Title {
+      position: relative;
+      bottom: -30px;
+      opacity: 0;
       text-align: center;
       font-family: "Pretendard-Regular";
       font-weight: bold;
       background-position: center;
       background-image: url("@/assets/studio/titleLine.svg");
+    }
+    .card0,
+    .card1,
+    .card2,
+    .card3 {
+      position: relative;
+      bottom: -30px;
+      opacity: 0;
     }
     .Service-cardCon {
       display: flex;
