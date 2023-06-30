@@ -1,7 +1,7 @@
 <template>
   <section class="advertise-section">
     <div class="title-con">
-      <p class="kategori">광고</p>
+      <!-- <p class="kategori">광고</p> -->
       <!-- <span class="prepare">준비중입니다</span> -->
     </div>
     <div class="table-con">

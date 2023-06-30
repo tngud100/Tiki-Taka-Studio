@@ -1,7 +1,7 @@
 <template>
   <section class="film-section">
     <div class="title-con">
-      <p class="kategori">영상 제작</p>
+      <!-- <p class="kategori">영상 제작</p> -->
       <span class="prepare">준비중입니다</span>
     </div>
   </section>

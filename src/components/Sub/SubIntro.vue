@@ -66,8 +66,11 @@
 
 <script>
 import HeaderTitle from "@/components/Header/SubTitle.vue";
+
+import { gsap, ScrollTrigger } from "gsap/all";
+
 export default {
-  // name: "IntroPage",
+  name: "IntroPage",
   components: {
     HeaderTitle,
   },
@@ -113,6 +116,47 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const Intro = gsap.timeline({ paused: true });
+    const card = gsap.timeline({ paused: true });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".Intro-section",
+        scrub: true,
+        onEnter: () => {
+          Intro.play();
+        },
+      },
+    });
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".card-con",
+        start: "top+=100px bottom",
+        end: "+=50%",
+        scrub: true,
+        onEnter: () => {
+          card.play();
+        },
+      },
+    });
+
+    Intro.to(".sub-title", { duration: 0.5, bottom: 0, opacity: 1 }, "start");
+    Intro.to(".title", { duration: 1, bottom: 0, opacity: 1 }, "start+=.1");
+    Intro.to(
+      ".detail-about",
+      { duration: 1, bottom: 0, opacity: 1 },
+      "start+=.5"
+    );
+    Intro.to(".intro-con", { duration: 1, left: 0, opacity: 1 }, "start+=.7");
+
+    card.to(".member0", { duration: 1, bottom: 0, opacity: 1 }, "start");
+    card.to(".member1", { duration: 1, bottom: 0, opacity: 1 }, "start+=.2");
+    card.to(".member2", { duration: 1, bottom: 0, opacity: 1 }, "start+=.4");
+    card.to(".member3", { duration: 1, bottom: 0, opacity: 1 }, "start+=.6");
   },
 };
 </script>
@@ -588,13 +632,22 @@ export default {
     .sub-title {
       font-family: "Pretendard-Regular";
       color: rgb(189, 189, 189);
+      position: relative;
+      bottom: -15px;
+      opacity: 0;
     }
     .title {
       font-family: "Pretendard-Regular";
       font-weight: bold;
+      position: relative;
+      bottom: -30px;
+      opacity: 0;
     }
     .detail-about {
       font-family: "Pretendard-Regular";
+      position: relative;
+      bottom: -30px;
+      opacity: 0;
       .detail-point {
         font-family: "Pretendard-Regular";
         font-weight: bold;
@@ -607,6 +660,9 @@ export default {
     .intro-con {
       display: flex;
       justify-content: space-between;
+      position: relative;
+      left: -30px;
+      opacity: 0;
       .title {
         font-family: "Pretendard-Regular";
         font-weight: bold;
@@ -617,6 +673,8 @@ export default {
     }
     .CeoImg-con {
       position: absolute;
+      // left: -30px;
+      // opacity: 0;
       .ceo-img {
         width: 100%;
         object-fit: cover;
@@ -642,6 +700,14 @@ export default {
       flex-wrap: wrap;
       justify-content: left;
       align-items: center;
+      .member0,
+      .member1,
+      .member2,
+      .member3 {
+        position: relative;
+        bottom: -45px;
+        opacity: 0;
+      }
     }
     .card {
       position: relative;

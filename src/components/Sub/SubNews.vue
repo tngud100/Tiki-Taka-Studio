@@ -57,8 +57,8 @@ export default {
   },
   data() {
     return {
-      title: "공지사항",
-      subTitle: "Notify",
+      title: "회사소식",
+      subTitle: "News",
       bgImage: [
         require("@/assets/banner/notify1920.svg"),
         require("@/assets/banner/notify1300.svg"),

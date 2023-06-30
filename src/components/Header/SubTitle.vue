@@ -28,9 +28,6 @@ export default {
   methods: {
     handleResize() {
       const width = window.innerWidth;
-      console.log(this.bgImage[0]);
-      console.log(this.bgImage[1]);
-      console.log(this.bgImage[2]);
 
       if (width > 1300) {
         this.currentBgImage = this.bgImage[0];

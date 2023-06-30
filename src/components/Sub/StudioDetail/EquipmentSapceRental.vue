@@ -1,7 +1,7 @@
 <template>
   <!-- 임대비용 안내 -->
   <div class="Rental-con">
-    <p class="Rental-Title">촬영 공간 및 장비 대여</p>
+    <!-- <p class="Rental-Title">촬영 공간 및 장비 대여</p> -->
     <div class="tab-con">
       <div class="tab">
         <div

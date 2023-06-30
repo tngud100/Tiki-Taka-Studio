@@ -1,7 +1,7 @@
 <template>
   <section class="education-section">
     <div class="title-con">
-      <p class="kategori">교육 프로그램</p>
+      <!-- <p class="kategori">교육 프로그램</p> -->
       <span class="prepare">준비중입니다</span>
     </div>
   </section>
