@@ -185,7 +185,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".schedule-section",
-        start: "top-=100px center",
+        start: "top-=100px bottom",
         end: "+=50%",
         scrub: true,
         onEnter: () => {

@@ -61,7 +61,7 @@ export default {
           href: "https://blog.naver.com/gameinscokr",
         },
         {
-          src: require("@/assets/footer/Bloglogo.svg"),
+          src: require("@/assets/footer/naverlogo.svg"),
           href: "https://blog.naver.com/bourjois13",
         },
         {

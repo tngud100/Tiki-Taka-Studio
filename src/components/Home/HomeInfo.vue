@@ -43,9 +43,30 @@ export default {
       infoPhone: require("@/assets/info/infophone.svg"),
       infoPhoneFirstText: require("@/assets/info/infophone_firstText.svg"),
       infoPhoneSecondText: require("@/assets/info/infophone_afterText.svg"),
+      phoneText_pos: "",
+      phoneText_width: 0,
     };
   },
   mounted() {
+    const viewportWidth = window.innerWidth;
+    console.log(viewportWidth);
+    if (viewportWidth >= 1300) {
+      this.phoneText_pos = "translate3d(-448px, 147px, 10px)";
+      this.phoneText_width = 450;
+    } else if (viewportWidth < 1300 && viewportWidth >= 1080) {
+      this.phoneText_pos = "translate3d(-350px, 115px, 10px)";
+      this.phoneText_width = 350;
+    } else if (viewportWidth < 1080 && viewportWidth >= 760) {
+      this.phoneText_pos = "translate3d(-300px, 98px, 10px)";
+      this.phoneText_width = 300;
+    } else if (viewportWidth < 760 && viewportWidth >= 640) {
+      this.phoneText_pos = "translate3d(-250px, 80px, 10px)";
+      this.phoneText_width = 250;
+    } else {
+      this.phoneText_pos = "translate3d(-40px, -10px, 10px)";
+      this.phoneText_width = viewportWidth - 50;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     const info = gsap.timeline({ paused: true });
@@ -78,15 +99,15 @@ export default {
     );
     info.to(".btn-box", { duration: 1, bottom: 0, opacity: 1 }, "start+=.7");
     info.to(".desc-image", { duration: 1, right: 0, opacity: 1 }, "start+=.4");
-
     info.to(
       ".phone-text2",
       {
-        duration: 1.5,
+        duration: 1,
         boxShadow: "0px 0px 7px 5px #EEEEF6",
-        scale: 1.12,
+        width: this.phoneText_width,
+        transform: this.phoneText_pos,
       },
-      "start+=.9"
+      "start+=1.2"
     );
   },
 };
@@ -139,7 +160,7 @@ export default {
         margin: 0px 60px;
         .phone-text2 {
           width: 410px;
-          transform: translate3d(-430px, 152px, 10px) !important;
+          transform: translate3d(-430px, 152px, 10px);
         }
       }
     }
@@ -189,7 +210,7 @@ export default {
         margin: 0px 50px;
         .phone-text2 {
           width: 315px;
-          transform: translate3d(-332px, 121px, 10px) !important;
+          transform: translate3d(-332px, 121px, 10px);
         }
       }
     }
@@ -242,7 +263,7 @@ export default {
         margin: 0px 10px;
         .phone-text2 {
           width: 270px;
-          transform: translate3d(-285px, 102px, 10px) !important;
+          transform: translate3d(-285px, 102px, 10px);
         }
       }
     }
@@ -294,7 +315,7 @@ export default {
         width: 250px;
         .phone-text2 {
           width: 225px;
-          transform: translate3d(-237px, 84px, 10px) !important;
+          transform: translate3d(-237px, 84px, 10px);
         }
       }
     }
@@ -355,7 +376,7 @@ export default {
           width: calc(100% - 40px);
           left: 8%;
           top: 26%;
-          // transform: translate3d(-405px, 150px, 10px) !important;
+          transform: translate3d(-15px, 2px, 10px);
         }
       }
     }

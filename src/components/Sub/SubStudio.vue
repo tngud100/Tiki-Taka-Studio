@@ -21,13 +21,15 @@
           :class="'service-card card' + index"
           @click="ServiceState(index)"
         >
+          <!-- @mouseover="changeColorIcon(index)"
+          @mouseleave="resetColorIcon(index)" -->
           <div class="icon-con">
-            <img :src="item.img" alt="icon" class="icon" />
+            <img :src="item.src" alt="icon" class="icon" />
           </div>
           <p class="Title">{{ item.title }}</p>
-          <p class="subTitle">{{ item.desc1 }}</p>
+          <!-- <p class="subTitle">{{ item.desc1 }}</p>
           <p class="subTitle">{{ item.desc2 }}</p>
-          <p class="subTitle">{{ item.desc3 }}</p>
+          <p class="subTitle">{{ item.desc3 }}</p> -->
         </div>
       </div>
     </div>
@@ -67,7 +69,7 @@ export default {
     return {
       title: "서비스",
       subTitle: "Service",
-      serviceState: 1,
+      serviceState: -1,
       bgImage: [
         require("@/assets/banner/studio1920.svg"),
         require("@/assets/banner/studio1300.svg"),
@@ -75,28 +77,37 @@ export default {
       ],
       service: [
         {
-          img: require("@/assets/studio/certification.svg"),
+          img: require("@/assets/studio/makeFilm.svg"),
+          img2: require("@/assets/studio/makeFilmHover.svg"),
           title: "영상 제작",
           desc1: "전문 영상제작팀이",
           desc2: "업체의 목적에 부합하는",
           desc3: "맞춤 영상 제작",
           num: 0,
+          src: require("@/assets/studio/makeFilm.svg"),
+          iconHoverState: false,
         },
         {
-          img: require("@/assets/studio/insta.svg"),
+          img: require("@/assets/studio/Lent.svg"),
+          img2: require("@/assets/studio/lentHover.svg"),
           title: "촬영 공간/장비 대여",
           desc1: "100평 규모의",
           desc2: "스튜디오와 전문 촬영",
           desc3: "장비 대여",
           num: 1,
+          src: require("@/assets/studio/Lent.svg"),
+          iconHoverState: false,
         },
         {
-          img: require("@/assets/studio/personal.svg"),
+          img: require("@/assets/studio/education.svg"),
+          img2: require("@/assets/studio/educationHover.svg"),
           title: "교육",
           desc1: "1인 크리에이터",
           desc2: "전문 강사진의 교육",
           desc3: "자격증 발급",
           num: 2,
+          src: require("@/assets/studio/education.svg"),
+          iconHoverState: false,
         },
         // {
         //   img: require("@/assets/studio/locate.svg"),
@@ -106,16 +117,20 @@ export default {
         //   desc3: "비디오 컨퍼런스, 등",
         // },
         {
-          img: require("@/assets/studio/message.svg"),
+          img: require("@/assets/studio/advertise.svg"),
+          img2: require("@/assets/studio/lentHover.svg"),
           title: "광고",
           desc1: "확실한 타깃의",
           desc2: "채널을 이용해 브랜드와",
           desc3: "제품을 효과적으로 마케팅",
           num: 3,
+          src: require("@/assets/studio/advertise.svg"),
+          iconHoverState: false,
         },
       ],
     };
   },
+  computed: {},
   mounted() {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -149,10 +164,10 @@ export default {
       "start+=.5"
     );
 
-    card.to(".card0", { duration: 0.5, bottom: 0, opacity: 1 }, "start");
-    card.to(".card1", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=.2");
-    card.to(".card2", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=.4");
-    card.to(".card3", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=.6");
+    card.to(".card0", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=.7");
+    card.to(".card1", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=.9");
+    card.to(".card2", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=1.1");
+    card.to(".card3", { duration: 0.5, bottom: 0, opacity: 1 }, "start+=1.3");
   },
   methods: {
     ServiceState(index) {
@@ -161,11 +176,26 @@ export default {
 
       for (let i = 0; i < border.length; i++) {
         border[i].style.border = "solid 1px black";
-        console.log(this.serviceState);
+        border[i].style.boxShadow = "0px 2px 2px 0px #272727";
+        border[i].style.color = "black";
+        this.service[i].src = this.service[i].img;
+
         if (this.serviceState === i) {
-          border[this.serviceState].style.border = "solid 2px #805bea";
+          border[this.serviceState].style.border = "solid 1px #805bea";
+          border[this.serviceState].style.boxShadow = "0px 2px 2px 0px #805bea";
+          border[this.serviceState].style.color = "#805bea";
+          this.service[i].src = this.service[i].img2;
         }
       }
+    },
+    // currentImg(index) {},
+    changeColorIcon(index) {
+      if (this.serviceState != index) {
+        this.service[index].src = this.service[index].img2;
+      }
+    },
+    resetColorIcon(index) {
+      this.service[index].src = this.service[index].img;
     },
   },
 };
@@ -208,10 +238,8 @@ export default {
       margin-left: 60px;
     }
     .service-card {
-      height: 280px;
       padding: 20px 10px;
       .icon-con {
-        padding: 20px 0px;
         .icon {
           width: 40px;
           height: 40px;
@@ -263,10 +291,8 @@ export default {
       margin-left: 24px;
     }
     .service-card {
-      height: 280px;
       padding: 30px 10px;
       .icon-con {
-        padding: 12px 0px;
         .icon {
           width: 40px;
           height: 40px;
@@ -319,10 +345,8 @@ export default {
       margin-left: 24px;
     }
     .service-card {
-      height: 200px;
       padding: 10px 8px;
       .icon-con {
-        padding: 12px 0px;
         .icon {
           width: 40px;
           height: 40px;
@@ -370,10 +394,8 @@ export default {
     .service-card {
       margin: 12px;
       width: calc(50% - 24px) !important;
-      height: 200px;
       padding: 10px 8px;
       .icon-con {
-        padding: 12px 0px;
         .icon {
           width: 40px;
           height: 40px;
@@ -422,10 +444,8 @@ export default {
     .service-card {
       margin: 12px;
       width: calc(50% - 24px) !important;
-      height: 200px;
       padding: 10px 8px;
       .icon-con {
-        padding: 12px 0px;
         .icon {
           width: 40px;
           height: 40px;
@@ -493,6 +513,8 @@ export default {
         // margin: 12px;
         border: solid 1px black;
         text-align: center;
+        border-radius: 15px;
+        box-shadow: 0px 2px 2px 0px #646464;
         cursor: pointer;
         .icon-con {
           // padding: 20px 0px;
@@ -509,18 +531,20 @@ export default {
         .subTitle {
           font-family: "Pretendard-Regular";
           // font-size: 18px;
-          color: #727272;
+          color: #979797;
           // letter-spacing: -1.7px;
         }
       }
       .service-card:hover {
-        border: solid 1px #805bea;
+        border: solid 1px #805bea !important;
+        box-shadow: 0px 2px 2px 0px #805bea !important;
+        // color: #805bea;
       }
     }
   }
 }
 .btn-box {
-  margin: 0px auto 100px auto;
+  margin: 100px auto 100px auto;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,7 +1,10 @@
 <template>
   <section class="advertise-section">
     <div class="title-con">
-      <!-- <p class="kategori">광고</p> -->
+      <p class="kategori">광고 제작</p>
+      <p class="desc">
+        확실한 타깃의 채널을 이용해 브랜드와 제품을 효과적으로 마케팅
+      </p>
       <!-- <span class="prepare">준비중입니다</span> -->
     </div>
     <div class="table-con">
@@ -62,6 +65,9 @@
         </tr>
       </table>
     </div>
+    <div class="img-con">
+      <img :src="process" alt="process" class="process-img" />
+    </div>
   </section>
 </template>
 
@@ -70,6 +76,7 @@ export default {
   name: "advertisePage",
   data() {
     return {
+      process: require("@/assets/studio/makeAdvertiseProcess.svg"),
       advertise: [
         {
           thead: ["상품", "소개", "노출", "계약방식", "라이센스"],
@@ -114,12 +121,20 @@ export default {
     .title-con {
       margin: 100px auto 0px auto;
       .kategori {
-        font-size: 30px;
+        font-size: 20px;
       }
+      .desc {
+        padding: 20px;
+        font-size: 20px;
+      }
+    }
+    .img-con {
+      width: 1000px;
+      padding-top: 40px;
     }
     .table-con {
       width: 1300px;
-      margin: 100px auto;
+      margin: 60px auto;
       thead {
         .thead-text {
           font-size: 16px;
@@ -140,12 +155,20 @@ export default {
     .title-con {
       margin: 100px auto 0px auto;
       .kategori {
-        font-size: 30px;
+        font-size: 20px;
       }
+      .desc {
+        padding: 20px;
+        font-size: 20px;
+      }
+    }
+    .img-con {
+      width: 1000px;
+      padding-top: 40px;
     }
     .table-con {
       width: 1080px;
-      margin: 100px auto;
+      margin: 60px auto;
       thead {
         .thead-text {
           font-size: 16px;
@@ -167,12 +190,20 @@ export default {
     .title-con {
       margin: 80px auto 0px auto;
       .kategori {
-        font-size: 24px;
+        font-size: 20px;
       }
+      .desc {
+        padding: 15px;
+        font-size: 20px;
+      }
+    }
+    .img-con {
+      width: 700px;
+      padding-top: 20px;
     }
     .table-con {
       width: 760px;
-      margin: 80px auto;
+      margin: 50px auto;
       thead {
         .thead-text {
           font-size: 15px;
@@ -194,8 +225,16 @@ export default {
     .title-con {
       margin: 40px auto 0px auto;
       .kategori {
-        font-size: 24px;
+        font-size: 20px;
       }
+      .desc {
+        padding: 10px;
+        font-size: 20px;
+      }
+    }
+    .img-con {
+      width: 600px;
+      padding-top: 20px;
     }
     .table-con {
       width: 640px;
@@ -221,12 +260,19 @@ export default {
     .title-con {
       margin: 60px auto 0px auto;
       .kategori {
-        font-size: 24px;
+        font-size: 20px;
       }
+      .desc {
+        padding: 10px;
+        font-size: 16px;
+      }
+    }
+    .img-con {
+      width: calc(100% - 40px);
     }
     .table-con {
       width: calc(100% - 12px);
-      margin: 60px auto;
+      margin: 40px auto;
       thead {
         .thead-text {
           font-size: 15px;
@@ -278,8 +324,17 @@ export default {
       text-align: center;
       font-family: "Pretendard-Regular";
       font-weight: bold;
-      background-position: center;
-      background-image: url("@/assets/studio/titleLine.svg");
+    }
+    .desc {
+      text-align: center;
+      font-family: "Pretendard-Regular";
+    }
+  }
+  .img-con {
+    margin: auto;
+    .process-img {
+      width: 100%;
+      height: 100%;
     }
   }
 

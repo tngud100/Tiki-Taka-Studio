@@ -117,7 +117,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".service-section",
-        start: "top+=300px bottom",
+        start: "top+=100px bottom",
         end: "+=50%",
         scrub: true,
         onEnter: () => {
@@ -149,7 +149,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".video",
-        start: "top+=300px bottom",
+        start: "top+=100px bottom",
         end: "+=50%",
         scrub: true,
         onEnter: () => {
@@ -160,7 +160,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".rental",
-        start: "top+=300px bottom",
+        start: "top+=100px bottom",
         end: "+=50%",
         scrub: true,
         onEnter: () => {
@@ -171,7 +171,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".education",
-        start: "top+=300px bottom",
+        start: "top+=100px bottom",
         end: "+=50%",
         scrub: true,
         onEnter: () => {
@@ -182,7 +182,7 @@ export default {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".advertise",
-        start: "top+=300px bottom",
+        start: "top+=100px bottom",
         end: "+=50%",
         scrub: true,
         onEnter: () => {

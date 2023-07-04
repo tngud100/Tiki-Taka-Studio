@@ -87,25 +87,13 @@ export default {
       members: [
         {
           name: "정시후 Jung Si Hoo",
-          src: require("@/assets/info/정시후 팀장.svg"),
-          position: "운영 실무 팀장",
-          spec: ["現 더크리에이터 대표이사", "現 TNT Studio 운영 실무 팀장"],
-        },
-        {
-          name: "정시후  Jung Si Hoo",
-          src: require("@/assets/info/정시후 팀장.svg"),
-          position: "운영 실무 팀장",
-          spec: ["現 더크리에이터 대표이사", "現 TNT Studio 운영 실무 팀장"],
-        },
-        {
-          name: "정시후  Jung Si Hoo",
-          src: require("@/assets/info/정시후 팀장.svg"),
+          src: require("@/assets/info/readyImg.svg"),
           position: "운영 실무 팀장",
           spec: ["現 더크리에이터 대표이사", "現 TNT Studio 운영 실무 팀장"],
         },
         {
           name: "하채원 HaChea Won",
-          src: require("@/assets/info/정시후 팀장.svg"),
+          src: require("@/assets/info/readyImg.svg"),
 
           // src: require("@/assets/info/하채원 팀장.svg"),
           position: "B2G 총괄 팀장",
@@ -113,6 +101,18 @@ export default {
             "現 (주)HY미디어능력개발원 대표이사",
             "現 TNT Studio B2G 총괄 팀장",
           ],
+        },
+        {
+          name: "박제영 JeaYoung Park",
+          src: require("@/assets/info/readyImg.svg"),
+          // position: "총괄 본부장",
+          // spec: ["現 게임인스 본부장", ""],
+        },
+        {
+          name: "김보경 BoKyeong Kim",
+          src: require("@/assets/info/readyImg.svg"),
+          // position: "총괄 과장",
+          // spec: ["現 게임인스 총괄 과장", ""],
         },
       ],
     };
