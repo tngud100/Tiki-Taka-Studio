@@ -519,7 +519,8 @@ export default {
       width: calc(100% - 24px);
       .card {
         .img-con {
-          width: 65%;
+          width: 60%;
+          padding: 12px;
         }
         .text-con {
           .service-title {
@@ -543,12 +544,10 @@ export default {
       }
       .left {
         .text-con {
-          padding-left: 30px;
         }
       }
       .right {
         .text-con {
-          padding-right: 30px;
         }
       }
       .rental {
@@ -587,8 +586,8 @@ export default {
       font-weight: bold;
       font-family: "Pretendard-Regular";
       color: #101010;
-      padding: 12px 0px;
       bottom: -30px;
+      padding: 0px 0px 18px 0px;
       position: relative;
       opacity: 0;
     }
@@ -607,6 +606,7 @@ export default {
   }
   .container {
     position: relative;
+    overflow: hidden;
     .container-bg {
       position: absolute;
       background-color: #f3f2ff;

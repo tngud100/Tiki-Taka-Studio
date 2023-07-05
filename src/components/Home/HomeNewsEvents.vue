@@ -453,6 +453,7 @@ export default {
 }
 
 .news-event-section {
+  overflow: hidden;
   .title-con {
     margin: auto;
     position: relative;
@@ -503,7 +504,7 @@ export default {
       .title-con {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         .title {
           font-family: "pretendard-Regular";
           font-weight: bold;
