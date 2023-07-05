@@ -7,6 +7,9 @@
       </p>
       <!-- <span class="prepare">준비중입니다</span> -->
     </div>
+    <div class="img-con">
+      <img :src="process" alt="process" class="process-img" />
+    </div>
     <div class="table-con">
       <table v-for="(advertise, index) in advertise" :key="index" class="table">
         <thead>
@@ -64,9 +67,6 @@
           <td class="tbody-text mobile-td2">{{ tbody.licence }}</td>
         </tr>
       </table>
-    </div>
-    <div class="img-con">
-      <img :src="process" alt="process" class="process-img" />
     </div>
   </section>
 </template>

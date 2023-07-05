@@ -2,7 +2,14 @@
   <section class="banner-section">
     <div class="carousel">
       <div class="image-container" id="imgs">
-        <video :controls="false" muted autoplay loop class="banner-img">
+        <video
+          :controls="false"
+          muted
+          autoplay
+          playsinline
+          loop
+          class="banner-img"
+        >
           <source :src="mov" type="video/mp4" />
         </video>
         <!-- <div class="banner-img"></div> -->

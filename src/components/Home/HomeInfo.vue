@@ -4,7 +4,7 @@
       <div class="container">
         <div class="content">
           <span class="company">우리의 회사는</span>
-          <span class="Title"> ABOUT US </span>
+          <p class="Title">ABOUT US</p>
           <div class="text-con">
             <span class="describe">
               <div class="desc-text">
@@ -63,7 +63,7 @@ export default {
       this.phoneText_pos = "translate3d(-250px, 80px, 10px)";
       this.phoneText_width = 250;
     } else {
-      this.phoneText_pos = "translate3d(-40px, -10px, 10px)";
+      this.phoneText_pos = "translate3d(-23px, -10px, 10px)";
       this.phoneText_width = viewportWidth - 50;
     }
 
@@ -371,7 +371,7 @@ export default {
       }
       .desc-image {
         width: calc(100% - 20px);
-        margin: 50px 0px 0px 0px;
+        margin: 50px auto;
         .phone-text2 {
           width: calc(100% - 40px);
           left: 8%;
@@ -386,6 +386,7 @@ export default {
   width: 100%;
   background-size: cover;
   background-position: center;
+  overflow: hidden;
   .info-con {
     display: flex;
     justify-content: center;

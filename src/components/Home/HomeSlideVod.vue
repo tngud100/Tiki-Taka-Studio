@@ -583,6 +583,7 @@ export default {
   }
 }
 .schedule-section {
+  overflow: hidden;
   width: 100%;
   display: grid;
   justify-content: center;
@@ -605,7 +606,6 @@ export default {
     }
     .subtitle {
       font-family: "Pretendard-Regular";
-      font-weight: bold;
       position: relative;
       bottom: -30px;
       opacity: 0;

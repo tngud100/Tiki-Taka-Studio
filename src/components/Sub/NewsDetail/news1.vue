@@ -24,7 +24,7 @@
                 TNT Studio Youtube CH. 티키앤타카
                 <a
                   href="https://www.youtube.com/channel/UCHOvr9WQ0EFnaGlJMckKClA"
-                  >https://www.youtube.com/channel/UCHOvr9WQ0EFnaGlJMckKClA</a
+                  >: 티키앤타카 유튜브 채널 바로가기</a
                 >
               </p>
               <br />

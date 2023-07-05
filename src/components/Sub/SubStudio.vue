@@ -455,7 +455,7 @@ export default {
         font-size: 16px;
       }
       .subTitle {
-        font-size: 14px;
+        font-size: 13px;
         letter-spacing: -1.7px;
       }
     }

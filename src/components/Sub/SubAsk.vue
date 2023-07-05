@@ -14,7 +14,12 @@
         <span>필요한 모든 것, 언제든지 연락주세요.</span>
       </div>
     </div>
-    <v-form class="form_con" ref="form" v-model="valid">
+    <v-form
+      class="form_con"
+      ref="form"
+      v-model="valid"
+      @submit.prevent="submit"
+    >
       <!-- @submit.prevent="submitForm" -->
       <div class="info_form">
         <!-- <div class="form_title content" style="margin-bottom: 12px">
@@ -190,6 +195,7 @@
             class="d-flex my-color"
             type="submit"
             style="margin: auto; width: 240px; height: 60px"
+            value="Submit"
             >문의하기</v-btn
           >
         </v-form>
@@ -199,6 +205,7 @@
 </template>
 <script>
 import SubTitle from "@/components/Header/SubTitle.vue";
+import { gapi } from "vue-google-api";
 
 export default {
   components: {
@@ -277,8 +284,7 @@ export default {
       console.log(this.mockdata);
       // location.reload();
 
-      this.resetForm();
-      alert("제출이 완료되었습니다.");
+      // this.resetForm();
     },
     resetForm() {
       // form 데이터를 초기화합니다.
@@ -294,6 +300,31 @@ export default {
           rule_check: false,
         },
       ];
+    },
+    async submit() {
+      await gapi.load("client");
+
+      // Send the form data to your Google Script
+      gapi.client.load(
+        "https://script.google.com/macros/s/AKfycbz3yVj-8GdwiuNzo6TWXpyUm69SmMaj5S4g1xpA2xffCqV4C9JcPPttniKt4Qk2fTKa/exec",
+        "v1",
+        () => {
+          gapi.client.myFunction
+            .sendEmail({
+              name: this.form.name,
+              email: this.form.born,
+              message: this.form.phone,
+            })
+            .then(() => {
+              location.reload();
+              alert("제출이 완료되었습니다.");
+              // this.resetForm();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      );
     },
   },
 };
