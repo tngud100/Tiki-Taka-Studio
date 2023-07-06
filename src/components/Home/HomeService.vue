@@ -78,17 +78,17 @@ export default {
           img: require("@/assets/service/test1.svg"),
           subtitle: "space rental ",
           title: "촬영 공간/장비 대여",
-          desc: "100평 규모의",
-          desc1: "스튜디오와 전문 촬영",
-          desc2: "장비 대여",
+          desc: "100평 규모의 스튜디오와",
+          desc1: "전문 촬영 장비",
+          desc2: "대여",
         },
         {
           class: "education left",
           img: require("@/assets/service/test1.svg"),
           subtitle: "education",
           title: "크리에이터 교육",
-          desc: "크리에이터",
-          desc1: "전문 강사진의 교육",
+          desc: "크리에이터 전문",
+          desc1: "강사진의 교육",
           desc2: "자격증 발급",
         },
         {
@@ -96,9 +96,9 @@ export default {
           img: require("@/assets/service/test2.svg"),
           subtitle: "advertisement",
           title: "광고 대행",
-          desc: "확실한 타깃의",
-          desc1: "채널을 이용해 브랜드와",
-          desc2: "제품을 효과적으로 마케팅",
+          desc: "확실한 타깃의 채널을 이용해",
+          desc1: "브랜드와 제품을",
+          desc2: "효과적으로 마케팅",
         },
       ],
     };
@@ -517,7 +517,7 @@ export default {
       width: calc(100% - 24px);
       .card {
         .img-con {
-          width: 60%;
+          width: 57%;
           padding: 12px;
         }
         .text-con {

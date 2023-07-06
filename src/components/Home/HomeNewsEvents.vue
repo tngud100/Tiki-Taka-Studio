@@ -206,7 +206,6 @@ export default {
     }
     .title {
       font-size: 38px;
-      padding-bottom: 30px;
     }
     .subtitle {
       font-size: 18px;
@@ -252,7 +251,6 @@ export default {
     }
     .title {
       font-size: 30px;
-      padding-bottom: 18px;
     }
     .subtitle {
       font-size: 18px;
@@ -303,7 +301,6 @@ export default {
       }
       .title {
         font-size: 28px;
-        padding-bottom: 18px;
       }
       .subtitle {
         font-size: 16px;
@@ -353,7 +350,6 @@ export default {
       }
       .title {
         font-size: 24px;
-        padding-bottom: 18px;
       }
       .subtitle {
         font-size: 16px;
@@ -409,7 +405,6 @@ export default {
       }
       .title {
         font-size: 24px;
-        padding-bottom: 18px;
       }
       .subtitle {
         font-size: 14px;
@@ -431,11 +426,11 @@ export default {
       .list-con {
         padding: 2px 0px;
         .num {
-          width: 7% !important;
+          width: 5% !important;
           font-size: 18px;
         }
         .con {
-          width: 59% !important;
+          width: 50% !important;
           .list-title {
             font-size: 16px;
           }
@@ -444,7 +439,7 @@ export default {
           }
         }
         .date {
-          width: 20% !important;
+          width: 25% !important;
           font-size: 14px;
         }
       }
@@ -463,7 +458,7 @@ export default {
     .bgIcon {
       position: absolute;
       top: 0;
-      left: -30px;
+      left: 0px;
       z-index: -1;
     }
     .company {
