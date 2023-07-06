@@ -383,6 +383,7 @@ header {
   top: 0;
   z-index: 10;
   background-color: white;
+  border-bottom: 1px solid rgb(230, 230, 230);
   // transition: background-color 0.3s ease;
   .nav {
     margin: auto;

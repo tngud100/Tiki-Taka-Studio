@@ -2,7 +2,7 @@
   <section class="film-section">
     <div class="title-con">
       <p class="kategori">영상 제작</p>
-      <p class="desc">약 40평의 공간과 장비를 합리적인 가격에 대여</p>
+      <p class="desc">약 100평의 공간과 장비를 합리적인 가격에 대여</p>
       <div class="img-con">
         <img :src="process" alt="Process" class="process-img" />
       </div>

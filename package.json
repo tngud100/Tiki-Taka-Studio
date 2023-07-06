@@ -12,6 +12,7 @@
     "anime": "^0.1.2",
     "carousel-3d": "^0.2.3",
     "core-js": "^3.8.3",
+    "gapi-client": "^0.0.3",
     "gsap": "^3.11.5",
     "node-sass": "^8.0.0",
     "roboto-fontface": "*",

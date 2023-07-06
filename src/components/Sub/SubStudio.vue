@@ -101,8 +101,8 @@ export default {
         {
           img: require("@/assets/studio/education.svg"),
           img2: require("@/assets/studio/educationHover.svg"),
-          title: "교육",
-          desc1: "1인 크리에이터",
+          title: "크리에이터 교육",
+          desc1: "크리에이터",
           desc2: "전문 강사진의 교육",
           desc3: "자격증 발급",
           num: 2,
@@ -119,7 +119,7 @@ export default {
         {
           img: require("@/assets/studio/advertise.svg"),
           img2: require("@/assets/studio/lentHover.svg"),
-          title: "광고",
+          title: "광고 대행",
           desc1: "확실한 타깃의",
           desc2: "채널을 이용해 브랜드와",
           desc3: "제품을 효과적으로 마케팅",

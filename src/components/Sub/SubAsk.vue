@@ -7,27 +7,20 @@
     />
     <div class="title_con">
       <div class="title">
-        <p>티키앤타카 스튜디오에게</p>
-        <p>궁금한이야기를 전달하세요.</p>
+        <p>티키앤타카 스튜디오에</p>
+        <p>언제든지 연락주세요</p>
       </div>
       <div class="sub_title">
-        <span>필요한 모든 것, 언제든지 연락주세요.</span>
+        <span>필요한 모든 것, 전부 티앤티스튜디오에서</span>
       </div>
     </div>
     <v-form
       class="form_con"
       ref="form"
       v-model="valid"
-      @submit.prevent="submit"
+      @submit.prevent="submitForm"
     >
-      <!-- @submit.prevent="submitForm" -->
       <div class="info_form">
-        <!-- <div class="form_title content" style="margin-bottom: 12px">
-          <span>문의하기</span>
-        </div> -->
-        <!-- <div class="content" style="text-align: center">
-          <span>카테고리</span>
-        </div> -->
         <v-row>
           <v-container style="margin-bottom: 16px">
             <v-item-group selected-class="my-color">
@@ -140,7 +133,7 @@
           </v-col>
         </v-row>
       </div>
-      <base-card>
+      <div>
         <div class="content"><span>내용</span></div>
         <v-form class="input_form">
           <v-row>
@@ -199,7 +192,7 @@
             >문의하기</v-btn
           >
         </v-form>
-      </base-card>
+      </div>
     </v-form>
   </section>
 </template>
@@ -264,28 +257,28 @@ export default {
     toggle() {
       this.selectedClass = ".my-color";
     },
-    submitForm() {
-      if (!this.valid) {
-        if (!this.form.rule_check) {
-          alert("개인정보 수집 및 이용 동의를 체크해주세요.");
-        }
+    // submitForm() {
+    //   if (!this.valid) {
+    //     if (!this.form.rule_check) {
+    //       alert("개인정보 수집 및 이용 동의를 체크해주세요.");
+    //     }
 
-        alert("입력 양식을 확인하여 주세요.");
-        this.showErrors = this.$refs.form.errors;
+    //     alert("입력 양식을 확인하여 주세요.");
+    //     this.showErrors = this.$refs.form.errors;
 
-        return false;
-      }
+    //     return false;
+    //   }
 
-      const data = {};
-      for (const prop in this.form) {
-        data[prop] = this.form[prop];
-      }
-      this.mockdata.push(data);
-      console.log(this.mockdata);
-      // location.reload();
+    //   const data = {};
+    //   for (const prop in this.form) {
+    //     data[prop] = this.form[prop];
+    //   }
+    //   this.mockdata.push(data);
+    //   console.log(this.mockdata);
+    // location.reload();
 
-      // this.resetForm();
-    },
+    // this.resetForm();
+    // },
     resetForm() {
       // form 데이터를 초기화합니다.
       this.form = [
@@ -301,22 +294,34 @@ export default {
         },
       ];
     },
-    async submit() {
+    checkGapiLoaded() {
+      if (typeof gapi !== "undefined") {
+        // gapi object is defined, the library is loaded
+        // You can perform further operations with gapi here
+        console.log("Google APIs client library is loaded.");
+      } else {
+        // gapi object is not defined, the library is not loaded
+        console.log("Google APIs client library is not loaded.");
+      }
+    },
+    async submitForm() {
       await gapi.load("client");
-
+      console.log("hi");
       // Send the form data to your Google Script
       gapi.client.load(
-        "https://script.google.com/macros/s/AKfycbz3yVj-8GdwiuNzo6TWXpyUm69SmMaj5S4g1xpA2xffCqV4C9JcPPttniKt4Qk2fTKa/exec",
+        "https://script.google.com/macros/s/AKfycbxYkaKqv5-bouTDkkvMt8XhJxg6kR_WEnOM-fBv-jv5N01D3NHcOrAKPjYaOZ8td7ZUcQ/exec",
         "v1",
         () => {
-          gapi.client.myFunction
+          gapi.client.sendEmail
             .sendEmail({
+              title: this.form.title,
               name: this.form.name,
               email: this.form.born,
               message: this.form.phone,
             })
             .then(() => {
-              location.reload();
+              console.log("submit");
+              // location.reload();
               alert("제출이 완료되었습니다.");
               // this.resetForm();
             })
@@ -325,6 +330,9 @@ export default {
             });
         }
       );
+    },
+    mounted() {
+      gapi.load("client", this.checkGapiLoaded);
     },
   },
 };

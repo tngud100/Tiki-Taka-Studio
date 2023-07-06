@@ -7,7 +7,7 @@
     />
     <div class="Text-con">
       <span class="sub-title">TNTStudio</span>
-      <span class="title">About Us</span>
+      <span class="title">Our Company</span>
       <div class="detail-about">
         자체 제작 플랫폼과 유튜브 등 다양한 공간에서 핵심 주제에 관심을 가지고
         전문성을 두루 갖추어 시청자의 관점에서 보고 싶을 만한 콘텐츠를 제작하는
@@ -50,8 +50,9 @@
             <img class="card-img" :src="member.src" alt="member" />
           </div>
           <div class="text-con">
-            <span class="name">{{ member.name }}</span
-            ><br />
+            <span class="name">{{ member.name }}</span>
+            <span class="name-mobile">{{ member.mobileName }}</span
+            ><br class="line-seperate" />
             <span class="position">{{ member.position }}</span>
 
             <p class="spec" v-for="(spec, index) in member.spec" :key="index">
@@ -86,13 +87,15 @@ export default {
       ceo: require("@/assets/info/ceo_img.svg"),
       members: [
         {
-          name: "정시후 Jung Si Hoo",
+          name: "정시후 Si Hoo Jung",
+          mobileName: "정시후",
           src: require("@/assets/info/readyImg.svg"),
           position: "운영 실무 팀장",
           spec: ["現 더크리에이터 대표이사", "現 TNT Studio 운영 실무 팀장"],
         },
         {
-          name: "하채원 HaChea Won",
+          name: "하채원 Chea Won Ha",
+          mobileName: "하채원",
           src: require("@/assets/info/readyImg.svg"),
 
           // src: require("@/assets/info/하채원 팀장.svg"),
@@ -103,13 +106,15 @@ export default {
           ],
         },
         {
-          name: "박제영 JeaYoung Park",
+          name: "박제영 Jea Young Park",
+          mobileName: "박제영",
           src: require("@/assets/info/readyImg.svg"),
           // position: "총괄 본부장",
           // spec: ["現 게임인스 본부장", ""],
         },
         {
-          name: "김보경 BoKyeong Kim",
+          name: "김보경 Bo Kyeong Kim",
+          mobileName: "김보경",
           src: require("@/assets/info/readyImg.svg"),
           // position: "총괄 과장",
           // spec: ["現 게임인스 총괄 과장", ""],
@@ -611,6 +616,13 @@ export default {
       .name {
         font-size: 16px;
         padding: 30px 0px 10px 0px;
+        display: none;
+      }
+      .name-mobile {
+        display: block !important;
+      }
+      .line-seperate {
+        display: none !important;
       }
       .position {
         font-size: 15px;
@@ -729,6 +741,14 @@ export default {
         .name {
           font-weight: bold;
           position: relative;
+        }
+        .name-mobile {
+          font-weight: bold;
+          position: relative;
+          display: none;
+        }
+        .line-seperate {
+          display: block;
         }
         .position {
           position: relative;

@@ -6,12 +6,10 @@
       <p class="title">Our Service</p>
       <div class="subTitle-con">
         <p class="subTitle">크리에이터에게 보다 즐겁고 성장하기 쉬운 환경을</p>
-        <p class="subTitle">
-          제공하기 위해 저희는 최선을 다해 지원하고 있습니다.
-        </p>
+        <p class="subTitle">제공하기 위한 아래의 서비스 입니다.</p>
         <p class="subTitle-mobile">
-          크리에이터에게 보다 즐겁고 성장하기 쉬운 환경을 제공하기 위해 저희는
-          최선을 다해 지원하고 있습니다.
+          크리에이터에게 보다 즐겁고 성장하기 쉬운 환경을 제공하기 위한 아래의
+          서비스 입니다.
         </p>
       </div>
     </div>

@@ -6,8 +6,8 @@
       </div>
       <p class="company">우리의 소식은</p>
       <p class="title">Our News</p>
-      <p class="subtitle">TNT Studio의 소식을 누구보다</p>
-      <p class="subtitle">빨리 접할 수 있도록 최선을 다 합니다</p>
+      <!-- <p class="subtitle">TNT Studio의 소식을 누구보다</p>
+      <p class="subtitle">빨리 접할 수 있도록 최선을 다 합니다</p> -->
     </div>
     <div class="container">
       <div class="news">

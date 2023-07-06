@@ -1,15 +1,13 @@
 <template>
   <section class="schedule-section">
     <div class="title-con">
-      <p class="company">우리의 이야기는</p>
-      <p class="title">Our Program</p>
-      <p class="subtitle">저희는 자체적인 프로그램으로 다양한 영상을</p>
-      <p class="subtitle">
-        지속적으로 꾸준히 업로드하고 콘텐츠를 제작하고 있습니다.
-      </p>
+      <p class="company">우리의 콘텐츠는</p>
+      <p class="title">Our Content</p>
+      <p class="subtitle">다양한 콘텐츠를 제작하고 있습니다.</p>
+      <p class="subtitle">"피파에 실축을 더하다"</p>
       <p class="subtitle-mobile">
-        저희는 자체적인 프로그램으로 다양한 영상을 지속적으로 꾸준히 업로드하고
-        콘텐츠를 제작하고 있습니다.
+        다양한 콘텐츠를 제작하고 있습니다<br />
+        "피파에 실축을 더하다"
       </p>
     </div>
     <div class="Schedule-con">

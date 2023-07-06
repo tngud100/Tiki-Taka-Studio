@@ -3,8 +3,8 @@
     <div class="info-con">
       <div class="container">
         <div class="content">
-          <span class="company">우리의 회사는</span>
-          <p class="Title">ABOUT US</p>
+          <span class="company">TNT Studio는</span>
+          <p class="Title">Our Studio</p>
           <div class="text-con">
             <span class="describe">
               <div class="desc-text">

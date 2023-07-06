@@ -13,11 +13,11 @@
             </span>
           </p>
           <span class="sub-title">
-            <p style="margin: 0">짧은 쇼츠 영상으로</p>
-            <p style="margin: 0">중요한 장면을 놓치지 마세요.</p>
+            <p style="margin: 0">중요한 장면만 담은</p>
+            <p style="margin: 0">저희의 콘텐츠를 놓치지 마세요.</p>
           </span>
           <span class="sub-title-mobile">
-            <p style="margin: 0">쇼츠 영상으로 티키앤타카와 만나보세요.</p>
+            <p style="margin: 0">짧은 영상으로 콘텐츠를 즐겨보세요.</p>
           </span>
         </div>
       </div>
