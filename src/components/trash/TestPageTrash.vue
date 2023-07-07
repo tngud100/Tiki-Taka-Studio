@@ -7,19 +7,22 @@
     />
     <div class="title_con">
       <div class="title">
-        <p>티키앤타카 스튜디오에</p>
-        <p>언제든지 연락주세요</p>
+        <p>티키앤타카 스튜디오에게</p>
+        <p>궁금한이야기를 전달하세요.</p>
       </div>
       <div class="sub_title">
-        <!-- <span>Anything you need, feel free to contact me.</span> -->
+        <span>필요한 모든 것, 언제든지 연락주세요.</span>
       </div>
     </div>
     <v-form
-      class="form_con"
+      class="gform"
       ref="form"
       v-model="valid"
-      @submit.prevent="submitForm"
+      method="POST"
+      data-email="33285109@naver.com"
+      action="https://script.google.com/macros/s/AKfycbxEUCXgjYqnFcB5Ev4oBUzmOt8oOy_nEkq92dLSV2-jNGBfTRrkHFzt6xAKXudtzoKiFA/exec"
     >
+      <!-- @submit.prevent="submitForm" -->
       <div class="info_form">
         <v-row>
           <v-container style="margin-bottom: 16px">
@@ -29,13 +32,16 @@
                   v-for="(item, index) in categoryList"
                   :key="index"
                   cols="3"
+                  :value="form.category"
+                  v-model="form.category"
                 >
                   <v-item v-slot="{ selectedClass, toggle }">
                     <v-btn
                       :class="['d-flex align-center', selectedClass, ' btn']"
                       rounded="xl"
-                      :key="index"
-                      @click="toggle"
+                      name="category"
+                      @click="toggle(index)"
+                      :value="item.list"
                     >
                       <div class="flex-grow-1 text-center">
                         {{ item.list }}
@@ -56,6 +62,7 @@
             <v-text-field
               v-model="form.name"
               label="이름"
+              name="name"
               placeholder="이름을 입력해주세요."
               hint="ex) 홍길동"
               variant="outlined"
@@ -67,14 +74,15 @@
             <v-btn-toggle
               v-model="form.sex"
               :value="form.sex"
+              name="sex"
               variant="outlined"
               required
               :rules="[(v) => !!v || '성별을 선택해 주세요']"
               divided
               width="100%"
             >
-              <v-btn value="left" width="50%">남자</v-btn>
-              <v-btn value="center" width="50%">여자</v-btn>
+              <v-btn value="남자" width="50%">남자</v-btn>
+              <v-btn value="여자" width="50%">여자</v-btn>
             </v-btn-toggle>
           </v-col>
           <v-col md="4" sm="12" cols="12" style="padding-bottom: 3px">
@@ -84,6 +92,7 @@
               placeholder="yymmdd"
               hint="ex) 991223"
               variant="outlined"
+              name="born"
               :rules="[
                 (v) => !!v || '생년월일를 입력해주세요.',
                 (v) => (v && v.length > 5) || '생년월일을 확인해주세요.',
@@ -97,6 +106,7 @@
           <v-col md="7" ms="7" cols="12" style="padding-top: 3px">
             <v-text-field
               v-model="form.email"
+              name="email"
               label="이메일"
               required
               :rules="[
@@ -119,6 +129,7 @@
               placeholder="01012345678"
               hint="ex) 01012345678"
               label="연락처"
+              name="phone"
               variant="outlined"
               required
               :rules="[
@@ -132,6 +143,32 @@
             ></v-text-field>
           </v-col>
         </v-row>
+        <div class="content"><span>내용</span></div>
+        <div class="input_form">
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+                variant="underlined"
+                v-model="form.title"
+                label="제목"
+                name="title"
+                hint="문의하실 제목을 입력해주세요"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-textarea
+                v-model="form.content"
+                name="content"
+                variant="outlined"
+                label="문의 내용"
+                placeholder="문의사항에 대한 자세한 내용을 적어주세요"
+              ></v-textarea>
+            </v-col>
+          </v-row>
+        </div>
       </div>
       <div>
         <div class="input_form">
@@ -139,11 +176,12 @@
             v-model="form.rule_check"
             label="개인정보 수집 및 이용약관에 동의합니다.(필수)"
           ></v-checkbox>
+          <!-- type="submit" -->
           <v-btn
             class="d-flex my-color"
-            type="submit"
             style="margin: auto; width: 240px; height: 60px"
             value="Submit"
+            @click="sendformdata"
             >문의하기</v-btn
           >
         </div>
@@ -151,123 +189,128 @@
     </v-form>
   </section>
 </template>
-
 <script>
 import SubTitle from "@/components/Header/SubTitle.vue";
-import { gapi } from "gapi-client";
-
 // import { gapi } from "vue-google-api";
 
 export default {
   components: {
     SubTitle,
   },
-  data() {
-    return {
-      title: "Contact Us",
-      subTitle: "Contact",
-      bgImage: [
-        require("@/assets/banner/contact1920.svg"),
-        require("@/assets/banner/contact1300.svg"),
-        require("@/assets/banner/contact760.svg"),
-      ],
-      form: {
-        sex: "",
-        name: "",
-        born: "",
-        email: "",
-        phone: "",
-        rule_check: false,
-        images: [],
-        imagePreviews: [],
+  data: () => ({
+    title: "문의하기",
+    subTitle: "Contact",
+    bgImage: [
+      require("@/assets/banner/contact1920.svg"),
+      require("@/assets/banner/contact1300.svg"),
+      require("@/assets/banner/contact760.svg"),
+    ],
+    form: {
+      category: null,
+      sex: null,
+      name: "",
+      born: "",
+      email: "",
+      phone: "",
+      rule_check: "",
+      images: [],
+      imagePreviews: [],
+    },
+    categoryList: [
+      {
+        list: "제작지원",
       },
-      categoryList: [
-        {
-          list: "제작지원",
-        },
-        {
-          list: "협찬문의",
-        },
-        {
-          list: "영상제작문의",
-        },
-        {
-          list: "기타",
-        },
-      ],
-      valid: false,
-      mockdata: [],
-    };
-  },
-  mounted() {
-    gapi.load("client", {
-      callback: () => {
-        gapi.load("auth2", {
-          callback: () => {
-            gapi.client
-              .init({
-                // Add your API configuration options here
-              })
-              .then(() => {
-                console.log("Google API client initialized.");
-              })
-              .catch((error) => {
-                console.error("Error initializing Google API client:", error);
-              });
-          },
-          error: () => {
-            console.error("Failed to load Google auth2.");
-          },
-        });
+      {
+        list: "협찬문의",
       },
-      onerror: () => {
-        console.error("Failed to load Google client.");
+      {
+        list: "영상제작문의",
       },
-    });
-  },
+      {
+        list: "기타",
+      },
+    ],
+    valid: false,
+    mockdata: [],
+  }),
   methods: {
-    async submitForm() {
-      await gapi.load("client");
-
-      const requestData = {
-        name: this.form.name,
-        born: this.form.born,
-        email: this.form.email,
-        phone: this.form.phone,
-      };
-
-      gapi.client
-        .request({
-          path: "https://script.google.com/macros/s/AKfycbzVTRFcy8DeCbnQOppgDxjWoyZFOzpVHrenIz29bpSNbDyMuWEZq9EH9uofQww7-4J6/exec",
-          method: "POST",
-          body: requestData,
-        })
-        .then(() => {
-          console.log("Form submitted");
-          alert("Submission completed");
-          this.resetForm();
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
+    preview() {
+      console.log(this.form.images);
+      this.form.imagePreviews = [];
+      for (let i = 0; i < this.form.images.length; i++) {
+        let reader = new FileReader();
+        reader.readAsDataURL(this.form.images[i]);
+        reader.onloadend = () => {
+          this.form.imagePreviews.push(reader.result);
+        };
+      }
+      console.log(this.imagePreviews);
+    },
+    sendformdata() {
+      console.log(this.form);
+    },
+    toggle(index) {
+      if (this.categoryList[index].list === "제작지원") {
+        this.form.category = "제작지원";
+      } else if (this.categoryList[index].list === "협찬문의") {
+        this.form.category = "협찬문의";
+      } else if (this.categoryList[index].list === "영상제작문의") {
+        this.form.category = "영상제작문의";
+      } else if (this.categoryList[index].list === "기타") {
+        this.form.category = "기타";
+      }
+      this.selectedClass = ".my-color";
+      console.log(this.form.category);
     },
 
     resetForm() {
-      this.form = {
-        sex: "",
-        name: "",
-        born: "",
-        email: "",
-        phone: "",
-        rule_check: false,
-        images: [],
-        imagePreviews: [],
-      };
+      // form 데이터를 초기화합니다.
+      this.form = [
+        {
+          category: null,
+          sex: null,
+          name: "",
+          born: "",
+          email: "",
+          phone: "",
+          rule_check: false,
+          images: [],
+          imagePreviews: [],
+        },
+      ];
     },
+
+    // async submitForm() {
+    //   await gapi.load("client");
+    //   console.log("hi");
+    //   // Send the form data to your Google Script
+    //   gapi.client.load(
+    //     "https://script.google.com/macros/s/AKfycbxYkaKqv5-bouTDkkvMt8XhJxg6kR_WEnOM-fBv-jv5N01D3NHcOrAKPjYaOZ8td7ZUcQ/exec",
+    //     "v1",
+    //     () => {
+    //       gapi.client.sendEmail
+    //         .sendEmail({
+    //           name: this.form.name,
+    //           born: this.form.born,
+    //           email: this.form.email,
+    //           message: this.form.phone,
+    //         })
+    //         .then(() => {
+    //           console.log("submit");
+    //           // location.reload();
+    //           alert("제출이 완료되었습니다.");
+    //           // this.resetForm();
+    //         })
+    //         .catch((error) => {
+    //           console.log(error);
+    //         });
+    //     }
+    //   );
+    // },
+    mounted() {},
   },
 };
 </script>
-
 <style>
 .v-selection-control__input:hover::before {
   opacity: 0.2;
@@ -310,7 +353,7 @@ export default {
     margin-bottom: 100px;
   }
 
-  .form_con {
+  .gform {
     margin: 0% auto;
     // border: solid 1px rgb(65, 65, 65);
     padding: 24px;
@@ -379,7 +422,7 @@ export default {
     font-size: 20px;
     line-height: 45px;
   }
-  .form_con {
+  .gform {
     width: 800px;
     .form_title {
       font-size: 32px;
@@ -419,7 +462,7 @@ export default {
     font-size: 20px;
     line-height: 45px;
   }
-  .form_con {
+  .gform {
     width: 800px;
     .form_title {
       font-size: 30px;
@@ -459,7 +502,7 @@ export default {
     font-size: 16px;
     line-height: 30px;
   }
-  .form_con {
+  .gform {
     width: 760px;
     .form_title {
       font-size: 26px;
@@ -497,7 +540,7 @@ export default {
     font-size: 16px;
     line-height: 25px;
   }
-  .form_con {
+  .gform {
     width: 640px;
     .form_title {
       font-size: 24px;
@@ -536,7 +579,7 @@ export default {
     font-size: 14px;
     line-height: 25px;
   }
-  .form_con {
+  .gform {
     width: 320px;
     .form_title {
       font-size: 22px;
