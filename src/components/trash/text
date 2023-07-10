@@ -1,0 +1,26 @@
+"e":"{
+\"parameter\":
+    {\"phone\":\"12421431515\",
+    \"born\":\"213242\",
+    \"name\":\"rwagdsa\",
+    \"title\":\"\",
+    \"email\":\"33285109@naver.com\",
+    \"content\":\"\"},
+    
+\"contextPath\":\"\",
+\"contentLength\":85,
+\"queryString\":\"\",
+
+\"parameters\":
+    {\"phone\":[\"12421431515\"],
+    \"born\":[\"213242\"],
+    \"name\":[\"rwagdsa\"],
+    \"title\":[\"\"],
+    \"email\":[\"33285109@naver.com\"],
+    \"content\":[\"\"]},
+
+
+\"postData\":{\"type\":\"application/x-www-form-urlencoded\",
+\"length\":85,
+\"contents\":\"name=rwagdsa&born=213242&email=33285109%40naver.com&phone=12421431515&title=&content=\",
+\"name\":\"postData\"}}"}
