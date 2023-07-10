@@ -14,14 +14,10 @@
         <span>필요한 모든 것, 언제든지 연락주세요.</span>
       </div>
     </div>
-    <v-form
-      class="gform"
-      ref="form"
-      v-model="valid"
-      method="POST"
-      data-email="33285109@naver.com"
-      action="https://script.google.com/macros/s/AKfycbxEUCXgjYqnFcB5Ev4oBUzmOt8oOy_nEkq92dLSV2-jNGBfTRrkHFzt6xAKXudtzoKiFA/exec"
-    >
+    <v-form class="gform" ref="form" data-email="33285109@naver.com">
+      <!-- v-model="valid" -->
+      <!-- method="POST" -->
+      <!-- action="https://script.google.com/macros/s/AKfycby6snxtPl28mfB9d4CVu70aN4jGKJmXaG8LcELAaVyV/dev" -->
       <!-- @submit.prevent="submitForm" -->
       <div class="info_form">
         <v-row>
@@ -39,11 +35,10 @@
                     <v-btn
                       :class="['d-flex align-center', selectedClass, ' btn']"
                       rounded="xl"
-                      name="category"
                       @click="toggle(index)"
                       :value="item.list"
                     >
-                      <div class="flex-grow-1 text-center">
+                      <div class="flex-grow-1 text-center" name="category">
                         {{ item.list }}
                       </div>
                     </v-btn>
@@ -75,6 +70,7 @@
               v-model="form.sex"
               :value="form.sex"
               name="sex"
+              id="sex"
               variant="outlined"
               required
               :rules="[(v) => !!v || '성별을 선택해 주세요']"
@@ -176,7 +172,6 @@
             v-model="form.rule_check"
             label="개인정보 수집 및 이용약관에 동의합니다.(필수)"
           ></v-checkbox>
-          <!-- type="submit" -->
           <v-btn
             class="d-flex my-color"
             style="margin: auto; width: 240px; height: 60px"
@@ -191,6 +186,8 @@
 </template>
 <script>
 import SubTitle from "@/components/Header/SubTitle.vue";
+import axios from "axios";
+
 // import { gapi } from "vue-google-api";
 
 export default {
@@ -212,6 +209,8 @@ export default {
       born: "",
       email: "",
       phone: "",
+      title: "",
+      content: "",
       rule_check: "",
       images: [],
       imagePreviews: [],
@@ -247,7 +246,34 @@ export default {
       console.log(this.imagePreviews);
     },
     sendformdata() {
-      console.log(this.form);
+      const data = {
+        category: this.form.category,
+        name: this.form.name,
+        born: this.form.born,
+        sex: this.form.sex,
+        email: this.form.email,
+        phone: this.form.phone,
+        title: this.form.title,
+        content: this.form.content,
+      };
+
+      console.log(data);
+      axios
+        .post(
+          "https://script.google.com/macros/s/AKfycbzY2wlrXbSUkrk7t6L1OHPwyxPrMjWmE1MFoSdNHPxXEJrpKEr0ji_t6rQJW8W5hYRe4Q/exec",
+          null,
+          { params: data }
+        )
+        .then((response) => {
+          alert("성공적으로 데이터를 전송하셨습니다.");
+          console.log(response.data);
+        })
+        .catch((error) => {
+          alert("전송 실패");
+          console.error(error);
+        });
+
+      // console.log(data);
     },
     toggle(index) {
       if (this.categoryList[index].list === "제작지원") {
