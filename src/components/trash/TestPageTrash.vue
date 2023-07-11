@@ -15,10 +15,6 @@
       </div>
     </div>
     <v-form class="gform" ref="form" data-email="33285109@naver.com">
-      <!-- v-model="valid" -->
-      <!-- method="POST" -->
-      <!-- action="https://script.google.com/macros/s/AKfycby6snxtPl28mfB9d4CVu70aN4jGKJmXaG8LcELAaVyV/dev" -->
-      <!-- @submit.prevent="submitForm" -->
       <div class="info_form">
         <v-row>
           <v-container style="margin-bottom: 16px">
@@ -28,17 +24,15 @@
                   v-for="(item, index) in categoryList"
                   :key="index"
                   cols="3"
-                  :value="form.category"
-                  v-model="form.category"
+                  @click="togglebtn(index)"
                 >
                   <v-item v-slot="{ selectedClass, toggle }">
                     <v-btn
                       :class="['d-flex align-center', selectedClass, ' btn']"
                       rounded="xl"
                       @click="toggle(index)"
-                      :value="item.list"
                     >
-                      <div class="flex-grow-1 text-center" name="category">
+                      <div class="flex-grow-1 text-center">
                         {{ item.list }}
                       </div>
                     </v-btn>
@@ -164,10 +158,30 @@
               ></v-textarea>
             </v-col>
           </v-row>
-        </div>
-      </div>
-      <div>
-        <div class="input_form">
+          <div>
+            <v-row>
+              <v-col cols="12">
+                <v-file-input
+                  variant="underlined"
+                  v-model="form.images"
+                  :multiple="true"
+                  label="이미지를 넣어주세요(중복 업로드 가능)"
+                  accept="image/*"
+                  @change="preview"
+                ></v-file-input>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                variant="underlined"
+                v-for="(image, index) in form.imagePreviews"
+                :key="index"
+                cols="4"
+              >
+                <v-img :src="image" width="100%"></v-img>
+              </v-col>
+            </v-row>
+          </div>
           <v-checkbox
             v-model="form.rule_check"
             label="개인정보 수집 및 이용약관에 동의합니다.(필수)"
@@ -187,8 +201,6 @@
 <script>
 import SubTitle from "@/components/Header/SubTitle.vue";
 import axios from "axios";
-
-// import { gapi } from "vue-google-api";
 
 export default {
   components: {
@@ -231,6 +243,7 @@ export default {
     ],
     valid: false,
     mockdata: [],
+    btnState: false,
   }),
   methods: {
     preview() {
@@ -246,6 +259,8 @@ export default {
       console.log(this.imagePreviews);
     },
     sendformdata() {
+      this.btnState = true;
+
       const data = {
         category: this.form.category,
         name: this.form.name,
@@ -256,26 +271,31 @@ export default {
         title: this.form.title,
         content: this.form.content,
       };
-
       console.log(data);
-      axios
-        .post(
-          "https://script.google.com/macros/s/AKfycbzY2wlrXbSUkrk7t6L1OHPwyxPrMjWmE1MFoSdNHPxXEJrpKEr0ji_t6rQJW8W5hYRe4Q/exec",
-          null,
-          { params: data }
-        )
-        .then((response) => {
-          alert("성공적으로 데이터를 전송하셨습니다.");
-          console.log(response.data);
-        })
-        .catch((error) => {
-          alert("전송 실패");
-          console.error(error);
-        });
-
+      if (this.btnState) {
+        console.log(this.btnState);
+        axios
+          .post(
+            "https://script.google.com/macros/s/AKfycbzX-UHphFFBKqL4wCF6qAHpqhcpgHjcpCG-X5imI3L5BH7QcThHyi2Pz8IT8Pjyrhxtlg/exec",
+            null,
+            { params: data }
+          )
+          .then((response) => {
+            location.reload();
+            this.resetForm();
+            alert("문의하신 내용이 전송되었습니다");
+            console.log(response.data);
+          })
+          .catch((error) => {
+            alert("전송을 실패하셨습니다");
+            this.resetForm();
+            location.reload();
+            console.error(error);
+          });
+      }
       // console.log(data);
     },
-    toggle(index) {
+    togglebtn(index) {
       if (this.categoryList[index].list === "제작지원") {
         this.form.category = "제작지원";
       } else if (this.categoryList[index].list === "협찬문의") {
@@ -286,7 +306,6 @@ export default {
         this.form.category = "기타";
       }
       this.selectedClass = ".my-color";
-      console.log(this.form.category);
     },
 
     resetForm() {
@@ -305,34 +324,6 @@ export default {
         },
       ];
     },
-
-    // async submitForm() {
-    //   await gapi.load("client");
-    //   console.log("hi");
-    //   // Send the form data to your Google Script
-    //   gapi.client.load(
-    //     "https://script.google.com/macros/s/AKfycbxYkaKqv5-bouTDkkvMt8XhJxg6kR_WEnOM-fBv-jv5N01D3NHcOrAKPjYaOZ8td7ZUcQ/exec",
-    //     "v1",
-    //     () => {
-    //       gapi.client.sendEmail
-    //         .sendEmail({
-    //           name: this.form.name,
-    //           born: this.form.born,
-    //           email: this.form.email,
-    //           message: this.form.phone,
-    //         })
-    //         .then(() => {
-    //           console.log("submit");
-    //           // location.reload();
-    //           alert("제출이 완료되었습니다.");
-    //           // this.resetForm();
-    //         })
-    //         .catch((error) => {
-    //           console.log(error);
-    //         });
-    //     }
-    //   );
-    // },
     mounted() {},
   },
 };
