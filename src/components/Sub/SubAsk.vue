@@ -7,19 +7,14 @@
     />
     <div class="title_con">
       <div class="title">
-        <p>티키앤타카 스튜디오에</p>
-        <p>언제든지 연락주세요</p>
+        <p>티키앤타카 스튜디오에게</p>
+        <p>궁금한이야기를 전달하세요.</p>
       </div>
       <div class="sub_title">
-        <span>필요한 모든 것, 전부 티앤티스튜디오에서</span>
+        <span>필요한 모든 것, 언제든지 연락주세요.</span>
       </div>
     </div>
-    <v-form
-      class="form_con"
-      ref="form"
-      v-model="valid"
-      @submit.prevent="submitForm"
-    >
+    <v-form class="gform" ref="form">
       <div class="info_form">
         <v-row>
           <v-container style="margin-bottom: 16px">
@@ -29,13 +24,13 @@
                   v-for="(item, index) in categoryList"
                   :key="index"
                   cols="3"
+                  @click="togglebtn(index)"
                 >
                   <v-item v-slot="{ selectedClass, toggle }">
                     <v-btn
                       :class="['d-flex align-center', selectedClass, ' btn']"
                       rounded="xl"
-                      :key="index"
-                      @click="toggle"
+                      @click="toggle(index)"
                     >
                       <div class="flex-grow-1 text-center">
                         {{ item.list }}
@@ -56,6 +51,7 @@
             <v-text-field
               v-model="form.name"
               label="이름"
+              name="name"
               placeholder="이름을 입력해주세요."
               hint="ex) 홍길동"
               variant="outlined"
@@ -67,14 +63,16 @@
             <v-btn-toggle
               v-model="form.sex"
               :value="form.sex"
+              name="sex"
+              id="sex"
               variant="outlined"
               required
               :rules="[(v) => !!v || '성별을 선택해 주세요']"
               divided
               width="100%"
             >
-              <v-btn value="left" width="50%">남자</v-btn>
-              <v-btn value="center" width="50%">여자</v-btn>
+              <v-btn value="남자" width="50%">남자</v-btn>
+              <v-btn value="여자" width="50%">여자</v-btn>
             </v-btn-toggle>
           </v-col>
           <v-col md="4" sm="12" cols="12" style="padding-bottom: 3px">
@@ -84,6 +82,7 @@
               placeholder="yymmdd"
               hint="ex) 991223"
               variant="outlined"
+              name="born"
               :rules="[
                 (v) => !!v || '생년월일를 입력해주세요.',
                 (v) => (v && v.length > 5) || '생년월일을 확인해주세요.',
@@ -97,6 +96,7 @@
           <v-col md="7" ms="7" cols="12" style="padding-top: 3px">
             <v-text-field
               v-model="form.email"
+              name="email"
               label="이메일"
               required
               :rules="[
@@ -119,6 +119,7 @@
               placeholder="01012345678"
               hint="ex) 01012345678"
               label="연락처"
+              name="phone"
               variant="outlined"
               required
               :rules="[
@@ -132,73 +133,107 @@
             ></v-text-field>
           </v-col>
         </v-row>
-      </div>
-      <div>
         <div class="content"><span>내용</span></div>
-        <v-form class="input_form">
+        <div class="input_form">
           <v-row>
             <v-col cols="12">
               <v-text-field
                 variant="underlined"
                 v-model="form.title"
                 label="제목"
+                name="title"
                 hint="문의하실 제목을 입력해주세요"
                 required
               ></v-text-field>
             </v-col>
           </v-row>
-
           <v-row>
             <v-col cols="12">
               <v-textarea
                 v-model="form.content"
+                name="content"
                 variant="outlined"
                 label="문의 내용"
                 placeholder="문의사항에 대한 자세한 내용을 적어주세요"
               ></v-textarea>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-file-input
+          <div>
+            <v-row>
+              <v-col cols="12">
+                <v-file-input
+                  variant="underlined"
+                  v-model="form.files"
+                  :multiple="true"
+                  label="파일을 업로드 해주세요(중복 업로드 가능)"
+                  accept="*"
+                  @change="handleFileUpload"
+                ></v-file-input>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-card
+                  v-for="(file, index) in uploadedFiles"
+                  :key="index"
+                  class="mb-3"
+                  style="height: 5vh"
+                >
+                  <v-card-title style="font-size: 14px">
+                    {{ file.name }}
+                    <v-btn
+                      style="
+                        width: 4%;
+                        height: 4%;
+                        font-size: 1rem;
+                        box-shadow: 0px 0px 0px 0px;
+                        color: #616161;
+                      "
+                      icon
+                      small
+                      @click="deleteFile(index)"
+                    >
+                      <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                  </v-card-title>
+                  <!-- <v-card-actions>
+                    <v-btn text color="primary" :href="file.url" target="_blank"
+                      >Download</v-btn
+                    >
+                  </v-card-actions> -->
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
                 variant="underlined"
-                v-model="form.images"
-                :multiple="true"
-                label="이미지를 넣어주세요(중복 업로드 가능)"
-                accept="image/*"
-                @change="preview"
-              ></v-file-input>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col
-              variant="underlined"
-              v-for="(image, index) in form.imagePreviews"
-              :key="index"
-              cols="4"
-            >
-              <v-img :src="image" width="100%"></v-img>
-            </v-col>
-          </v-row>
+                v-for="(image, index) in form.imagePreviews"
+                :key="index"
+                cols="4"
+              >
+                <v-img :src="image" width="100%"></v-img>
+              </v-col>
+            </v-row>
+          </div>
           <v-checkbox
             v-model="form.rule_check"
             label="개인정보 수집 및 이용약관에 동의합니다.(필수)"
           ></v-checkbox>
           <v-btn
             class="d-flex my-color"
-            type="submit"
             style="margin: auto; width: 240px; height: 60px"
             value="Submit"
+            @click="sendformdata"
             >문의하기</v-btn
           >
-        </v-form>
+        </div>
       </div>
     </v-form>
   </section>
 </template>
 <script>
 import SubTitle from "@/components/Header/SubTitle.vue";
-import { gapi } from "vue-google-api";
+import axios from "axios";
 
 export default {
   components: {
@@ -212,8 +247,10 @@ export default {
       require("@/assets/banner/contact1300.svg"),
       require("@/assets/banner/contact760.svg"),
     ],
+
     form: {
-      sex: "",
+      category: null,
+      sex: null,
       name: "",
       born: "",
       email: "",
@@ -221,18 +258,19 @@ export default {
       title: "",
       content: "",
       rule_check: "",
-      images: [],
+      files: [],
       imagePreviews: [],
     },
+    uploadedFiles: [],
     categoryList: [
       {
         list: "제작지원",
       },
       {
-        list: "협찬문의",
+        list: "협찬",
       },
       {
-        list: "영상제작문의",
+        list: "영상제작",
       },
       {
         list: "기타",
@@ -242,98 +280,105 @@ export default {
     mockdata: [],
   }),
   methods: {
+    handleFileUpload() {
+      // Loop through each uploaded file
+      for (let i = 0; i < this.form.files.length; i++) {
+        const file = this.form.files[i];
+        // Create an object with the file information
+        const uploadedFile = {
+          name: file.name,
+          url: URL.createObjectURL(file),
+        };
+        // Add the uploaded file to the array
+        this.uploadedFiles.push(uploadedFile);
+      }
+      this.preview();
+      console.log(this.form.files);
+    },
+    deleteFile(index) {
+      // Remove the file from the uploadedFiles array
+      this.uploadedFiles.splice(index, 1);
+      this.form.imagePreviews.splice(this.uploadedFiles.length - index, 1);
+    },
+
     preview() {
-      console.log(this.form.images);
-      this.form.imagePreviews = [];
-      for (let i = 0; i < this.form.images.length; i++) {
+      for (let i = 0; i < this.form.files.length; i++) {
         let reader = new FileReader();
-        reader.readAsDataURL(this.form.images[i]);
+        reader.readAsDataURL(this.form.files[i]);
         reader.onloadend = () => {
-          this.form.imagePreviews.push(reader.result);
+          const preview = reader.result;
+          const uploadedFile = {
+            file: this.form.files[i],
+            preview: preview,
+          };
+          this.form.imagePreviews.push(uploadedFile.preview);
         };
       }
-      console.log(this.imagePreviews);
     },
-    toggle() {
+    sendformdata() {
+      const data = {
+        category: this.form.category,
+        name: this.form.name,
+        born: this.form.born,
+        sex: this.form.sex,
+        email: this.form.email,
+        phone: this.form.phone,
+        title: this.form.title,
+        content: this.form.content,
+      };
+
+      console.log(data);
+      axios
+        .post(
+          "https://script.google.com/macros/s/AKfycbzWXAilhCTG8kIZGjoqLGpK6gQdRiqnjvk_mONefoSJame9NS5I7ZtrHkxkxt2SRHTbdQ/exec",
+          null,
+          { params: data }
+        )
+        .then((response) => {
+          alert("성공적으로 데이터를 전송하셨습니다.");
+          location.reload();
+          this.resetForm();
+          console.log(response.data);
+        })
+        .catch((error) => {
+          alert("전송 실패");
+          console.error(error);
+        });
+
+      // console.log(data);
+    },
+    togglebtn(index) {
+      console.log(this.categoryList[index].list);
+      if (this.categoryList[index].list === "제작지원") {
+        this.form.category = "제작지원";
+      } else if (this.categoryList[index].list === "협찬") {
+        this.form.category = "협찬";
+      } else if (this.categoryList[index].list === "영상제작") {
+        this.form.category = "영상제작";
+      } else if (this.categoryList[index].list === "기타") {
+        this.form.category = "기타";
+      }
+      console.log(this.form.category);
       this.selectedClass = ".my-color";
     },
-    // submitForm() {
-    //   if (!this.valid) {
-    //     if (!this.form.rule_check) {
-    //       alert("개인정보 수집 및 이용 동의를 체크해주세요.");
-    //     }
 
-    //     alert("입력 양식을 확인하여 주세요.");
-    //     this.showErrors = this.$refs.form.errors;
-
-    //     return false;
-    //   }
-
-    //   const data = {};
-    //   for (const prop in this.form) {
-    //     data[prop] = this.form[prop];
-    //   }
-    //   this.mockdata.push(data);
-    //   console.log(this.mockdata);
-    // location.reload();
-
-    // this.resetForm();
-    // },
     resetForm() {
       // form 데이터를 초기화합니다.
       this.form = [
         {
+          category: null,
+          sex: null,
           name: "",
-          sex: "",
           born: "",
           email: "",
           phone: "",
-          title: "",
-          content: "",
           rule_check: false,
+          images: [],
+          imagePreviews: [],
         },
       ];
     },
-    checkGapiLoaded() {
-      if (typeof gapi !== "undefined") {
-        // gapi object is defined, the library is loaded
-        // You can perform further operations with gapi here
-        console.log("Google APIs client library is loaded.");
-      } else {
-        // gapi object is not defined, the library is not loaded
-        console.log("Google APIs client library is not loaded.");
-      }
-    },
-    async submitForm() {
-      await gapi.load("client");
-      console.log("hi");
-      // Send the form data to your Google Script
-      gapi.client.load(
-        "https://script.google.com/macros/s/AKfycbxYkaKqv5-bouTDkkvMt8XhJxg6kR_WEnOM-fBv-jv5N01D3NHcOrAKPjYaOZ8td7ZUcQ/exec",
-        "v1",
-        () => {
-          gapi.client.sendEmail
-            .sendEmail({
-              title: this.form.title,
-              name: this.form.name,
-              email: this.form.born,
-              message: this.form.phone,
-            })
-            .then(() => {
-              console.log("submit");
-              // location.reload();
-              alert("제출이 완료되었습니다.");
-              // this.resetForm();
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-      );
-    },
-    mounted() {
-      gapi.load("client", this.checkGapiLoaded);
-    },
+    mounted() {},
   },
 };
 </script>
@@ -379,7 +424,7 @@ export default {
     margin-bottom: 100px;
   }
 
-  .form_con {
+  .gform {
     margin: 0% auto;
     // border: solid 1px rgb(65, 65, 65);
     padding: 24px;
@@ -448,7 +493,7 @@ export default {
     font-size: 20px;
     line-height: 45px;
   }
-  .form_con {
+  .gform {
     width: 800px;
     .form_title {
       font-size: 32px;
@@ -488,7 +533,7 @@ export default {
     font-size: 20px;
     line-height: 45px;
   }
-  .form_con {
+  .gform {
     width: 800px;
     .form_title {
       font-size: 30px;
@@ -528,7 +573,7 @@ export default {
     font-size: 16px;
     line-height: 30px;
   }
-  .form_con {
+  .gform {
     width: 760px;
     .form_title {
       font-size: 26px;
@@ -566,7 +611,7 @@ export default {
     font-size: 16px;
     line-height: 25px;
   }
-  .form_con {
+  .gform {
     width: 640px;
     .form_title {
       font-size: 24px;
@@ -605,7 +650,7 @@ export default {
     font-size: 14px;
     line-height: 25px;
   }
-  .form_con {
+  .gform {
     width: 320px;
     .form_title {
       font-size: 22px;
