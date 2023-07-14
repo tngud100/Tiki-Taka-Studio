@@ -159,16 +159,30 @@
             </v-col>
           </v-row>
           <div>
+            <!-- <form
+              action="https://script.google.com/macros/s/AKfycbwTNT3DZs8J8d992Gd-Ok4Tgo6adg5Ck5SJGKZcH5cal4G99eafDSRpD9hnbf4rumH9WQ/exec"
+              method="post"
+              enctype="multipart/form-data"
+            > -->
+            <input
+              type="file"
+              accept="*"
+              @change="handleFileChange"
+              name="filedata"
+            />
+            <!-- </form> -->
             <v-row>
               <v-col cols="12">
-                <v-file-input
+                <!-- <v-file-input
                   variant="underlined"
                   v-model="form.files"
                   :multiple="true"
                   label="파일을 업로드 해주세요(중복 업로드 가능)"
                   accept="*"
+                  name="file"
+                  type="file"
                   @change="handleFileUpload"
-                ></v-file-input>
+                ></v-file-input> -->
               </v-col>
             </v-row>
             <v-row>
@@ -204,14 +218,19 @@
                 </v-card>
               </v-col>
             </v-row>
-            <v-row>
+            <v-row style="padding-bottom: 15px">
               <v-col
                 variant="underlined"
                 v-for="(image, index) in form.imagePreviews"
                 :key="index"
                 cols="4"
               >
-                <v-img :src="image" width="100%"></v-img>
+                <v-img
+                  v-if="image && image.file.type.startsWith('image/')"
+                  :src="image.preview"
+                  width="100%"
+                ></v-img>
+                <p v-else>{{ image.file.name }}</p>
               </v-col>
             </v-row>
           </div>
@@ -258,8 +277,10 @@ export default {
       title: "",
       content: "",
       rule_check: "",
-      files: [],
+      files: null,
+      filedata: null,
       imagePreviews: [],
+      // filedata: null,
     },
     uploadedFiles: [],
     categoryList: [
@@ -280,6 +301,28 @@ export default {
     mockdata: [],
   }),
   methods: {
+    handleFileChange(event) {
+      const files = event.target.files;
+
+      if (files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          const fileData = e.target.result;
+          this.form.filedata = fileData;
+          // console.log(this.form.filedata);
+        };
+
+        reader.readAsDataURL(file);
+        this.form.files = files;
+      }
+      // console.log(this.form.files);
+      // var blob = Utilities.newBlob(fileBlob);
+    },
+    // handleFileChange(event) {
+    //   this.form.files = event.target.files;
+    // },
     handleFileUpload() {
       // Loop through each uploaded file
       for (let i = 0; i < this.form.files.length; i++) {
@@ -294,11 +337,19 @@ export default {
       }
       this.preview();
       console.log(this.form.files);
+      console.log(this.uploadedFiles);
+      console.log(this.form.imagePreviews);
     },
     deleteFile(index) {
       // Remove the file from the uploadedFiles array
+      console.log("길이 : ", this.uploadedFiles.length);
+      console.log("index : ", index);
       this.uploadedFiles.splice(index, 1);
-      this.form.imagePreviews.splice(this.uploadedFiles.length - index, 1);
+      this.form.imagePreviews.splice(index, 1);
+
+      // console.log(this.form.files);
+      // console.log(this.uploadedFiles);
+      // console.log(this.form.imagePreviews);
     },
 
     preview() {
@@ -311,42 +362,99 @@ export default {
             file: this.form.files[i],
             preview: preview,
           };
-          this.form.imagePreviews.push(uploadedFile.preview);
+          this.form.imagePreviews.push(uploadedFile);
         };
+        // if (this.form.files[i].type.startsWith("image/")) {
+        // }
       }
     },
+    // const data = {
+    //   category: this.form.category,
+    //   name: this.form.name,
+    //   born: this.form.born,
+    //   sex: this.form.sex,
+    //   email: this.form.email,
+    //   phone: this.form.phone,
+    //   title: this.form.title,
+    //   content: this.form.content,
+    //   file: this.form.files,
+    //   filedata: this.form.filedata,
+    // };
     sendformdata() {
-      const data = {
-        category: this.form.category,
-        name: this.form.name,
-        born: this.form.born,
-        sex: this.form.sex,
-        email: this.form.email,
-        phone: this.form.phone,
-        title: this.form.title,
-        content: this.form.content,
+      const data = new FormData();
+
+      data.append("category", this.form.category);
+      data.append("name", this.form.name);
+      data.append("born", this.form.born);
+      data.append("sex", this.form.sex);
+      data.append("email", this.form.email);
+      data.append("phone", this.form.phone);
+      data.append("title", this.form.title);
+      data.append("content", this.form.content);
+      // data.append("file", this.form.file);
+      data.append("filedata", this.form.filedata);
+
+      // console.log([...data]);
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       };
+      $.ajax({
+        /* 요청 시작 부분 */
+        url: url, //주소
+        data: formData, //전송 데이터
+        type: "POST", //전송 타입
+        async: true, //비동기 여부
+        enctype: "multipart/form-data", //form data 설정
+        processData: false, //프로세스 데이터 설정 : false 값을 해야 form data로 인식합니다
+        contentType: false, //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식합니다
 
-      console.log(data);
-      axios
-        .post(
-          "https://script.google.com/macros/s/AKfycbzWXAilhCTG8kIZGjoqLGpK6gQdRiqnjvk_mONefoSJame9NS5I7ZtrHkxkxt2SRHTbdQ/exec",
-          null,
-          { params: data }
-        )
-        .then((response) => {
-          alert("성공적으로 데이터를 전송하셨습니다.");
-          location.reload();
-          this.resetForm();
-          console.log(response.data);
-        })
-        .catch((error) => {
-          alert("전송 실패");
-          console.error(error);
-        });
+        /* 응답 확인 부분 */
+        success: function (response) {
+          console.log("");
+          console.log("[serverUploadImage] : [response] : " + response);
+          console.log("");
+        },
 
-      // console.log(data);
+        /* 에러 확인 부분 */
+        error: function (xhr) {
+          console.log("");
+          console.log("[serverUploadImage] : [error] : " + xhr);
+          console.log("");
+        },
+
+        /* 완료 확인 부분 */
+        complete: function (data, textStatus) {
+          console.log("");
+          console.log("[serverUploadImage] : [complete] : " + textStatus);
+          console.log("");
+        },
+      });
     },
+    //   axios
+    //     .post(
+    //       "https://script.google.com/macros/s/AKfycbymizFKxV4bjm5syHBCk9jlJtF5pDfAT_Nmt0muLcuWDbbwfkC_mu35QgWxzFbu5zGOPw/exec",
+    //       data,
+    //       config
+    //     )
+    //     .then((response) => {
+    //       // if (response.data.success) {
+    //       //   console.log(response.data.logs); // Display the logs in the browser's console
+    //       // } else {
+    //       //   console.error(response.data.error); // Display any error message
+    //       // }
+    //       alert("성공적으로 데이터를 전송하셨습니다.");
+    //       // this.resetForm();
+    //       // location.reload();
+    //       console.log(response.data);
+    //     })
+    //     .catch((error) => {
+    //       alert("전송 실패");
+    //       console.error(error);
+    //     });
+    // },
     togglebtn(index) {
       console.log(this.categoryList[index].list);
       if (this.categoryList[index].list === "제작지원") {

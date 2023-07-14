@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "ajax": "^0.0.4",
     "anime": "^0.1.2",
     "axios": "^1.4.0",
     "carousel-3d": "^0.2.3",
