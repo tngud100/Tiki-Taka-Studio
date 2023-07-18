@@ -164,25 +164,25 @@
               method="post"
               enctype="multipart/form-data"
             > -->
-            <input
+            <!-- <input
               type="file"
               accept="*"
               @change="handleFileChange"
-              name="filedata"
-            />
+              name="file"
+            /> -->
             <!-- </form> -->
             <v-row>
               <v-col cols="12">
-                <!-- <v-file-input
+                <v-file-input
                   variant="underlined"
                   v-model="form.files"
                   :multiple="true"
-                  label="파일을 업로드 해주세요(중복 업로드 가능)"
+                  label="파일을 업로드 해주세요(10M 이하 파일)"
                   accept="*"
                   name="file"
                   type="file"
                   @change="handleFileUpload"
-                ></v-file-input> -->
+                ></v-file-input>
               </v-col>
             </v-row>
             <v-row>
@@ -252,7 +252,8 @@
 </template>
 <script>
 import SubTitle from "@/components/Header/SubTitle.vue";
-import axios from "axios";
+// import axios from "axios";
+import $ from "jquery";
 
 export default {
   components: {
@@ -277,8 +278,8 @@ export default {
       title: "",
       content: "",
       rule_check: "",
-      files: null,
-      filedata: null,
+      files: "",
+      filedata: "",
       imagePreviews: [],
       // filedata: null,
     },
@@ -310,14 +311,22 @@ export default {
 
         reader.onload = (e) => {
           const fileData = e.target.result;
-          this.form.filedata = fileData;
-          // console.log(this.form.filedata);
+          var base64File = fileData.split(",")[1];
+          this.form.filedata = base64File;
+          // const blob = new Blob([fileData]);
+          // this.form.files = blob;
+
+          // console.log(this.form.files);
+          // console.log(this.form.files.name);
+          this.form.files = file;
+
+          console.log(this.form.files.name);
+          console.log(this.form.files.type);
         };
 
         reader.readAsDataURL(file);
-        this.form.files = files;
+        // console.log(this.form.files.name);
       }
-      // console.log(this.form.files);
       // var blob = Utilities.newBlob(fileBlob);
     },
     // handleFileChange(event) {
@@ -381,33 +390,32 @@ export default {
     //   filedata: this.form.filedata,
     // };
     sendformdata() {
-      const data = new FormData();
+      const formdata = new FormData();
 
-      data.append("category", this.form.category);
-      data.append("name", this.form.name);
-      data.append("born", this.form.born);
-      data.append("sex", this.form.sex);
-      data.append("email", this.form.email);
-      data.append("phone", this.form.phone);
-      data.append("title", this.form.title);
-      data.append("content", this.form.content);
-      // data.append("file", this.form.file);
-      data.append("filedata", this.form.filedata);
+      formdata.append("category", this.form.category);
+      formdata.append("name", this.form.name);
+      formdata.append("born", this.form.born);
+      formdata.append("sex", this.form.sex);
+      formdata.append("email", this.form.email);
+      formdata.append("phone", this.form.phone);
+      formdata.append("title", this.form.title);
+      formdata.append("content", this.form.content);
+      formdata.append("file", this.form.filedata);
+      // formdata.append("fileName", this.form.files.name);
+      // formdata.append("fileType", this.form.files.type);
+      // formdata.append("file", this.form.files.name);
+      // formdata.append("attachments", this.form.filedata);
 
-      // console.log([...data]);
+      console.log([...formdata]);
 
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
       $.ajax({
         /* 요청 시작 부분 */
-        url: url, //주소
-        data: formData, //전송 데이터
+        url: "https://script.google.com/macros/s/AKfycbwKSLWuYr2w4Ng-KYR9ix-Jw9n0ZrXVEja1Qb624-po_lxbicCLt1LfFN7P2qXklag5/exec", //주소
+        data: formdata, //전송 데이터
         type: "POST", //전송 타입
         async: true, //비동기 여부
         enctype: "multipart/form-data", //form data 설정
+        // dataType: "json",
         processData: false, //프로세스 데이터 설정 : false 값을 해야 form data로 인식합니다
         contentType: false, //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식합니다
 
@@ -416,27 +424,36 @@ export default {
           console.log("");
           console.log("[serverUploadImage] : [response] : " + response);
           console.log("");
+          // console.log(response.data);
         },
 
         /* 에러 확인 부분 */
         error: function (xhr) {
+          alert("전송 실패");
           console.log("");
           console.log("[serverUploadImage] : [error] : " + xhr);
           console.log("");
         },
 
         /* 완료 확인 부분 */
-        complete: function (data, textStatus) {
+        complete: function (xhr, textStatus) {
+          location.reload();
+          alert("성공적으로 데이터를 전송하셨습니다.");
           console.log("");
           console.log("[serverUploadImage] : [complete] : " + textStatus);
           console.log("");
         },
       });
     },
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   };
     //   axios
     //     .post(
     //       "https://script.google.com/macros/s/AKfycbymizFKxV4bjm5syHBCk9jlJtF5pDfAT_Nmt0muLcuWDbbwfkC_mu35QgWxzFbu5zGOPw/exec",
-    //       data,
+    //       formdata,
     //       config
     //     )
     //     .then((response) => {

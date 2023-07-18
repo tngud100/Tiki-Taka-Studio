@@ -57,20 +57,20 @@ export default {
       },
       icon: [
         {
-          src: require("@/assets/footer/Bloglogo.svg"),
-          href: "https://blog.naver.com/gameinscokr",
-        },
-        {
-          src: require("@/assets/footer/naverlogo.svg"),
-          href: "https://blog.naver.com/bourjois13",
-        },
-        {
           src: require("@/assets/footer/TKlogo.svg"),
           href: "http://www.xn--ef5bu9n7vbido5j.com/",
         },
         {
+          src: require("@/assets/footer/naverlogo.svg"),
+          href: "https://blog.naver.com/gameinscokr",
+        },
+        {
           src: require("@/assets/footer/Youtubelogo.svg"),
           href: "https://www.youtube.com/@tikintaka",
+        },
+        {
+          src: require("@/assets/footer/TicToklogo.svg"),
+          href: "https://www.tiktok.com/@tikintaka",
         },
         {
           src: require("@/assets/footer/Instalogo.svg"),

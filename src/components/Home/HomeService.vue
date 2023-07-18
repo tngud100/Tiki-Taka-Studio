@@ -1,7 +1,7 @@
 <template>
   <section class="service-section">
     <div class="title-con">
-      <img :src="bgIcon[0].titleIcon" alt="titleIcon" class="title-icon" />
+      <!-- <img :src="bgIcon[0].titleIcon" alt="titleIcon" class="title-icon" /> -->
       <p class="company">우리가 제공하는 것은</p>
       <p class="title">Our Service</p>
       <div class="subTitle-con">

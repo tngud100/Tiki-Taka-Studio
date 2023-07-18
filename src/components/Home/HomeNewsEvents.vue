@@ -1,9 +1,9 @@
 <template>
   <section class="news-event-section">
     <div class="title-con">
-      <div class="bgIcon">
+      <!-- <div class="bgIcon">
         <img :src="bgicon" alt="icon" />
-      </div>
+      </div> -->
       <p class="company">우리의 소식은</p>
       <p class="title">Our News</p>
       <!-- <p class="subtitle">TNT Studio의 소식을 누구보다</p>
@@ -243,7 +243,7 @@ export default {
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .news-event-section {
-    width: 1080px;
+    width: 1000px;
     margin: 75px auto 75px auto;
     display: flex;
     .company {
@@ -449,11 +449,12 @@ export default {
 
 .news-event-section {
   overflow: hidden;
+  justify-content: space-between;
   .title-con {
-    margin: auto;
+    // margin: auto;
     position: relative;
     text-align: left;
-    margin: 0px auto 0px auto;
+    // margin: 0px auto 0px auto;
     padding: 12px;
     .bgIcon {
       position: absolute;
