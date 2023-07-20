@@ -159,23 +159,19 @@
             </v-col>
           </v-row>
           <div>
-            <!-- <form
-              action="https://script.google.com/macros/s/AKfycbwTNT3DZs8J8d992Gd-Ok4Tgo6adg5Ck5SJGKZcH5cal4G99eafDSRpD9hnbf4rumH9WQ/exec"
-              method="post"
-              enctype="multipart/form-data"
-            > -->
-            <!-- <input
+            <v-file-input
               type="file"
               accept="*"
+              :multiple="true"
+              label="첨부파일을 업로드 해주세요(10M 이하 파일)"
               @change="handleFileChange"
               name="file"
-            /> -->
-            <!-- </form> -->
-            <v-row>
+              variant="underlined"
+            />
+            <!-- <v-row>
               <v-col cols="12">
                 <v-file-input
                   variant="underlined"
-                  v-model="form.files"
                   :multiple="true"
                   label="파일을 업로드 해주세요(10M 이하 파일)"
                   accept="*"
@@ -184,7 +180,7 @@
                   @change="handleFileUpload"
                 ></v-file-input>
               </v-col>
-            </v-row>
+            </v-row> -->
             <v-row>
               <v-col cols="12">
                 <v-card
@@ -210,15 +206,10 @@
                       <v-icon>mdi-close</v-icon>
                     </v-btn>
                   </v-card-title>
-                  <!-- <v-card-actions>
-                    <v-btn text color="primary" :href="file.url" target="_blank"
-                      >Download</v-btn
-                    >
-                  </v-card-actions> -->
                 </v-card>
               </v-col>
             </v-row>
-            <v-row style="padding-bottom: 15px">
+            <!-- <v-row style="padding-bottom: 15px">
               <v-col
                 variant="underlined"
                 v-for="(image, index) in form.imagePreviews"
@@ -232,17 +223,17 @@
                 ></v-img>
                 <p v-else>{{ image.file.name }}</p>
               </v-col>
-            </v-row>
+            </v-row> -->
           </div>
           <v-checkbox
-            v-model="form.rule_check"
+            v-model="privacyCheck"
             label="개인정보 수집 및 이용약관에 동의합니다.(필수)"
           ></v-checkbox>
           <v-btn
-            class="d-flex my-color"
+            class="d-flex my-color submitBtn"
             style="margin: auto; width: 240px; height: 60px"
             value="Submit"
-            @click="sendformdata"
+            @click="submit"
             >문의하기</v-btn
           >
         </div>
@@ -278,11 +269,12 @@ export default {
       title: "",
       content: "",
       rule_check: "",
-      files: "",
-      filedata: "",
-      imagePreviews: [],
-      // filedata: null,
+      files: [],
+      fileName: [],
+      fileExtension: [],
+      filedata: [],
     },
+    // imagePreviews: [],
     uploadedFiles: [],
     categoryList: [
       {
@@ -299,84 +291,151 @@ export default {
       },
     ],
     valid: false,
-    mockdata: [],
+    privacyCheck: false,
+    submitState: false,
   }),
+  mounted() {
+    const btnState = document.querySelector(".submitBtn");
+    btnState.addEventListener("click", function (e) {
+      e.preventDefault();
+    });
+  },
   methods: {
     handleFileChange(event) {
       const files = event.target.files;
 
-      if (files.length > 0) {
-        const file = files[0];
+      for (let i = 0; i < files.length; i++) {
+        this.form.files[i] = files[i];
+        const file = files[i];
         const reader = new FileReader();
 
         reader.onload = (e) => {
           const fileData = e.target.result;
-          var base64File = fileData.split(",")[1];
-          this.form.filedata = base64File;
-          // const blob = new Blob([fileData]);
-          // this.form.files = blob;
+          var base64File = fileData.split(",")[1]; // content 추출
 
-          // console.log(this.form.files);
-          // console.log(this.form.files.name);
-          this.form.files = file;
+          const extensionData64 = fileData.split(",")[0]; // 확장자 추출
+          const fileExtension = extensionData64
+            .split(":")[1]
+            .replace(";base64", "");
 
-          console.log(this.form.files.name);
-          console.log(this.form.files.type);
+          const fileName = file.name; // 이름 추출
+
+          this.form.filedata.push(base64File);
+          this.form.fileExtension.push(fileExtension);
+          this.form.fileName.push(fileName);
+
+          this.uploadedFiles.push({ name: file.name });
         };
 
         reader.readAsDataURL(file);
-        // console.log(this.form.files.name);
       }
-      // var blob = Utilities.newBlob(fileBlob);
+      // this.preview();
+      console.log("filedata", this.form.filedata);
+      console.log("fileExtension", this.form.fileExtension);
+      console.log("fileName", this.form.fileName);
     },
     // handleFileChange(event) {
-    //   this.form.files = event.target.files;
+    //   const files = event.target.files;
+
+    //   if (files.length > 0) {
+    //     const file = files[0];
+    //     const reader = new FileReader();
+
+    //     reader.onload = (e) => {
+    //       const fileData = e.target.result;
+    //       var base64File = fileData.split(",")[1]; // content 추출
+    //       this.form.filedata = base64File;
+
+    //       const extensionData64 = fileData.split(",")[0]; // 확장자 추출
+    //       this.form.fileExtension = extensionData64
+    //         .split(":")[1]
+    //         .replace(";base64", "");
+
+    //       this.form.fileName = file.name; // 이름 추출
+    //     };
+
+    //     reader.readAsDataURL(file);
+
+    //     // console.log(this.form.filedata);
+    //     // console.log(this.form.fileName);
+    //     // console.log(this.form.fileExtension);
+    //     // console.log(this.form.files.name);
+    //   }
+    //   // var blob = Utilities.newBlob(fileBlob);
     // },
     handleFileUpload() {
       // Loop through each uploaded file
       for (let i = 0; i < this.form.files.length; i++) {
+        // const file = this.form.files[i];
         const file = this.form.files[i];
+        const reader = new FileReader();
         // Create an object with the file information
+        reader.onload = (e) => {
+          const fileData = e.target.result;
+          var base64File = fileData.split(",")[1]; // content 추출
+          this.form.filedata[i] = base64File;
+
+          const extensionData64 = fileData.split(",")[0]; // 확장자 추출
+          this.form.fileExtension[i] = extensionData64
+            .split(":")[1]
+            .replace(";base64", "");
+
+          this.form.fileName[i] = file.name; // 이름 추출
+        };
         const uploadedFile = {
           name: file.name,
           url: URL.createObjectURL(file),
         };
+
         // Add the uploaded file to the array
+        reader.readAsDataURL(file);
+
         this.uploadedFiles.push(uploadedFile);
       }
       this.preview();
-      console.log(this.form.files);
-      console.log(this.uploadedFiles);
-      console.log(this.form.imagePreviews);
+      console.log(this.form.filedata);
+      console.log(this.form.fileName);
+      console.log(this.form.fileExtension);
+      // console.log(this.form.files);
+      // console.log(this.uploadedFiles);
+      // console.log(this.form.imagePreviews);
     },
     deleteFile(index) {
       // Remove the file from the uploadedFiles array
       console.log("길이 : ", this.uploadedFiles.length);
       console.log("index : ", index);
+
+      this.form.files.splice(index, 1);
+      this.form.filedata.splice(index, 1);
+      this.form.fileExtension.splice(index, 1);
+      this.form.fileName.splice(index, 1);
       this.uploadedFiles.splice(index, 1);
-      this.form.imagePreviews.splice(index, 1);
+      // this.imagePreviews.splice(index, 1);
 
-      // console.log(this.form.files);
-      // console.log(this.uploadedFiles);
-      // console.log(this.form.imagePreviews);
+      console.log(this.form.files);
+      console.log(this.form.filedata);
+      console.log(this.form.fileExtension);
+      console.log(this.form.fileName);
+      console.log(this.uploadedFiles);
+      // console.log(this.imagePreviews);
     },
 
-    preview() {
-      for (let i = 0; i < this.form.files.length; i++) {
-        let reader = new FileReader();
-        reader.readAsDataURL(this.form.files[i]);
-        reader.onloadend = () => {
-          const preview = reader.result;
-          const uploadedFile = {
-            file: this.form.files[i],
-            preview: preview,
-          };
-          this.form.imagePreviews.push(uploadedFile);
-        };
-        // if (this.form.files[i].type.startsWith("image/")) {
-        // }
-      }
-    },
+    // preview() {
+    //   for (let i = 0; i < this.form.files.length; i++) {
+    //     let reader = new FileReader();
+    //     reader.readAsDataURL(this.form.files[i]);
+    //     reader.onloadend = () => {
+    //       const preview = reader.result;
+    //       const uploadedFile = {
+    //         file: this.form.files[i],
+    //         preview: preview,
+    //       };
+    //       this.imagePreviews.push(uploadedFile);
+    //     };
+    //     // if (this.form.files[i].type.startsWith("image/")) {
+    //     // }
+    //   }
+    // },
     // const data = {
     //   category: this.form.category,
     //   name: this.form.name,
@@ -389,8 +448,11 @@ export default {
     //   file: this.form.files,
     //   filedata: this.form.filedata,
     // };
+
     sendformdata() {
       const formdata = new FormData();
+
+      const fileCount = this.form.filedata.length;
 
       formdata.append("category", this.form.category);
       formdata.append("name", this.form.name);
@@ -400,30 +462,32 @@ export default {
       formdata.append("phone", this.form.phone);
       formdata.append("title", this.form.title);
       formdata.append("content", this.form.content);
-      formdata.append("file", this.form.filedata);
-      // formdata.append("fileName", this.form.files.name);
-      // formdata.append("fileType", this.form.files.type);
-      // formdata.append("file", this.form.files.name);
-      // formdata.append("attachments", this.form.filedata);
+      for (var i = 0; i < fileCount; i++) {
+        formdata.append("file" + [i], this.form.filedata[i]);
+      }
+      formdata.append("fileName", this.form.fileName);
+      formdata.append("fileExtension", this.form.fileExtension);
+      formdata.append("fileCount", fileCount);
 
       console.log([...formdata]);
 
       $.ajax({
         /* 요청 시작 부분 */
-        url: "https://script.google.com/macros/s/AKfycbwKSLWuYr2w4Ng-KYR9ix-Jw9n0ZrXVEja1Qb624-po_lxbicCLt1LfFN7P2qXklag5/exec", //주소
+        url: "https://script.google.com/macros/s/AKfycbyvxYjdXtkh7-El5gXlEgiMAJmssQszHc6tcbD0dDfPlpKgh_v8sgW2N4L6x38_tMSM/exec", //주소
         data: formdata, //전송 데이터
         type: "POST", //전송 타입
         async: true, //비동기 여부
         enctype: "multipart/form-data", //form data 설정
         // dataType: "json",
-        processData: false, //프로세스 데이터 설정 : false 값을 해야 form data로 인식합니다
-        contentType: false, //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식합니다
+        processData: false, //프로세스 데이터 설정 : false 값을 해야 form data로 인식
+        contentType: false, //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식
 
         /* 응답 확인 부분 */
         success: function (response) {
           console.log("");
           console.log("[serverUploadImage] : [response] : " + response);
           console.log("");
+          this.submitState = false;
           // console.log(response.data);
         },
 
@@ -438,13 +502,37 @@ export default {
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
           location.reload();
-          alert("성공적으로 데이터를 전송하셨습니다.");
+          alert("문의사항을 성공적으로 전송하셨습니다.");
           console.log("");
           console.log("[serverUploadImage] : [complete] : " + textStatus);
           console.log("");
+          this.submitState = false;
         },
       });
     },
+    async submit() {
+      this.valid = await this.$refs.form.validate();
+      if (!this.valid.valid) {
+        alert("기본정보를 입력해주세요.");
+        return;
+      }
+      if (this.form.category == null) {
+        alert("카테고리를 선택해주세요.");
+        return;
+      }
+      if (!this.privacyCheck) {
+        alert("개인정보 수집 동의를 체크해주세요.");
+        return;
+      }
+
+      if (this.submitState) {
+        return;
+      }
+      this.submitState = true;
+      console.log("valid", this.valid.valid);
+      this.sendformdata();
+    },
+
     //   const config = {
     //     headers: {
     //       "Content-Type": "multipart/form-data",
