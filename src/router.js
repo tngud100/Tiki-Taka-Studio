@@ -41,11 +41,11 @@ const routes = [
     name: "NewsDetail1",
     component: () => import("@/components/Sub/NewsDetail/news1.vue"),
   },
-  // {
-  //   path: "/news/2",
-  //   name: "NewsDetail2",
-  //   component: () => import("@/components/Sub/NewsDetail/news2.vue"),
-  // },
+  {
+    path: "/news2",
+    name: "NewsDetail2",
+    component: () => import("@/components/Sub/NewsDetail/news2.vue"),
+  },
   // {
   //   path: "/news/3",
   //   name: "NewsDetail3",

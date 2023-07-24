@@ -163,7 +163,7 @@
               type="file"
               accept="*"
               :multiple="true"
-              label="첨부파일을 업로드 해주세요(10M 이하 파일)"
+              label="첨부파일을 업로드 해주세요(10M 이하 파일 권장)"
               @change="handleFileChange"
               name="file"
               variant="underlined"
@@ -239,6 +239,9 @@
         </div>
       </div>
     </v-form>
+    <div v-if="isSpinner" class="loading">
+      <img :src="loadingImg" loof="infinite" />
+    </div>
   </section>
 </template>
 <script>
@@ -258,7 +261,7 @@ export default {
       require("@/assets/banner/contact1300.svg"),
       require("@/assets/banner/contact760.svg"),
     ],
-
+    loadingImg: require("@/assets/loading/loading.svg"),
     form: {
       category: null,
       sex: null,
@@ -293,6 +296,7 @@ export default {
     valid: false,
     privacyCheck: false,
     submitState: false,
+    isSpinner: false,
   }),
   mounted() {
     const btnState = document.querySelector(".submitBtn");
@@ -453,6 +457,7 @@ export default {
       const formdata = new FormData();
 
       const fileCount = this.form.filedata.length;
+      var content = this.form.content.replace(/\n/g, "<br>");
 
       formdata.append("category", this.form.category);
       formdata.append("name", this.form.name);
@@ -461,7 +466,7 @@ export default {
       formdata.append("email", this.form.email);
       formdata.append("phone", this.form.phone);
       formdata.append("title", this.form.title);
-      formdata.append("content", this.form.content);
+      formdata.append("content", content);
       for (var i = 0; i < fileCount; i++) {
         formdata.append("file" + [i], this.form.filedata[i]);
       }
@@ -473,7 +478,7 @@ export default {
 
       $.ajax({
         /* 요청 시작 부분 */
-        url: "https://script.google.com/macros/s/AKfycbyvxYjdXtkh7-El5gXlEgiMAJmssQszHc6tcbD0dDfPlpKgh_v8sgW2N4L6x38_tMSM/exec", //주소
+        url: "https://script.google.com/macros/s/AKfycbzqm2oB3s4Epdwl1BHRcciZnHu9jgdqmkngjIz7EIR1JlkfpJ-lZCGkP7oAo44gfpYE/exec", //주소
         data: formdata, //전송 데이터
         type: "POST", //전송 타입
         async: true, //비동기 여부
@@ -493,7 +498,7 @@ export default {
 
         /* 에러 확인 부분 */
         error: function (xhr) {
-          alert("전송 실패");
+          // alert("전송 실패");
           console.log("");
           console.log("[serverUploadImage] : [error] : " + xhr);
           console.log("");
@@ -501,12 +506,14 @@ export default {
 
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
-          location.reload();
-          alert("문의사항을 성공적으로 전송하셨습니다.");
           console.log("");
           console.log("[serverUploadImage] : [complete] : " + textStatus);
           console.log("");
+          alert("문의하신 내용을 성공적으로 전송하였습니다.");
+          this.isSpinner = false;
+
           this.submitState = false;
+          location.reload();
         },
       });
     },
@@ -529,37 +536,28 @@ export default {
         return;
       }
       this.submitState = true;
+      this.isSpinner = true;
       console.log("valid", this.valid.valid);
       this.sendformdata();
+      alert(
+        "문의하기 전송완료 알람창이 뜰때까지 잠시만 기다려 주세요\n(파일의 용량이 클수록 시간이 오래걸립니다)"
+      );
+      this.stopScrolling();
     },
 
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   };
-    //   axios
-    //     .post(
-    //       "https://script.google.com/macros/s/AKfycbymizFKxV4bjm5syHBCk9jlJtF5pDfAT_Nmt0muLcuWDbbwfkC_mu35QgWxzFbu5zGOPw/exec",
-    //       formdata,
-    //       config
-    //     )
-    //     .then((response) => {
-    //       // if (response.data.success) {
-    //       //   console.log(response.data.logs); // Display the logs in the browser's console
-    //       // } else {
-    //       //   console.error(response.data.error); // Display any error message
-    //       // }
-    //       alert("성공적으로 데이터를 전송하셨습니다.");
-    //       // this.resetForm();
-    //       // location.reload();
-    //       console.log(response.data);
-    //     })
-    //     .catch((error) => {
-    //       alert("전송 실패");
-    //       console.error(error);
-    //     });
-    // },
+    stopScrolling() {
+      window.addEventListener("wheel", this.stopEvent, {
+        passive: false,
+      });
+      window.addEventListener("touchmove", this.stopEvent, {
+        passive: false,
+      });
+    },
+    stopEvent(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    },
+
     togglebtn(index) {
       console.log(this.categoryList[index].list);
       if (this.categoryList[index].list === "제작지원") {
@@ -887,5 +885,17 @@ export default {
   .v-col-3 {
     max-width: 45%;
   }
+}
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

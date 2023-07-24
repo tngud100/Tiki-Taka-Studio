@@ -67,6 +67,11 @@ export default {
       header: ["번호", "제목", "작성일자"],
       desserts: [
         {
+          num: "2",
+          title: "TNT Studio 스튜디오 7월 완공",
+          date: "2023.07.21",
+        },
+        {
           num: "1",
           title: "TNT Studio Grand Opening",
           date: "2023.06.10",
@@ -201,7 +206,7 @@ a {
 }
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .news_section {
-    margin-top: 80px;
+    margin-top: 70px;
   }
   .title {
     font-size: 48px;

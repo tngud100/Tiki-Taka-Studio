@@ -89,10 +89,12 @@ export default {
           subtitle: "2023년 TNT Studio가 그랜드 오픈을 하였습니다!",
           date: "2023.06.10",
         },
-        // {
-        //   title: "공지1",
-        //   subtitle: "이러이러한 공지사항이 있으며 ",
-        // },
+        {
+          num: 1,
+          title: "공지1",
+          subtitle: "이러이러한 공지사항이 있으며 ",
+          date: "2023.06.10",
+        },
         // {
         //   title: "공지1",
         //   subtitle: "이러이러한 공지사항이 있으며 ",
@@ -488,6 +490,8 @@ export default {
     display: flex;
     justify-content: center;
     align-content: center;
+    overflow: hidden;
+    height: 100px;
 
     .news,
     .events {

@@ -97,78 +97,81 @@ export default {
       schedule: [
         {
           video:
-            "https://www.youtube.com/embed/dVyLFjjs3J4?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/TUjJRQY9ID8?rel=0&enablejsapi=1",
           name: "티키앤타카",
-          title: "대한민국 최고의 프로게이머를 찾아보는 시간",
-          date: "2023.06.21",
+          title:
+            "한준희가 직접 맞추는 피파4 아스날 낭만 스쿼드 l [응답하라 낭만피파 3화]",
+          date: "2023. 7. 23",
           num: 0,
         },
         {
           video:
-            "https://www.youtube.com/embed/AjBQvuHZ86o?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/x5DLf4QyZ6E?rel=0&enablejsapi=1",
           name: "티키앤타카",
-          title:
-            "박찬우 임형철이 말하는 인테르 vs 맨시티 우승팀 l [피파의 모든것 9화]",
-          date: "2023. 6. 08",
+          title: "장지현이 직접 만든 낭만 첼시 전술 l [응답하라 낭만피파 2화]",
+          date: "2023. 7. 19",
           num: 1,
         },
         {
           video:
-            "https://www.youtube.com/embed/-TZdot4JA7w?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/HRk4lVGqJmU?rel=0&enablejsapi=1",
           name: "티키앤타카",
           title:
-            "한준희가 말하는 아이콘 모먼트 최고의 선수 l [피파의 모든것 8화]",
-          date: "2023. 6. 06",
+            "장지현이 직접 맞추는 피파4 첼시 낭만 스쿼드 l [응답하라 낭만피파 1화]",
+          date: "2023. 7. 16",
           num: 2,
         },
         {
           video:
-            "https://www.youtube.com/embed/E16qlkAKwtY?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/RRi-BcWfPpE?rel=0&enablejsapi=1",
           name: "티키앤타카",
-          title: "한준희가 말하는 아이콘 모먼트 양발선수 l [피파의 모든것 7화]",
-          date: "2023. 6. 04",
+          title: "한준희가 말하는 역대 최고의 조합들 l [피파의 모든 것 19화]",
+          date: "2023. 7. 12",
           num: 3,
         },
         {
           video:
-            "https://www.youtube.com/embed/1gED0_NSmXU?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/jIqfSoHX9cc?rel=0&enablejsapi=1",
           name: "티키앤타카",
-          title: "한준희가 말하는 아이콘 모먼트 평가 l [피파의 모든것 6화]",
-          date: "2023. 6. 01",
+          title: "한준희가 말하는 최고의 듀오와 트리오 l [피파의 모든 것 18화]",
+          date: "2023. 7. 9",
           num: 4,
         },
         {
           video:
-            "https://www.youtube.com/embed/xJAKV0DVlWE?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/xaYUG6kN3D0?rel=0&enablejsapi=1",
           name: "티키앤타카",
-          title: "한준희가 말하는 출시되어야하는 아이콘  l [피파의 모든것 5화]",
-          date: "2023. 5. 28",
+          title:
+            "임형철이 말하는 23토츠 공격수 티어리스트 l [피파의 모든 것 17화]",
+          date: "2023. 7. 5",
           num: 5,
         },
 
         {
           video:
-            "https://www.youtube.com/embed/wh-DCVr1wOY?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/w5xwAalXSwQ?rel=0&enablejsapi=1",
           name: "티키앤타카",
           title:
-            "한준희가 말하는 아이콘 재평가 Feat. 한국 선수 양발에 대한 생각 l [피파의 모든것 4화]",
-          date: "2023. 5. 27",
+            "임형철이 말하는 23토츠 티어리스트 (수비수, 미드필더) l [피파의 모든 것 16화]",
+          date: "2023. 7. 2",
           num: 6,
         },
         {
           video:
-            "https://www.youtube.com/embed/NIRhxNNKXdE?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/p8VudkQVsEM?rel=0&enablejsapi=1",
           name: "티키앤타카",
-          title: "5연속 공식경기 1위의 불가능한 도전 l [TOP피파 1화]",
-          date: "2023. 5. 21",
+          title:
+            "한준희가 말하는 모먼트 대비 아이콘 티어리스트 l [피파의 모든 것 15화]",
+          date: "2023. 6. 27",
           num: 7,
         },
         {
           video:
-            "https://www.youtube.com/embed/Tl_oXL9YQEM?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/ge9XkYY_rMA?rel=0&enablejsapi=1",
           name: "티키앤타카",
-          title: "연속 공식경기 1위의 불가능한 도전 l [TOP피파 1화]",
-          date: "2023. 5. 14",
+          title:
+            "한준희가 말하는 출시하면 떡상 할 아이콘 더 모먼트 l [피파의 모든 것 14화]",
+          date: "2023. 6. 25",
           num: 8,
         },
       ],
