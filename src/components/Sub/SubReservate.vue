@@ -118,6 +118,8 @@ export default {
     justify-content: space-between;
     margin: auto;
     padding: 16px;
+
+    
     width: 1300px;
     @for $i from 0 through 3 {
       .card#{$i} {
