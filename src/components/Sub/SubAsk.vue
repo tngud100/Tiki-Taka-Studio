@@ -59,20 +59,20 @@
               required
             ></v-text-field>
           </v-col>
-          <v-col md="3" sm="4" class="sex_check" style="padding-bottom: 3px">
+          <v-col md="3" sm="4" class="business_check" style="padding-bottom: 3px">
             <v-btn-toggle
               v-model="form.sex"
               :value="form.sex"
-              name="sex"
-              id="sex"
+              name="business"
+              id="business"
               variant="outlined"
               required
-              :rules="[(v) => !!v || '성별을 선택해 주세요']"
+              :rules="[(v) => !!v || '버튼을 선택해 주세요']"
               divided
               width="100%"
             >
-              <v-btn value="남자" width="50%">남자</v-btn>
-              <v-btn value="여자" width="50%">여자</v-btn>
+              <v-btn value="개인" width="50%">개인</v-btn>
+              <v-btn value="법인" width="50%">법인</v-btn>
             </v-btn-toggle>
           </v-col>
           <v-col md="4" sm="12" cols="12" style="padding-bottom: 3px">
@@ -462,7 +462,7 @@ export default {
       formdata.append("category", this.form.category);
       formdata.append("name", this.form.name);
       formdata.append("born", this.form.born);
-      formdata.append("sex", this.form.sex);
+      formdata.append("business", this.form.sex);
       formdata.append("email", this.form.email);
       formdata.append("phone", this.form.phone);
       formdata.append("title", this.form.title);

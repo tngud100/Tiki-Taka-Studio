@@ -16,19 +16,21 @@
           <router-link to="/news" class="detail">VIEW MORE +</router-link>
         </div> -->
         <hr class="hr-margin" />
-        <router-link
-          :to="'news' + (index + 1)"
-          v-for="(item, index) in news"
-          :key="index"
-          class="list-con pc"
-        >
-          <span class="num">{{ item.num }}</span>
-          <div class="con">
-            <span class="list-title">{{ item.title }}</span>
-            <span class="list-detail"> - {{ item.subtitle }}</span>
-          </div>
-          <span class="date"> {{ item.date }}</span>
-        </router-link>
+        <div class="fix-contain">
+          <router-link
+            :to="'news' + item.num"
+            v-for="(item, index) in news"
+            :key="index"
+            class="list-con pc"
+          >
+            <span class="num">{{ item.num }}</span>
+            <div class="con">
+              <span class="list-title">{{ item.title }}</span>
+              <span class="list-detail"> - {{ item.subtitle }}</span>
+            </div>
+            <span class="date"> {{ item.date }}</span>
+          </router-link>
+        </div>
         <router-link
           :to="'news' + (index + 1)"
           v-for="(item, index) in news_mobile"
@@ -90,15 +92,17 @@ export default {
           date: "2023.06.10",
         },
         {
+          num: 2,
+          title: "TNT Studio 스튜디오 7월 완공",
+          subtitle: "2023년 7월 완공되는 TNT Studio 스튜디오는 부산/경남 거점 촬영 스튜디오로 ",
+          date: "2023.07.21",
+        },
+        {
           num: 1,
-          title: "공지1",
-          subtitle: "이러이러한 공지사항이 있으며 ",
+          title: "TNT Studio Grand Opening",
+          subtitle: "2023년 TNT Studio가 그랜드 오픈을 하였습니다!",
           date: "2023.06.10",
         },
-        // {
-        //   title: "공지1",
-        //   subtitle: "이러이러한 공지사항이 있으며 ",
-        // },
         // {
         //   title: "공지1",
         //   subtitle: "이러이러한 공지사항이 있으며 ",
@@ -155,7 +159,7 @@ export default {
       "start+=.5"
     );
     news_event.to(
-      ".news-event-section > .container > .news > .list-con",
+      ".news-event-section > .container > .news > .fix-contain",
       { duration: 1, right: 0, opacity: 1 },
       "start+=.7"
     );
@@ -172,6 +176,42 @@ export default {
         },
       },
     });
+
+    const news_board = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".fix-contain",
+        animation: news_event,
+        onEnter: () => {
+          news_event.play();
+        },},
+      repeat: -1,
+      // repeatDelay: 0
+    });
+    news_board.to(
+      '.news-event-section > .container > .news > .fix-contain > .list-con',
+      { duration: 1.5, bottom: 70 + 'px' },
+      'start+=1'
+    );
+    news_board.to(
+      '.news-event-section > .container > .news > .fix-contain > .list-con',
+      { duration: 1.5, bottom: 144 + 'px' },
+      'start+=3.5'
+    );
+    // const listCon = document.querySelectorAll('.pc');
+    // const AnimationTime = 2.5;
+    // var startOffset = 1;
+    // for (var i = 0; i < listCon.length - 1; i++) {
+    //   if (i > 0) {
+    //     startOffset = 1 + (AnimationTime * i);
+    //   }
+    //   news_board.to(
+    //     '.news-event-section > .container > .news > .fix-contain > .list-con',
+    //     { duration: 1.5, bottom: 70 * i + 'px' },
+    //     `start+=${startOffset}`
+    //   );
+    // }
+   
+
   },
   setup() {
     const bannerRef = ref(null);
@@ -498,6 +538,7 @@ export default {
       width: 100%;
       margin: 0 1%;
 
+      
       .hr-margin {
         margin: 12px 0px;
       }
@@ -524,13 +565,18 @@ export default {
           color: #805bea;
         }
       }
+      .fix-contain{
+        height: 72px;
+        position: relative;
+        overflow: hidden;
+        right: -30px;
+        opacity: 0;
+      }
       .list-con {
         padding: 10px 0px;
         cursor: pointer;
         text-decoration: none;
         position: relative;
-        right: -30px;
-        opacity: 0;
         .num {
           font-family: "pretendard-Regular";
           font-weight: bold;

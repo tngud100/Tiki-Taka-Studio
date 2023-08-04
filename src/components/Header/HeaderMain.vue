@@ -106,6 +106,10 @@ export default {
         href: "/program",
       },
       {
+        name: "예약하기",
+        href: "/reservate",
+      },
+      {
         name: "회사소식",
         href: "/news",
       },

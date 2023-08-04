@@ -37,15 +37,16 @@ export default {
   data() {
     return {
       videoUrl: [
-        "https://www.youtube.com/embed/b7D3C09UyP4?autoplay=1&mute=1",
-        "https://www.youtube.com/embed/k2IOXI9j270?autoplay=1&mute=1",
-        "https://www.youtube.com/embed/aLm0NkmQUy0?autoplay=1&mute=1",
-        "https://www.youtube.com/embed/opAfmk5S3us?autoplay=1&mute=1",
-        "https://www.youtube.com/embed/5BaWzofXFuE?autoplay=1&mute=1",
-        "https://www.youtube.com/embed/A7IPmKh1bOI?autoplay=1&mute=1",
-        "https://www.youtube.com/embed/AkwAI15UNgE?autoplay=1&mute=1",
-        "https://www.youtube.com/embed/X70MrarcM48?autoplay=1&mute=1",
-        "https://www.youtube.com/embed/Y135I3m4zhI?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/YAcfoeHh7bQ?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/8Kpb0bdzq_A?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/WPx8r7x7XsE?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/9fFpmmI_27o?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/0xOBt6woqnQ?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/eRrHBp5_HCk?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/yHPNAzimxKk?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/51no9Sw0Ik8?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/UzmtT6wUys0?autoplay=1&mute=1",
+        "https://www.youtube.com/embed/yr351ZXsqYc?autoplay=1&mute=1",
       ],
     };
   },

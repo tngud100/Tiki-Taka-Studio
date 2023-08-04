@@ -6,6 +6,8 @@ const store = createStore({
     showModal: false,
     shortsVideoIndex: 0,
     shortsShowModal: false,
+    // hostAddressName : "티키앤타카.com";
+    hostAddressName : "티키타카.kr:81",
   },
   mutations: {
     setVideoNumber(state, value) {
@@ -40,7 +42,10 @@ const store = createStore({
     showModal: (state) => state.showModal,
     shortsVideoIndex: (state) => state.shortsVideoIndex,
     shortsShowModal: (state) => state.shortsShowModal,
+    hostAddressName: (state) => state.hostAddressName,
   },
 });
+
+
 
 export default store;

@@ -27,6 +27,11 @@ const routes = [
     component: () => import("@/View/SubStudioView.vue"),
   },
   {
+    path: "/reservate",
+    name: "Reservate",
+    component: () => import("@/View/SubReservateView.vue"),
+  },
+  {
     path: "/program",
     name: "ProgramPage",
     component: () => import("@/View/SubProgramView.vue"),
@@ -35,6 +40,26 @@ const routes = [
     path: "/events1",
     name: "EventsDetail1",
     component: () => import("@/components/Sub/EventsDetail/events1.vue"),
+  },
+  {
+    path: "/reservate1",
+    name: "ReservateDetail1",
+    component: () => import("@/components/Sub/ReservateDetail/reservate1.vue"),
+  },
+  {
+    path: "/reservate2",
+    name: "ReservateDetail2",
+    component: () => import("@/components/Sub/ReservateDetail/reservate2.vue"),
+  },
+  {
+    path: "/reservate3",
+    name: "ReservateDetail3",
+    component: () => import("@/components/Sub/ReservateDetail/reservate3.vue"),
+  },
+  {
+    path: "/reservate4",
+    name: "ReservateDetail4",
+    component: () => import("@/components/Sub/ReservateDetail/reservate4.vue"),
   },
   {
     path: "/news1",

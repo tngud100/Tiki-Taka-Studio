@@ -145,6 +145,8 @@ export default {
       SwiperNum: 0,
       modules: [FreeMode, Navigation, Thumbs, Scrollbar],
       videoUrl: [
+        "https://www.youtube.com/embed/ysTO1NYpnAc?rel=0&enablejsapi=1",
+        "https://www.youtube.com/embed/yzs0nAEZ1-M?rel=0&enablejsapi=1",
         "https://www.youtube.com/embed/TUjJRQY9ID8?rel=0&enablejsapi=1",
         "https://www.youtube.com/embed/x5DLf4QyZ6E?rel=0&enablejsapi=1",
         "https://www.youtube.com/embed/HRk4lVGqJmU?rel=0&enablejsapi=1",
@@ -152,84 +154,101 @@ export default {
         "https://www.youtube.com/embed/jIqfSoHX9cc?rel=0&enablejsapi=1",
         "https://www.youtube.com/embed/xaYUG6kN3D0?rel=0&enablejsapi=1",
         "https://www.youtube.com/embed/w5xwAalXSwQ?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/p8VudkQVsEM?rel=0&enablejsapi=1",
-        "https://www.youtube.com/embed/ge9XkYY_rMA?rel=0&enablejsapi=1",
+        // "https://www.youtube.com/embed/p8VudkQVsEM?rel=0&enablejsapi=1",
+        // "https://www.youtube.com/embed/ge9XkYY_rMA?rel=0&enablejsapi=1",
         // "https://www.youtube.com/embed/Tl_oXL9YQEM?rel=0&enablejsapi=1",
       ],
       SwiperImages: [
         {
           img: require("@/assets/thumbnail/thumbnail01.jpg"),
           subTitle:
-            "한준희가 직접 맞추는 피파4 아스날 낭만 스쿼드 l [응답하라 낭만피파 3화]",
-          link: "https://www.youtube.com/watch?=TUjJRQY9ID8",
+            "임형철-정성민-신보석이 말하는 뉴택틱 전술 활용법 l [피파의 모든 것 20화]",
+          link: "https://www.youtube.com/watch?=ysTO1NYpnAc",
           // hoverImage: false,
-          date: "2023. 7. 23",
+          date: "2023. 7. 30",
           num: 0,
         },
         {
           img: require("@/assets/thumbnail/thumbnail02.webp"),
           subTitle:
-            "장지현이 직접 만든 낭만 첼시 전술 l [응답하라 낭만피파 2화]",
-          link: "https://www.youtube.com/watch?v=x5DLf4QyZ6E",
-          date: "2023. 7. 19",
+            "한준희가 직접 만든 낭만 아스날 전술 l [응답하라 낭만피파 4화]",
+          link: "https://www.youtube.com/watch?v=yzs0nAEZ1-M",
+          date: "2023. 7. 26",
           num: 1,
         },
         {
           img: require("@/assets/thumbnail/thumbnail03.jpg"),
           subTitle:
-            "장지현이 직접 맞추는 피파4 첼시 낭만 스쿼드 l [응답하라 낭만피파 1화]",
-          link: "https://www.youtube.com/watch?v=HRk4lVGqJmU",
-          date: "2023. 7. 16",
+            "한준희가 직접 맞추는 피파4 아스날 낭만 스쿼드 l [응답하라 낭만피파 3화]",
+          link: "https://www.youtube.com/watch?=TUjJRQY9ID8",
+          // hoverImage: false,
+          date: "2023. 7. 23",
           num: 2,
         },
         {
-          img: require("@/assets/thumbnail/thumbnail04.jpg"),
+          img: require("@/assets/thumbnail/thumbnail04.webp"),
           subTitle:
-            "한준희가 말하는 역대 최고의 조합들 l [피파의 모든 것 19화]",
-          link: "https://www.youtube.com/watch?v=RRi-BcWfPpE",
-          date: "2023. 7. 12",
+            "장지현이 직접 만든 낭만 첼시 전술 l [응답하라 낭만피파 2화]",
+          link: "https://www.youtube.com/watch?v=x5DLf4QyZ6E",
+          date: "2023. 7. 19",
           num: 3,
         },
         {
-          img: require("@/assets/thumbnail/thumbnail05.webp"),
+          img: require("@/assets/thumbnail/thumbnail05.jpg"),
           subTitle:
-            "한준희가 말하는 최고의 듀오와 트리오 l [피파의 모든 것 18화]",
-          link: "https://www.youtube.com/watch?v=jIqfSoHX9cc",
-          date: "2023. 7. 9",
+            "장지현이 직접 맞추는 피파4 첼시 낭만 스쿼드 l [응답하라 낭만피파 1화]",
+          link: "https://www.youtube.com/watch?v=HRk4lVGqJmU",
+          date: "2023. 7. 16",
           num: 4,
         },
         {
           img: require("@/assets/thumbnail/thumbnail06.jpg"),
           subTitle:
-            "임형철이 말하는 23토츠 공격수 티어리스트 l [피파의 모든 것 17화]",
-          link: "https://www.youtube.com/watch?v=xaYUG6kN3D0",
-          date: "2023. 7. 5",
+            "한준희가 말하는 역대 최고의 조합들 l [피파의 모든 것 19화]",
+          link: "https://www.youtube.com/watch?v=RRi-BcWfPpE",
+          date: "2023. 7. 12",
           num: 5,
         },
         {
           img: require("@/assets/thumbnail/thumbnail07.webp"),
           subTitle:
-            "임형철이 말하는 23토츠 티어리스트 (수비수, 미드필더) l [피파의 모든 것 16화]",
-          link: "https://www.youtube.com/watch?v=w5xwAalXSwQ",
-          date: "2023. 7. 2",
+            "한준희가 말하는 최고의 듀오와 트리오 l [피파의 모든 것 18화]",
+          link: "https://www.youtube.com/watch?v=jIqfSoHX9cc",
+          date: "2023. 7. 9",
           num: 6,
         },
         {
           img: require("@/assets/thumbnail/thumbnail08.jpg"),
           subTitle:
-            "한준희가 말하는 모먼트 대비 아이콘 티어리스트 l [피파의 모든 것 15화]",
-          link: "https://www.youtube.com/watch?v=p8VudkQVsEM",
-          date: "2023. 6. 27",
+            "임형철이 말하는 23토츠 공격수 티어리스트 l [피파의 모든 것 17화]",
+          link: "https://www.youtube.com/watch?v=xaYUG6kN3D0",
+          date: "2023. 7. 5",
           num: 7,
         },
         {
-          img: require("@/assets/thumbnail/thumbnail09.jpg"),
+          img: require("@/assets/thumbnail/thumbnail09.webp"),
           subTitle:
-            "한준희가 말하는 출시하면 떡상 할 아이콘 더 모먼트 l [피파의 모든 것 14화]",
-          link: "https://www.youtube.com/watch?v=ge9XkYY_rMA",
-          date: "2023. 6. 25",
+            "임형철이 말하는 23토츠 티어리스트 (수비수, 미드필더) l [피파의 모든 것 16화]",
+          link: "https://www.youtube.com/watch?v=w5xwAalXSwQ",
+          date: "2023. 7. 2",
           num: 8,
         },
+        // {
+        //   img: require("@/assets/thumbnail/thumbnail08.jpg"),
+        //   subTitle:
+        //     "한준희가 말하는 모먼트 대비 아이콘 티어리스트 l [피파의 모든 것 15화]",
+        //   link: "https://www.youtube.com/watch?v=p8VudkQVsEM",
+        //   date: "2023. 6. 27",
+        //   num: 7,
+        // },
+        // {
+        //   img: require("@/assets/thumbnail/thumbnail09.jpg"),
+        //   subTitle:
+        //     "한준희가 말하는 출시하면 떡상 할 아이콘 더 모먼트 l [피파의 모든 것 14화]",
+        //   link: "https://www.youtube.com/watch?v=ge9XkYY_rMA",
+        //   date: "2023. 6. 25",
+        //   num: 8,
+        // },
         // {
         //   img: require("@/assets/thumbnail/thumbnail01.webp"),
         //   subTitle:
