@@ -7,7 +7,11 @@ const store = createStore({
     shortsVideoIndex: 0,
     shortsShowModal: false,
     // hostAddressName : "티키앤타카.com";
-    hostAddressName : "티키타카.kr:81",
+    hostAddressName: "티키타카.kr:81",
+    room1: {
+      title: '임시룸1',
+      price: '64,000원'
+    },
   },
   mutations: {
     setVideoNumber(state, value) {
@@ -43,6 +47,7 @@ const store = createStore({
     shortsVideoIndex: (state) => state.shortsVideoIndex,
     shortsShowModal: (state) => state.shortsShowModal,
     hostAddressName: (state) => state.hostAddressName,
+    room1: (state) => state.room1,
   },
 });
 
