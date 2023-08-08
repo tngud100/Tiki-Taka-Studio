@@ -1,217 +1,92 @@
 <template>
-  <Header />
-  <section class="contact_section">
-    <SubTitle
-      :title-data="title"
-      :sub-title-data="subTitle"
-      :bg-image="bgImage"
-    />
-    <div class="title_con">
-      <div class="title">
-        <p>티키앤타카 스튜디오</p>
-        <p>예약하기 폼</p>
-      </div>
-      <div class="sub_title">
-        <span>아름다운 스튜디오 마음껏 사용하세요</span>
-      </div>
-    </div>
-    <!-- <v-menu v-model="menu" :close-on-content-click="false">
-      <template v-slot:activator="{ on, attrs }">
-        <v-text-field
-          v-model="date"
-          label="Select Date"
-          readonly
-          v-bind="attrs"
-          v-on="on"
-        />
+  <div class="text-center">
+    <v-dialog v-model="dialog" width="auto">
+      <template v-slot:activator="{ props }">
+        <v-btn color="primary" v-bind="props"> 지금 예약하기 </v-btn>
       </template>
-      <v-date-picker v-model="pickedDate" @input="menu = false" />
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="menu = false">Cancel</v-btn>
-        <v-btn color="primary" text @click="updateDate">OK</v-btn>
-      </v-card-actions>
-    </v-menu> -->
-    <v-row justify="space-around">
-      <v-date-picker
-        title="Reservate date"
-        elevation="4"
-        v-model="date"
-        @update:model-value="updateDate"
-      >
-      </v-date-picker>
-    </v-row>
-    <div class="d-flex justify-center mt-2">
-      Date: {{ this.date || "No date" }}
-    </div>
-  </section>
-  <FooterMain style="margin-top: 10%" />
+      <v-card class="mx-auto" max-width="500">
+        <v-card-title class="text-h6 font-weight-regular justify-space-between">
+          <span>{{ currentTitle }}</span>
+        </v-card-title>
+
+        <v-window v-model="step">
+          <v-window-item :value="1">
+            <v-card-text>
+              <v-text-field
+                label="Email"
+                placeholder="EXAMPLE@naver.com"
+              ></v-text-field>
+              <span class="text-caption text-grey-darken-1">
+                예약 확인 메일을 받으실 이메일 주소를 입력해 주세요.
+              </span>
+            </v-card-text>
+          </v-window-item>
+
+          <v-window-item :value="2">
+            <v-card-text>
+              <v-text-field label="이름" type="text"></v-text-field>
+              <v-text-field label="Phone" type="text"></v-text-field>
+              <span class="text-caption text-grey-darken-1">
+                예약자의 개인정보를 입력해 주세요
+              </span>
+            </v-card-text>
+          </v-window-item>
+
+          <v-window-item :value="3">
+            <div class="pa-4 text-center">
+              <v-img
+                class="mb-4"
+                contain
+                height="128"
+                src="https://cdn.vuetifyjs.com/images/logos/v.svg"
+              ></v-img>
+              <h3 class="text-h6 font-weight-light mb-2">국민은행</h3>
+              <h3 class="text-h6 font-weight-light mb-2">1560-511545-4849</h3>
+              <p class="text-caption">
+                입금이 확인될시에 기입하신 이메일로 확인 메일이 전송이 됩니다
+              </p>
+              <span class="text-caption text-grey">무통장 입금</span>
+            </div>
+          </v-window-item>
+        </v-window>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-btn v-if="step > 1" variant="text" @click="step--"> Back </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn v-if="step < 3" color="primary" variant="flat" @click="step++">
+            Next
+          </v-btn>
+
+          <v-btn v-if="step >= 3" variant="text" @click="dialog = false">
+            Done
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 <script>
-import Header from "@/components/Header/HeaderSub.vue";
-import FooterMain from "@/components/Footer/FooterMain.vue";
-
-import SubTitle from "@/components/Header/SubTitle.vue";
 export default {
-  components: {
-    SubTitle,
-    Header,
-    FooterMain,
-  },
   data: () => ({
-    title: "예약하기",
-    subTitle: "Reseve",
-    bgImage: [
-      require("@/assets/banner/contact1920.svg"),
-      require("@/assets/banner/contact1300.svg"),
-      require("@/assets/banner/contact760.svg"),
-    ],
-    date: null,
-    menu: false,
-    pickedDate: null,
+    step: 1,
+    dialog: false,
   }),
-  mounted() {},
 
-  methods: {
-    updateDate() {
-      console.log(this.date);
-      if (this.date) {
-        console.log(this.date[0]);
-        const formattedDate = this.date[0].toISOString().split("T")[0]; // format the date as "YYYY-MM-DD"
-        console.log(formattedDate);
-      } else {
-        console.log("The date is not defined or the array is empty");
+  computed: {
+    currentTitle() {
+      switch (this.step) {
+        case 1:
+          return "E-mail 입력";
+        case 2:
+          return "개인정보를 기입";
+        default:
+          return "예약 확인";
       }
-    },
-    // updateDate() {
-    //   console.log(this.date);
-    // },
-    removeDate() {
-      this.date = null;
-      console.log(this.date);
     },
   },
 };
 </script>
-<style lang="scss" scoped>
-.contact_section {
-  .title_con {
-    padding: 5% 12px 2% 12px;
-    display: grid;
-    justify-content: left;
-    align-items: center;
-    .title {
-      color: rgb(0, 0, 0);
-      font-family: "Pretendard-Regular";
-      font-weight: bold;
-    }
-    .sub_title {
-      color: rgb(94, 94, 94);
-      font-family: "Pretendard-Regular";
-      font-weight: bold;
-      line-height: 45px;
-    }
-  }
-}
-
-// PC XL
-@media screen and (min-width: 1300px) {
-  .contact_section {
-    margin-top: 80px;
-  }
-  .title_con {
-    width: 1300px;
-    padding: 5% 12px 2% 12px;
-    margin: 0px auto;
-  }
-  .title {
-    font-size: 46px;
-    line-height: 60px;
-  }
-
-  .sub_title,
-  .content {
-    font-size: 20px;
-    line-height: 45px;
-  }
-}
-// PC
-@media screen and (min-width: 1080px) and (max-width: 1300px) {
-  .contact_section {
-    margin-top: 70px;
-  }
-  .title_con {
-    width: 1080px;
-    padding: 5% 12px 2% 12px;
-    margin: 0px auto;
-  }
-  .title {
-    font-size: 46px;
-    line-height: 60px;
-  }
-  .sub_title .content {
-    font-size: 20px;
-    line-height: 45px;
-  }
-}
-
-// 노트북
-@media screen and (min-width: 760px) and (max-width: 1080px) {
-  .contact_section {
-    margin-top: 60px;
-  }
-  .title_con {
-    width: 760px;
-    padding: 5% 12px 2% 12px;
-    margin: 0px auto;
-  }
-  .title {
-    font-size: 36px;
-    line-height: 45px;
-  }
-  .sub_title.content {
-    font-size: 16px;
-    line-height: 30px;
-  }
-}
-
-// 테블릿
-@media screen and (min-width: 600px) and (max-width: 759px) {
-  .contact_section {
-    margin-top: 55px;
-  }
-  .title_con {
-    width: 640px;
-    padding: 5% 12px 2% 12px;
-    margin: 0px auto;
-  }
-  .title {
-    font-size: 28px;
-    line-height: 35px;
-  }
-  .sub_title.content {
-    font-size: 16px;
-    line-height: 25px;
-  }
-}
-
-// 모바일
-@media screen and (min-width: 320px) and (max-width: 600px) {
-  .contact_section {
-    margin-top: 50px;
-  }
-  .title_con {
-    width: 320px;
-    padding: 5% 12px 2% 12px;
-    margin: 0px auto;
-  }
-  .title {
-    font-size: 21px;
-    line-height: 26px;
-  }
-  .sub_title.content {
-    font-size: 14px;
-    line-height: 25px;
-  }
-}
+<style scoped>
 </style>

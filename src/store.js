@@ -10,7 +10,8 @@ const store = createStore({
     hostAddressName: "티키타카.kr:81",
     room1: {
       title: '임시룸1',
-      price: '64,000원'
+      price: 64000,
+      numPrice: 5500,
     },
   },
   mutations: {

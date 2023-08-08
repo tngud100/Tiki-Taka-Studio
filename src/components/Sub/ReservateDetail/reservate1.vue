@@ -41,12 +41,12 @@
         <div class="info">
           <div class="title-info">
             <p class="title">{{ room1.title }}</p>
-            <p class="price">{{ room1.price }}</p>
+            <p class="price">{{ room1.price }}원</p>
           </div>
           <hr />
           <div class="schedule-con">
             <p class="title">스케줄</p>
-            <p class="sub-title">2시간 단위로, 최소 2시간 이상</p>
+
             <!-- 날짜 테이블 -->
             <v-text-field
               @click="dialog = !dialog"
@@ -69,7 +69,8 @@
             </div>
             <!-- 시간 테이블 -->
             <div class="time-con" v-if="date">
-              <p class="time-title">시간</p>
+              <p class="time-title" style="margin-top: 20px">시간</p>
+              <p class="sub-title">최소 3시간 이상</p>
               <v-text-field
                 @click="timeDialog = !timeDialog"
                 variant="outlined"
@@ -96,6 +97,7 @@
                   @click="setTime(i)"
                   :class="{
                     'selected-time': isTimeSelected(i),
+                    'block-time': BlockTimeSet(i),
                   }"
                 >
                   {{ i }}:00
@@ -114,12 +116,15 @@
               </div>
             </div>
             <!-- 인원 테이블 -->
-            <p class="num-title">총인원</p>
+            <p class="num-title" style="margin-top: 20px">총인원</p>
             <v-text-field
               label="인원수를 입력해 주세요."
               persistent-hint
               variant="outlined"
               class="sub-title"
+              @click="numDialog = !numDialog"
+              v-model="num"
+              readonly
             ></v-text-field>
             <div
               class="num-box"
@@ -144,7 +149,9 @@
                   @click="minusBtn"
                 ></span>
 
-                <div style="margin: 0px 30px; font-size: 16px">{{ num }}</div>
+                <div style="margin: 0px 30px; font-size: 16px">
+                  {{ num }}
+                </div>
 
                 <span
                   class="mdi mdi-plus-circle-outline"
@@ -158,11 +165,48 @@
               </div>
             </div>
 
-            <v-btn width="auto" color="#805BEA" block size="large"
+            <div class="price-con" v-if="timeHour != 0">
+              <hr style="margin-bottom: 20px" />
+              <div style="display: flex; justify-content: space-between">
+                <span
+                  >{{ room1.price.toLocaleString() }}원 x
+                  {{ this.timeHour }}시간</span
+                >
+                <span>
+                  {{ (room1.price * this.timeHour).toLocaleString() }}원
+                </span>
+              </div>
+              <div style="display: flex; justify-content: space-between">
+                <span>
+                  {{ room1.numPrice.toLocaleString() }}원 x
+                  {{ this.num }}명</span
+                >
+                <span>
+                  {{ (room1.numPrice * this.num).toLocaleString() }}원
+                </span>
+              </div>
+              <hr style="margin: 20px 0px" />
+              <div style="display: flex; justify-content: space-between">
+                <span>총 가격</span>
+                <span>{{ this.totalPrice.toLocaleString() }}원</span>
+              </div>
+            </div>
+            <DialogReserve
+              :date="date"
+              :time-string="timeString"
+              :num="num"
+              :total-price="totalPrice"
+            />
+            <!-- <v-btn
+              width="auto"
+              color="#805BEA"
+              block
+              size="large"
+              style="margin-top: 20px"
               ><span style="color: white; font-size: 16px"
                 >지금 예약하기</span
               ></v-btn
-            >
+            > -->
           </div>
         </div>
       </div>
@@ -175,6 +219,7 @@
 import HeaderNav from "@/components/Header/HeaderSub.vue";
 import HeaderTitle from "@/components/Header/SubTitle.vue";
 import Footer from "@/components/Footer/FooterMain.vue";
+import DialogReserve from "./DialogReserve.vue";
 
 import { mapGetters } from "vuex";
 
@@ -184,6 +229,7 @@ export default {
     HeaderNav,
     Footer,
     HeaderTitle,
+    DialogReserve,
   },
   computed: {
     ...mapGetters(["room1"]),
@@ -202,9 +248,12 @@ export default {
       timeDialog: false,
       timeList: [],
       timeString: "00:00 - 00:00, 0시간",
+      timeHour: 0,
       selectedStartTime: 0,
       selectedEndTime: 0,
       num: 0,
+      totalPrice: 0,
+      blockTimeList: [15, 16, 17, 18],
     };
   },
   mounted() {
@@ -222,25 +271,69 @@ export default {
   },
   methods: {
     setTime(time) {
-      if (this.selectedStartTime === null || this.selectedEndTime !== null) {
+      // 처음 선택 할 시 자동 3시간
+      if (this.selectedStartTime === 0) {
         this.selectedStartTime = time;
-        this.selectedEndTime = null;
+        this.selectedEndTime = time + 3;
       } else {
         this.selectedEndTime = time;
-        // console.log(
-        //   `Selected time range: ${this.selectedStartTime}:00 - ${this.selectedEndTime}:00`
-        // );
+      }
+      // 최소 이용시간 3시간으로 지정
+      if (
+        this.selectedEndTime > this.selectedStartTime &&
+        this.selectedEndTime <= this.selectedStartTime + 3
+      ) {
+        this.selectedEndTime = this.selectedStartTime + 3;
+      }
+
+      // 시작 시간보다 전 시간을 예약하려고 할시에 초기화
+      if (this.selectedEndTime <= this.selectedStartTime) {
+        this.selectedStartTime = 0;
+        this.selectedEndTime = 0;
+      }
+
+      // block 시간이 있으면 선택 불가
+      if (
+        // block시간 3시간 전까지는 선택불가 => 최소 시간 3시간
+        this.selectedStartTime >= this.blockTimeList[0] - 3 &&
+        this.selectedStartTime <=
+          this.blockTimeList[this.blockTimeList.length - 1]
+      ) {
+        alert("최소 이용 시간 및 이용 중인 시간대를 확인해 주세요.");
+        this.selectedStartTime = 0;
+        this.selectedEndTime = 0;
+      }
+      if (
+        // block된 시간에는 end선택불가
+        this.selectedEndTime >= this.blockTimeList[0] &&
+        this.selectedEndTime <=
+          this.blockTimeList[this.blockTimeList.length - 1]
+      ) {
+        alert("이용 중인 시간대를 확인해 주세요.");
+        this.selectedStartTime = 0;
+        this.selectedEndTime = 0;
+      }
+      if (
+        // start가 존재했을시 block 이후의 시간대는 선택 불가
+        this.selectedStartTime <= this.blockTimeList[0] &&
+        this.selectedEndTime > this.blockTimeList[0]
+      ) {
+        alert("이용 중인 시간대를 확인해 주세요.");
+        this.selectedStartTime = 0;
+        this.selectedEndTime = 0;
       }
     },
 
     isTimeSelected(i) {
-      this.timeString = `${this.selectedStartTime}:00 - ${
-        this.selectedEndTime
-      }:00 , ${this.selectedEndTime - this.selectedStartTime}시간`;
-      if (this.selectedStartTime !== null && this.selectedEndTime !== null) {
+      this.timeHour = this.selectedEndTime - this.selectedStartTime;
+      this.timeString = `${this.selectedStartTime}:00 - ${this.selectedEndTime}:00 , ${this.timeHour}시간`;
+
+      if (this.selectedStartTime !== 0 && this.selectedEndTime !== 0) {
         return i >= this.selectedStartTime && i <= this.selectedEndTime;
       }
-      return i === this.selectedStartTime;
+    },
+    BlockTimeSet(i) {
+      return this.blockTimeList.includes(i);
     },
 
     confirmSelectedTime() {
@@ -251,11 +344,14 @@ export default {
       }
       console.log(this.timeList);
       this.timeDialog = false;
+      this.PriceCalc();
     },
 
+    // 취소시 초기화
     cancelSelectedTime() {
       this.timeList = [];
       this.timeString = "00:00 - 00:00, 0시간";
+      this.timeHour = 0;
       this.selectedStartTime = 0;
       this.selectedEndTime = 0;
       this.timeDialog = false;
@@ -277,16 +373,22 @@ export default {
     },
 
     minusBtn() {
-      if (this.num < 0) {
+      this.num--;
+      if (this.num <= 0) {
         this.num = 0;
       }
-      this.num--;
+      this.PriceCalc();
     },
     plusBtn() {
+      this.num++;
       if (this.num >= 50) {
         this.num = 50;
       }
-      this.num++;
+      this.PriceCalc();
+    },
+    PriceCalc() {
+      this.totalPrice =
+        this.room1.price * this.timeHour + this.room1.numPrice * this.num;
     },
     // Redate(value) {
     //   this.date = value;
@@ -301,9 +403,14 @@ export default {
 
 <style lang="scss" scoped>
 .selected-time {
-  background-color: #3399ff; /* Change this to the color you want */
+  background-color: #3399ff;
+  color: white;
+}
+.block-time {
+  background-color: #888888; /* Change this to the color you want */
   color: white; /* Change this to the color you want */
 }
+
 ::v-deep .v-picker-title {
   display: none;
 }
@@ -377,6 +484,9 @@ export default {
           .sub-title {
             font-size: 12px;
             margin-top: 10px;
+          }
+          ::v-deep .v-input__details {
+            display: none;
           }
         }
       }
