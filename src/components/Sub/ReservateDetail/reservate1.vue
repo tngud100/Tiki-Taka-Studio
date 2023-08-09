@@ -48,7 +48,7 @@
             <p class="title">스케줄</p>
 
             <!-- 날짜 테이블 -->
-            <v-text-field
+            <!-- <v-text-field
               @click="dialog = !dialog"
               variant="outlined"
               label="날짜를 선택해 주세요"
@@ -56,15 +56,23 @@
               class="sub-title"
               v-model="date"
             >
-              <!-- {{ date }} -->
-            </v-text-field>
+            </v-text-field> -->
             <div class="date-picker">
-              <v-date-picker
+              <!-- <v-date-picker
                 v-if="dialog"
-                ref="picker"
-                :model-value="date"
-                @update:model-value="cancelSelectedTime"
+                :min="minDate"
+                :max="maxDate"
+                v-model="date"
+                @update:model-value="updateDate"
                 hide-actions
+              /> -->
+              <Datepicker
+                :value="date"
+                v-model="date"
+                @input="updateDate"
+                format="yyyy-MM-dd"
+                placeholder="날짜를 선택해 주세요"
+                :disabled-dates="disableDate"
               />
             </div>
             <!-- 시간 테이블 -->
@@ -100,7 +108,7 @@
                     'block-time': BlockTimeSet(i),
                   }"
                 >
-                  {{ i }}:00
+                  {{ i < 10 ? "0" + i : i }}:00
                 </v-btn>
                 <div
                   class="time-apply"
@@ -197,16 +205,6 @@
               :num="num"
               :total-price="totalPrice"
             />
-            <!-- <v-btn
-              width="auto"
-              color="#805BEA"
-              block
-              size="large"
-              style="margin-top: 20px"
-              ><span style="color: white; font-size: 16px"
-                >지금 예약하기</span
-              ></v-btn
-            > -->
           </div>
         </div>
       </div>
@@ -222,6 +220,8 @@ import Footer from "@/components/Footer/FooterMain.vue";
 import DialogReserve from "./DialogReserve.vue";
 
 import { mapGetters } from "vuex";
+import Datepicker from "vuejs3-datepicker";
+import $ from "jquery";
 
 export default {
   name: "ReservateDetail1",
@@ -230,9 +230,10 @@ export default {
     Footer,
     HeaderTitle,
     DialogReserve,
+    Datepicker,
   },
   computed: {
-    ...mapGetters(["room1"]),
+    ...mapGetters(["room1", "hostAddressName"]),
   },
   data() {
     return {
@@ -244,6 +245,10 @@ export default {
       ],
       studioImage: [require("@/assets/studio/studio3.svg")],
       dialog: false,
+      disableDate: {
+        to: new Date(),
+        from: null,
+      },
       date: null,
       timeDialog: false,
       timeList: [],
@@ -254,21 +259,11 @@ export default {
       num: 0,
       totalPrice: 0,
       blockTimeList: [15, 16, 17, 18],
+      checkAccount: false,
     };
   },
-  mounted() {
-    this.updateDate();
-  },
-  watch: {
-    dialog(newVal) {
-      if (newVal) {
-        // Dialog is opened
-        this.$nextTick(() => {
-          this.updateDate();
-        });
-      }
-    },
-  },
+  mounted() {},
+  watch: {},
   methods: {
     setTime(time) {
       // 처음 선택 할 시 자동 3시간
@@ -322,8 +317,10 @@ export default {
         this.selectedStartTime = 0;
         this.selectedEndTime = 0;
       }
+      this.getDisabledate();
     },
 
+    // 클래스 부여
     isTimeSelected(i) {
       this.timeHour = this.selectedEndTime - this.selectedStartTime;
       this.timeString = `${this.selectedStartTime}:00 - ${this.selectedEndTime}:00 , ${this.timeHour}시간`;
@@ -336,12 +333,26 @@ export default {
       return this.blockTimeList.includes(i);
     },
 
+    // 확인 눌렀을시 timeList에 배열 저장
     confirmSelectedTime() {
-      console.log(this.selectedEndTime - this.selectedStartTime);
-      for (var i = 0; i <= this.selectedEndTime - this.selectedStartTime; i++) {
-        console.log(this.selectedStartTime);
-        this.timeList.push(`${this.selectedStartTime + i}:00`);
+      const hoursDifference = this.selectedEndTime - this.selectedStartTime;
+      if (this.timeList.length === 0) {
+        for (let i = 0; i <= hoursDifference; i++) {
+          const currentHour = this.selectedStartTime + i;
+          const formattedTime =
+            (currentHour < 10 ? "0" + currentHour : currentHour) + ":00";
+          this.timeList.push(formattedTime);
+        }
+      } else {
+        this.timeList = [];
+        for (let i = 0; i <= hoursDifference; i++) {
+          const currentHour = this.selectedStartTime + i;
+          const formattedTime =
+            (currentHour < 10 ? "0" + currentHour : currentHour) + ":00";
+          this.timeList.push(formattedTime);
+        }
       }
+
       console.log(this.timeList);
       this.timeDialog = false;
       this.PriceCalc();
@@ -357,19 +368,13 @@ export default {
       this.timeDialog = false;
     },
 
-    updateDate() {
-      if (this.$refs.picker && this.$refs.picker.$el) {
-        const date = this.$refs.picker.$el.querySelectorAll(
-          ".v-date-picker-month__day"
-        );
-        date.forEach((el) => {
-          el.addEventListener("click", () => {
-            this.date = el.getAttribute("data-v-date");
-            this.dialog = !this.dialog;
-            console.log(this.date);
-          });
-        });
+    updateDate(date) {
+      if (Array.isArray(date)) {
+        date = date[0];
       }
+      console.log(this.date);
+      this.date = this.date.toISOString().slice(0, 10);
+      console.log(this.date);
     },
 
     minusBtn() {
@@ -390,13 +395,37 @@ export default {
       this.totalPrice =
         this.room1.price * this.timeHour + this.room1.numPrice * this.num;
     },
-    // Redate(value) {
-    //   this.date = value;
-    //   console.log(this.date);
-    // const formattedDate = this.date[0].toISOString().split("T")[0]; // format the date as "YYYY-MM-DD"
-    // console.log(formattedDate);
-    // this.date = formattedDate;
-    // },
+    getDisabledate() {
+      $.ajax({
+        /* 요청 시작 부분 */
+        url: this.hostAddressName, //주소
+        method: "GET",
+        type: "get", //전송 타입
+        dataType: "json",
+
+        /* 응답 확인 부분 */
+        success: function (response) {
+          console.log(response);
+          console.log("");
+          console.log(response.data);
+        },
+
+        /* 에러 확인 부분 */
+        error: function (xhr) {
+          // alert("전송 실패");
+          console.log("");
+          console.log("[serverUploadImage] : [error] : " + xhr);
+          console.log("");
+        },
+
+        /* 완료 확인 부분 */
+        complete: function (xhr, textStatus) {
+          console.log("");
+          console.log("[serverUploadImage] : [complete] : " + textStatus);
+          console.log("");
+        },
+      });
+    },
   },
 };
 </script>
@@ -411,12 +440,12 @@ export default {
   color: white; /* Change this to the color you want */
 }
 
-::v-deep .v-picker-title {
-  display: none;
-}
-::v-deep .v-date-picker-header {
-  display: none;
-}
+// ::v-deep .v-picker-title {
+//   display: none;
+// }
+// ::v-deep .v-date-picker-header {
+//   display: none;
+// }
 .news_section {
   .title-con {
     width: 1300px;
@@ -476,6 +505,14 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+            ::v-deep .vuejs3-datepicker {
+              width: 100% !important;
+            }
+            ::v-deep .vuejs3-datepicker__value {
+              width: 100% !important;
+              color: #9e9e9e;
+              font-weight: 100;
+            }
           }
           .title {
             font-size: 16px;
@@ -484,9 +521,6 @@ export default {
           .sub-title {
             font-size: 12px;
             margin-top: 10px;
-          }
-          ::v-deep .v-input__details {
-            display: none;
           }
         }
       }

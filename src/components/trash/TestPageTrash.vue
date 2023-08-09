@@ -1,92 +1,92 @@
 <template>
-  <div class="text-center">
-    <v-dialog v-model="dialog" width="auto">
-      <template v-slot:activator="{ props }">
-        <v-btn color="primary" v-bind="props"> 지금 예약하기 </v-btn>
-      </template>
-      <v-card class="mx-auto" max-width="500">
-        <v-card-title class="text-h6 font-weight-regular justify-space-between">
-          <span>{{ currentTitle }}</span>
-        </v-card-title>
-
-        <v-window v-model="step">
-          <v-window-item :value="1">
-            <v-card-text>
-              <v-text-field
-                label="Email"
-                placeholder="EXAMPLE@naver.com"
-              ></v-text-field>
-              <span class="text-caption text-grey-darken-1">
-                예약 확인 메일을 받으실 이메일 주소를 입력해 주세요.
-              </span>
-            </v-card-text>
-          </v-window-item>
-
-          <v-window-item :value="2">
-            <v-card-text>
-              <v-text-field label="이름" type="text"></v-text-field>
-              <v-text-field label="Phone" type="text"></v-text-field>
-              <span class="text-caption text-grey-darken-1">
-                예약자의 개인정보를 입력해 주세요
-              </span>
-            </v-card-text>
-          </v-window-item>
-
-          <v-window-item :value="3">
-            <div class="pa-4 text-center">
-              <v-img
-                class="mb-4"
-                contain
-                height="128"
-                src="https://cdn.vuetifyjs.com/images/logos/v.svg"
-              ></v-img>
-              <h3 class="text-h6 font-weight-light mb-2">국민은행</h3>
-              <h3 class="text-h6 font-weight-light mb-2">1560-511545-4849</h3>
-              <p class="text-caption">
-                입금이 확인될시에 기입하신 이메일로 확인 메일이 전송이 됩니다
-              </p>
-              <span class="text-caption text-grey">무통장 입금</span>
-            </div>
-          </v-window-item>
-        </v-window>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-btn v-if="step > 1" variant="text" @click="step--"> Back </v-btn>
+  <v-row>
+    <v-col cols="12" lg="2">
+      <v-menu
+        ref="menu1"
+        v-model="menu1"
+        :close-on-content-click="false"
+        :value="s_date"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="s_date"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker v-model="s_date" no-title scrollable :max="e_date">
           <v-spacer></v-spacer>
-          <v-btn v-if="step < 3" color="primary" variant="flat" @click="step++">
-            Next
-          </v-btn>
+          <v-btn text color="primary" @click="menu1 = false">Cancel</v-btn>
+          <v-btn text color="primary" @click="s_date_search(s_date)">OK</v-btn>
+        </v-date-picker>
+      </v-menu>
+    </v-col>
 
-          <v-btn v-if="step >= 3" variant="text" @click="dialog = false">
-            Done
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+    <v-col cols="12" lg="2">
+      <v-menu
+        ref="menu2"
+        v-model="menu2"
+        :close-on-content-click="false"
+        :value="e_date"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="e_date"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="e_date"
+          no-title
+          scrollable
+          :min="s_date"
+          :max="date"
+        >
+          <v-spacer></v-spacer>
+          <v-btn text color="primary" @click="menu2 = false">Cancel</v-btn>
+          <v-btn text color="primary" @click="e_date_search(e_date)">OK</v-btn>
+        </v-date-picker>
+      </v-menu>
+    </v-col>
+  </v-row>
 </template>
+
 <script>
 export default {
-  data: () => ({
-    step: 1,
-    dialog: false,
-  }),
-
-  computed: {
-    currentTitle() {
-      switch (this.step) {
-        case 1:
-          return "E-mail 입력";
-        case 2:
-          return "개인정보를 기입";
-        default:
-          return "예약 확인";
-      }
+  data() {
+    return {
+      date: new Date().toISOString().substr(0, 10),
+      s_date: new Date().toISOString().substr(0, 10),
+      e_date: new Date().toISOString().substr(0, 10),
+      menu1: false,
+      menu2: false,
+    };
+  },
+  methods: {
+    s_date_search(v) {
+      this.s_date = v;
+      this.menu1 = false;
+      this.$refs.menu1.save(v);
+    },
+    e_date_search(v) {
+      this.e_date = v;
+      this.menu2 = false;
+      this.$refs.menu2.save(v);
     },
   },
 };
 </script>
-<style scoped>
+
+<style>
 </style>
