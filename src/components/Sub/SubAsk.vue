@@ -59,7 +59,12 @@
               required
             ></v-text-field>
           </v-col>
-          <v-col md="3" sm="4" class="business_check" style="padding-bottom: 3px">
+          <v-col
+            md="3"
+            sm="4"
+            class="business_check"
+            style="padding-bottom: 3px"
+          >
             <v-btn-toggle
               v-model="form.sex"
               :value="form.sex"
