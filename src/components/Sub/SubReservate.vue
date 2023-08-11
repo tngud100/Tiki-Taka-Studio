@@ -12,18 +12,15 @@
       </p>
     </div>
     <div class="reservate-con">
-      <div
-        :class="'card' + index"
-        v-for="(card, index) in creatorCard"
-        :key="index"
-      >
+      <div :class="'card' + index" v-for="(card, index) in rooms" :key="index">
         <router-link
-          :to="'/reservate' + card.num"
+          :to="'/reservate' + card.studioNum"
           style="text-decoration: none"
         >
           <div :class="'hover-filter' + index">
             <span class="hover-text">
-              {{ card.name }}
+              [{{ card.numMin }}인실]
+              {{ card.title }}
             </span>
           </div>
           <div class="card-image">
@@ -31,12 +28,14 @@
           </div>
           <div class="card-subText">
             <span class="creator-subscribe">
-              촬영 또는 라이브 방송을 하기 위한 룸 {{ card.subscribe }}</span
+              촬영 또는 라이브 방송을 하기 위한 룸</span
             >
           </div>
           <div class="card-titleText">
-            <span class="creator-name">{{ card.name }}</span>
-            <span class="creator-name">{{ card.name2 }}</span>
+            <span class="creator-name"
+              >[{{ card.numMin }}인실] {{ card.title }}</span
+            >
+            <span class="creator-name">{{ card.Price }}</span>
           </div>
         </router-link>
       </div>
@@ -47,10 +46,15 @@
 <script>
 import HeaderTitle from "@/components/Header/SubTitle.vue";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "ReservatePage",
   components: {
     HeaderTitle,
+  },
+  computed: {
+    ...mapGetters(["rooms"]),
   },
   data() {
     return {
@@ -61,36 +65,40 @@ export default {
         require("@/assets/banner/event1300.svg"),
         require("@/assets/banner/event760.svg"),
       ],
-      creatorCard: [
-        {
-          name: "[1인실] 임시룸1",
-          name2: "12,000원",
-          subscribe: "",
-          imageSrc: require("@/assets/studio/studio1.svg"),
-          num: 1,
-        },
-        {
-          name: "[1인실] 임시룸2",
-          name2: "14,000원",
-          imageSrc: require("@/assets/studio/studio2.svg"),
-          num: 2,
-        },
-        {
-          name: "[2인실] 임시룸3",
-          name2: "18,000원",
-          imageSrc: require("@/assets/studio/studio3.svg"),
-          num: 3,
-        },
-        {
-          name: "[크로마키 룸] 임시룸4",
-          name2: "16,000원",
-          imageSrc: require("@/assets/studio/studio3.svg"),
-          num: 4,
-        },
-      ],
+
+      // creatorCard: [
+      //   {
+      //     name: "[1인실] 임시룸1",
+      //     name2: "12,000원",
+      //     subscribe: "",
+      //     imageSrc: require("@/assets/studio/studio1.svg"),
+      //     num: 1,
+      //   },
+      //   {
+      //     name: "[1인실] 임시룸2",
+      //     name2: "14,000원",
+      //     imageSrc: require("@/assets/studio/studio2.svg"),
+      //     num: 2,
+      //   },
+      //   {
+      //     name: "[2인실] 임시룸3",
+      //     name2: "18,000원",
+      //     imageSrc: require("@/assets/studio/studio3.svg"),
+      //     num: 3,
+      //   },
+      //   {
+      //     name: "[크로마키 룸] 임시룸4",
+      //     name2: "16,000원",
+      //     imageSrc: require("@/assets/studio/studio3.svg"),
+      //     num: 4,
+      //   },
+      // ],
     };
   },
-  mounted() {},
+
+  mounted() {
+    console.log(this.rooms);
+  },
 };
 </script>
 
@@ -119,9 +127,8 @@ export default {
     margin: auto;
     padding: 16px;
 
-    
     width: 1300px;
-    @for $i from 0 through 3 {
+    @for $i from 0 through 5 {
       .card#{$i} {
         width: 30%;
         height: 100%; // 수정된 부분

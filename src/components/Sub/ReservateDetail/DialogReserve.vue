@@ -14,6 +14,7 @@
           style="margin-top: 20px; color: white"
           v-bind="props"
           :disabled="!Validcheck()"
+          @click="getDisabledate"
         >
           지금 예약하기
         </v-btn>
@@ -155,6 +156,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import $ from "jquery";
 export default {
   data() {
     return {
@@ -175,7 +177,7 @@ export default {
     totalPrice: Number,
   },
   computed: {
-    ...mapGetters(["room1"]),
+    ...mapGetters(["rooms", "hostAddressName"]),
     currentTitle() {
       switch (this.step) {
         case 1:
@@ -191,7 +193,7 @@ export default {
         name: ["성함", this.form.name],
         email: ["이메일", this.form.email],
         phone: ["연락처", this.form.phone],
-        space: ["대여 공간 이름", this.room1.title],
+        space: ["대여 공간 이름", this.rooms[0].title],
         reserveDate: ["대여 날짜", this.date],
         reserveTime: ["대여 시간", this.timeString],
         num: ["사용 인원 수", this.num + "명"],
@@ -230,6 +232,38 @@ export default {
       } else {
         return false;
       }
+    },
+    getDisabledate() {
+      $.ajax({
+        /* 요청 시작 부분 */
+        // url: this.hostAddressName + "/studio/reserve/1/2023-08-03", //주소
+        url: "티키타카.kr:81/studio/reserve/1/2023-08-03", //주소
+        method: "GET",
+        type: "get", //전송 타입
+        dataType: "json",
+
+        /* 응답 확인 부분 */
+        success: function (response) {
+          console.log(response);
+          console.log("");
+          console.log(response.data);
+        },
+
+        /* 에러 확인 부분 */
+        error: function (xhr) {
+          // alert("전송 실패");
+          console.log("");
+          console.log("[serverUploadImage] : [error] : " + xhr);
+          console.log("");
+        },
+
+        /* 완료 확인 부분 */
+        complete: function (xhr, textStatus) {
+          console.log("");
+          console.log("[serverUploadImage] : [complete] : " + textStatus);
+          console.log("");
+        },
+      });
     },
   },
 };
