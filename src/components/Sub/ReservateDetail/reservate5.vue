@@ -3,11 +3,11 @@
     <HeaderNav />
     <HeaderTitle :title-data="title" :bg-image="bgImage" />
     <div class="title-con">
-      <span class="title">티앤티 스튜디오 {{ rooms[0].title }}</span>
+      <span class="title">티앤티 스튜디오 {{ rooms[4].title }}</span>
     </div>
     <div class="container">
       <div class="img-con">
-        <img :src="rooms[0].imageSrc" class="img" alt="studio" />
+        <img :src="rooms[4].imageSrc" class="img" alt="studio" />
         <div class="img-info">
           <p class="img-title">
             화이트로 꾸며진 다양한 컨셉공간 [회사,부엌,공방,휴식]
@@ -40,8 +40,8 @@
       <div class="info-con">
         <div class="info">
           <div class="title-info">
-            <p class="title">{{ rooms[0].title }}</p>
-            <p class="price">{{ rooms[0].price.toLocaleString() }}원</p>
+            <p class="title">{{ rooms[4].title }}</p>
+            <p class="price">{{ rooms[4].price }}원</p>
           </div>
           <hr />
           <div class="schedule-con">
@@ -125,15 +125,12 @@
             </div>
             <!-- 인원 테이블 -->
             <p class="num-title" style="margin-top: 20px">총인원</p>
-            <p class="sub-title">
-              추가 인원 수용 시 1인당
-              {{ this.rooms[0].numPrice.toLocaleString() }}원 추가 비용 발생
-            </p>
             <v-text-field
               label="인원수를 입력해 주세요."
               persistent-hint
               variant="outlined"
               class="sub-title"
+              @click="numDialog = !numDialog"
               v-model="num"
               readonly
             ></v-text-field>
@@ -180,19 +177,21 @@
               <hr style="margin-bottom: 20px" />
               <div style="display: flex; justify-content: space-between">
                 <span
-                  >{{ rooms[0].price.toLocaleString() }}원 x
+                  >{{ rooms[4].price.toLocaleString() }}원 x
                   {{ this.timeHour }}시간</span
                 >
                 <span>
-                  {{ (rooms[0].price * this.timeHour).toLocaleString() }}원
+                  {{ (rooms[4].price * this.timeHour).toLocaleString() }}원
                 </span>
               </div>
               <div style="display: flex; justify-content: space-between">
                 <span>
-                  {{ rooms[0].numPrice.toLocaleString() }}원 x
+                  {{ rooms[4].numPrice.toLocaleString() }}원 x
                   {{ this.num }}명</span
                 >
-                <span> {{ this.numPrice.toLocaleString() }}원 </span>
+                <span>
+                  {{ (rooms[4].numPrice * this.num).toLocaleString() }}원
+                </span>
               </div>
               <hr style="margin: 20px 0px" />
               <div style="display: flex; justify-content: space-between">
@@ -258,7 +257,6 @@ export default {
       selectedStartTime: 0,
       selectedEndTime: 0,
       num: 0,
-      numPrice: 0,
       totalPrice: 0,
       blockTimeList: [15, 16, 17, 18],
       checkAccount: false,
@@ -388,19 +386,14 @@ export default {
     },
     plusBtn() {
       this.num++;
-      if (this.num >= this.rooms[0].numMax) {
-        this.num = this.rooms[0].numMax;
+      if (this.num >= 50) {
+        this.num = 50;
       }
       this.PriceCalc();
     },
     PriceCalc() {
-      this.numPrice =
-        this.rooms[0].numPrice * (this.num - this.rooms[0].numMin);
-      if (this.num <= this.rooms[0].numMin) {
-        this.numPrice = 0;
-      }
-      console.log(this.numPrice);
-      this.totalPrice = this.rooms[0].price * this.timeHour + this.numPrice;
+      this.totalPrice =
+        this.rooms[4].price * this.timeHour + this.rooms[4].numPrice * this.num;
     },
     getDisabledate() {
       $.ajax({
@@ -408,7 +401,7 @@ export default {
         url:
           this.hostAddressName +
           "/studio/reserve/" +
-          this.rooms[0].studioNum +
+          this.rooms[4].studioNum +
           "/" +
           this.date, //주소
         method: "GET",

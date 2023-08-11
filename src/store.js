@@ -3,24 +3,116 @@ import { createStore } from "vuex";
 const store = createStore({
   state: {
     videoIndex: 0,
-    showModal: false,
     shortsVideoIndex: 0,
     shortsShowModal: false,
     // hostAddressName : "티키앤타카.com";
-    hostAddressName: "티키타카.kr:81",
-    room1: {
-      title: '임시룸1',
-      price: 64000,
-      numPrice: 5500,
-    },
+    hostAddressName: "http://티키타카.kr:81",
+    rooms:[
+      {
+        title: '워터 스튜디오',
+        price: 30000,
+        numPrice: 5000,
+        numMin: 2,
+        numMax: 4,
+        imageSrc: require("@/assets/studio/studio3.svg"),
+        studioNum: 1,
+      },
+      {
+        title: '솔로 스튜디오',
+        price: 25000,
+        numPrice: 5000,
+        numMin: 1,
+        numMax: 2,
+        imageSrc: require("@/assets/studio/studio7.svg"),
+        studioNum: 2,
+      },
+      {
+        title: '하이브리드 스튜디오',
+        price: 35000,
+        numPrice: 5000,
+        numMin: 3,
+        numMax: 5,
+        imageSrc: require("@/assets/studio/studio7.svg"),
+        studioNum: 3,
+      },
+      {
+        title: '듀오 스튜디오',
+        price: 25000,
+        numPrice: 5000,
+        numMin: 1,
+        numMax: 2,
+        imageSrc: require("@/assets/studio/studio7.svg"),
+        studioNum: 4,
+      },
+      {
+        title: '화이트 스튜디오',
+        price: 50000,
+        numPrice: 5000,
+        numMin: 5,
+        numMax: 7,
+        imageSrc: require("@/assets/studio/studio8.svg"),
+        studioNum: 5,
+      },
+     {
+        title: '그린 스튜디오',
+        price: 100000,
+        numPrice: 5000,
+        numMin: 10,
+        numMax: 15,
+        imageSrc: require("@/assets/studio/studio8.svg"),
+        studioNum: 6,
+      },
+    ],
+    // room1: {
+    //   title: '워터 스튜디오',
+    //   price: 30000,
+    //   numPrice: 5000,
+    //   numMin: 2,
+    //   numMax: 4,
+    //   studioNum: 1,
+    // },
+    // room2: {
+    //   title: '솔로 스튜디오',
+    //   price: 25000,
+    //   numPrice: 5000,
+    //   numMin: 1,
+    //   numMax: 2,
+    //   studioNum: 2,
+    // },
+    // room3: {
+    //   title: '하이브리드 스튜디오',
+    //   price: 35000,
+    //   numPrice: 5000,
+    //   numMin: 3,
+    //   numMax: 5,
+    //   studioNum: 3,
+    // },
+    // room4: {
+    //   title: '듀오 스튜디오',
+    //   price: 25000,
+    //   numPrice: 5000,
+    //   numMin: 1,
+    //   numMax: 2,
+    //   studioNum: 4,
+    // },
+    // room5: {
+    //   title: '화이트 스튜디오',
+    //   price: 50000,
+    //   numPrice: 5000,
+    //   numMin: 5,
+    //   numMax: 7,
+    //   studioNum: 5,
+    // },
+    // room6: {
+    //   title: '그린 스튜디오',
+    //   price: 100000,
+    //   numPrice: 5000,
+    //   numMin: 10,
+    //   numMax: 15,
+    //   studioNum: 6,
+    // },
   },
   mutations: {
-    setVideoNumber(state, value) {
-      state.videoIndex = value;
-    },
-    setShowModal(state, value) {
-      state.showModal = value;
-    },
     setShortsVideoNumber(state, value) {
       state.shortsVideoIndex = value;
     },
@@ -29,12 +121,6 @@ const store = createStore({
     },
   },
   actions: {
-    setVideoNumber({ commit }, value) {
-      commit("setVideoNumber", value);
-    },
-    setShowModal({ commit }, value) {
-      commit("setShowModal", value);
-    },
     setShortsVideoNumber({ commit }, value) {
       commit("setShortsVideoNumber", value);
     },
@@ -43,12 +129,11 @@ const store = createStore({
     },
   },
   getters: {
-    videoIndex: (state) => state.videoIndex,
-    showModal: (state) => state.showModal,
     shortsVideoIndex: (state) => state.shortsVideoIndex,
     shortsShowModal: (state) => state.shortsShowModal,
     hostAddressName: (state) => state.hostAddressName,
-    room1: (state) => state.room1,
+    rooms: (state) => state.rooms,
+    room1: (state) => state.rooms.room1,
   },
 });
 
