@@ -42,6 +42,9 @@
           <div class="title-info">
             <p class="title">{{ rooms[0].title }}</p>
             <p class="price">{{ rooms[0].price.toLocaleString() }}원</p>
+            <router-link to="/CallendarReservate">
+              <v-btn class="title">티키앤타카 예약 현황</v-btn>
+            </router-link>
           </div>
           <hr />
           <div class="schedule-con">

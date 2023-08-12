@@ -25,6 +25,7 @@
     "vue-carousel-3d": "^1.0.1",
     "vue-google-api": "^0.2.0",
     "vue-router": "^4.1.6",
+    "vue-simple-calendar": "^6.3.1",
     "vue3-carousel-3d": "^1.0.4",
     "vuejs3-datepicker": "^1.0.19",
     "vuetify": "^3.3.11",
