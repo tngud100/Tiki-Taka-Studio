@@ -208,6 +208,7 @@
               :time-string="timeString"
               :num="num"
               :total-price="totalPrice"
+              :time-list="timeList"
             />
           </div>
         </div>
@@ -422,7 +423,6 @@ export default {
         success: function (response) {
           console.log(response);
           console.log("");
-          console.log(response.data);
         },
 
         /* 에러 확인 부분 */
@@ -436,7 +436,7 @@ export default {
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
           console.log("");
-          console.log("[serverUploadImage] : [complete] : " + textStatus);
+          console.log("[server] : [complete] : " + textStatus);
           console.log("");
         },
       });

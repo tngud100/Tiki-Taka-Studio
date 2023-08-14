@@ -14,7 +14,7 @@
           style="margin-top: 20px; color: white"
           v-bind="props"
           :disabled="!Validcheck()"
-          @click="getDisabledate"
+          @click="console.log(timeList)"
         >
           지금 예약하기
         </v-btn>
@@ -168,6 +168,7 @@ export default {
         email: "",
       },
       img: require("@/assets/header/scrollLogo.svg"),
+      timeTable: "",
     };
   },
   props: {
@@ -175,6 +176,7 @@ export default {
     timeString: String,
     num: Number,
     totalPrice: Number,
+    timeList: Array,
   },
   computed: {
     ...mapGetters(["rooms", "hostAddressName"]),
@@ -201,6 +203,7 @@ export default {
       };
     },
   },
+  mounted() {},
   methods: {
     isValidStep() {
       switch (this.step) {
@@ -219,7 +222,8 @@ export default {
     },
     finishBtn() {
       this.dialog = false;
-      location.reload();
+      // location.reload();
+      this.getDisabledate();
       this.checkAccount = true;
     },
     Validcheck() {
@@ -234,13 +238,27 @@ export default {
       }
     },
     getDisabledate() {
+      for (var i = 0; i < this.timeList.length - 1; i++) {
+        this.timeTable = this.timeTable + this.timeList[i].substring(0, 2);
+      }
+      console.log(this.timeTable);
+
+      const data = {
+        studioNum: this.rooms[0].studioNum,
+        date: this.date,
+        time: this.timeTable,
+        peopleNum: this.num,
+        userName: this.form.name,
+        email: this.form.email,
+        phone: this.form.phone,
+        state: 0, // 입금 미완료
+      };
       $.ajax({
         /* 요청 시작 부분 */
-        // url: this.hostAddressName + "/studio/reserve/1/2023-08-03", //주소
-        url: "티키타카.kr:81/studio/reserve/1/2023-08-03", //주소
-        method: "GET",
-        type: "get", //전송 타입
-        dataType: "json",
+        url: this.hostAddressName + "/studio/reserve", //주소
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(data),
 
         /* 응답 확인 부분 */
         success: function (response) {
