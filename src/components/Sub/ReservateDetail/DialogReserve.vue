@@ -203,6 +203,11 @@ export default {
       };
     },
   },
+  watch: {
+    timeList() {
+      this.timeTable = "";
+    },
+  },
   mounted() {},
   methods: {
     isValidStep() {
@@ -222,8 +227,8 @@ export default {
     },
     finishBtn() {
       this.dialog = false;
-      // location.reload();
-      this.getDisabledate();
+      this.sendData();
+      location.reload();
       this.checkAccount = true;
     },
     Validcheck() {
@@ -237,10 +242,11 @@ export default {
         return false;
       }
     },
-    getDisabledate() {
-      for (var i = 0; i < this.timeList.length - 1; i++) {
+    sendData() {
+      for (var i = 0; i <= this.timeList.length - 1; i++) {
         this.timeTable = this.timeTable + this.timeList[i].substring(0, 2);
       }
+
       console.log(this.timeTable);
 
       const data = {
@@ -261,24 +267,23 @@ export default {
         data: JSON.stringify(data),
 
         /* 응답 확인 부분 */
-        success: function (response) {
-          console.log(response);
+        success: function () {
           console.log("");
-          console.log(response.data);
         },
 
         /* 에러 확인 부분 */
         error: function (xhr) {
-          // alert("전송 실패");
+          alert("전송 실패");
           console.log("");
-          console.log("[serverUploadImage] : [error] : " + xhr);
+          console.log("[serverUpload] : [error] : " + xhr);
           console.log("");
         },
 
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
+          alert("신청이 완료 되었습니다. 메일을 확인해 주세요.");
           console.log("");
-          console.log("[serverUploadImage] : [complete] : " + textStatus);
+          console.log("[serverUpload] : [complete] : " + textStatus);
           console.log("");
         },
       });

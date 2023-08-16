@@ -42,7 +42,7 @@
           <div class="title-info">
             <p class="title">{{ rooms[0].title }}</p>
             <p class="price">{{ rooms[0].price.toLocaleString() }}원</p>
-            <router-link to="/CallendarReservate">
+            <router-link to="/CalendarReservate">
               <v-btn class="title">티키앤타카 예약 현황</v-btn>
             </router-link>
           </div>
@@ -264,7 +264,7 @@ export default {
       num: 0,
       numPrice: 0,
       totalPrice: 0,
-      blockTimeList: [15, 16, 17, 18],
+      blockTimeList: [],
       checkAccount: false,
     };
   },
@@ -323,7 +323,7 @@ export default {
         this.selectedStartTime = 0;
         this.selectedEndTime = 0;
       }
-      this.getDisabledate();
+      console.log(this.blockTimeList);
     },
 
     // 클래스 부여
@@ -378,9 +378,9 @@ export default {
       if (Array.isArray(date)) {
         date = date[0];
       }
-      console.log(this.date);
       this.date = this.date.toISOString().slice(0, 10);
       console.log(this.date);
+      this.getDisabledate();
     },
 
     minusBtn() {
@@ -406,6 +406,13 @@ export default {
       console.log(this.numPrice);
       this.totalPrice = this.rooms[0].price * this.timeHour + this.numPrice;
     },
+    dateInsert(date) {
+      this.blockTimeList = [];
+      console.log("[응답 데이터]: " + date);
+      for (var i = 0; i < date.length; i++) {
+        this.blockTimeList.push(parseInt(date[i]));
+      }
+    },
     getDisabledate() {
       $.ajax({
         /* 요청 시작 부분 */
@@ -420,9 +427,8 @@ export default {
         dataType: "json",
 
         /* 응답 확인 부분 */
-        success: function (response) {
-          console.log(response);
-          console.log("");
+        success: (response) => {
+          this.dateInsert(response);
         },
 
         /* 에러 확인 부분 */
