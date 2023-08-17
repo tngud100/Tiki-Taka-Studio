@@ -17,16 +17,22 @@
       </template>
     </calendar-view>
     <div v-if="modalVisible" class="modal-overlay" @click="closeModal">
-      <div class="modal-content">
-        <!-- Display date information or other content here -->
-        <!-- <p>{{ selectedDate}}</p> -->
-        <p v-if="selectedDate && selectedDate.startDate">
-          시작 시간: {{ selectedDate.startDate.toISOString().slice(0, 10) }}
-        </p>
-        <p v-if="selectedDate && selectedDate.startDate">
-          종료 시간: {{ selectedDate.endDate.toISOString().slice(0, 10) }}
-        </p>
-        <p>이름, 사용 스튜디오 이름 들어갈 예정 ...</p>
+      <div
+        class="modal-content"
+        style="min-width: 320px; font-family: 'Pretendard-Regular'"
+      >
+        <h3>예약 현황</h3>
+        <hr style="margin: 0px 0px 12px 0px" />
+        <div v-if="selectedDate">
+          <p>성함 : {{ selectedDate.originalItem.title }}</p>
+          <p>예약 날짜 : {{ selectedDate.originalItem.startDate }}</p>
+          <p>스튜디오 : {{ selectedDate.originalItem.studioName }}</p>
+          <p>인원수 : {{ selectedDate.originalItem.peopleNum }}명</p>
+          <p>
+            시간 : {{ selectedDate.originalItem.startTime }}:00 -
+            {{ selectedDate.originalItem.endTime }}:00
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -71,7 +77,7 @@ export default {
 
       /* 응답 확인 부분 */
       success: (response) => {
-        // console.log(response);
+        console.log(response);
         this.getForm(response);
       },
 
@@ -79,7 +85,7 @@ export default {
       error: function (xhr) {
         // alert("전송 실패");
         console.log("");
-        console.log("[serverUploadImage] : [error] : " + xhr);
+        console.log("[Error] : [error] : " + xhr);
         console.log("");
       },
 
@@ -101,22 +107,41 @@ export default {
     },
 
     insertData(form) {
-      for (var i = 0; i < form.length; i++) {
-        const event = {
-          id: i,
-          startDate: form[i].date,
-          title: form[i].userName,
-        };
-        console.log(event);
-        this.events.push(event);
+      if (form[0] === null) {
+        return;
       }
-      console.log("event" + this.events);
+      for (var i = 0; i < form.length; i++) {
+        if (form[i].state > 0) {
+          const event = {
+            id: i,
+            startDate: form[i].date,
+            title: form[i].userName,
+            peopleNum: form[i].peopleNum,
+            studioName: form[i].studioName,
+            startTime: form[i].startTime,
+            endTime: form[i].endTime,
+            state: form[i].state,
+          };
+          if (i > 0) {
+            if (
+              form[i - 1].date === form[i].date &&
+              form[i - 1].title === form[i].title &&
+              form[i - 1].regdate === form[i].regdate
+            ) {
+              console.log("중복");
+            } else {
+              this.events.push(event);
+            }
+          }
+          if (i == 0) {
+            this.events.push(event);
+          }
+        }
+      }
     },
     goBack() {
-      // 이전 페이지로 이동하는 로직을 추가합니다.
+      // 이전 페이지로 이동
       this.$router.go(-1); // Vue Router를 사용한 경우
-      // 또는
-      // window.history.back(); // 웹 브라우저의 기본 뒤로가기 동작
     },
     setShowDate(d) {
       this.showDate = d;

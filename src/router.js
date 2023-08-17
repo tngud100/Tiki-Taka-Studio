@@ -77,6 +77,11 @@ const routes = [
     component: () => import("@/components/Sub/ReservateDetail/reservate6.vue"),
   },
   {
+    path: "/reservateConfirm",
+    name: "ReservateConfirmAdmin",
+    component: () => import("@/components/Sub/ReservateDetail/ConfirmReserve.vue"),
+  },
+  {
     path: "/news1",
     name: "NewsDetail1",
     component: () => import("@/components/Sub/NewsDetail/news1.vue"),
