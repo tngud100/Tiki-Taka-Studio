@@ -227,8 +227,9 @@ export default {
     },
     finishBtn() {
       this.dialog = false;
-      this.sendData();
-      location.reload();
+      this.sendData(); // 데이터 베이스
+      this.sendMail(); // 구글 드라이브 저장, 메일 자동 전송
+      // location.reload();
       this.checkAccount = true;
     },
     Validcheck() {
@@ -291,17 +292,19 @@ export default {
     sendMail() {
       const formdata = new FormData();
 
-      formdata.append("userName", this.form.name, title);
+      formdata.append("userName", this.form.name);
       formdata.append("studioName", this.rooms[0].title);
       formdata.append("date", this.date);
       formdata.append("time", this.timeString);
       formdata.append("peopleNum", this.num);
+      formdata.append("email", this.form.email);
+      formdata.append("phone", this.form.phone.replace(/[^0-9]/g, '').slice(0, 11));
 
       console.log([...formdata]);
 
       $.ajax({
         /* 요청 시작 부분 */
-        url: "https://script.google.com/macros/s/AKfycbzqm2oB3s4Epdwl1BHRcciZnHu9jgdqmkngjIz7EIR1JlkfpJ-lZCGkP7oAo44gfpYE/exec", //주소
+        url: "https://script.google.com/macros/s/AKfycbwwKKfhZkGxpxYX8_-Bez2YfZ8qSTd3lt3keKR3PFmcxSpE8gdUKpNEg2l2zWCtAnXiPA/exec", //주소
         data: formdata, //전송 데이터
         type: "POST", //전송 타입
         async: true, //비동기 여부
@@ -315,7 +318,6 @@ export default {
           console.log("");
           console.log("[serverUploadImage] : [response] : " + response);
           console.log("");
-          this.submitState = false;
           // console.log(response.data);
         },
 
@@ -334,8 +336,7 @@ export default {
           console.log("");
           alert("데이터를 성공적으로 전송하였습니다.");
 
-          this.submitState = false;
-          location.reload();
+          // location.reload();
         },
       });
     },
