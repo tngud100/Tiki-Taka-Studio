@@ -323,7 +323,11 @@ export default {
         this.selectedStartTime = 0;
         this.selectedEndTime = 0;
       }
-      console.log(this.blockTimeList);
+      if (this.selectedStartTime > 21) {
+        alert("최소 이용 시간을 확인해 주세요.");
+        this.selectedStartTime = 0;
+        this.selectedEndTime = 0;
+      }
     },
 
     // 클래스 부여
@@ -413,6 +417,7 @@ export default {
         this.blockTimeList.push(parseInt(date[i]));
       }
     },
+    //
     getDisabledate() {
       $.ajax({
         /* 요청 시작 부분 */

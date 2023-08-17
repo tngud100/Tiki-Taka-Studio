@@ -288,6 +288,57 @@ export default {
         },
       });
     },
+    sendMail() {
+      const formdata = new FormData();
+
+      formdata.append("userName", this.form.name, title);
+      formdata.append("studioName", this.rooms[0].title);
+      formdata.append("date", this.date);
+      formdata.append("time", this.timeString);
+      formdata.append("peopleNum", this.num);
+
+      console.log([...formdata]);
+
+      $.ajax({
+        /* 요청 시작 부분 */
+        url: "https://script.google.com/macros/s/AKfycbzqm2oB3s4Epdwl1BHRcciZnHu9jgdqmkngjIz7EIR1JlkfpJ-lZCGkP7oAo44gfpYE/exec", //주소
+        data: formdata, //전송 데이터
+        type: "POST", //전송 타입
+        async: true, //비동기 여부
+        enctype: "multipart/form-data", //form data 설정
+        // dataType: "json",
+        processData: false, //프로세스 데이터 설정 : false 값을 해야 form data로 인식
+        contentType: false, //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식
+
+        /* 응답 확인 부분 */
+        success: function (response) {
+          console.log("");
+          console.log("[serverUploadImage] : [response] : " + response);
+          console.log("");
+          this.submitState = false;
+          // console.log(response.data);
+        },
+
+        /* 에러 확인 부분 */
+        error: function (xhr) {
+          // alert("전송 실패");
+          console.log("");
+          console.log("[serverUploadImage] : [error] : " + xhr);
+          console.log("");
+        },
+
+        /* 완료 확인 부분 */
+        complete: function (xhr, textStatus) {
+          console.log("");
+          console.log("[serverUploadImage] : [complete] : " + textStatus);
+          console.log("");
+          alert("데이터를 성공적으로 전송하였습니다.");
+
+          this.submitState = false;
+          location.reload();
+        },
+      });
+    },
   },
 };
 </script>
