@@ -126,6 +126,8 @@
                 </div>
               </div>
             </div>
+            <!-- 장비 테이블 -->
+
             <!-- 인원 테이블 -->
             <p class="num-title" style="margin-top: 20px">총인원</p>
             <p class="sub-title">
@@ -193,7 +195,11 @@
               <div style="display: flex; justify-content: space-between">
                 <span>
                   {{ rooms[0].numPrice.toLocaleString() }}원 x
-                  {{ this.num }}명</span
+                  {{
+                    this.num - rooms[0].numMin < 0
+                      ? 0
+                      : this.num - rooms[0].numMin
+                  }}명</span
                 >
                 <span> {{ this.numPrice.toLocaleString() }}원 </span>
               </div>
@@ -412,9 +418,11 @@ export default {
     },
     dateInsert(date) {
       this.blockTimeList = [];
-      console.log("[응답 데이터]: " + date);
       for (var i = 0; i < date.length; i++) {
-        this.blockTimeList.push(parseInt(date[i]));
+        // console.log(date[i].time, date[i].state);
+        if (date[i].state == 1) {
+          this.blockTimeList.push(parseInt(date[i].time));
+        }
       }
     },
     //
@@ -434,6 +442,7 @@ export default {
         /* 응답 확인 부분 */
         success: (response) => {
           this.dateInsert(response);
+          console.log(response);
         },
 
         /* 에러 확인 부분 */

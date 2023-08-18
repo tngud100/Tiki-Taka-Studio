@@ -39,7 +39,12 @@
     <Education v-if="serviceState === 2" />
     <Advertise v-if="serviceState === 3" />
     <div class="btn-box">
-      <div class="btn">
+      <div class="btn" v-if="serviceState === 1">
+        <router-link :to="{ path: '/ask', query: { category: '스튜디오' } }">
+          <span class="btn-text">예약하기</span>
+        </router-link>
+      </div>
+      <div class="btn" v-if="serviceState != 1">
         <router-link to="/ask">
           <span class="btn-text">문의하기</span>
         </router-link>

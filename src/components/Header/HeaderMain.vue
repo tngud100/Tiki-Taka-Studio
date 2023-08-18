@@ -105,16 +105,16 @@ export default {
         name: "프로그램",
         href: "/program",
       },
-      {
-        name: "예약하기",
-        href: "/reservate",
-      },
+      // {
+      //   name: "예약하기",
+      //   href: "/reservate",
+      // },
       {
         name: "회사소식",
         href: "/news",
       },
       {
-        name: "문의하기",
+        name: "문의/예약",
         href: "/ask",
       },
     ],

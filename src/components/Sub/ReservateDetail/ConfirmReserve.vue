@@ -176,14 +176,20 @@ export default {
     confirmReservation(phone, state) {
       $.ajax({
         /* 요청 시작 부분 */
-        url: this.hostAddressName + "/reservateConfirm/" + phone + "/" + state,
-        method: "PUT",
-        type: "put", //전송 타입
+        url:
+          this.hostAddressName +
+          "/studio/reservateConfirm/" +
+          phone +
+          "/" +
+          state,
+        method: "GET",
+        type: "get", //전송 타입
         dataType: "json",
 
         /* 응답 확인 부분 */
         success: (response) => {
           console.log(response);
+          location.reload();
         },
 
         /* 에러 확인 부분 */
@@ -202,7 +208,6 @@ export default {
         },
       });
     },
-    //
   },
 };
 </script>

@@ -14,233 +14,238 @@
         <span>필요한 모든 것, 언제든지 연락주세요.</span>
       </div>
     </div>
+
+    <v-row class="toggle">
+      <v-container style="margin-bottom: 16px">
+        <v-item-group selected-class="my-color">
+          <v-row style="justify-content: center">
+            <v-col
+              v-for="(item, index) in categoryList"
+              :key="index"
+              cols="3"
+              @click="togglebtn(index)"
+            >
+              <v-item v-slot="{ selectedClass, toggle }">
+                <v-btn
+                  :class="['d-flex align-center', selectedClass, ' btn']"
+                  rounded="xl"
+                  @click="toggle(index)"
+                >
+                  <div class="flex-grow-1 text-center">
+                    {{ item.list }}
+                  </div>
+                </v-btn>
+              </v-item>
+            </v-col>
+          </v-row>
+        </v-item-group>
+      </v-container>
+    </v-row>
+    <Reservate v-if="this.form.category === '스튜디오'" />
     <v-form class="gform" ref="form">
       <div class="info_form">
-        <v-row>
-          <v-container style="margin-bottom: 16px">
-            <v-item-group selected-class="my-color">
-              <v-row style="justify-content: center">
-                <v-col
-                  v-for="(item, index) in categoryList"
-                  :key="index"
-                  cols="3"
-                  @click="togglebtn(index)"
-                >
-                  <v-item v-slot="{ selectedClass, toggle }">
-                    <v-btn
-                      :class="['d-flex align-center', selectedClass, ' btn']"
-                      rounded="xl"
-                      @click="toggle(index)"
-                    >
-                      <div class="flex-grow-1 text-center">
-                        {{ item.list }}
-                      </div>
-                    </v-btn>
-                  </v-item>
-                </v-col>
-              </v-row>
-            </v-item-group>
-          </v-container>
-        </v-row>
-
-        <div class="content" style="margin-bottom: 12px">
-          <span>기본정보</span>
-        </div>
-        <v-row>
-          <v-col md="4" sm="6" style="padding-bottom: 3px">
-            <v-text-field
-              v-model="form.name"
-              label="이름"
-              name="name"
-              placeholder="이름을 입력해주세요."
-              hint="ex) 홍길동"
-              variant="outlined"
-              :rules="[(v) => !!v || '이름을 입력해주세요.']"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col
-            md="3"
-            sm="4"
-            class="business_check"
-            style="padding-bottom: 3px"
-          >
-            <v-btn-toggle
-              v-model="form.sex"
-              :value="form.sex"
-              name="business"
-              id="business"
-              variant="outlined"
-              required
-              :rules="[(v) => !!v || '버튼을 선택해 주세요']"
-              divided
-              width="100%"
-            >
-              <v-btn value="개인" width="50%">개인</v-btn>
-              <v-btn value="법인" width="50%">법인</v-btn>
-            </v-btn-toggle>
-          </v-col>
-          <v-col md="4" sm="12" cols="12" style="padding-bottom: 3px">
-            <v-text-field
-              v-model="form.born"
-              label="생년월일"
-              placeholder="yymmdd"
-              hint="ex) 991223"
-              variant="outlined"
-              name="born"
-              :rules="[
-                (v) => !!v || '생년월일를 입력해주세요.',
-                (v) => (v && v.length > 5) || '생년월일을 확인해주세요.',
-              ]"
-              @input="form.born = form.born.replace(/[^0-9]/g, '').slice(0, 6)"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col md="7" ms="7" cols="12" style="padding-top: 3px">
-            <v-text-field
-              v-model="form.email"
-              name="email"
-              label="이메일"
-              required
-              :rules="[
-                (v) => !!v || '이메일을 입력해주세요.',
-                (v) =>
-                  (v && v.length <= 35) || '이메일은 35자 이하여야 합니다.',
-                (v) =>
-                  /.+@.+\..+/.test(v) || '유효한 이메일 주소를 입력해주세요.',
-              ]"
-              placeholder="example@example.com"
-              hint="ex) example@example.com"
-              variant="outlined"
-              type="email"
-              class="text-field"
-            ></v-text-field>
-          </v-col>
-          <v-col md="5" ms="5" cols="12" style="padding-top: 3px">
-            <v-text-field
-              v-model="form.phone"
-              placeholder="01012345678"
-              hint="ex) 01012345678"
-              label="연락처"
-              name="phone"
-              variant="outlined"
-              required
-              :rules="[
-                (v) => !!v || '연락처를 입력해주세요.',
-                (v) => (v && v.length > 10) || '연락처를 확인해주세요.',
-              ]"
-              @input="
-                form.phone = form.phone.replace(/[^0-9]/g, '').slice(0, 11)
-              "
-              class="text-field"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <div class="content"><span>내용</span></div>
-        <div class="input_form">
+        <div v-if="this.form.category != '스튜디오'">
+          <div class="content" style="margin-bottom: 12px">
+            <span>기본정보</span>
+          </div>
           <v-row>
-            <v-col cols="12">
+            <v-col md="4" sm="6" style="padding-bottom: 3px">
               <v-text-field
-                variant="underlined"
-                v-model="form.title"
-                label="제목"
-                name="title"
-                hint="문의하실 제목을 입력해주세요"
+                v-model="form.name"
+                label="이름"
+                name="name"
+                placeholder="이름을 입력해주세요."
+                hint="ex) 홍길동"
+                variant="outlined"
+                :rules="[(v) => !!v || '이름을 입력해주세요.']"
+                required
+              ></v-text-field>
+            </v-col>
+            <v-col
+              md="3"
+              sm="4"
+              class="business_check"
+              style="padding-bottom: 3px"
+            >
+              <v-btn-toggle
+                v-model="form.sex"
+                :value="form.sex"
+                name="business"
+                id="business"
+                variant="outlined"
+                required
+                :rules="[(v) => !!v || '버튼을 선택해 주세요']"
+                divided
+                width="100%"
+              >
+                <v-btn value="개인" width="50%">개인</v-btn>
+                <v-btn value="법인" width="50%">법인</v-btn>
+              </v-btn-toggle>
+            </v-col>
+            <v-col md="4" sm="12" cols="12" style="padding-bottom: 3px">
+              <v-text-field
+                v-model="form.born"
+                label="생년월일"
+                placeholder="yymmdd"
+                hint="ex) 991223"
+                variant="outlined"
+                name="born"
+                :rules="[
+                  (v) => !!v || '생년월일를 입력해주세요.',
+                  (v) => (v && v.length > 5) || '생년월일을 확인해주세요.',
+                ]"
+                @input="
+                  form.born = form.born.replace(/[^0-9]/g, '').slice(0, 6)
+                "
                 required
               ></v-text-field>
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12">
-              <v-textarea
-                v-model="form.content"
-                name="content"
+            <v-col md="7" ms="7" cols="12" style="padding-top: 3px">
+              <v-text-field
+                v-model="form.email"
+                name="email"
+                label="이메일"
+                required
+                :rules="[
+                  (v) => !!v || '이메일을 입력해주세요.',
+                  (v) =>
+                    (v && v.length <= 35) || '이메일은 35자 이하여야 합니다.',
+                  (v) =>
+                    /.+@.+\..+/.test(v) || '유효한 이메일 주소를 입력해주세요.',
+                ]"
+                placeholder="example@example.com"
+                hint="ex) example@example.com"
                 variant="outlined"
-                label="문의 내용"
-                placeholder="문의사항에 대한 자세한 내용을 적어주세요"
-              ></v-textarea>
+                type="email"
+                class="text-field"
+              ></v-text-field>
+            </v-col>
+            <v-col md="5" ms="5" cols="12" style="padding-top: 3px">
+              <v-text-field
+                v-model="form.phone"
+                placeholder="01012345678"
+                hint="ex) 01012345678"
+                label="연락처"
+                name="phone"
+                variant="outlined"
+                required
+                :rules="[
+                  (v) => !!v || '연락처를 입력해주세요.',
+                  (v) => (v && v.length > 10) || '연락처를 확인해주세요.',
+                ]"
+                @input="
+                  form.phone = form.phone.replace(/[^0-9]/g, '').slice(0, 11)
+                "
+                class="text-field"
+              ></v-text-field>
             </v-col>
           </v-row>
-          <div>
-            <v-file-input
-              type="file"
-              accept="*"
-              :multiple="true"
-              label="첨부파일을 업로드 해주세요(10M 이하 파일 권장)"
-              @change="handleFileChange"
-              name="file"
-              variant="underlined"
-            />
-            <!-- <v-row>
-              <v-col cols="12">
-                <v-file-input
-                  variant="underlined"
-                  :multiple="true"
-                  label="파일을 업로드 해주세요(10M 이하 파일)"
-                  accept="*"
-                  name="file"
-                  type="file"
-                  @change="handleFileUpload"
-                ></v-file-input>
-              </v-col>
-            </v-row> -->
+          <div class="content"><span>내용</span></div>
+          <div class="input_form">
             <v-row>
               <v-col cols="12">
-                <v-card
-                  v-for="(file, index) in uploadedFiles"
-                  :key="index"
-                  class="mb-3"
-                  style="height: 5vh"
-                >
-                  <v-card-title style="font-size: 14px">
-                    {{ file.name }}
-                    <v-btn
-                      style="
-                        width: 4%;
-                        height: 4%;
-                        font-size: 1rem;
-                        box-shadow: 0px 0px 0px 0px;
-                        color: #616161;
-                      "
-                      icon
-                      small
-                      @click="deleteFile(index)"
-                    >
-                      <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                  </v-card-title>
-                </v-card>
+                <v-text-field
+                  variant="underlined"
+                  v-model="form.title"
+                  label="제목"
+                  name="title"
+                  hint="문의하실 제목을 입력해주세요"
+                  required
+                ></v-text-field>
               </v-col>
             </v-row>
-            <!-- <v-row style="padding-bottom: 15px">
-              <v-col
-                variant="underlined"
-                v-for="(image, index) in form.imagePreviews"
-                :key="index"
-                cols="4"
-              >
-                <v-img
-                  v-if="image && image.file.type.startsWith('image/')"
-                  :src="image.preview"
-                  width="100%"
-                ></v-img>
-                <p v-else>{{ image.file.name }}</p>
+            <v-row>
+              <v-col cols="12">
+                <v-textarea
+                  v-model="form.content"
+                  name="content"
+                  variant="outlined"
+                  label="문의 내용"
+                  placeholder="문의사항에 대한 자세한 내용을 적어주세요"
+                ></v-textarea>
               </v-col>
-            </v-row> -->
+            </v-row>
+            <div>
+              <v-file-input
+                type="file"
+                accept="*"
+                :multiple="true"
+                label="첨부파일을 업로드 해주세요(10M 이하 파일 권장)"
+                @change="handleFileChange"
+                name="file"
+                variant="underlined"
+              />
+              <!-- <v-row>
+                <v-col cols="12">
+                  <v-file-input
+                    variant="underlined"
+                    :multiple="true"
+                    label="파일을 업로드 해주세요(10M 이하 파일)"
+                    accept="*"
+                    name="file"
+                    type="file"
+                    @change="handleFileUpload"
+                  ></v-file-input>
+                </v-col>
+              </v-row> -->
+              <v-row>
+                <v-col cols="12">
+                  <v-card
+                    v-for="(file, index) in uploadedFiles"
+                    :key="index"
+                    class="mb-3"
+                    style="height: 5vh"
+                  >
+                    <v-card-title style="font-size: 14px">
+                      {{ file.name }}
+                      <v-btn
+                        style="
+                          width: 4%;
+                          height: 4%;
+                          font-size: 1rem;
+                          box-shadow: 0px 0px 0px 0px;
+                          color: #616161;
+                        "
+                        icon
+                        small
+                        @click="deleteFile(index)"
+                      >
+                        <v-icon>mdi-close</v-icon>
+                      </v-btn>
+                    </v-card-title>
+                  </v-card>
+                </v-col>
+              </v-row>
+              <!-- <v-row style="padding-bottom: 15px">
+                <v-col
+                  variant="underlined"
+                  v-for="(image, index) in form.imagePreviews"
+                  :key="index"
+                  cols="4"
+                >
+                  <v-img
+                    v-if="image && image.file.type.startsWith('image/')"
+                    :src="image.preview"
+                    width="100%"
+                  ></v-img>
+                  <p v-else>{{ image.file.name }}</p>
+                </v-col>
+              </v-row> -->
+            </div>
+            <v-checkbox
+              v-model="privacyCheck"
+              label="개인정보 수집 및 이용약관에 동의합니다.(필수)"
+            ></v-checkbox>
+            <v-btn
+              class="d-flex my-color submitBtn"
+              style="margin: auto; width: 240px; height: 60px"
+              value="Submit"
+              @click="submit"
+              >문의하기</v-btn
+            >
           </div>
-          <v-checkbox
-            v-model="privacyCheck"
-            label="개인정보 수집 및 이용약관에 동의합니다.(필수)"
-          ></v-checkbox>
-          <v-btn
-            class="d-flex my-color submitBtn"
-            style="margin: auto; width: 240px; height: 60px"
-            value="Submit"
-            @click="submit"
-            >문의하기</v-btn
-          >
         </div>
       </div>
     </v-form>
@@ -251,12 +256,14 @@
 </template>
 <script>
 import SubTitle from "@/components/Header/SubTitle.vue";
+import Reservate from "@/components/Sub/SubReservate.vue";
 // import axios from "axios";
 import $ from "jquery";
 
 export default {
   components: {
     SubTitle,
+    Reservate,
   },
   data: () => ({
     title: "문의하기",
@@ -295,7 +302,7 @@ export default {
         list: "영상제작",
       },
       {
-        list: "기타",
+        list: "스튜디오",
       },
     ],
     valid: false,
@@ -308,6 +315,9 @@ export default {
     btnState.addEventListener("click", function (e) {
       e.preventDefault();
     });
+    if (this.$route.query.category) {
+      this.form.category = this.$route.query.category;
+    }
   },
   methods: {
     handleFileChange(event) {
@@ -571,8 +581,8 @@ export default {
         this.form.category = "협찬";
       } else if (this.categoryList[index].list === "영상제작") {
         this.form.category = "영상제작";
-      } else if (this.categoryList[index].list === "기타") {
-        this.form.category = "기타";
+      } else if (this.categoryList[index].list === "스튜디오") {
+        this.form.category = "스튜디오";
       }
       console.log(this.form.category);
       this.selectedClass = ".my-color";
@@ -657,6 +667,9 @@ export default {
       }
     }
   }
+  .toggle {
+    margin: auto;
+  }
   .btn {
     border-radius: 100px;
     letter-spacing: -1px;
@@ -715,7 +728,9 @@ export default {
       font-size: 32px;
     }
   }
-
+  .toggle {
+    width: 800px;
+  }
   .form_head {
     font-size: 20px;
     .selected {
@@ -754,6 +769,9 @@ export default {
     .form_title {
       font-size: 30px;
     }
+  }
+  .toggle {
+    width: 800px;
   }
   .form_head {
     font-size: 20px;
@@ -795,6 +813,9 @@ export default {
       font-size: 26px;
     }
   }
+  .toggle {
+    width: 760px;
+  }
   .form_head {
     font-size: 16px;
     .selected {
@@ -832,6 +853,9 @@ export default {
     .form_title {
       font-size: 24px;
     }
+  }
+  .toggle {
+    width: 640px;
   }
   .form_head {
     font-size: 14px;
@@ -871,6 +895,9 @@ export default {
     .form_title {
       font-size: 22px;
     }
+  }
+  .toggle {
+    width: 320px;
   }
   .form_head {
     font-size: 14px;

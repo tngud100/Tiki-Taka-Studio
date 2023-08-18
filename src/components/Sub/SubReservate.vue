@@ -1,16 +1,26 @@
 <template>
   <section class="Reservate-section">
-    <HeaderTitle
+    <!-- <HeaderTitle
       :title-data="title"
       :sub-title-data="subTitle"
       :bg-image="bgImage"
-    />
+    /> -->
     <div class="Text-con">
-      <p class="Title">실시간 / 녹화 방송제작</p>
-      <p class="subTitle">
-        모두를 위한 스튜디오 이곳에서 함께 콘텐츠를 만들어보세요
-      </p>
+      <p class="Title">스튜디오 예약 하기</p>
+      <p class="subTitle">동의서 및 신청서를 다운받아 작성해 주세요</p>
     </div>
+    <div class="download-box">
+      <a
+        class="download-link"
+        v-for="file in file"
+        :key="file"
+        :href="file.URL"
+        :download="file.name"
+      >
+        {{ file.name }}
+      </a>
+    </div>
+
     <div class="reservate-con">
       <div :class="'card' + index" v-for="(card, index) in rooms" :key="index">
         <router-link
@@ -44,26 +54,48 @@
 </template>
 
 <script>
-import HeaderTitle from "@/components/Header/SubTitle.vue";
+// import HeaderTitle from "@/components/Header/SubTitle.vue";
+import attach1 from "@/assets/file/스튜디오 대관 신청서.hwpx";
+import attach2 from "@/assets/file/장비 대여 신청서.hwpx";
+import attach3 from "@/assets/file/개인정보 수집 동의서.hwpx";
+import attach4 from "@/assets/file/데이터 보관 활용 동의서.hwpx";
 
 import { mapGetters } from "vuex";
 
 export default {
   name: "ReservatePage",
-  components: {
-    HeaderTitle,
-  },
+  // components: {
+  //   HeaderTitle,
+  // },
   computed: {
     ...mapGetters(["rooms"]),
   },
   data() {
     return {
-      title: "예약하기",
-      subTitle: "Reservate",
+      // title: "예약하기",
+      // subTitle: "Reservate",
       bgImage: [
         require("@/assets/banner/event1920.svg"),
         require("@/assets/banner/event1300.svg"),
         require("@/assets/banner/event760.svg"),
+      ],
+      file: [
+        {
+          URL: attach1,
+          name: "스튜디오 대관 신청서.hwpx",
+        },
+        {
+          URL: attach2,
+          name: "장비 대여 신청서.hwpx",
+        },
+        {
+          URL: attach3,
+          name: "개인정보 수집 동의서.hwpx",
+        },
+        {
+          URL: attach4,
+          name: "데이터 보관 활용 동의서.hwpx",
+        },
       ],
 
       // creatorCard: [
@@ -119,13 +151,42 @@ export default {
       font-weight: bold;
     }
   }
+  .download-box {
+    display: flex;
+    justify-content: center;
+    font-family: "Pretendard";
+    .download-link {
+      padding: 10px 20px;
+      margin: 10px;
+      border: solid 1px rgb(214, 214, 214);
+      border-radius: 30px;
+      background-color: white;
+      color: black;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      // transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .download-link:hover {
+      background-color: #0174f5;
+      // transform: scale(1.05);
+      color: white;
+    }
+
+    .download-link:active {
+      background-color: #0174f5;
+      color: white;
+      transform: scale(1);
+    }
+  }
   .reservate-con {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     margin: auto;
-    padding: 16px;
+    padding-top: 16px;
 
     width: 1300px;
     @for $i from 0 through 5 {
@@ -211,7 +272,7 @@ export default {
 //PC XL
 @media screen and (min-width: 1300px) {
   .Text-con {
-    margin: 100px auto 100px auto;
+    margin: 60px auto 30px auto;
     .Title {
       font-size: 30px;
     }
@@ -224,7 +285,7 @@ export default {
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
   .Text-con {
-    margin: 100px auto 100px auto;
+    margin: 60px auto 30px auto;
     .Title {
       font-size: 30px;
     }
@@ -238,7 +299,7 @@ export default {
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
   .Text-con {
-    margin: 80px auto 80px auto;
+    margin: 50px auto 30px auto;
     .Title {
       font-size: 26px;
     }
@@ -252,7 +313,7 @@ export default {
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
   .Text-con {
-    margin: 80px auto 80px auto;
+    margin: 40px auto 30px auto;
     .Title {
       font-size: 26px;
     }
@@ -266,7 +327,7 @@ export default {
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .Text-con {
-    margin: 70px auto 70px auto;
+    margin: 30px auto 20px auto;
     padding: 0px 12px;
     .Title {
       font-size: 26px;
