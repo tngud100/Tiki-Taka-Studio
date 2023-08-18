@@ -229,7 +229,7 @@ export default {
       this.dialog = false;
       this.sendData(); // 데이터 베이스
       this.sendMail(); // 구글 드라이브 저장, 메일 자동 전송
-      // location.reload();
+      location.reload();
       this.checkAccount = true;
     },
     Validcheck() {
@@ -298,13 +298,17 @@ export default {
       formdata.append("time", this.timeString);
       formdata.append("peopleNum", this.num);
       formdata.append("email", this.form.email);
-      formdata.append("phone", this.form.phone.replace(/[^0-9]/g, '').slice(0, 11));
+      formdata.append(
+        "phone",
+        this.form.phone.replace(/[^0-9]/g, "").slice(0, 11)
+      );
+      formdata.append("totlaPrice", this.totalPrice.toLocaleString());
 
       console.log([...formdata]);
 
       $.ajax({
         /* 요청 시작 부분 */
-        url: "https://script.google.com/macros/s/AKfycbwwKKfhZkGxpxYX8_-Bez2YfZ8qSTd3lt3keKR3PFmcxSpE8gdUKpNEg2l2zWCtAnXiPA/exec", //주소
+        url: "https://script.google.com/macros/s/AKfycby0Q5Zkw5gc34Ji07DV10ABxO71uwZJPVSFTbHIfI1vHVVjKTZRre4KbwmiKqDKfk5wZg/exec", //주소
         data: formdata, //전송 데이터
         type: "POST", //전송 타입
         async: true, //비동기 여부
