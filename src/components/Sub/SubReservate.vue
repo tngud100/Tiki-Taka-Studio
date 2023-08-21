@@ -55,10 +55,11 @@
 
 <script>
 // import HeaderTitle from "@/components/Header/SubTitle.vue";
-import attach1 from "@/assets/file/스튜디오 대관 신청서.hwpx";
-import attach2 from "@/assets/file/장비 대여 신청서.hwpx";
-import attach3 from "@/assets/file/개인정보 수집 동의서.hwpx";
-import attach4 from "@/assets/file/데이터 보관 활용 동의서.hwpx";
+
+import attach1 from "@/assets/fileDir/스튜디오 대관 신청서.hwpx";
+import attach2 from "@/assets/fileDir/장비 대여 신청서.hwpx";
+import attach3 from "@/assets/fileDir/개인정보 수집 동의서.hwpx";
+import attach4 from "@/assets/fileDir/데이터 보관 활용 동의서.hwpx";
 
 import { mapGetters } from "vuex";
 

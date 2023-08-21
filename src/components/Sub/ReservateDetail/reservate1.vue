@@ -127,6 +127,38 @@
               </div>
             </div>
             <!-- 장비 테이블 -->
+            <div class="equipment-con" v-if="date">
+              <p class="equipment-title" style="margin-top: 20px">장비</p>
+              <p class="sub-title">필요하신 장비를 선택해 주세요</p>
+              <v-row>
+                <v-col
+                  cols="3"
+                  v-for="(item, index) in EquipmentType"
+                  :key="index"
+                  @click="isEquipmentSelected(index, item[1])"
+                >
+                  <v-checkbox v-model="item[1]" :label="item[0]"> </v-checkbox>
+                </v-col>
+              </v-row>
+              <div v-for="(item, index) in Equipments" :key="index">
+                <div v-if="EquipmentType[index][1]">
+                  <p class="sub-title">
+                    {{ setEquipmentType(index) }}를 선택해 주세요
+                  </p>
+                  <v-select
+                    v-model="Selected[index]"
+                    :items="item"
+                    :label="setEquipmentType(index) + '를 선택해 주세요'"
+                    variant="outlined"
+                    multiple
+                    @update:model-value="
+                      setEquipmentSelected(Selected[index], index)
+                    "
+                  >
+                  </v-select>
+                </div>
+              </div>
+            </div>
 
             <!-- 인원 테이블 -->
             <p class="num-title" style="margin-top: 20px">총인원</p>
@@ -244,7 +276,7 @@ export default {
     Datepicker,
   },
   computed: {
-    ...mapGetters(["rooms", "hostAddressName"]),
+    ...mapGetters(["rooms", "hostAddressName", "equipments"]),
   },
   data() {
     return {
@@ -267,14 +299,49 @@ export default {
       timeHour: 0,
       selectedStartTime: 0,
       selectedEndTime: 0,
+      EquipmentType: {
+        camera: ["카메라", false],
+        monitor: ["모니터", false],
+        micAudio: ["마이크&오디오", false],
+        lightSubFilm: ["조명&촬영보조", false],
+      },
+      Equipments: {
+        camera: [],
+        monitor: [],
+        micAudio: [],
+        lightSubFilm: [],
+      },
+      Selected: {
+        camera: [],
+        monitor: [],
+        micAudio: [],
+        lightSubFilm: [],
+        equipmentNum: [],
+      },
       num: 0,
+      equipmentPrice: 0,
       numPrice: 0,
       totalPrice: 0,
       blockTimeList: [],
       checkAccount: false,
     };
   },
-  mounted() {},
+  mounted() {
+    if (this.equipments) {
+      for (var i = 0; i < this.equipments.camera.length; i++) {
+        this.Equipments.camera.push(this.equipments.camera[i].name);
+      }
+      for (var k = 0; k < this.equipments.monitor.length; k++) {
+        this.Equipments.monitor.push(this.equipments.monitor[k].name);
+      }
+      for (var m = 0; m < this.equipments.MicAudio.length; m++) {
+        this.Equipments.micAudio.push(this.equipments.MicAudio[m].name);
+      }
+      for (var l = 0; l < this.equipments.LightSubFilm.length; l++) {
+        this.Equipments.lightSubFilm.push(this.equipments.LightSubFilm[l].name);
+      }
+    }
+  },
   watch: {},
   methods: {
     setTime(time) {
@@ -393,6 +460,100 @@ export default {
       this.getDisabledate();
     },
 
+    setEquipmentType(equipment) {
+      if (equipment === "camera") {
+        return "카메라";
+      }
+      if (equipment === "monitor") {
+        return "모니터";
+      }
+      if (equipment === "micAudio") {
+        return "마이크&오디오";
+      }
+      if (equipment === "lightSubFilm") {
+        return "조명&촬영보조";
+      }
+    },
+
+    // setEquipmentSelected(selectedName) {
+    //   const equipmentTypes = ["camera", "monitor", "micAudio", "lightSubFilm"];
+
+    //   equipmentTypes.forEach((type) => {
+    //     if (this.equipments[type]) {
+    //       this.equipments[type].forEach((equipment) => {
+    //         if (selectedName.includes(equipment.name)) {
+    //           this.Selected.equipmentNum.push(equipment.equipmentNum);
+    //         }
+    //       });
+    //     }
+    //   });
+
+    //   const RemoveDuplicate = [...new Set(this.Selected.equipmentNum)];
+    //   this.Selected.equipmentNum = RemoveDuplicate;
+    //   console.log(this.Selected.equipmentNum);
+    // },
+
+    setEquipmentSelected(selectedName, type) {
+      const equipmentMapping = {
+        camera: "camera",
+        monitor: "monitor",
+        micAudio: "MicAudio",
+        lightSubFilm: "LightSubFilm",
+      };
+
+      const equipmentKey = equipmentMapping[type];
+
+      if (!this.equipments[equipmentKey]) {
+        console.warn(`Equipment type "${type}" not found.`);
+        return;
+      }
+
+      this.equipments[equipmentKey].forEach((equipment) => {
+        if (selectedName.includes(equipment.name)) {
+          this.Selected.equipmentNum.push(equipment.equipmentNum);
+        }
+      });
+
+      this.Selected.equipmentNum = [...new Set(this.Selected.equipmentNum)];
+
+      console.log(this.Selected.equipmentNum);
+    },
+    // 체크 해제시 초기화
+    isEquipmentSelected(type, bool) {
+      bool = !bool;
+      const equipmentNumRange = {
+        camera: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
+        monitor: [12],
+        micAudio: [16, 17, 18, 19, 20],
+        lightSubFilm: [21, 22, 23],
+      };
+
+      if (bool == false && type === "camera") {
+        this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
+          (num) => !equipmentNumRange.camera.includes(num)
+        );
+        this.Selected.camera = [];
+      }
+      if (bool == false && type === "monitor") {
+        this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
+          (num) => !equipmentNumRange.monitor.includes(num)
+        );
+        this.Selected.monitor = [];
+      }
+      if (bool == false && type === "micAudio") {
+        this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
+          (num) => !equipmentNumRange.micAudio.includes(num)
+        );
+        this.Selected.micAudio = [];
+      }
+      if (bool == false && type === "lightSubFilm") {
+        this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
+          (num) => !equipmentNumRange.lightSubFilm.includes(num)
+        );
+        this.Selected.lightSubFilm = [];
+      }
+    },
+
     minusBtn() {
       this.num--;
       if (this.num <= 0) {
@@ -408,6 +569,9 @@ export default {
       this.PriceCalc();
     },
     PriceCalc() {
+      // var price = this.equipments[this.Selected.equipmentNum - 1].price;
+      // this.equipmentPrice;
+
       this.numPrice =
         this.rooms[0].numPrice * (this.num - this.rooms[0].numMin);
       if (this.num <= this.rooms[0].numMin) {
@@ -555,7 +719,7 @@ export default {
           }
           .sub-title {
             font-size: 12px;
-            margin-top: 10px;
+            margin: 10px 0px;
           }
         }
       }

@@ -7,6 +7,7 @@ module.exports = defineConfig({
   outputDir: "dist",
   assetsDir: "static",
 
+
   pluginOptions: {
     vuetify: {
       // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
@@ -15,6 +16,13 @@ module.exports = defineConfig({
 
   chainWebpack: (config) => {
     config.resolve.alias.set("@", path.resolve(__dirname, "src/"));
+
+    config.module
+       .rule('hwpx')
+       .test(/\.hwpx$/)
+       .use('file-loader')
+       .loader('file-loader')
+       .end();
   },
 
   devServer: {
