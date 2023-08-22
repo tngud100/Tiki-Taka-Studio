@@ -14,7 +14,7 @@
           style="margin-top: 20px; color: white"
           v-bind="props"
           :disabled="!Validcheck()"
-          @click="console.log(timeList)"
+          @click="console.log(Selected)"
         >
           지금 예약하기
         </v-btn>
@@ -177,6 +177,7 @@ export default {
     num: Number,
     totalPrice: Number,
     timeList: Array,
+    Selected: Object,
   },
   computed: {
     ...mapGetters(["rooms", "hostAddressName"]),
