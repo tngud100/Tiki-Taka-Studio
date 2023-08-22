@@ -163,7 +163,7 @@
             <!-- 인원 테이블 -->
             <p class="num-title" style="margin-top: 20px">총인원</p>
             <p class="sub-title">
-              추가 인원 수용 시 1인당
+              최소 인원 초과시 인당
               {{ this.rooms[0].numPrice.toLocaleString() }}원 추가 비용 발생
             </p>
             <v-text-field
@@ -217,23 +217,24 @@
               <hr style="margin-bottom: 20px" />
               <div style="display: flex; justify-content: space-between">
                 <span
-                  >{{ rooms[0].price.toLocaleString() }}원 x
-                  {{ this.timeHour }}시간</span
-                >
+                  >스튜디오 {{ this.timeHour }}시간 x
+                  {{ rooms[0].price.toLocaleString() }}원
+                </span>
                 <span>
                   {{ (rooms[0].price * this.timeHour).toLocaleString() }}원
                 </span>
               </div>
               <div style="display: flex; justify-content: space-between">
                 <span>
-                  {{ rooms[0].numPrice.toLocaleString() }}원 x
-                  {{
-                    this.num - rooms[0].numMin < 0
-                      ? 0
-                      : this.num - rooms[0].numMin
-                  }}명</span
-                >
+                  인원수
+                  {{ this.num }}명 x {{ rooms[0].numPrice.toLocaleString() }}원
+                  ( 최소 {{ rooms[0].numMin }}명 ~ 최대 {{ rooms[0].numMax }}명)
+                </span>
                 <span> {{ this.numPrice.toLocaleString() }}원 </span>
+              </div>
+              <div style="display: flex; justify-content: space-between">
+                <span> 장비 가격 </span>
+                <span> {{ this.equipmentPrice.toLocaleString() }}원 </span>
               </div>
               <hr style="margin: 20px 0px" />
               <div style="display: flex; justify-content: space-between">
@@ -247,6 +248,7 @@
               :num="num"
               :total-price="totalPrice"
               :time-list="timeList"
+              :selected="Selected"
             />
           </div>
         </div>
@@ -494,6 +496,7 @@ export default {
     // },
 
     setEquipmentSelected(selectedName, type) {
+      console.log(this.Selected);
       const equipmentMapping = {
         camera: "camera",
         monitor: "monitor",
@@ -503,21 +506,36 @@ export default {
 
       const equipmentKey = equipmentMapping[type];
 
+      let removedSelected;
+
       if (!this.equipments[equipmentKey]) {
         console.warn(`Equipment type "${type}" not found.`);
         return;
       }
 
       this.equipments[equipmentKey].forEach((equipment) => {
-        if (selectedName.includes(equipment.name)) {
+        if (
+          selectedName.includes(equipment.name) &&
+          !this.Selected.equipmentNum.includes(equipment.equipmentNum)
+        ) {
+          // 선택된 항목이 this.Selected.equipmentNum에 없으면 추가
           this.Selected.equipmentNum.push(equipment.equipmentNum);
+        } else if (
+          !selectedName.includes(equipment.name) &&
+          this.Selected.equipmentNum.includes(equipment.equipmentNum)
+        ) {
+          // 선택 해제된 항목이 this.Selected.equipmentNum에 있으면 제거
+          this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
+            (num) => num !== equipment.equipmentNum
+          );
+          removedSelected = equipment.equipmentNum;
         }
       });
 
       this.Selected.equipmentNum = [...new Set(this.Selected.equipmentNum)];
-
-      console.log(this.Selected.equipmentNum);
+      this.equipmentCalc(removedSelected);
     },
+
     // 체크 해제시 초기화
     isEquipmentSelected(type, bool) {
       bool = !bool;
@@ -527,30 +545,19 @@ export default {
         micAudio: [16, 17, 18, 19, 20],
         lightSubFilm: [21, 22, 23],
       };
+      if (bool === false) {
+        if (equipmentNumRange[type]) {
+          // equipments의 두번째 파라미터와 같을때
 
-      if (bool == false && type === "camera") {
-        this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
-          (num) => !equipmentNumRange.camera.includes(num)
-        );
-        this.Selected.camera = [];
-      }
-      if (bool == false && type === "monitor") {
-        this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
-          (num) => !equipmentNumRange.monitor.includes(num)
-        );
-        this.Selected.monitor = [];
-      }
-      if (bool == false && type === "micAudio") {
-        this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
-          (num) => !equipmentNumRange.micAudio.includes(num)
-        );
-        this.Selected.micAudio = [];
-      }
-      if (bool == false && type === "lightSubFilm") {
-        this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
-          (num) => !equipmentNumRange.lightSubFilm.includes(num)
-        );
-        this.Selected.lightSubFilm = [];
+          this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
+            (num) => !equipmentNumRange[type].includes(num)
+          );
+          this.Selected[type] = [];
+          for (var i = 0; i < this.equipments[type].length; i++) {
+            this.totalPrice -= this.equipments[type][i].price;
+          }
+          console.log("selected:" + this.Selected.equipmentNum);
+        }
       }
     },
 
@@ -568,18 +575,140 @@ export default {
       }
       this.PriceCalc();
     },
-    PriceCalc() {
-      // var price = this.equipments[this.Selected.equipmentNum - 1].price;
-      // this.equipmentPrice;
 
+    PriceCalc() {
       this.numPrice =
         this.rooms[0].numPrice * (this.num - this.rooms[0].numMin);
       if (this.num <= this.rooms[0].numMin) {
         this.numPrice = 0;
       }
       console.log(this.numPrice);
-      this.totalPrice = this.rooms[0].price * this.timeHour + this.numPrice;
+      this.totalPrice =
+        this.rooms[0].price * this.timeHour +
+        this.equipmentPrice +
+        this.numPrice;
     },
+
+    equipmentCalc(removedSelected) {
+      const equipmentNumRange = {
+        camera: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
+        monitor: [12],
+        micAudio: [16, 17, 18, 19, 20],
+        lightSubFilm: [21, 22, 23],
+      };
+
+      var equipmentType = "";
+
+      if (this.Selected.equipmentNum.length > 0 && !removedSelected) {
+        // 취소된 항목이 없을때, 기본적으로 두번째 변수를 여기서 받음
+        for (var i = 0; i <= this.Selected.equipmentNum.length - 1; i++) {
+          let currentNum = this.Selected.equipmentNum[i];
+          console.log("equipment: " + this.Selected.equipmentNum[i]);
+
+          let matchedKey = Object.keys(equipmentNumRange).find((key) =>
+            equipmentNumRange[key].includes(currentNum)
+          );
+
+          if (matchedKey) {
+            switch (matchedKey) {
+              case "micAudio":
+                equipmentType = "MicAudio";
+                break;
+              case "lightSubFilm":
+                equipmentType = "LightSubFilm";
+                break;
+              default:
+                equipmentType = matchedKey;
+            }
+          }
+        }
+      } else {
+        // 취소된 항복이 있을때, 선택 항목 리스트가 비었을때
+        let matchedKey = Object.keys(equipmentNumRange).find((key) =>
+          equipmentNumRange[key].includes(removedSelected)
+        );
+
+        if (matchedKey) {
+          switch (matchedKey) {
+            case "micAudio":
+              equipmentType = "MicAudio";
+              break;
+            case "lightSubFilm":
+              equipmentType = "LightSubFilm";
+              break;
+            default:
+              equipmentType = matchedKey;
+          }
+        }
+      }
+
+      console.log("삭제된 항목 : " + removedSelected);
+      console.log(equipmentType);
+      if (this.equipments[equipmentType]) {
+        // 두번째 항목이 있을시에 가격 대입 시행(오류방지)
+        for (var k = 0; k < this.equipments[equipmentType].length; k++) {
+          // 전역 변수 equipments.parameter 리스트 for문
+          let currentNum =
+            this.Selected.equipmentNum[this.Selected.equipmentNum.length - 1]; // 선택한 항목의 가장 최근 숫자
+          if (
+            // for문을 돌려 가장 최근 숫자와 알맞는 price 데이터 뽑기, 취소 항목없을시에 시행 (총금액에 항목 가격 추가)
+            this.equipments[equipmentType][k].equipmentNum === currentNum &&
+            !removedSelected
+          ) {
+            var price = this.equipments[equipmentType][k].price;
+            this.equipmentPrice += price;
+            this.PriceCalc();
+            console.log("장비 " + this.equipments[equipmentType][k].price);
+          } else if (removedSelected) {
+            // 항목 취소하였을때 총 금액에서 취소한 항목 금액 감액
+            if (
+              // for문 돌려 취소한 항목의 금액 가져오기
+              this.equipments[equipmentType][k].equipmentNum === removedSelected
+            ) {
+              this.equipmentPrice -= this.equipments[equipmentType][k].price;
+              this.PriceCalc();
+              console.log(
+                "취소 가격" + this.equipments[equipmentType][k].price
+              );
+            }
+          } else {
+            // 취소한 항목이 배열의 마지막 데이터 일때( 취소한 항목 금액 총금액에서 감액 ) => 오류 방지를 위해 else사용
+            if (
+              this.equipments[equipmentType][k].equipmentNum === removedSelected
+            ) {
+              this.equipmentPrice -= this.equipments[equipmentType][k].price;
+              this.PriceCalc();
+              console.log(
+                "마지막 항목 취소 가격" +
+                  this.equipments[equipmentType][k].price
+              );
+            }
+          }
+        }
+      }
+
+      // removedSelected.forEach((removedNum) => {
+      //   Object.keys(this.equipments).forEach((equipType) => {
+      //     this.equipments[equipType].forEach((equipment) => {
+      //       if (equipment.equipmentNum === removedNum) {
+      //         this.equipmentPrice -= equipment.price;
+      //         console.log("장비 제거 " + equipment.price);
+      //       }
+      //     });
+      //   });
+      // });
+
+      // for (var a = 0; a < this.equipments[equipmentType].length; a++) {
+      //   if (
+      //     this.equipments[equipmentType][a].equipmentNum === removedSelected[0]
+      //   ) {
+      //     this.equipmentPrice -= 2 * this.equipments[equipmentType][a].price;
+      //     console.log("장비 취소" + this.equipments[equipmentType][a].price);
+      //   }
+      // }
+      console.log("총 가격" + this.equipmentPrice);
+    },
+
     dateInsert(date) {
       this.blockTimeList = [];
       for (var i = 0; i < date.length; i++) {

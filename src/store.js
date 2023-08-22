@@ -187,6 +187,8 @@ const store = createStore({
           name: '베링거 FLOW8',
           price: 10000,
           count: 1,
+
+
           equipmentNum: 19,
         },
         {
