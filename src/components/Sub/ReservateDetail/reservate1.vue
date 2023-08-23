@@ -248,7 +248,11 @@
               :num="num"
               :total-price="totalPrice"
               :time-list="timeList"
-              :selected="Selected"
+              :camera="Selected.camera"
+              :monitor="Selected.monitor"
+              :micAudio="Selected.micAudio"
+              :lightSubFilm="Selected.lightSubFilm"
+              :equipmentNum="Selected.equipmentNum"
             />
           </div>
         </div>
@@ -320,6 +324,7 @@ export default {
         lightSubFilm: [],
         equipmentNum: [],
       },
+      camera: [],
       num: 0,
       equipmentPrice: 0,
       numPrice: 0,
@@ -344,7 +349,11 @@ export default {
       }
     }
   },
-  watch: {},
+  watch: {
+    Selected(newVal, oldVal) {
+      console.log(newVal, oldVal);
+    },
+  },
   methods: {
     setTime(time) {
       // 처음 선택 할 시 자동 3시간
@@ -545,18 +554,45 @@ export default {
         micAudio: [16, 17, 18, 19, 20],
         lightSubFilm: [21, 22, 23],
       };
+      console.log("type : " + type);
+
       if (bool === false) {
+        console.log(equipmentNumRange[type]);
         if (equipmentNumRange[type]) {
+          if (type === "micAudio") {
+            type = "MicAudio";
+          }
+          if (type === "lightSubFilm") {
+            type = "LightSubFilm";
+          }
           // equipments의 두번째 파라미터와 같을때
+          console.log("selected:" + this.Selected.equipmentNum);
+
+          console.log(this.equipments[type]);
+          for (var i = 0; i < this.equipments[type].length; i++) {
+            for (var k = 0; k < this.Selected.equipmentNum.length; k++) {
+              if (
+                this.equipments[type][i].equipmentNum ===
+                this.Selected.equipmentNum[k]
+              ) {
+                this.equipmentPrice -= this.equipments[type][i].price;
+                console.log(this.equipments[type][i].price);
+              }
+            }
+          }
+
+          if (type === "MicAudio") {
+            type = "micAudio";
+          }
+          if (type === "LightSubFilm") {
+            type = "lightSubFilm";
+          }
 
           this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
             (num) => !equipmentNumRange[type].includes(num)
           );
           this.Selected[type] = [];
-          for (var i = 0; i < this.equipments[type].length; i++) {
-            this.totalPrice -= this.equipments[type][i].price;
-          }
-          console.log("selected:" + this.Selected.equipmentNum);
+          this.PriceCalc();
         }
       }
     },

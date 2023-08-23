@@ -14,7 +14,7 @@
           style="margin-top: 20px; color: white"
           v-bind="props"
           :disabled="!Validcheck()"
-          @click="console.log(Selected)"
+          @click="EquipmentPriceValue()"
         >
           지금 예약하기
         </v-btn>
@@ -81,25 +81,134 @@
                   <span>{{ checkInfo.phone[0] }}</span>
                   <span>{{ checkInfo.phone[1] }}</span>
                 </div>
-                <hr />
-                <p class="title">예약 정보</p>
-                <div class="line">
-                  <span>{{ checkInfo.space[0] }}</span>
-                  <span>{{ checkInfo.space[1] }}</span>
+
+                <hr style="margin: 14px 0px" />
+
+                <div class="info-scroll">
+                  <p class="title">스튜디오 예약 정보</p>
+                  <div class="line">
+                    <span>{{ checkInfo.space[0] }}</span>
+                    <span>{{ checkInfo.space[1] }}</span>
+                  </div>
+                  <div class="line">
+                    <span>{{ checkInfo.reserveDate[0] }}</span>
+                    <span>{{ checkInfo.reserveDate[1] }}</span>
+                  </div>
+                  <div class="line">
+                    <span>{{ checkInfo.reserveTime[0] }}</span>
+                    <span>{{ checkInfo.reserveTime[1] }}</span>
+                  </div>
+                  <div class="line">
+                    <span>{{ checkInfo.num[0] }}</span>
+                    <span>{{ checkInfo.num[1] }}</span>
+                  </div>
+
+                  <p class="title">장비 대여 정보</p>
+                  <div
+                    class="line"
+                    v-if="checkInfo.equipmentCamera[1].length > 0"
+                  >
+                    <div style="width: 27%">
+                      <span>{{ checkInfo.equipmentCamera[0] }}</span>
+                    </div>
+                    <v-divider vertical="50%" />
+                    <div style="width: 73%; text-align: right">
+                      <p
+                        v-for="(camera, index) in checkInfo.equipmentCamera[1]"
+                        :key="index"
+                        style="margin: 4px 0px"
+                      >
+                        {{ camera }}<br />
+                        {{
+                          checkInfo.equipmentCamera[2][index].toLocaleString() +
+                          "원"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="line"
+                    v-if="checkInfo.equipmentMonitor[1].length > 0"
+                  >
+                    <div style="width: 27%">
+                      <span>{{ checkInfo.equipmentMonitor[0] }}</span>
+                    </div>
+                    <v-divider vertical />
+                    <div style="width: 73%; text-align: right">
+                      <p
+                        v-for="(monitor, index) in checkInfo
+                          .equipmentMonitor[1]"
+                        :key="index"
+                        style="margin: 4px 0px"
+                      >
+                        {{ monitor }}<br />
+                        {{
+                          checkInfo.equipmentMonitor[2][
+                            index
+                          ].toLocaleString() + "원"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="line"
+                    v-if="checkInfo.equipmentMicAudio[1].length > 0"
+                  >
+                    <div style="width: 27%">
+                      <span style="display: flex">{{
+                        checkInfo.equipmentMicAudio[0]
+                      }}</span>
+                    </div>
+                    <v-divider vertical />
+                    <div style="width: 73%; text-align: right">
+                      <p
+                        v-for="(micAudio, index) in checkInfo
+                          .equipmentMicAudio[1]"
+                        :key="index"
+                        style="margin: 4px 0px"
+                      >
+                        {{ micAudio }}<br />
+                        {{
+                          checkInfo.equipmentMicAudio[2][
+                            index
+                          ].toLocaleString() + "원"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="line"
+                    v-if="checkInfo.equipmentLightSubFilm[1].length > 0"
+                  >
+                    <div style="width: 27%">
+                      <span style="display: flex">{{
+                        checkInfo.equipmentLightSubFilm[0]
+                      }}</span>
+                    </div>
+                    <v-divider vertical />
+                    <div style="width: 73%; text-align: right">
+                      <p
+                        v-for="(lightSubFilm, index) in checkInfo
+                          .equipmentLightSubFilm[1]"
+                        :key="index"
+                        style="margin: 4px 0px"
+                      >
+                        {{ lightSubFilm }}<br />
+                        {{
+                          checkInfo.equipmentLightSubFilm[2][
+                            index
+                          ].toLocaleString() + "원"
+                        }}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div class="line">
-                  <span>{{ checkInfo.reserveDate[0] }}</span>
-                  <span>{{ checkInfo.reserveDate[1] }}</span>
-                </div>
-                <div class="line">
-                  <span>{{ checkInfo.reserveTime[0] }}</span>
-                  <span>{{ checkInfo.reserveTime[1] }}</span>
-                </div>
-                <div class="line">
-                  <span>{{ checkInfo.num[0] }}</span>
-                  <span>{{ checkInfo.num[1] }}</span>
-                </div>
-                <hr />
+
+                <hr style="margin: 14px 0px" />
+
                 <p class="title">결제 금액 계산</p>
                 <div class="line" style="color: #805bea">
                   <span>{{ checkInfo.totalPrice[0] }}</span>
@@ -169,6 +278,10 @@ export default {
       },
       img: require("@/assets/header/scrollLogo.svg"),
       timeTable: "",
+      cameraPrice: [],
+      monitorPrice: [],
+      micAudioPrice: [],
+      lightSubFilmPrice: [],
     };
   },
   props: {
@@ -177,10 +290,14 @@ export default {
     num: Number,
     totalPrice: Number,
     timeList: Array,
-    Selected: Object,
+    camera: Array,
+    monitor: Array,
+    micAudio: Array,
+    lightSubFilm: Array,
+    equipmentNum: Array,
   },
   computed: {
-    ...mapGetters(["rooms", "hostAddressName"]),
+    ...mapGetters(["rooms", "hostAddressName", "equipments"]),
     currentTitle() {
       switch (this.step) {
         case 1:
@@ -191,6 +308,7 @@ export default {
           return "입금 확인";
       }
     },
+
     checkInfo() {
       return {
         name: ["성함", this.form.name],
@@ -199,6 +317,18 @@ export default {
         space: ["대여 공간 이름", this.rooms[0].title],
         reserveDate: ["대여 날짜", this.date],
         reserveTime: ["대여 시간", this.timeString],
+        equipmentCamera: ["카메라 대여", this.camera, this.cameraPrice],
+        equipmentMonitor: ["모니터 대여", this.monitor, this.monitorPrice],
+        equipmentMicAudio: [
+          "마이크&오디오 대여",
+          this.micAudio,
+          this.micAudioPrice,
+        ],
+        equipmentLightSubFilm: [
+          "조명&촬영보조 대여",
+          this.lightSubFilm,
+          this.lightSubFilmPrice,
+        ],
         num: ["사용 인원 수", this.num + "명"],
         totalPrice: ["총 금액", this.totalPrice.toLocaleString() + "원"],
       };
@@ -210,7 +340,25 @@ export default {
     },
   },
   mounted() {},
+
   methods: {
+    EquipmentPriceValue() {
+      var type = ["camera", "monitor", "MicAudio", "LightSubFilm"];
+      var upperType = ["Camera", "Monitor", "MicAudio", "LightSubFilm"];
+
+      for (var k = 0; k < type.length; k++) {
+        const t = "equipment" + upperType[k];
+        for (var j = 0; j < this.checkInfo[t][1].length; j++) {
+          for (var i = 0; i < this.equipments[type[k]].length; i++) {
+            if (this.equipments[type[k]][i].name === this.checkInfo[t][1][j]) {
+              console.log(this.equipments[type[k]][i].price);
+              this.checkInfo[t][2].push(this.equipments[type[k]][i].price);
+            }
+          }
+        }
+        console.log(t.toString() + " : " + this.checkInfo[t][2]);
+      }
+    },
     isValidStep() {
       switch (this.step) {
         case 1:
@@ -355,10 +503,28 @@ export default {
   border-radius: 5px;
   padding: 0px 12px;
   width: 400px;
+
+  .info-scroll {
+    max-height: 300px; /* content can grow up to 300px */
+    overflow-y: auto; /* will show scroll if content exceeds 300px */
+  }
+  .info-scroll::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .info-scroll::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 6px;
+  }
+
+  .info-scroll::-webkit-scrollbar-track {
+    background-color: lightgrey;
+  }
   .line {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 12px 0px;
     span {
       padding: 10px;
     }
