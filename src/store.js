@@ -178,7 +178,7 @@ const store = createStore({
           equipmentNum: 17,
         },
         {
-          name: ' 코미카 4채널 무선마이크 BOOMX-U-QUA (송신기4, 수신기1)',
+          name: '코미카 4채널 무선마이크 BOOMX-U-QUA (송신기4, 수신기1)',
           price: 3500,
           count: 1,
           equipmentNum: 18,
@@ -187,8 +187,6 @@ const store = createStore({
           name: '베링거 FLOW8',
           price: 10000,
           count: 1,
-
-
           equipmentNum: 19,
         },
         {
