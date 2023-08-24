@@ -377,9 +377,8 @@ export default {
     finishBtn() {
       this.dialog = false;
       this.sendData(); // 데이터 베이스
-      this.sendMail(); // 구글 드라이브 저장, 메일 자동 전송
-      location.reload();
-      this.checkAccount = true;
+      // this.sendMail(); // 구글 드라이브 저장, 메일 자동 전송
+      // location.reload();
     },
     Validcheck() {
       if (
@@ -393,22 +392,42 @@ export default {
       }
     },
     sendData() {
+      var type = ["camera", "monitor", "MicAudio", "LightSubFilm"];
+      var equipmentCount = [];
+      var equipmentNum = [];
+      for (var j = 0; j < type.length; j++) {
+        for (var k = 0; k < this.equipments[type[j]].length; k++) {
+          for (var l = 0; l < this.equipmentNum.length; l++) {
+            if (
+              this.equipments[type[j]][k].equipmentNum === this.equipmentNum[l]
+            ) {
+              equipmentNum.push(this.equipments[type[j]][k].equipmentNum);
+              equipmentCount.push(this.equipments[type[j]][k].count);
+            }
+          }
+        }
+      }
+
       for (var i = 0; i <= this.timeList.length - 1; i++) {
         this.timeTable = this.timeTable + this.timeList[i].substring(0, 2);
       }
 
-      console.log(this.timeTable);
+      // console.log(this.timeTable);
 
       const data = {
         studioNum: this.rooms[0].studioNum,
         date: this.date,
         time: this.timeTable,
+        equipmentTime: this.timeTable,
         peopleNum: this.num,
         userName: this.form.name,
         email: this.form.email,
         phone: this.form.phone,
         state: 0, // 입금 미완료
+        equipmentNum: equipmentNum,
+        equipmentCount: equipmentCount,
       };
+      console.log(data);
       $.ajax({
         /* 요청 시작 부분 */
         url: this.hostAddressName + "/studio/reserve", //주소
@@ -438,6 +457,7 @@ export default {
         },
       });
     },
+
     sendMail() {
       const formdata = new FormData();
 
