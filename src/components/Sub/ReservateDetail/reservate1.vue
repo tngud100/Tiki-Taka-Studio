@@ -790,6 +790,35 @@ export default {
         },
       });
     },
+    getDisableEquipment() {
+      $.ajax({
+        /* 요청 시작 부분 */
+        url: this.hostAddressName + "/studio/reserve/" + this.date, //주소
+        method: "GET",
+        type: "get", //전송 타입
+        dataType: "json",
+
+        /* 응답 확인 부분 */
+        success: (response) => {
+          console.log(response);
+        },
+
+        /* 에러 확인 부분 */
+        error: function (xhr) {
+          // alert("전송 실패");
+          console.log("");
+          console.log("[serverUploadImage] : [error] : " + xhr);
+          console.log("");
+        },
+
+        /* 완료 확인 부분 */
+        complete: function (xhr, textStatus) {
+          console.log("");
+          console.log("[server] : [complete] : " + textStatus);
+          console.log("");
+        },
+      });
+    },
   },
 };
 </script>
