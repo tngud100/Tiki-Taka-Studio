@@ -424,17 +424,18 @@ export default {
         email: this.form.email,
         phone: this.form.phone,
         state: 0, // 입금 미완료
-        equipmentNum: equipmentNum,
-        equipmentCount: equipmentCount,
       };
       console.log(data);
+
       $.ajax({
         /* 요청 시작 부분 */
         url: this.hostAddressName + "/studio/reserve", //주소
         type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(data),
-
+        cache: "false",
+        async: false,
+        traditional: true,
+        data: { data, equipmentNum: equipmentNum },
+        dataType: "text",
         /* 응답 확인 부분 */
         success: function () {
           console.log("");
@@ -442,6 +443,8 @@ export default {
 
         /* 에러 확인 부분 */
         error: function (xhr) {
+          console.log(xhr);
+          console.log(xhr.response);
           alert("전송 실패");
           console.log("");
           console.log("[serverUpload] : [error] : " + xhr);

@@ -117,7 +117,9 @@
                   class="time-apply"
                   style="display: flex; justify-content: right; margin: 8px 0px"
                 >
-                  <v-btn style="margin: 0px 4px" @click="confirmSelectedTime"
+                  <v-btn
+                    style="margin: 0px 4px"
+                    @click="confirmSelectedTime(true)"
                     >확인</v-btn
                   >
                   <v-btn style="margin: 0px 4px" @click="cancelSelectedTime"
@@ -412,6 +414,8 @@ export default {
         this.selectedStartTime = 0;
         this.selectedEndTime = 0;
       }
+      this.confirmSelectedTime(false);
+      console.log("timeList: " + this.timeList);
     },
 
     // 클래스 부여
@@ -428,7 +432,7 @@ export default {
     },
 
     // 확인 눌렀을시 timeList에 배열 저장
-    confirmSelectedTime() {
+    confirmSelectedTime(bool) {
       const hoursDifference = this.selectedEndTime - this.selectedStartTime;
       if (this.timeList.length === 0) {
         for (let i = 0; i <= hoursDifference; i++) {
@@ -446,9 +450,10 @@ export default {
           this.timeList.push(formattedTime);
         }
       }
-
-      console.log(this.timeList);
-      this.timeDialog = false;
+      if (bool) {
+        this.timeDialog = false;
+      }
+      console.log("timeList: " + this.timeList);
       this.PriceCalc();
     },
 
@@ -469,6 +474,7 @@ export default {
       this.date = this.date.toISOString().slice(0, 10);
       console.log(this.date);
       this.getDisabledate();
+      this.getDisableEquipment();
     },
 
     setEquipmentType(equipment) {
@@ -754,8 +760,11 @@ export default {
         }
       }
     },
-    //
     getDisabledate() {
+      if (Array.isArray(this.timeList)) {
+        var times = this.timeList.map((time) => time.slice(0, 2)).join("");
+      }
+      console.log(times);
       $.ajax({
         /* 요청 시작 부분 */
         url:
@@ -763,7 +772,9 @@ export default {
           "/studio/reserve/" +
           this.rooms[0].studioNum +
           "/" +
-          this.date, //주소
+          this.date +
+          "/" +
+          times, //주소
         method: "GET",
         type: "get", //전송 타입
         dataType: "json",
@@ -791,6 +802,13 @@ export default {
       });
     },
     getDisableEquipment() {
+      for (var i = 0; i < this.timeList.length; i++) {
+        console.log(this.timeList[i]);
+      }
+
+      // const timeList = this.timeList.split(",");
+      // const times = timeList.map((time) => time.slice(0, 2)).join("");
+
       $.ajax({
         /* 요청 시작 부분 */
         url: this.hostAddressName + "/studio/reserve/" + this.date, //주소
