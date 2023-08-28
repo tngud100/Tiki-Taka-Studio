@@ -143,19 +143,25 @@ export default {
     justify-content: center;
     align-items: center;
     position: relative;
+
     .Title {
       font-family: "Pretendard-Regular";
       font-weight: bold;
     }
+
     .subTitle {
       font-family: "Pretendard-Regular";
       font-weight: bold;
     }
   }
+
   .download-box {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
     font-family: "Pretendard";
+
     .download-link {
       padding: 10px 20px;
       margin: 10px;
@@ -181,25 +187,22 @@ export default {
       transform: scale(1);
     }
   }
+
   .reservate-con {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     margin: auto;
-    padding-top: 16px;
 
-    width: 1300px;
     @for $i from 0 through 5 {
       .card#{$i} {
-        width: 30%;
-        height: 100%; // 수정된 부분
-        margin: 12px;
         overflow: hidden;
         background-color: white;
         color: black;
         position: relative;
       }
+
       .hover-filter#{$i} {
         position: absolute;
         display: flex;
@@ -207,35 +210,35 @@ export default {
         align-items: center;
         z-index: 1;
         opacity: 0;
-        width: 100%;
-        height: 250px;
         transition: all 0.5s ease;
         border-radius: 10px;
       }
+
       .image#{$i} {
         transform: scale(1.5);
         transition: all 0.5s ease;
-        width: 450px;
-        height: 250px;
       }
+
       .card#{$i}:hover {
         .hover-filter#{$i} {
           opacity: 1;
           background-color: rgba(0, 0, 0, 0.5);
           cursor: pointer;
         }
+
         .image#{$i} {
           transform: scale(2);
         }
       }
     }
   }
+
   .hover-text {
     font-family: "Pretendard";
     font-weight: bold;
-    font-size: 1.625rem;
     color: white;
   }
+
   .card-image {
     width: 100%;
     overflow: hidden;
@@ -245,26 +248,28 @@ export default {
     margin: 0;
     border-radius: 10px;
   }
+
   .card-titleText {
     display: grid;
     justify-content: left;
     align-items: center;
     padding: 0px 6px 12px 6px;
+
     .creator-name {
       font-family: "Pretendard";
       font-weight: bold;
-      font-size: 1.125rem;
       color: rgb(97, 97, 97);
     }
   }
+
   .card-subText {
     display: grid;
     justify-content: left;
     align-items: center;
     padding: 6px 6px 0px 6px;
+
     .creator-subscribe {
       font-family: "Pretendard";
-      font-size: 0.89rem;
       color: grey;
     }
   }
@@ -272,24 +277,101 @@ export default {
 
 //PC XL
 @media screen and (min-width: 1300px) {
+  .reservate-con {
+    padding-top: 16px;
+    width: 1300px;
+
+    @for $i from 0 through 5 {
+      .card#{$i} {
+        width: 30%;
+        height: 100%; // 수정된 부분
+        margin: 12px;
+      }
+
+      .hover-filter#{$i} {
+        width: 100%;
+        height: 250px;
+        border-radius: 10px;
+      }
+
+      .image#{$i} {
+        width: 450px;
+        height: 250px;
+      }
+    }
+
+    .hover-text {
+      font-size: 1.625rem;
+    }
+
+    .creator-name {
+      font-size: 1.125rem;
+    }
+
+    .creator-subscribe {
+      font-size: 0.89rem;
+    }
+  }
+
   .Text-con {
     margin: 60px auto 30px auto;
+
     .Title {
       font-size: 30px;
     }
+
     .subTitle {
       font-size: 20px;
       margin-top: 10px;
     }
   }
 }
+
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .reservate-con {
+    padding-top: 16px;
+    width: 1080px;
+
+    @for $i from 0 through 5 {
+      .card#{$i} {
+        width: 30%;
+        height: 100%; // 수정된 부분
+        margin: 12px;
+      }
+
+      .hover-filter#{$i} {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px;
+      }
+
+      .image#{$i} {
+        width: 400px;
+        height: 200px;
+      }
+    }
+
+    .hover-text {
+      font-size: 1.365rem;
+    }
+
+    .creator-name {
+      font-size: 1rem;
+    }
+
+    .creator-subscribe {
+      font-size: 0.89rem;
+    }
+  }
+
   .Text-con {
     margin: 60px auto 30px auto;
+
     .Title {
       font-size: 30px;
     }
+
     .subTitle {
       font-size: 20px;
       margin-top: 10px;
@@ -299,11 +381,57 @@ export default {
 
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
+  .reservate-con {
+    padding-top: 16px;
+    width: 760px;
+
+    @for $i from 0 through 5 {
+      .card#{$i} {
+        width: calc(50% - 24px);
+        height: 100%; // 수정된 부분
+        margin: 12px;
+      }
+
+      .hover-filter#{$i} {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px;
+      }
+
+      .image#{$i} {
+        width: 400px;
+        height: 200px;
+      }
+    }
+
+    .hover-text {
+      font-size: 1.4rem;
+    }
+
+    .creator-name {
+      font-size: 1.125rem;
+    }
+
+    .creator-subscribe {
+      font-size: 0.89rem;
+    }
+  }
+
+  .download-box {
+    width: 760px;
+
+    .download-link {
+      width: calc(50% - 20px);
+    }
+  }
+
   .Text-con {
     margin: 50px auto 30px auto;
+
     .Title {
       font-size: 26px;
     }
+
     .subTitle {
       font-size: 18px;
       margin-top: 10px;
@@ -313,11 +441,57 @@ export default {
 
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
+  .reservate-con {
+    padding-top: 16px;
+    width: 640px;
+
+    @for $i from 0 through 5 {
+      .card#{$i} {
+        width: calc(50% - 24px);
+        height: 100%; // 수정된 부분
+        margin: 12px;
+      }
+
+      .hover-filter#{$i} {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px;
+      }
+
+      .image#{$i} {
+        width: 400px;
+        height: 200px;
+      }
+    }
+
+    .hover-text {
+      font-size: 1.25rem;
+    }
+
+    .creator-name {
+      font-size: 1rem;
+    }
+
+    .creator-subscribe {
+      font-size: 0.89rem;
+    }
+  }
+
+  .download-box {
+    width: 640px;
+
+    .download-link {
+      width: calc(50% - 20px);
+    }
+  }
+
   .Text-con {
     margin: 40px auto 30px auto;
+
     .Title {
       font-size: 26px;
     }
+
     .subTitle {
       font-size: 18px;
       margin-top: 10px;
@@ -327,12 +501,67 @@ export default {
 
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
+  .reservate-con {
+    padding-top: 16px;
+    width: 100%;
+
+    @for $i from 0 through 5 {
+      .card#{$i} {
+        width: calc(50% - 24px);
+        height: 100%; // 수정된 부분
+        margin: 12px;
+      }
+
+      .hover-filter#{$i} {
+        width: 100%;
+        height: 150px;
+        border-radius: 10px;
+      }
+
+      .image#{$i} {
+        height: 150px;
+      }
+    }
+
+    .hover-text {
+      font-size: 1rem;
+      overflow: hidden;
+      word-break: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
+    .creator-name {
+      font-size: 1rem;
+      overflow: hidden;
+      word-break: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
+    .creator-subscribe {
+      font-size: 0.8rem;
+    }
+  }
+
+  .download-box {
+    width: 100%;
+
+    .download-link {
+      width: calc(50% - 20px);
+    }
+  }
+
   .Text-con {
     margin: 30px auto 20px auto;
     padding: 0px 12px;
+
     .Title {
-      font-size: 26px;
+      font-size: 20px;
     }
+
     .subTitle {
       font-size: 18px;
       margin-top: 10px;

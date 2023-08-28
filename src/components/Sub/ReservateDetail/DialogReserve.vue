@@ -378,7 +378,7 @@ export default {
       this.dialog = false;
       this.sendData(); // 데이터 베이스
       // this.sendMail(); // 구글 드라이브 저장, 메일 자동 전송
-      // location.reload();
+      location.reload();
     },
     Validcheck() {
       if (
@@ -426,6 +426,8 @@ export default {
         state: 0, // 입금 미완료
       };
       console.log(data);
+      console.log("equipmentNum : " + equipmentNum);
+      console.log("equipmentCount : " + equipmentCount);
 
       $.ajax({
         /* 요청 시작 부분 */
@@ -434,7 +436,12 @@ export default {
         cache: "false",
         async: false,
         traditional: true,
-        data: { data, equipmentNum: equipmentNum },
+        data: JSON.stringify({
+          ...data,
+          equipmentNumList: equipmentNum,
+          equipmentCountList: equipmentCount,
+        }),
+        contentType: "application/json",
         dataType: "text",
         /* 응답 확인 부분 */
         success: function () {
@@ -542,6 +549,9 @@ export default {
 
   .info-scroll::-webkit-scrollbar-track {
     background-color: lightgrey;
+  }
+  ::v-deep .v-window {
+    overflow: auto;
   }
   .line {
     display: flex;

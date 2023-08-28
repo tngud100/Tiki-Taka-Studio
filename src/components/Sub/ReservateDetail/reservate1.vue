@@ -1,3 +1,4 @@
+
 <template>
   <section class="news_section">
     <HeaderNav />
@@ -43,7 +44,7 @@
             <p class="title">{{ rooms[0].title }}</p>
             <p class="price">{{ rooms[0].price.toLocaleString() }}원</p>
             <router-link to="/CalendarReservate">
-              <v-btn class="title">티키앤타카 예약 현황</v-btn>
+              <v-btn class="title btn">티키앤타카 예약 현황</v-btn>
             </router-link>
           </div>
           <hr />
@@ -87,24 +88,16 @@
                 variant="outlined"
                 label="시간을 선택해 주세요"
                 readonly
-                class="sub-title"
+                class="sub-title time-input"
                 v-model="timeString"
               >
                 <!-- {{ date }} -->
               </v-text-field>
-              <div
-                v-if="timeDialog"
-                class="time-box"
-                style="
-                  border: solid 1px rgb(204, 204, 204);
-                  padding: 32px;
-                  border-radius: 10px;
-                "
-              >
+              <div v-if="timeDialog" class="time-box">
                 <v-btn
                   v-for="i in 24"
                   :key="i"
-                  style="margin: 6px"
+                  class="time-btn"
                   @click="setTime(i)"
                   :class="{
                     'selected-time': isTimeSelected(i),
@@ -117,9 +110,7 @@
                   class="time-apply"
                   style="display: flex; justify-content: right; margin: 8px 0px"
                 >
-                  <v-btn
-                    style="margin: 0px 4px"
-                    @click="confirmSelectedTime(true)"
+                  <v-btn style="margin: 0px 4px" @click="confirmSelectedTime"
                     >확인</v-btn
                   >
                   <v-btn style="margin: 0px 4px" @click="cancelSelectedTime"
@@ -129,12 +120,18 @@
               </div>
             </div>
             <!-- 장비 테이블 -->
-            <div class="equipment-con" v-if="date">
+            <div class="equipment-con" v-if="timeList.length > 0">
               <p class="equipment-title" style="margin-top: 20px">장비</p>
               <p class="sub-title">필요하신 장비를 선택해 주세요</p>
               <v-row>
                 <v-col
-                  cols="3"
+                  class="check-box v-col-6"
+                  xs="6"
+                  sm="6"
+                  md="6"
+                  lg="3"
+                  xl="3"
+                  xxl="3"
                   v-for="(item, index) in EquipmentType"
                   :key="index"
                   @click="isEquipmentSelected(index, item[1])"
@@ -142,11 +139,16 @@
                   <v-checkbox v-model="item[1]" :label="item[0]"> </v-checkbox>
                 </v-col>
               </v-row>
-              <div v-for="(item, index) in Equipments" :key="index">
+              <div
+                class="equipment-input"
+                v-for="(item, index) in Equipments"
+                :key="index"
+              >
                 <div v-if="EquipmentType[index][1]">
                   <p class="sub-title">
                     {{ setEquipmentType(index) }}를 선택해 주세요
                   </p>
+                  <!-- disableEquipmentsOption -->
                   <v-select
                     v-model="Selected[index]"
                     :items="item"
@@ -156,6 +158,9 @@
                     @update:model-value="
                       setEquipmentSelected(Selected[index], index)
                     "
+                    :item-disabled="
+                      (option) => disableEquipmentsOption(option, index)
+                    "
                   >
                   </v-select>
                 </div>
@@ -163,7 +168,7 @@
             </div>
 
             <!-- 인원 테이블 -->
-            <p class="num-title" style="margin-top: 20px">총인원</p>
+            <p class="num-title">총인원</p>
             <p class="sub-title">
               최소 인원 초과시 인당
               {{ this.rooms[0].numPrice.toLocaleString() }}원 추가 비용 발생
@@ -172,7 +177,7 @@
               label="인원수를 입력해 주세요."
               persistent-hint
               variant="outlined"
-              class="sub-title"
+              class="sub-title people-num"
               v-model="num"
               readonly
             ></v-text-field>
@@ -217,31 +222,37 @@
 
             <div class="price-con" v-if="timeHour != 0">
               <hr style="margin-bottom: 20px" />
-              <div style="display: flex; justify-content: space-between">
-                <span
+              <div class="price-box">
+                <span class="price-text"
                   >스튜디오 {{ this.timeHour }}시간 x
                   {{ rooms[0].price.toLocaleString() }}원
                 </span>
-                <span>
+                <span class="price-value">
                   {{ (rooms[0].price * this.timeHour).toLocaleString() }}원
                 </span>
               </div>
-              <div style="display: flex; justify-content: space-between">
-                <span>
+              <div class="price-box">
+                <span class="price-text">
                   인원수
                   {{ this.num }}명 x {{ rooms[0].numPrice.toLocaleString() }}원
                   ( 최소 {{ rooms[0].numMin }}명 ~ 최대 {{ rooms[0].numMax }}명)
                 </span>
-                <span> {{ this.numPrice.toLocaleString() }}원 </span>
+                <span class="price-value">
+                  {{ this.numPrice.toLocaleString() }}원
+                </span>
               </div>
-              <div style="display: flex; justify-content: space-between">
-                <span> 장비 가격 </span>
-                <span> {{ this.equipmentPrice.toLocaleString() }}원 </span>
+              <div class="price-box">
+                <span class="price-text"> 장비 가격 </span>
+                <span class="price-value">
+                  {{ this.equipmentPrice.toLocaleString() }}원
+                </span>
               </div>
               <hr style="margin: 20px 0px" />
-              <div style="display: flex; justify-content: space-between">
-                <span>총 가격</span>
-                <span>{{ this.totalPrice.toLocaleString() }}원</span>
+              <div class="price-box">
+                <span class="total-text">총 가격</span>
+                <span class="total-value"
+                  >{{ this.totalPrice.toLocaleString() }}원</span
+                >
               </div>
             </div>
             <DialogReserve
@@ -285,6 +296,23 @@ export default {
   },
   computed: {
     ...mapGetters(["rooms", "hostAddressName", "equipments"]),
+    disableEquipmentsOption() {
+      return (item) => {
+        console.log("disable-item :" + item);
+        if (item === "SONY FE 24-70mm F2.8 GM") {
+          return true;
+        }
+        // console.log(this.disableEquipmentName);
+        // for (var k = 0; k < item.length; k++) {
+        //   for (var i = 0; i < this.disableEquipmentName.length; i++) {
+        //     if (this.disableEquipmentName[i] === item[k]) {
+        //       console.log("item: " + item[k]);
+        //       console.log("disableEq: " + this.disableEquipmentName[i]);
+        //     }
+        //   }
+        // }
+      };
+    },
   },
   data() {
     return {
@@ -333,6 +361,7 @@ export default {
       totalPrice: 0,
       blockTimeList: [],
       checkAccount: false,
+      disableEquipmentName: [],
     };
   },
   mounted() {
@@ -415,6 +444,7 @@ export default {
         this.selectedEndTime = 0;
       }
       this.confirmSelectedTime(false);
+      this.getDisableEquipment();
       console.log("timeList: " + this.timeList);
     },
 
@@ -474,7 +504,6 @@ export default {
       this.date = this.date.toISOString().slice(0, 10);
       console.log(this.date);
       this.getDisabledate();
-      this.getDisableEquipment();
     },
 
     setEquipmentType(equipment) {
@@ -761,10 +790,6 @@ export default {
       }
     },
     getDisabledate() {
-      if (Array.isArray(this.timeList)) {
-        var times = this.timeList.map((time) => time.slice(0, 2)).join("");
-      }
-      console.log(times);
       $.ajax({
         /* 요청 시작 부분 */
         url:
@@ -772,9 +797,7 @@ export default {
           "/studio/reserve/" +
           this.rooms[0].studioNum +
           "/" +
-          this.date +
-          "/" +
-          times, //주소
+          this.date,
         method: "GET",
         type: "get", //전송 타입
         dataType: "json",
@@ -802,23 +825,29 @@ export default {
       });
     },
     getDisableEquipment() {
-      for (var i = 0; i < this.timeList.length; i++) {
-        console.log(this.timeList[i]);
+      var timeTable = "";
+      for (var i = 0; i <= this.timeList.length - 1; i++) {
+        timeTable = timeTable + this.timeList[i].substring(0, 2);
       }
-
-      // const timeList = this.timeList.split(",");
-      // const times = timeList.map((time) => time.slice(0, 2)).join("");
+      console.log(this.timeList);
+      console.log("timeTable:" + timeTable);
 
       $.ajax({
         /* 요청 시작 부분 */
-        url: this.hostAddressName + "/studio/reserve/" + this.date, //주소
+        url:
+          this.hostAddressName +
+          "/studio/equipment/" +
+          this.date +
+          "/" +
+          timeTable, //주소
         method: "GET",
         type: "get", //전송 타입
         dataType: "json",
 
         /* 응답 확인 부분 */
         success: (response) => {
-          console.log(response);
+          console.log("[server] : [success] : " + response);
+          this.getDisableState(response);
         },
 
         /* 에러 확인 부분 */
@@ -837,6 +866,37 @@ export default {
         },
       });
     },
+    getDisableState(response) {
+      var type = ["camera", "monitor", "MicAudio", "LightSubFilm"];
+
+      const disableEquipmentNum = [];
+
+      for (var i = 0; i < response.length; i++) {
+        const EquipmentNum = response[i].equipmentNum;
+        const EquipmentState = response[i].equipmentState;
+
+        if (EquipmentState === 0) {
+          disableEquipmentNum.push(EquipmentNum);
+        }
+      }
+      const disableEquipmentNumList = [...new Set(disableEquipmentNum)];
+
+      console.log(disableEquipmentNumList); // 사용 불가능 장비 번호
+
+      for (var j = 0; j < type.length; j++) {
+        for (var k = 0; k < this.equipments[type[j]].length; k++) {
+          for (var l = 0; l < disableEquipmentNumList.length; l++) {
+            if (
+              this.equipments[type[j]][k].equipmentNum ===
+              disableEquipmentNumList[l]
+            ) {
+              this.disableEquipmentName.push(this.equipments[type[j]][k].name);
+            }
+          }
+        }
+      }
+      console.log(this.disableEquipmentName); // 사용 불가능 장비 이름
+    },
   },
 };
 </script>
@@ -846,92 +906,671 @@ export default {
   background-color: #3399ff;
   color: white;
 }
+
 .block-time {
-  background-color: #888888; /* Change this to the color you want */
-  color: white; /* Change this to the color you want */
+  background-color: #888888;
+  color: white;
 }
 
-// ::v-deep .v-picker-title {
-//   display: none;
-// }
-// ::v-deep .v-date-picker-header {
-//   display: none;
-// }
 .news_section {
   .title-con {
-    width: 1300px;
-    margin: 30px auto;
     .title {
       font-family: "Pretendard-Regular";
       font-weight: bold;
-      font-size: 32px;
     }
   }
+
   .container {
-    width: 1300px;
-    margin: 0px auto 100px auto;
     display: flex;
     justify-content: space-between;
+    justify-items: center;
+
     .img-con {
-      width: calc(60% - 32px);
       .img {
         width: 100%;
         border-radius: 10px;
       }
+
       font-family: "Pretendard-Regular";
+
       .img-info {
         .img-title {
           font-weight: bold;
-          font-size: 20px;
-          padding: 12px;
         }
       }
+
       .descript {
-        padding: 12px;
-        font-size: 16px;
         .intro {
           font-weight: bold;
-          font-size: 20px;
         }
       }
     }
+
     .info-con {
-      width: calc(40% - 16px);
       .info {
-        position: sticky;
         width: 100%;
-        padding: 16px;
         border: solid 1px #bebebe;
         border-radius: 10px;
+
         .title-info {
           font-family: "Pretendard-Regular";
           font-weight: bold;
-          font-size: 18px;
-          margin: 16px 0px;
         }
+
         .schedule-con {
           font-family: "Pretendard-Regular";
           font-weight: bold;
+
           .date-picker {
             display: flex;
             justify-content: center;
             align-items: center;
+
             ::v-deep .vuejs3-datepicker {
               width: 100% !important;
             }
+
             ::v-deep .vuejs3-datepicker__value {
               width: 100% !important;
               color: #9e9e9e;
               font-weight: 100;
             }
           }
-          .title {
-            font-size: 16px;
-            margin-top: 20px;
+
+          .time-box {
+            border: solid 1px rgb(204, 204, 204);
+            border-radius: 10px;
+            text-align: center;
           }
+
+          .num-title {
+            margin-top: 40px;
+          }
+
+          .title {
+          }
+
           .sub-title {
+          }
+        }
+      }
+    }
+
+    .price-con {
+      .price-box {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+//PC XL
+@media screen and (min-width: 1300px) {
+  .news_section {
+    .title-con {
+      width: 1300px;
+      margin: 30px auto;
+
+      .title {
+        font-size: 32px;
+      }
+    }
+
+    .container {
+      width: 1300px;
+      margin: 0px auto 100px auto;
+
+      .img-con {
+        width: calc(60% - 32px);
+
+        .img-info {
+          .img-title {
+            font-size: 20px;
+            padding: 12px;
+          }
+        }
+
+        .descript {
+          padding: 12px;
+          font-size: 16px;
+
+          .intro {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .info-con {
+        width: calc(40% - 16px);
+
+        .info {
+          position: sticky;
+          width: 100%;
+          padding: 16px;
+
+          .title-info {
+            font-size: 18px;
+            margin: 16px 0px;
+          }
+
+          .schedule-con {
+            .date-picker {
+              ::v-deep .vuejs3-datepicker {
+                width: 100% !important;
+              }
+
+              ::v-deep .vuejs3-datepicker__value {
+                width: 100% !important;
+              }
+            }
+
+            .time-btn {
+              margin: 6px;
+              width: calc(18% - 6px);
+            }
+
+            ::v-deep .v-input__control {
+              height: auto;
+            }
+
+            ::v-deep .v-field__input {
+              padding-top: auto;
+            }
+
+            ::v-deep .v-input__details {
+              display: none;
+            }
+
+            .title {
+              font-size: 16px;
+              margin-top: 20px;
+            }
+
+            .sub-title {
+              font-size: 12px;
+              margin: 10px 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// PC
+@media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .news_section {
+    .title-con {
+      width: 1080px;
+      margin: 30px auto;
+
+      .title {
+        font-size: 32px;
+      }
+    }
+
+    .container {
+      width: 1080px;
+      margin: 0px auto 100px auto;
+
+      .img-con {
+        width: calc(60% - 32px);
+
+        .img-info {
+          .img-title {
+            font-size: 20px;
+            padding: 12px;
+          }
+        }
+
+        .descript {
+          padding: 12px;
+          font-size: 16px;
+
+          .intro {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .info-con {
+        width: calc(40% - 16px);
+
+        .info {
+          position: sticky;
+          width: 100%;
+          padding: 16px;
+
+          .title-info {
+            font-size: 18px;
+            margin: 16px 0px;
+          }
+
+          .schedule-con {
+            .date-picker {
+              ::v-deep .vuejs3-datepicker {
+                width: 100% !important;
+              }
+
+              ::v-deep .vuejs3-datepicker__value {
+                width: 100% !important;
+              }
+            }
+
+            ::v-deep .v-input__control {
+              height: auto;
+            }
+
+            ::v-deep .v-field__input {
+              padding-top: auto;
+            }
+
+            ::v-deep .v-input__details {
+              display: none;
+            }
+
+            .time-btn {
+              margin: 6px;
+              width: calc(23% - 6px);
+            }
+
+            .check-box {
+              margin-bottom: 40px;
+              height: 25px;
+            }
+
+            .title {
+              font-size: 16px;
+              margin-top: 20px;
+            }
+
+            .sub-title {
+              font-size: 12px;
+              margin: 10px 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 노트북
+@media screen and (min-width: 760px) and (max-width: 1080px) {
+  .news_section {
+    .title-con {
+      width: 760px;
+      margin: 20px auto;
+
+      .title {
+        font-size: 26px;
+      }
+    }
+
+    .container {
+      width: 760px;
+      margin: 0px auto 70px auto;
+
+      .img-con {
+        width: calc(60% - 32px);
+
+        .img-info {
+          .img-title {
+            font-size: 18px;
+            padding: 8px;
+          }
+        }
+
+        .descript {
+          padding: 8px;
+          font-size: 14px;
+
+          .intro {
+            font-size: 17px;
+          }
+        }
+      }
+
+      .info-con {
+        width: calc(40% - 12px);
+
+        .info {
+          position: sticky;
+          width: 100%;
+          padding: 12px;
+
+          .title-info {
+            font-size: 16px;
+            margin: 16px 0px;
+          }
+
+          .btn {
+            height: 32px;
             font-size: 12px;
-            margin: 10px 0px;
+          }
+
+          .schedule-con {
+            .date-picker {
+              ::v-deep .vuejs3-datepicker {
+                width: 100% !important;
+              }
+
+              ::v-deep .vuejs3-datepicker__content {
+                font-size: 14px;
+              }
+
+              ::v-deep .vuejs3-datepicker__value {
+                width: 100% !important;
+                height: 40px;
+                padding: 9px;
+                font-size: 12px;
+              }
+            }
+
+            .time-con {
+              .time-box {
+                padding: 12px;
+
+                .time-btn {
+                  margin: 6px;
+                  width: calc(30% - 6px);
+                }
+              }
+
+              .time-input {
+                ::v-deep .v-input__control {
+                  height: 40px;
+                }
+
+                ::v-deep .v-field__input {
+                  padding-top: 0px;
+                  font-size: 14px;
+                }
+              }
+            }
+
+            .equipment-con {
+              ::v-deep .v-input__details {
+                display: none;
+              }
+
+              .check-box {
+                margin-bottom: 40px;
+                height: 25px;
+
+                ::v-deep .v-label {
+                  font-size: 14px;
+                }
+
+                ::v-deep .v-selection-control {
+                  --v-selection-control-size: 25px;
+                }
+              }
+
+              .equipment-input {
+                ::v-deep .v-field-label {
+                  top: 50%;
+                  font-size: 14px;
+                }
+
+                ::v-deep .v-field__input {
+                  min-height: 40px;
+                  font-size: 14px;
+                }
+
+                ::v-deep .v-input__details {
+                  display: none;
+                }
+              }
+            }
+
+            .people-num {
+              ::v-deep .v-label.v-field-label {
+                top: 40%;
+              }
+
+              ::v-deep .v-input__control {
+                height: 40px;
+                font-size: 12px;
+              }
+
+              ::v-deep .v-field__input {
+                padding-top: 0px;
+                font-size: 14px;
+              }
+
+              ::v-deep .v-input__details {
+                display: none;
+              }
+            }
+
+            .price-box {
+              font-size: 14px;
+
+              .price-text {
+                width: 75%;
+              }
+
+              .total-text,
+              .tolal-value {
+                font-size: 16px !important;
+              }
+            }
+
+            .title {
+              font-size: 14px;
+              margin-top: 20px;
+            }
+
+            .sub-title {
+              font-size: 12px;
+              margin: 10px 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 테블릿
+@media screen and (min-width: 640px) and (max-width: 759px) {
+  .news_section {
+    .title-con {
+      width: 640px;
+      margin: 30px auto;
+
+      .title {
+        font-size: 32px;
+      }
+    }
+
+    .container {
+      width: 640px;
+      margin: 0px auto 100px auto;
+      display: grid !important;
+
+      .img-con {
+        width: calc(100% - 12px);
+
+        .img-info {
+          display: none;
+
+          .img-title {
+            font-size: 20px;
+            padding: 12px;
+          }
+        }
+
+        .descript {
+          display: none;
+          padding: 12px;
+          font-size: 16px;
+
+          .intro {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .info-con {
+        width: calc(100% - 12px);
+
+        .info {
+          position: sticky;
+          width: 100%;
+          padding: 12px;
+
+          .title-info {
+            font-size: 18px;
+            margin: 12px 0px;
+          }
+
+          .schedule-con {
+            .date-picker {
+              ::v-deep .vuejs3-datepicker {
+                width: 100% !important;
+              }
+
+              ::v-deep .vuejs3-datepicker__value {
+                width: 100% !important;
+              }
+            }
+
+            ::v-deep .v-input__control {
+              height: auto;
+            }
+
+            ::v-deep .v-field__input {
+              padding-top: auto;
+            }
+
+            ::v-deep .v-input__details {
+              display: none;
+            }
+
+            .time-btn {
+              margin: 8px;
+              width: calc(19% - 16px);
+            }
+
+            .check-box {
+              margin-bottom: 40px;
+              height: 25px;
+            }
+
+            .title {
+              font-size: 16px;
+              margin-top: 20px;
+            }
+
+            .sub-title {
+              font-size: 12px;
+              margin: 10px 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 639px) {
+  .news_section {
+    .title-con {
+      width: calc(100% - 12px);
+      margin: 30px auto;
+
+      .title {
+        font-size: 32px;
+      }
+    }
+
+    .container {
+      width: calc(100% - 12px);
+      margin: 0px auto 100px auto;
+      display: grid !important;
+
+      .img-con {
+        width: calc(100% - 12px);
+
+        .img-info {
+          display: none;
+
+          .img-title {
+            font-size: 20px;
+            padding: 12px;
+          }
+        }
+
+        .descript {
+          display: none;
+          padding: 12px;
+          font-size: 16px;
+
+          .intro {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .info-con {
+        width: calc(100% - 12px);
+
+        .info {
+          position: sticky;
+          width: 100%;
+          padding: 12px;
+
+          .title-info {
+            font-size: 18px;
+            margin: 12px 0px;
+          }
+
+          .schedule-con {
+            .date-picker {
+              ::v-deep .vuejs3-datepicker {
+                width: 100% !important;
+              }
+
+              ::v-deep .vuejs3-datepicker__value {
+                width: 100% !important;
+              }
+            }
+
+            ::v-deep .v-input__control {
+              height: auto;
+            }
+
+            ::v-deep .v-field__input {
+              padding-top: auto;
+            }
+
+            ::v-deep .v-input__details {
+              display: none;
+            }
+
+            .time-btn {
+              margin: 8px;
+              width: calc(19% - 16px);
+            }
+
+            .check-box {
+              margin-bottom: 40px;
+              height: 25px;
+            }
+
+            .title {
+              font-size: 16px;
+              margin-top: 20px;
+            }
+
+            .sub-title {
+              font-size: 12px;
+              margin: 10px 0px;
+            }
           }
         }
       }
