@@ -119,8 +119,8 @@
                 </div>
               </div>
             </div>
-            <!-- 장비 테이블 -->
-            <div class="equipment-con" v-if="timeList.length > 0">
+            <!-- 장비 테이블 v-if="timeList.length > 0" -->
+            <div class="equipment-con">
               <p class="equipment-title" style="margin-top: 20px">장비</p>
               <p class="sub-title">필요하신 장비를 선택해 주세요</p>
               <v-row>
@@ -158,10 +158,16 @@
                     @update:model-value="
                       setEquipmentSelected(Selected[index], index)
                     "
-                    :item-disabled="
-                      (option) => disableEquipmentsOption(option, index)
-                    "
                   >
+                    <!-- <option
+                      v-for="items in Equipments"
+                      :key="items"
+                      style="
+                        height: 50px;
+                        border-radius: 5px;
+                        border: solid 1px gray;
+                      "
+                    ></option> -->
                   </v-select>
                 </div>
               </div>
@@ -362,23 +368,11 @@ export default {
       blockTimeList: [],
       checkAccount: false,
       disableEquipmentName: [],
+      disableEquipmentNum: [],
     };
   },
   mounted() {
-    if (this.equipments) {
-      for (var i = 0; i < this.equipments.camera.length; i++) {
-        this.Equipments.camera.push(this.equipments.camera[i].name);
-      }
-      for (var k = 0; k < this.equipments.monitor.length; k++) {
-        this.Equipments.monitor.push(this.equipments.monitor[k].name);
-      }
-      for (var m = 0; m < this.equipments.MicAudio.length; m++) {
-        this.Equipments.micAudio.push(this.equipments.MicAudio[m].name);
-      }
-      for (var l = 0; l < this.equipments.LightSubFilm.length; l++) {
-        this.Equipments.lightSubFilm.push(this.equipments.LightSubFilm[l].name);
-      }
-    }
+    this.setEquipmentValue();
   },
   watch: {
     Selected(newVal, oldVal) {
@@ -444,8 +438,12 @@ export default {
         this.selectedEndTime = 0;
       }
       this.confirmSelectedTime(false);
-      this.getDisableEquipment();
       console.log("timeList: " + this.timeList);
+
+      // 초기화
+      this.resetEquipmentPrice();
+      this.resetEquipmentData();
+      this.getDisableEquipment();
     },
 
     // 클래스 부여
@@ -496,6 +494,42 @@ export default {
       this.selectedEndTime = 0;
       this.timeDialog = false;
     },
+    resetEquipmentData() {
+      var lowerType = ["camera", "monitor", "micAudio", "lightSubFilm"];
+
+      for (var r = 0; r < lowerType.length; r++) {
+        this.Equipments[lowerType[r]] = [];
+      }
+      this.setEquipmentValue();
+    },
+    resetEquipmentPrice() {
+      this.Selected.camera = [];
+      this.Selected.micAudio = [];
+      this.Selected.lightSubFilm = [];
+      this.Selected.monitor = [];
+      this.equipmentPrice = 0;
+      if (this.equipmentPrice <= 0) {
+        this.equipmentPrice = 0;
+      }
+    },
+    setEquipmentValue() {
+      if (this.equipments) {
+        for (var i = 0; i < this.equipments.camera.length; i++) {
+          this.Equipments.camera.push(this.equipments.camera[i].name);
+        }
+        for (var k = 0; k < this.equipments.monitor.length; k++) {
+          this.Equipments.monitor.push(this.equipments.monitor[k].name);
+        }
+        for (var m = 0; m < this.equipments.MicAudio.length; m++) {
+          this.Equipments.micAudio.push(this.equipments.MicAudio[m].name);
+        }
+        for (var l = 0; l < this.equipments.LightSubFilm.length; l++) {
+          this.Equipments.lightSubFilm.push(
+            this.equipments.LightSubFilm[l].name
+          );
+        }
+      }
+    },
 
     updateDate(date) {
       if (Array.isArray(date)) {
@@ -503,6 +537,8 @@ export default {
       }
       this.date = this.date.toISOString().slice(0, 10);
       console.log(this.date);
+      this.disableEquipmentNum = [];
+      this.resetEquipmentPrice();
       this.getDisabledate();
     },
 
@@ -589,6 +625,7 @@ export default {
         micAudio: [16, 17, 18, 19, 20],
         lightSubFilm: [21, 22, 23],
       };
+
       console.log("type : " + type);
 
       if (bool === false) {
@@ -626,6 +663,11 @@ export default {
           this.Selected.equipmentNum = this.Selected.equipmentNum.filter(
             (num) => !equipmentNumRange[type].includes(num)
           );
+
+          this.disableEquipmentNum = this.disableEquipmentNum.filter(
+            (num) => !equipmentNumRange[type].includes(num)
+          );
+
           this.Selected[type] = [];
           this.PriceCalc();
         }
@@ -653,7 +695,10 @@ export default {
       if (this.num <= this.rooms[0].numMin) {
         this.numPrice = 0;
       }
-      console.log(this.numPrice);
+
+      if (this.equipmentPrice <= 0) {
+        this.equipmentPrice = 0;
+      }
       this.totalPrice =
         this.rooms[0].price * this.timeHour +
         this.equipmentPrice +
@@ -716,7 +761,7 @@ export default {
       console.log("삭제된 항목 : " + removedSelected);
       console.log(equipmentType);
       if (this.equipments[equipmentType]) {
-        // 두번째 항목이 있을시에 가격 대입 시행(오류방지)
+        // 항목이 있을시에 가격 대입 시행(오류방지)
         for (var k = 0; k < this.equipments[equipmentType].length; k++) {
           // 전역 변수 equipments.parameter 리스트 for문
           let currentNum =
@@ -758,25 +803,6 @@ export default {
         }
       }
 
-      // removedSelected.forEach((removedNum) => {
-      //   Object.keys(this.equipments).forEach((equipType) => {
-      //     this.equipments[equipType].forEach((equipment) => {
-      //       if (equipment.equipmentNum === removedNum) {
-      //         this.equipmentPrice -= equipment.price;
-      //         console.log("장비 제거 " + equipment.price);
-      //       }
-      //     });
-      //   });
-      // });
-
-      // for (var a = 0; a < this.equipments[equipmentType].length; a++) {
-      //   if (
-      //     this.equipments[equipmentType][a].equipmentNum === removedSelected[0]
-      //   ) {
-      //     this.equipmentPrice -= 2 * this.equipments[equipmentType][a].price;
-      //     console.log("장비 취소" + this.equipments[equipmentType][a].price);
-      //   }
-      // }
       console.log("총 가격" + this.equipmentPrice);
     },
 
@@ -868,32 +894,41 @@ export default {
     },
     getDisableState(response) {
       var type = ["camera", "monitor", "MicAudio", "LightSubFilm"];
+      var lowerType = ["camera", "monitor", "micAudio", "lightSubFilm"];
 
-      const disableEquipmentNum = [];
+      this.disableEquipmentName = [];
+      this.disableEquipmentNum = [];
+      this.Selected.equipmentNum = [];
+      this.resetEquipmentPrice();
+      this.resetEquipmentData();
 
       for (var i = 0; i < response.length; i++) {
         const EquipmentNum = response[i].equipmentNum;
         const EquipmentState = response[i].equipmentState;
 
         if (EquipmentState === 0) {
-          disableEquipmentNum.push(EquipmentNum);
+          this.disableEquipmentNum.push(EquipmentNum);
         }
       }
-      const disableEquipmentNumList = [...new Set(disableEquipmentNum)];
+      this.disableEquipmentNum = [...new Set(this.disableEquipmentNum)];
 
-      console.log(disableEquipmentNumList); // 사용 불가능 장비 번호
+      console.log("사용 불가능 장비 번호" + this.disableEquipmentNum); // 사용 불가능 장비 번호
 
       for (var j = 0; j < type.length; j++) {
         for (var k = 0; k < this.equipments[type[j]].length; k++) {
-          for (var l = 0; l < disableEquipmentNumList.length; l++) {
+          for (var l = 0; l < this.disableEquipmentNum.length; l++) {
             if (
               this.equipments[type[j]][k].equipmentNum ===
-              disableEquipmentNumList[l]
+              this.disableEquipmentNum[l]
             ) {
               this.disableEquipmentName.push(this.equipments[type[j]][k].name);
             }
           }
         }
+
+        this.Equipments[lowerType[j]] = this.Equipments[lowerType[j]].filter(
+          (item) => !this.disableEquipmentName.includes(item)
+        );
       }
       console.log(this.disableEquipmentName); // 사용 불가능 장비 이름
     },
@@ -1194,6 +1229,8 @@ export default {
       }
     }
   }
+}
+@media screen and (min-width: 940px) and (max-width: 950px) {
 }
 
 // 노트북
