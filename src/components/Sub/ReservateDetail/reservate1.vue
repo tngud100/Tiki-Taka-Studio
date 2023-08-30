@@ -4,37 +4,21 @@
     <HeaderNav />
     <HeaderTitle :title-data="title" :bg-image="bgImage" />
     <div class="title-con">
-      <span class="title">티앤티 스튜디오 {{ rooms[0].title }}</span>
+      <span class="title">{{ rooms[0].title }}</span>
     </div>
     <div class="container">
       <div class="img-con">
         <img :src="rooms[0].imageSrc" class="img" alt="studio" />
         <div class="img-info">
-          <p class="img-title">
-            화이트로 꾸며진 다양한 컨셉공간 [회사,부엌,공방,휴식]
-          </p>
+          <!-- <p class="img-title">워터 스튜디오</p> -->
         </div>
         <div class="descript">
           <p class="intro">장소 소개</p>
-          <br />
-          <p>🤍 다양한 컨셉 공간</p>
-          <p>: 약 100평의 넓은 공간을</p>
-          <p>각 컨셉에 맞게 인테리어 해놓았습니다</p>
-          <br />
+          <p>- 폭 1.45m, 넓이 약 3m의 미니 수영장이 있는 공간입니다</p>
+          <p>- 물을 이용한 콘텐츠나 화보를 촬영할 수 있습니다</p>
           <p>
-            -사무공간 (25평) : 트렌디한 회사분위기 촬영을 원하신다면 좋은 그림이
-            나올만큼의 넓이와 배치가 되어있습니다 애초에 그런 웹드라마촬영쪽을
-            고려했던 배치입니다:) 실제 사무공간에서 작업을 하고있기에 소품이나
-            배치의 현장감도 살아있습니다
-          </p>
-          <p>
-            -공방 (15평) : 악세서리공예,재봉틀, 다양한 취미 등의 도구들이
-            구비되있으며 도구 및 장비/공예품 소품으로 대여 가능합니다
-          </p>
-          <p>
-            -부엌 (7평) : 미니오븐,전자레인지,냉장고, 아일랜드식탁 등 감성적인
-            홈카페 브이로그로 적합한 컨셉공간입니다 실제 조리도구들로 대여
-            가능합니다
+            - 초록빛이 도는 푸른 타일이 깔려있으며, 위에서 아래 물이 떨어지는
+            장치 또한 설치되어 있습니다.
           </p>
         </div>
       </div>
@@ -42,7 +26,10 @@
         <div class="info">
           <div class="title-info">
             <p class="title">{{ rooms[0].title }}</p>
-            <p class="price">{{ rooms[0].price.toLocaleString() }}원</p>
+            <p class="price">
+              {{ rooms[0].price.toLocaleString() }}원
+              <span style="font-size: 14"> / 시간</span>
+            </p>
             <router-link to="/CalendarReservate">
               <v-btn class="title btn">티키앤타카 예약 현황</v-btn>
             </router-link>
@@ -176,7 +163,7 @@
             <!-- 인원 테이블 -->
             <p class="num-title">총인원</p>
             <p class="sub-title">
-              최소 인원 초과시 인당
+              인원 초과시 인당
               {{ this.rooms[0].numPrice.toLocaleString() }}원 추가 비용 발생
             </p>
             <v-text-field
@@ -272,6 +259,8 @@
               :micAudio="Selected.micAudio"
               :lightSubFilm="Selected.lightSubFilm"
               :equipmentNum="Selected.equipmentNum"
+              :roomTitle="rooms[0].title"
+              :roomNum="rooms[0].studioNum"
             />
           </div>
         </div>
@@ -302,23 +291,6 @@ export default {
   },
   computed: {
     ...mapGetters(["rooms", "hostAddressName", "equipments"]),
-    disableEquipmentsOption() {
-      return (item) => {
-        console.log("disable-item :" + item);
-        if (item === "SONY FE 24-70mm F2.8 GM") {
-          return true;
-        }
-        // console.log(this.disableEquipmentName);
-        // for (var k = 0; k < item.length; k++) {
-        //   for (var i = 0; i < this.disableEquipmentName.length; i++) {
-        //     if (this.disableEquipmentName[i] === item[k]) {
-        //       console.log("item: " + item[k]);
-        //       console.log("disableEq: " + this.disableEquipmentName[i]);
-        //     }
-        //   }
-        // }
-      };
-    },
   },
   data() {
     return {
@@ -647,7 +619,8 @@ export default {
                 this.equipments[type][i].equipmentNum ===
                 this.Selected.equipmentNum[k]
               ) {
-                this.equipmentPrice -= this.equipments[type][i].price;
+                this.equipmentPrice -=
+                  this.equipments[type][i].price * this.timeHour;
                 console.log(this.equipments[type][i].price);
               }
             }
@@ -679,6 +652,7 @@ export default {
       if (this.num <= 0) {
         this.num = 0;
       }
+
       this.PriceCalc();
     },
     plusBtn() {
@@ -686,6 +660,7 @@ export default {
       if (this.num >= this.rooms[0].numMax) {
         this.num = this.rooms[0].numMax;
       }
+
       this.PriceCalc();
     },
 
@@ -772,7 +747,7 @@ export default {
             !removedSelected
           ) {
             var price = this.equipments[equipmentType][k].price;
-            this.equipmentPrice += price;
+            this.equipmentPrice += price * this.timeHour;
             this.PriceCalc();
             console.log("장비 " + this.equipments[equipmentType][k].price);
           } else if (removedSelected) {
@@ -781,7 +756,8 @@ export default {
               // for문 돌려 취소한 항목의 금액 가져오기
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -= this.equipments[equipmentType][k].price;
+              this.equipmentPrice -=
+                this.equipments[equipmentType][k].price * this.timeHour;
               this.PriceCalc();
               console.log(
                 "취소 가격" + this.equipments[equipmentType][k].price
@@ -792,7 +768,8 @@ export default {
             if (
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -= this.equipments[equipmentType][k].price;
+              this.equipmentPrice -=
+                this.equipments[equipmentType][k].price * this.timeHour;
               this.PriceCalc();
               console.log(
                 "마지막 항목 취소 가격" +
@@ -977,6 +954,7 @@ export default {
       .descript {
         .intro {
           font-weight: bold;
+          margin: 7px 0px;
         }
       }
     }
@@ -1430,20 +1408,17 @@ export default {
 
       .img-con {
         width: calc(100% - 12px);
-
         .img-info {
-          display: none;
-
           .img-title {
             font-size: 20px;
-            padding: 12px;
+            padding: 10px;
           }
         }
 
         .descript {
-          display: none;
-          padding: 12px;
+          padding: 10px;
           font-size: 16px;
+          margin-bottom: 12px;
 
           .intro {
             font-size: 20px;
@@ -1534,8 +1509,6 @@ export default {
         width: calc(100% - 12px);
 
         .img-info {
-          display: none;
-
           .img-title {
             font-size: 20px;
             padding: 12px;
@@ -1543,9 +1516,9 @@ export default {
         }
 
         .descript {
-          display: none;
           padding: 12px;
           font-size: 16px;
+          margin-bottom: 12px;
 
           .intro {
             font-size: 20px;

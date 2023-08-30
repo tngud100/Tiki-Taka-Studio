@@ -87,7 +87,7 @@ export default {
         },
         {
           URL: attach2,
-          name: "장비 대여 신청서.hwpx",
+          name: "장비 대여 관리 대장.hwp",
         },
         {
           URL: attach3,

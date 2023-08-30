@@ -295,6 +295,8 @@ export default {
     micAudio: Array,
     lightSubFilm: Array,
     equipmentNum: Array,
+    roomTitle: String,
+    roomNum: Number,
   },
   computed: {
     ...mapGetters(["rooms", "hostAddressName", "equipments"]),
@@ -314,7 +316,8 @@ export default {
         name: ["성함", this.form.name],
         email: ["이메일", this.form.email],
         phone: ["연락처", this.form.phone],
-        space: ["대여 공간 이름", this.rooms[0].title],
+        space: ["대여 공간 이름", this.roomTitle],
+        roomNum: ["스튜디오 번호", this.roomNum],
         reserveDate: ["대여 날짜", this.date],
         reserveTime: ["대여 시간", this.timeString],
         equipmentCamera: ["카메라 대여", this.camera, this.cameraPrice],
@@ -339,7 +342,9 @@ export default {
       this.timeTable = "";
     },
   },
-  mounted() {},
+  mounted() {
+    console.log(this.checkInfo);
+  },
 
   methods: {
     EquipmentPriceValue() {
@@ -378,7 +383,7 @@ export default {
       this.dialog = false;
       this.sendData(); // 데이터 베이스
       // this.sendMail(); // 구글 드라이브 저장, 메일 자동 전송
-      // location.reload();
+      location.reload();
     },
     Validcheck() {
       if (
@@ -415,7 +420,7 @@ export default {
       // console.log(this.timeTable);
 
       const data = {
-        studioNum: this.rooms[0].studioNum,
+        studioNum: this.checkInfo.roomNum[1],
         date: this.date,
         time: this.timeTable,
         equipmentTime: this.timeTable,
@@ -472,7 +477,7 @@ export default {
       const formdata = new FormData();
 
       formdata.append("userName", this.form.name);
-      formdata.append("studioName", this.rooms[0].title);
+      formdata.append("studioName", this.checkInfo.space[1]);
       formdata.append("date", this.date);
       formdata.append("time", this.timeString);
       formdata.append("peopleNum", this.num);

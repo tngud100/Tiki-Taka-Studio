@@ -173,6 +173,7 @@ export default {
       }
       console.log(this.formDataArray);
     },
+
     confirmReservation(phone, state) {
       $.ajax({
         /* 요청 시작 부분 */
@@ -189,6 +190,7 @@ export default {
         /* 응답 확인 부분 */
         success: (response) => {
           console.log(response);
+          location.reload();
         },
 
         /* 에러 확인 부분 */
@@ -204,7 +206,6 @@ export default {
           console.log("");
           console.log("[server] : [complete] : " + textStatus);
           console.log("");
-          location.reload();
         },
       });
     },
