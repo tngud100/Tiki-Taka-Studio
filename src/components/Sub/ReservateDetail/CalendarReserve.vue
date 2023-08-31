@@ -24,7 +24,7 @@
         <h3>예약 현황</h3>
         <hr style="margin: 0px 0px 12px 0px" />
         <div v-if="selectedDate">
-          <p>성함 : {{ selectedDate.originalItem.title }}</p>
+          <p>성함 : {{ this.maskString(selectedDate.originalItem.title) }}</p>
           <p>예약 날짜 : {{ selectedDate.originalItem.startDate }}</p>
           <p>스튜디오 : {{ selectedDate.originalItem.studioName }}</p>
           <p>인원수 : {{ selectedDate.originalItem.peopleNum }}명</p>
@@ -79,6 +79,7 @@ export default {
       success: (response) => {
         console.log(response);
         this.getForm(response);
+        location.reload();
       },
 
       /* 에러 확인 부분 */
@@ -87,6 +88,7 @@ export default {
         console.log("");
         console.log("[Error] : [error] : " + xhr);
         console.log("");
+        alert("오류가 발생하였습니다.");
       },
 
       /* 완료 확인 부분 */
@@ -98,6 +100,30 @@ export default {
     });
   },
   methods: {
+    maskString(str) {
+      if (typeof str !== "string" || str.length < 2) {
+        return str;
+      }
+
+      let masked = str.split("");
+
+      switch (masked.length) {
+        case 2:
+        case 3:
+          masked[1] = "*";
+          break;
+        default:
+          break;
+      }
+      if (masked.length >= 4) {
+        for (let i = 0; i < masked.length; i++) {
+          if (i >= 1 && i < masked.length - 1) {
+            masked[i] = "*"; // replace characters with * except the first and last
+          }
+        }
+      }
+      return masked.join("");
+    },
     getForm(response) {
       for (var i = 0; i < response.length; i++) {
         this.formDataArray.push(response[i]);

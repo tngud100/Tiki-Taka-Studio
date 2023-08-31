@@ -14,25 +14,40 @@
         </div>
         <div class="descript">
           <p class="intro">장소 소개</p>
-          <p>- 폭 1.45m, 넓이 약 3m의 미니 수영장이 있는 공간입니다</p>
-          <p>- 물을 이용한 콘텐츠나 화보를 촬영할 수 있습니다</p>
+          <p>- 2인의 크리에이터가 콘텐츠를 촬영할 수 있는 공간입니다.</p>
           <p>
-            - 초록빛이 도는 푸른 타일이 깔려있으며, 위에서 아래 물이 떨어지는
-            장치 또한 설치되어 있습니다.
+            - 고사양의 PC와 웹캠, 마이크, 스위치 등 최신 1인미디어 방송 장비를
+            갖추고 있습니다.
+          </p>
+          <p>
+            - 유튜브, 트위치 등 라이브 스트리밍과 녹화 모두 진행하실 수
+            있습니다.
           </p>
         </div>
       </div>
       <div class="info-con">
         <div class="info">
           <div class="title-info">
-            <p class="title">{{ rooms[1].title }}</p>
-            <p class="price">
-              {{ rooms[1].price.toLocaleString() }}원
-              <span style="font-size: 14"> / 시간</span>
-            </p>
-            <router-link to="/CalendarReservate">
-              <v-btn class="title btn">티키앤타카 예약 현황</v-btn>
-            </router-link>
+            <div>
+              <p class="title">{{ rooms[1].title }}</p>
+              <p class="price">
+                {{ rooms[1].price.toLocaleString() }}원
+                <span style="font-size: 14"> / 시간</span>
+              </p>
+              <p class="price">
+                <span style="font-size: 14px">
+                  ( 인원수 : 최소 {{ rooms[1].numMin }}명 ~ 최대
+                  {{ rooms[1].numMax }}명)
+                </span>
+              </p>
+            </div>
+            <div
+              style="text-align: right; display: flex; align-items: flex-end"
+            >
+              <router-link to="/CalendarReservate">
+                <v-btn class="title btn">티키앤타카 예약 현황</v-btn>
+              </router-link>
+            </div>
           </div>
           <hr />
           <div class="schedule-con">
@@ -266,6 +281,13 @@
         </div>
       </div>
     </div>
+    <div class="btn-box">
+      <div class="btn">
+        <router-link :to="{ path: '/ask', query: { category: '스튜디오' } }">
+          <span class="btn-text">목록으로</span>
+        </router-link>
+      </div>
+    </div>
     <Footer />
   </section>
 </template>
@@ -291,25 +313,10 @@ export default {
   },
   computed: {
     ...mapGetters(["rooms", "hostAddressName", "equipments"]),
-    disableEquipmentsOption() {
-      return (item) => {
-        console.log("disable-item :" + item);
-        if (item === "SONY FE 24-70mm F2.8 GM") {
-          return true;
-        }
-        // console.log(this.disableEquipmentName);
-        // for (var k = 0; k < item.length; k++) {
-        //   for (var i = 0; i < this.disableEquipmentName.length; i++) {
-        //     if (this.disableEquipmentName[i] === item[k]) {
-        //       console.log("item: " + item[k]);
-        //       console.log("disableEq: " + this.disableEquipmentName[i]);
-        //     }
-        //   }
-        // }
-      };
-    },
   },
   data() {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
     return {
       title: "예약하기",
       bgImage: [
@@ -320,7 +327,7 @@ export default {
       studioImage: [require("@/assets/studio/studio3.svg")],
       dialog: false,
       disableDate: {
-        to: new Date(),
+        to: yesterday,
         from: null,
       },
       date: null,
@@ -636,7 +643,8 @@ export default {
                 this.equipments[type][i].equipmentNum ===
                 this.Selected.equipmentNum[k]
               ) {
-                this.equipmentPrice -= this.equipments[type][i].price;
+                this.equipmentPrice -=
+                  this.equipments[type][i].price * this.timeHour;
                 console.log(this.equipments[type][i].price);
               }
             }
@@ -668,6 +676,7 @@ export default {
       if (this.num <= 0) {
         this.num = 0;
       }
+
       this.PriceCalc();
     },
     plusBtn() {
@@ -675,6 +684,7 @@ export default {
       if (this.num >= this.rooms[1].numMax) {
         this.num = this.rooms[1].numMax;
       }
+
       this.PriceCalc();
     },
 
@@ -761,7 +771,7 @@ export default {
             !removedSelected
           ) {
             var price = this.equipments[equipmentType][k].price;
-            this.equipmentPrice += price;
+            this.equipmentPrice += price * this.timeHour;
             this.PriceCalc();
             console.log("장비 " + this.equipments[equipmentType][k].price);
           } else if (removedSelected) {
@@ -770,7 +780,8 @@ export default {
               // for문 돌려 취소한 항목의 금액 가져오기
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -= this.equipments[equipmentType][k].price;
+              this.equipmentPrice -=
+                this.equipments[equipmentType][k].price * this.timeHour;
               this.PriceCalc();
               console.log(
                 "취소 가격" + this.equipments[equipmentType][k].price
@@ -781,7 +792,8 @@ export default {
             if (
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -= this.equipments[equipmentType][k].price;
+              this.equipmentPrice -=
+                this.equipments[equipmentType][k].price * this.timeHour;
               this.PriceCalc();
               console.log(
                 "마지막 항목 취소 가격" +
@@ -980,6 +992,8 @@ export default {
         .title-info {
           font-family: "Pretendard-Regular";
           font-weight: bold;
+          display: flex;
+          justify-content: space-between;
         }
 
         .schedule-con {
@@ -1005,7 +1019,7 @@ export default {
           .time-box {
             border: solid 1px rgb(204, 204, 204);
             border-radius: 10px;
-            text-align: center;
+            text-align: left;
           }
 
           .num-title {
@@ -1025,6 +1039,39 @@ export default {
       .price-box {
         display: flex;
         justify-content: space-between;
+      }
+    }
+  }
+  .btn-box {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btn {
+      width: 150px;
+      height: 50px;
+      border: solid 1px rgb(0, 0, 0);
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+
+      cursor: pointer;
+      .btn-text {
+        font-family: "sans-serif";
+        color: rgb(0, 0, 0);
+      }
+    }
+    a {
+      text-decoration: none;
+    }
+    .btn:hover {
+      border: solid 1px #805bea;
+      box-shadow: 1px 1px 5px 1px whitesmoke;
+
+      .btn-text {
+        color: #805bea;
       }
     }
   }

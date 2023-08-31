@@ -70,7 +70,7 @@ export default {
           value: "/news",
         },
         {
-          title: "문의하기",
+          title: "문의/예약",
           value: "/ask",
         },
       ],

@@ -2,7 +2,6 @@
   <div class="text-center">
     <v-dialog
       v-model="dialog"
-      width="800"
       style="font-family: 'Pretendard-Regular'; font-size: 16px"
     >
       <template v-slot:activator="{ props }">
@@ -16,10 +15,10 @@
           :disabled="!Validcheck()"
           @click="EquipmentPriceValue()"
         >
-          지금 예약하기
+          예약하기
         </v-btn>
       </template>
-      <v-card class="mx-auto" max-width="600">
+      <v-card class="mx-auto">
         <v-card-title class="d-flex font-weight-bold justify-center">
           <span>{{ currentTitle }}</span>
         </v-card-title>
@@ -27,8 +26,8 @@
         <v-divider></v-divider>
 
         <v-window v-model="step">
-          <v-window-item :value="1">
-            <v-card-text style="width: 500px">
+          <v-window-item class="v-card1" :value="1">
+            <v-card-text>
               <v-text-field
                 variant="outlined"
                 label="성함"
@@ -65,7 +64,7 @@
             </v-card-text>
           </v-window-item>
 
-          <v-window-item :value="2">
+          <v-window-item class="v-card2" :value="2">
             <v-card-text>
               <div class="reservate-check-form">
                 <p class="title">개인 정보</p>
@@ -123,6 +122,7 @@
                           checkInfo.equipmentCamera[2][index].toLocaleString() +
                           "원"
                         }}
+                        * {{ checkInfo.reserveTime[1].slice(-3) }}
                       </p>
                     </div>
                   </div>
@@ -148,6 +148,7 @@
                             index
                           ].toLocaleString() + "원"
                         }}
+                        * {{ checkInfo.reserveTime[1].slice(-3) }}
                       </p>
                     </div>
                   </div>
@@ -175,6 +176,7 @@
                             index
                           ].toLocaleString() + "원"
                         }}
+                        * {{ checkInfo.reserveTime[1].slice(-3) }}
                       </p>
                     </div>
                   </div>
@@ -202,6 +204,7 @@
                             index
                           ].toLocaleString() + "원"
                         }}
+                        * {{ checkInfo.reserveTime[1].slice(-3) }}
                       </p>
                     </div>
                   </div>
@@ -227,7 +230,7 @@
             </v-card-text>
           </v-window-item>
 
-          <v-window-item :value="3">
+          <v-window-item class="v-card3" :value="3">
             <div class="pa-4 text-center">
               <v-img class="mb-4" contain height="75" :src="img"></v-img>
               <h3 class="text-h7 font-weight-bold mb-2">국민은행</h3>
@@ -235,6 +238,7 @@
               <p class="text-caption">
                 입금이 확인될시에 기입하신 이메일로 확인 메일이 전송 됩니다
               </p>
+              <p class="text-caption">입금완료가 되어야 예약이 확정 됩니다.</p>
               <span class="text-caption text-grey">무통장 입금</span>
             </div>
           </v-window-item>
@@ -246,6 +250,7 @@
           <v-btn v-if="step > 1" variant="text" @click="step--"> 이전 </v-btn>
           <v-spacer></v-spacer>
           <v-btn
+            class="PC-nextBtn"
             v-if="step < 3"
             color="primary"
             variant="flat"
@@ -257,6 +262,15 @@
 
           <v-btn v-if="step >= 3" variant="text" @click="finishBtn">
             완료
+          </v-btn>
+          <v-btn
+            class="tablet-nextBtn"
+            v-if="step < 3"
+            color="primary"
+            variant="flat"
+            @click="step++"
+          >
+            다음
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -382,7 +396,7 @@ export default {
     finishBtn() {
       this.dialog = false;
       this.sendData(); // 데이터 베이스
-      // this.sendMail(); // 구글 드라이브 저장, 메일 자동 전송
+      this.sendMail(); // 구글 드라이브 저장, 메일 자동 전송
       location.reload();
     },
     Validcheck() {
@@ -465,7 +479,6 @@ export default {
 
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
-          alert("신청이 완료 되었습니다. 메일을 확인해 주세요.");
           console.log("");
           console.log("[serverUpload] : [complete] : " + textStatus);
           console.log("");
@@ -486,13 +499,17 @@ export default {
         "phone",
         this.form.phone.replace(/[^0-9]/g, "").slice(0, 11)
       );
-      formdata.append("totlaPrice", this.totalPrice.toLocaleString());
+      formdata.append("camera", this.checkInfo.equipmentCamera[1]);
+      formdata.append("monitor", this.checkInfo.equipmentMonitor[1]);
+      formdata.append("micAudio", this.checkInfo.equipmentMicAudio[1]);
+      formdata.append("lightSubFilm", this.checkInfo.equipmentLightSubFilm[1]);
+      formdata.append("totalPrice", this.checkInfo.totalPrice[1]);
 
       console.log([...formdata]);
 
       $.ajax({
         /* 요청 시작 부분 */
-        url: "https://script.google.com/macros/s/AKfycby0Q5Zkw5gc34Ji07DV10ABxO71uwZJPVSFTbHIfI1vHVVjKTZRre4KbwmiKqDKfk5wZg/exec", //주소
+        url: "https://script.google.com/macros/s/AKfycbzNHKTraiIkHx-_wIc7D6M5ahF7J4FN5TT2pzQqFKAGoyx7dld4t8l0a7Z4AbjKj6nxZg/exec", //주소
         data: formdata, //전송 데이터
         type: "POST", //전송 타입
         async: true, //비동기 여부
@@ -503,6 +520,7 @@ export default {
 
         /* 응답 확인 부분 */
         success: function (response) {
+          alert("신청이 완료 되었습니다. 메일을 확인해 주세요.");
           console.log("");
           console.log("[serverUploadImage] : [response] : " + response);
           console.log("");
@@ -522,7 +540,6 @@ export default {
           console.log("");
           console.log("[serverUploadImage] : [complete] : " + textStatus);
           console.log("");
-          alert("데이터를 성공적으로 전송하였습니다.");
 
           // location.reload();
         },
@@ -537,7 +554,6 @@ export default {
   font-family: "Pretendard-Regular";
   border-radius: 5px;
   padding: 0px 12px;
-  width: 400px;
 
   .info-scroll {
     max-height: 300px; /* content can grow up to 300px */
@@ -555,9 +571,7 @@ export default {
   .info-scroll::-webkit-scrollbar-track {
     background-color: lightgrey;
   }
-  ::v-deep .v-window {
-    overflow: auto;
-  }
+
   .line {
     display: flex;
     justify-content: space-between;
@@ -571,6 +585,84 @@ export default {
     font-size: 18px;
     font-weight: bold;
     margin: 10px 10px;
+  }
+}
+::v-deep .v-window {
+  overflow: auto;
+}
+.PC-nextBtn {
+  display: block;
+}
+.tablet-nextBtn {
+  display: none;
+}
+//PC XL
+@media screen and (min-width: 1300px) {
+  .v-card1,
+  .v-card2,
+  .v-card3 {
+    width: 500px;
+  }
+}
+// PC
+@media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .v-card1,
+  .v-card2,
+  .v-card3 {
+    width: 500px;
+  }
+}
+
+// 노트북
+@media screen and (min-width: 760px) and (max-width: 1080px) {
+  .v-card1,
+  .v-card2,
+  .v-card3 {
+    width: 500px;
+  }
+}
+
+// 테블릿
+@media screen and (min-width: 640px) and (max-width: 759px) {
+  .v-card1,
+  .v-card2,
+  .v-card3 {
+    width: 450px;
+  }
+}
+
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 639px) {
+  .v-card1,
+  .v-card2,
+  .v-card3 {
+    width: calc(100vw - 80px);
+  }
+  .reservate-check-form {
+    width: 100%;
+    padding: 0px 6px;
+    .title {
+      margin: 10px 0px;
+    }
+    .line {
+      span {
+        padding: 0px;
+      }
+      p {
+      }
+    }
+  }
+  .v-card-text {
+    padding: 8px;
+  }
+}
+
+@media screen and (min-width: 940px) and (max-width: 950px) {
+  .PC-nextBtn {
+    display: none;
+  }
+  .tablet-nextBtn {
+    display: block;
   }
 }
 </style>

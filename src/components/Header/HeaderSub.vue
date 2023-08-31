@@ -300,7 +300,7 @@ export default {
       }
       a {
         margin: 0px 15px;
-        font-size: 18px;
+        font-size: 16px;
       }
       .menu-icon {
         a {
@@ -333,7 +333,7 @@ export default {
         display: none !important;
         a {
           margin: 0px 15px;
-          font-size: 16px;
+          font-size: 14px;
         }
       }
       .menu-icon {
@@ -366,7 +366,7 @@ export default {
         a {
           display: none !important;
           margin: 0px 4px;
-          font-size: 16px;
+          font-size: 14px;
         }
       }
       .menu-icon {

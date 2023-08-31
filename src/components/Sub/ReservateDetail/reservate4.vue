@@ -25,14 +25,26 @@
       <div class="info-con">
         <div class="info">
           <div class="title-info">
-            <p class="title">{{ rooms[3].title }}</p>
-            <p class="price">
-              {{ rooms[3].price.toLocaleString() }}원
-              <span style="font-size: 14"> / 시간</span>
-            </p>
-            <router-link to="/CalendarReservate">
-              <v-btn class="title btn">티키앤타카 예약 현황</v-btn>
-            </router-link>
+            <div>
+              <p class="title">{{ rooms[3].title }}</p>
+              <p class="price">
+                {{ rooms[3].price.toLocaleString() }}원
+                <span style="font-size: 14"> / 시간</span>
+              </p>
+              <p class="price">
+                <span style="font-size: 14px">
+                  ( 인원수 : 최소 {{ rooms[3].numMin }}명 ~ 최대
+                  {{ rooms[3].numMax }}명)
+                </span>
+              </p>
+            </div>
+            <div
+              style="text-align: right; display: flex; align-items: flex-end"
+            >
+              <router-link to="/CalendarReservate">
+                <v-btn class="title btn">티키앤타카 예약 현황</v-btn>
+              </router-link>
+            </div>
           </div>
           <hr />
           <div class="schedule-con">
@@ -266,6 +278,13 @@
         </div>
       </div>
     </div>
+    <div class="btn-box">
+      <div class="btn">
+        <router-link :to="{ path: '/ask', query: { category: '스튜디오' } }">
+          <span class="btn-text">목록으로</span>
+        </router-link>
+      </div>
+    </div>
     <Footer />
   </section>
 </template>
@@ -293,6 +312,8 @@ export default {
     ...mapGetters(["rooms", "hostAddressName", "equipments"]),
   },
   data() {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
     return {
       title: "예약하기",
       bgImage: [
@@ -303,7 +324,7 @@ export default {
       studioImage: [require("@/assets/studio/studio3.svg")],
       dialog: false,
       disableDate: {
-        to: new Date(),
+        to: yesterday,
         from: null,
       },
       date: null,
@@ -619,7 +640,8 @@ export default {
                 this.equipments[type][i].equipmentNum ===
                 this.Selected.equipmentNum[k]
               ) {
-                this.equipmentPrice -= this.equipments[type][i].price;
+                this.equipmentPrice -=
+                  this.equipments[type][i].price * this.timeHour;
                 console.log(this.equipments[type][i].price);
               }
             }
@@ -746,7 +768,7 @@ export default {
             !removedSelected
           ) {
             var price = this.equipments[equipmentType][k].price;
-            this.equipmentPrice += price;
+            this.equipmentPrice += price * this.timeHour;
             this.PriceCalc();
             console.log("장비 " + this.equipments[equipmentType][k].price);
           } else if (removedSelected) {
@@ -755,7 +777,8 @@ export default {
               // for문 돌려 취소한 항목의 금액 가져오기
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -= this.equipments[equipmentType][k].price;
+              this.equipmentPrice -=
+                this.equipments[equipmentType][k].price * this.timeHour;
               this.PriceCalc();
               console.log(
                 "취소 가격" + this.equipments[equipmentType][k].price
@@ -766,7 +789,8 @@ export default {
             if (
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -= this.equipments[equipmentType][k].price;
+              this.equipmentPrice -=
+                this.equipments[equipmentType][k].price * this.timeHour;
               this.PriceCalc();
               console.log(
                 "마지막 항목 취소 가격" +
@@ -965,6 +989,8 @@ export default {
         .title-info {
           font-family: "Pretendard-Regular";
           font-weight: bold;
+          display: flex;
+          justify-content: space-between;
         }
 
         .schedule-con {
@@ -990,7 +1016,7 @@ export default {
           .time-box {
             border: solid 1px rgb(204, 204, 204);
             border-radius: 10px;
-            text-align: center;
+            text-align: left;
           }
 
           .num-title {
@@ -1010,6 +1036,39 @@ export default {
       .price-box {
         display: flex;
         justify-content: space-between;
+      }
+    }
+  }
+  .btn-box {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btn {
+      width: 150px;
+      height: 50px;
+      border: solid 1px rgb(0, 0, 0);
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+
+      cursor: pointer;
+      .btn-text {
+        font-family: "sans-serif";
+        color: rgb(0, 0, 0);
+      }
+    }
+    a {
+      text-decoration: none;
+    }
+    .btn:hover {
+      border: solid 1px #805bea;
+      box-shadow: 1px 1px 5px 1px whitesmoke;
+
+      .btn-text {
+        color: #805bea;
       }
     }
   }
