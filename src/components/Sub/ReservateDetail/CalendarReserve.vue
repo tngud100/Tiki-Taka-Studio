@@ -79,7 +79,6 @@ export default {
       success: (response) => {
         console.log(response);
         this.getForm(response);
-        location.reload();
       },
 
       /* 에러 확인 부분 */
