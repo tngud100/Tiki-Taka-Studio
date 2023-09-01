@@ -43,8 +43,8 @@ import { CalendarView, CalendarViewHeader } from "vue-simple-calendar";
 import "vue-simple-calendar/dist/css/default.css";
 import "vue-simple-calendar/dist/css/holidays-us.css";
 
-import $ from "jquery";
 import { mapGetters } from "vuex";
+import { fetchCalendarData } from "@/apiService.js";
 
 export default {
   name: "app",
@@ -68,35 +68,48 @@ export default {
     "calendar-view": window.CalendarView,
   },
   mounted() {
-    $.ajax({
-      /* 요청 시작 부분 */
-      url: this.hostAddressName + "/studio/reserve/CalendarReservate",
-      method: "GET",
-      type: "get", //전송 타입
-      dataType: "json",
-
-      /* 응답 확인 부분 */
-      success: (response) => {
+    fetchCalendarData()
+      .then((response) => {
         console.log(response);
-        this.getForm(response);
-      },
+        // Handle the response
+      })
+      .catch((error) => {
+        console.log("");
+        console.log("[Error]:", error);
+        console.log("");
+        alert("An error occurred.");
+      });
+    // $.ajax({
+    //   /* 요청 시작 부분 */
+    //   // url: this.hostAddressName + "/studio/reserve/CalendarReservate",
+    //   // url: "http://티키타카.kr:81/studio/reserve/CalendarReservate",
+    //   url: api.defaults.baseURL +"/studio/reserve/CalendarReservate",
+    //   method: "GET",
+    //   type: "get", //전송 타입
+    //   dataType: "json",
 
-      /* 에러 확인 부분 */
-      error: function (xhr) {
-        // alert("전송 실패");
-        console.log("");
-        console.log("[Error] : [error] : " + xhr);
-        console.log("");
-        alert("오류가 발생하였습니다.");
-      },
+    //   /* 응답 확인 부분 */
+    //   success: (response) => {
+    //     console.log(response);
+    //     this.getForm(response);
+    //   },
 
-      /* 완료 확인 부분 */
-      complete: function (xhr, textStatus) {
-        console.log("");
-        console.log("[server] : [complete] : " + textStatus);
-        console.log("");
-      },
-    });
+    //   /* 에러 확인 부분 */
+    //   error: function (xhr) {
+    //     // alert("전송 실패");
+    //     console.log("");
+    //     console.log("[Error] : [error] : " + xhr);
+    //     console.log("");
+    //     alert("오류가 발생하였습니다.");
+    //   },
+
+    //   /* 완료 확인 부분 */
+    //   complete: function (xhr, textStatus) {
+    //     console.log("");
+    //     console.log("[server] : [complete] : " + textStatus);
+    //     console.log("");
+    //   },
+    // });
   },
   methods: {
     maskString(str) {

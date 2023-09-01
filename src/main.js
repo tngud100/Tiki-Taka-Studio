@@ -9,6 +9,13 @@ import router from "./router.js";
 import Carousel3d from "vue3-carousel-3d";
 import "vue3-carousel-3d/dist/index.css";
 
+import axios from 'axios';
+import config from '@/config.js';
+
+const api = axios.create({
+  baseURL: process.env.NODE_ENV === 'production' ? config.production.apiUrl : config.development.apiUrl,
+});
+
 loadFonts();
 
 createApp(App)
@@ -17,3 +24,5 @@ createApp(App)
   .use(store)
   .use(Carousel3d)
   .mount("#app");
+
+export { api };

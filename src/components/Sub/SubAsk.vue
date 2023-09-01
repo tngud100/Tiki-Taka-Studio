@@ -493,7 +493,7 @@ export default {
 
       $.ajax({
         /* 요청 시작 부분 */
-        url: "https://script.google.com/macros/s/AKfycbzqm2oB3s4Epdwl1BHRcciZnHu9jgdqmkngjIz7EIR1JlkfpJ-lZCGkP7oAo44gfpYE/exec", //주소
+        url: "https://script.google.com/macros/s/AKfycbw4OTaGRWe7VzZRjcgFMTgN2REXXLFZYjg_vDDlzdz1-ndkaKkKuOENMhefBxPH4IxH/exec", //주소
         data: formdata, //전송 데이터
         type: "POST", //전송 타입
         async: true, //비동기 여부
