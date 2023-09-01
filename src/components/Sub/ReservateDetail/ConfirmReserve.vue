@@ -190,7 +190,6 @@ export default {
         /* 응답 확인 부분 */
         success: (response) => {
           console.log(response);
-          location.reload();
         },
 
         /* 에러 확인 부분 */
@@ -203,6 +202,8 @@ export default {
 
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
+          location.reload();
+
           console.log("");
           console.log("[server] : [complete] : " + textStatus);
           console.log("");

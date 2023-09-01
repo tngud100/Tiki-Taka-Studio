@@ -14,13 +14,14 @@
         </div>
         <div class="descript">
           <p class="intro">장소 소개</p>
-          <p>- 다수 크리에이터가 콘텐츠를 촬영할 수 있는 공간입니다.</p>
+          <p>- 1인 크리에이터가 콘텐츠를 촬영할 수 있는 공간입니다.</p>
           <p>
-            - 소파와 테이블 등 편안하게 토크를 할 수 있도록 인테리어를
-            해두었습니다
+            - 고사양의 PC와 웹캠, 마이크, 스위치 등 최신 1인미디어 방송 장비를
+            갖추고 있습니다.
           </p>
           <p>
-            - 라이브 스트리밍보다는 녹화 위주로 진행할 수 있도록 되어 있습니다.
+            - 유튜브, 트위치 등 라이브 스트리밍과 녹화 모두 진행하실 수
+            있습니다.
           </p>
         </div>
       </div>
@@ -35,8 +36,8 @@
               </p>
               <p class="price">
                 <span style="font-size: 14px">
-                  ( 인원수 : 최소 {{ rooms[2].numMin }}명 ~ 최대
-                  {{ rooms[2].numMax }}명)
+                  ( 인원수 : 최소 {{ rooms[2].numMin }}인 ~ 최대
+                  {{ rooms[2].numMax }}인)
                 </span>
               </p>
             </div>
@@ -241,8 +242,8 @@
               <div class="price-box">
                 <span class="price-text">
                   인원수
-                  {{ this.num }}명 x {{ rooms[2].numPrice.toLocaleString() }}원
-                  ( 최소 {{ rooms[2].numMin }}명 ~ 최대 {{ rooms[2].numMax }}명)
+                  {{ this.num }}인 x {{ rooms[2].numPrice.toLocaleString() }}원
+                  ( 최소 {{ rooms[2].numMin }}인 ~ 최대 {{ rooms[2].numMax }}인)
                 </span>
                 <span class="price-value">
                   {{ this.numPrice.toLocaleString() }}원

@@ -14,18 +14,14 @@
         </div>
         <div class="descript">
           <p class="intro">장소 소개</p>
+          <p>- 1인 크리에이터가 콘텐츠를 촬영할 수 있는 공간입니다.</p>
           <p>
-            - 폭 9.14m, 넓이 6.31m, 높이 2.76m의 초대형 크로마키 공간입니다.
+            - 고사양의 PC와 웹캠, 마이크, 스위치 등 최신 1인미디어 방송 장비를
+            갖추고 있습니다.
           </p>
           <p>
-            - 인테리어부터 장비 설치까지 현업 종사자, 콘텐츠 기획자, 영상
-            제작자의 노하우가 녹아있어 출연진만 아니라 스태프도 편하고 널찍하게
-            이용할 수 있습니다.
-          </p>
-          <p>
-            - 이용 시, 선명하고 자연스러운 영상을 촬영하기 위하여, 천장에
-            균일하게 설치한 조명에 더해 추가적인 조명 장비를 대여하여, 스크린의
-            그림자를 최소화할 수 있도록 상주 직원이 도와드립니다.
+            - 유튜브, 트위치 등 라이브 스트리밍과 녹화 모두 진행하실 수
+            있습니다.
           </p>
         </div>
       </div>
@@ -40,8 +36,8 @@
               </p>
               <p class="price">
                 <span style="font-size: 14px">
-                  ( 인원수 : 최소 {{ rooms[5].numMin }}명 ~ 최대
-                  {{ rooms[5].numMax }}명)
+                  ( 인원수 : 최소 {{ rooms[5].numMin }}인 ~ 최대
+                  {{ rooms[5].numMax }}인)
                 </span>
               </p>
             </div>
@@ -246,8 +242,8 @@
               <div class="price-box">
                 <span class="price-text">
                   인원수
-                  {{ this.num }}명 x {{ rooms[5].numPrice.toLocaleString() }}원
-                  ( 최소 {{ rooms[5].numMin }}명 ~ 최대 {{ rooms[5].numMax }}명)
+                  {{ this.num }}인 x {{ rooms[5].numPrice.toLocaleString() }}원
+                  ( 최소 {{ rooms[5].numMin }}인 ~ 최대 {{ rooms[5].numMax }}인)
                 </span>
                 <span class="price-value">
                   {{ this.numPrice.toLocaleString() }}원

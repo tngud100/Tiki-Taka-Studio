@@ -29,7 +29,7 @@
         >
           <div :class="'hover-filter' + index">
             <span class="hover-text">
-              [{{ card.numMin }}인실]
+              [ {{ card.numMin }}인 ]
               {{ card.title }}
             </span>
           </div>
@@ -43,7 +43,7 @@
           </div>
           <div class="card-titleText">
             <span class="creator-name"
-              >[{{ card.numMin }}인실] {{ card.title }}</span
+              >[{{ card.numMin }}인] {{ card.title }}</span
             >
             <span class="creator-name">{{ card.Price }}</span>
           </div>

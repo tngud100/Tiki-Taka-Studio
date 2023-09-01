@@ -14,9 +14,4 @@ export default {
   src: url("@/assets/font/Pretendard-Regular.woff") format("woff");
   font-style: normal;
 }
-* {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-}
 </style>

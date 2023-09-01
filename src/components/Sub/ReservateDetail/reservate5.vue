@@ -14,16 +14,14 @@
         </div>
         <div class="descript">
           <p class="intro">장소 소개</p>
-          <p>- 폭 5.5m, 넓이 4.7m, 높이 2.76m의 호리존 공간입니다.</p>
+          <p>- 1인 크리에이터가 콘텐츠를 촬영할 수 있는 공간입니다.</p>
           <p>
-            - 여러 인원이 함께 촬영하기에 충분히 여유로운 공간이며, 제품 누끼를
-            위한 촬영, 모델·제품 연출 컷 등 피사체를 강조하는 촬영을 고퀄리티로
-            할 수 있도록 하였습니다.
+            - 고사양의 PC와 웹캠, 마이크, 스위치 등 최신 1인미디어 방송 장비를
+            갖추고 있습니다.
           </p>
-          <p>- 토크쇼는 물론, 교육 등 다양한 콘텐츠도 촬영할 수 있습니다.</p>
           <p>
-            - 촬영 전 상주 전문 인력이 조도와 채광도 적합하게 조절해드리며
-            사전에 협의한 바에 따라 비품/소품도 세팅해 드립니다.
+            - 유튜브, 트위치 등 라이브 스트리밍과 녹화 모두 진행하실 수
+            있습니다.
           </p>
         </div>
       </div>
@@ -38,8 +36,8 @@
               </p>
               <p class="price">
                 <span style="font-size: 14px">
-                  ( 인원수 : 최소 {{ rooms[4].numMin }}명 ~ 최대
-                  {{ rooms[4].numMax }}명)
+                  ( 인원수 : 최소 {{ rooms[4].numMin }}인 ~ 최대
+                  {{ rooms[4].numMax }}인)
                 </span>
               </p>
             </div>
@@ -244,8 +242,8 @@
               <div class="price-box">
                 <span class="price-text">
                   인원수
-                  {{ this.num }}명 x {{ rooms[4].numPrice.toLocaleString() }}원
-                  ( 최소 {{ rooms[4].numMin }}명 ~ 최대 {{ rooms[4].numMax }}명)
+                  {{ this.num }}인 x {{ rooms[4].numPrice.toLocaleString() }}원
+                  ( 최소 {{ rooms[4].numMin }}인 ~ 최대 {{ rooms[4].numMax }}인)
                 </span>
                 <span class="price-value">
                   {{ this.numPrice.toLocaleString() }}원

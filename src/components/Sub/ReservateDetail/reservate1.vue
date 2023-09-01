@@ -36,8 +36,8 @@
               </p>
               <p class="price">
                 <span style="font-size: 14px">
-                  ( 인원수 : 최소 {{ rooms[0].numMin }}명 ~ 최대
-                  {{ rooms[0].numMax }}명)
+                  ( 인원수 : 최소 {{ rooms[0].numMin }}인 ~ 최대
+                  {{ rooms[0].numMax }}인)
                 </span>
               </p>
             </div>
@@ -242,8 +242,8 @@
               <div class="price-box">
                 <span class="price-text">
                   인원수
-                  {{ this.num }}명 x {{ rooms[0].numPrice.toLocaleString() }}원
-                  ( 최소 {{ rooms[0].numMin }}명 ~ 최대 {{ rooms[0].numMax }}명)
+                  {{ this.num }}인 x {{ rooms[0].numPrice.toLocaleString() }}원
+                  ( 최소 {{ rooms[0].numMin }}인 ~ 최대 {{ rooms[0].numMax }}인)
                 </span>
                 <span class="price-value">
                   {{ this.numPrice.toLocaleString() }}원

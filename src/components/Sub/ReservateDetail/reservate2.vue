@@ -14,7 +14,7 @@
         </div>
         <div class="descript">
           <p class="intro">장소 소개</p>
-          <p>- 2인의 크리에이터가 콘텐츠를 촬영할 수 있는 공간입니다.</p>
+          <p>- 1인 크리에이터가 콘텐츠를 촬영할 수 있는 공간입니다.</p>
           <p>
             - 고사양의 PC와 웹캠, 마이크, 스위치 등 최신 1인미디어 방송 장비를
             갖추고 있습니다.
@@ -36,8 +36,8 @@
               </p>
               <p class="price">
                 <span style="font-size: 14px">
-                  ( 인원수 : 최소 {{ rooms[1].numMin }}명 ~ 최대
-                  {{ rooms[1].numMax }}명)
+                  ( 인원수 : 최소 {{ rooms[1].numMin }}인 ~ 최대
+                  {{ rooms[1].numMax }}인)
                 </span>
               </p>
             </div>
@@ -242,8 +242,8 @@
               <div class="price-box">
                 <span class="price-text">
                   인원수
-                  {{ this.num }}명 x {{ rooms[1].numPrice.toLocaleString() }}원
-                  ( 최소 {{ rooms[1].numMin }}명 ~ 최대 {{ rooms[1].numMax }}명)
+                  {{ this.num }}인 x {{ rooms[1].numPrice.toLocaleString() }}원
+                  ( 최소 {{ rooms[1].numMin }}인 ~ 최대 {{ rooms[1].numMax }}인)
                 </span>
                 <span class="price-value">
                   {{ this.numPrice.toLocaleString() }}원

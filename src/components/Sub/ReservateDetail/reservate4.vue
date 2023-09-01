@@ -14,11 +14,14 @@
         </div>
         <div class="descript">
           <p class="intro">장소 소개</p>
-          <p>- 폭 1.45m, 넓이 약 3m의 미니 수영장이 있는 공간입니다</p>
-          <p>- 물을 이용한 콘텐츠나 화보를 촬영할 수 있습니다</p>
+          <p>- 1인 크리에이터가 콘텐츠를 촬영할 수 있는 공간입니다.</p>
           <p>
-            - 초록빛이 도는 푸른 타일이 깔려있으며, 위에서 아래 물이 떨어지는
-            장치 또한 설치되어 있습니다.
+            - 고사양의 PC와 웹캠, 마이크, 스위치 등 최신 1인미디어 방송 장비를
+            갖추고 있습니다.
+          </p>
+          <p>
+            - 유튜브, 트위치 등 라이브 스트리밍과 녹화 모두 진행하실 수
+            있습니다.
           </p>
         </div>
       </div>
@@ -33,8 +36,8 @@
               </p>
               <p class="price">
                 <span style="font-size: 14px">
-                  ( 인원수 : 최소 {{ rooms[3].numMin }}명 ~ 최대
-                  {{ rooms[3].numMax }}명)
+                  ( 인원수 : 최소 {{ rooms[3].numMin }}인 ~ 최대
+                  {{ rooms[3].numMax }}인)
                 </span>
               </p>
             </div>
@@ -239,8 +242,8 @@
               <div class="price-box">
                 <span class="price-text">
                   인원수
-                  {{ this.num }}명 x {{ rooms[3].numPrice.toLocaleString() }}원
-                  ( 최소 {{ rooms[3].numMin }}명 ~ 최대 {{ rooms[3].numMax }}명)
+                  {{ this.num }}인 x {{ rooms[3].numPrice.toLocaleString() }}원
+                  ( 최소 {{ rooms[3].numMin }}인 ~ 최대 {{ rooms[3].numMax }}인)
                 </span>
                 <span class="price-value">
                   {{ this.numPrice.toLocaleString() }}원

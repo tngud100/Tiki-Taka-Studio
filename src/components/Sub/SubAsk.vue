@@ -19,18 +19,14 @@
       <v-container style="margin-bottom: 16px">
         <v-item-group selected-class="my-color">
           <v-row style="justify-content: center">
-            <v-col
-              v-for="(item, index) in categoryList"
-              :key="index"
-              cols="3"
-              @click="togglebtn(index)"
-            >
+            <v-col v-for="(item, index) in categoryList" :key="index" cols="3">
               <v-item v-slot="{ selectedClass, toggle }">
                 <v-btn
                   :class="['d-flex align-center', selectedClass, ' btn']"
                   rounded="xl"
-                  @click="toggle(index)"
+                  @click="toggleBtn(index, toggle)"
                 >
+                  <!-- @click="toggle(index)" -->
                   <div class="flex-grow-1 text-center">
                     {{ item.list }}
                   </div>
@@ -293,13 +289,13 @@ export default {
     uploadedFiles: [],
     categoryList: [
       {
-        list: "제작지원",
+        list: "제작/영상",
       },
       {
         list: "협찬",
       },
       {
-        list: "영상제작",
+        list: "기타",
       },
       {
         list: "스튜디오",
@@ -320,6 +316,10 @@ export default {
     }
   },
   methods: {
+    toggleBtn(index, toggle) {
+      toggle(index);
+      this.togglebtn(index);
+    },
     handleFileChange(event) {
       const files = event.target.files;
 
@@ -575,12 +575,12 @@ export default {
 
     togglebtn(index) {
       console.log(this.categoryList[index].list);
-      if (this.categoryList[index].list === "제작지원") {
-        this.form.category = "제작지원";
+      if (this.categoryList[index].list === "제작/영상") {
+        this.form.category = "제작/영상";
       } else if (this.categoryList[index].list === "협찬") {
         this.form.category = "협찬";
-      } else if (this.categoryList[index].list === "영상제작") {
-        this.form.category = "영상제작";
+      } else if (this.categoryList[index].list === "기타") {
+        this.form.category = "기타";
       } else if (this.categoryList[index].list === "스튜디오") {
         this.form.category = "스튜디오";
       }
