@@ -509,7 +509,7 @@ export default {
 
       $.ajax({
         /* 요청 시작 부분 */
-        url: "https://script.google.com/macros/s/AKfycbzNHKTraiIkHx-_wIc7D6M5ahF7J4FN5TT2pzQqFKAGoyx7dld4t8l0a7Z4AbjKj6nxZg/exec", //주소
+        url: "https://script.google.com/macros/s/AKfycbzf_zUiuELmvvnUczg4xWr7pgaRgJiCn9-INKuGchgbHha2aC1rg_YqJZ-QV3jag_Gd/exec", //주소
         data: formdata, //전송 데이터
         type: "POST", //전송 타입
         async: true, //비동기 여부
@@ -590,6 +590,19 @@ export default {
 ::v-deep .v-window {
   overflow: auto;
 }
+::v-deep .v-window::-webkit-scrollbar {
+  width: 6px;
+}
+
+::v-deep .v-window::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 6px;
+}
+
+::v-deep .v-window::-webkit-scrollbar-track {
+  background-color: lightgrey;
+}
+
 .PC-nextBtn {
   display: block;
 }
@@ -657,7 +670,7 @@ export default {
   }
 }
 
-@media screen and (min-width: 940px) and (max-width: 950px) {
+@media screen and (min-width: 1280px) and (max-width: 1290px) {
   .PC-nextBtn {
     display: none;
   }

@@ -1,38 +1,33 @@
 <template>
-  <div id="app">
-    <v-btn @click="goBack" color="primary">뒤로가기</v-btn>
-    <h1>티앤티 스튜디오 예약 현황</h1>
-    <calendar-view
-      :show-date="showDate"
-      @click-item="handleDateClick"
-      :items="events"
-      :enableDragDrop="true"
-      class="theme-default holiday-us-traditional holiday-us-official"
+  <v-btn @click="goBack" color="primary">뒤로가기</v-btn>
+  <h1>티앤티 스튜디오 예약 현황</h1>
+  <calendar-view
+    :show-date="showDate"
+    @click-item="handleDateClick"
+    :items="events"
+    :enableDragDrop="true"
+    class="theme-default holiday-us-traditional holiday-us-official"
+  >
+    <template #header="{ headerProps }">
+      <calendar-view-header :header-props="headerProps" @input="setShowDate" />
+    </template>
+  </calendar-view>
+  <div v-if="modalVisible" class="modal-overlay" @click="closeModal">
+    <div
+      class="modal-content"
+      style="min-width: 320px; font-family: 'Pretendard-Regular'"
     >
-      <template #header="{ headerProps }">
-        <calendar-view-header
-          :header-props="headerProps"
-          @input="setShowDate"
-        />
-      </template>
-    </calendar-view>
-    <div v-if="modalVisible" class="modal-overlay" @click="closeModal">
-      <div
-        class="modal-content"
-        style="min-width: 320px; font-family: 'Pretendard-Regular'"
-      >
-        <h3>예약 현황</h3>
-        <hr style="margin: 0px 0px 12px 0px" />
-        <div v-if="selectedDate">
-          <p>성함 : {{ this.maskString(selectedDate.originalItem.title) }}</p>
-          <p>예약 날짜 : {{ selectedDate.originalItem.startDate }}</p>
-          <p>스튜디오 : {{ selectedDate.originalItem.studioName }}</p>
-          <p>인원수 : {{ selectedDate.originalItem.peopleNum }}명</p>
-          <p>
-            시간 : {{ selectedDate.originalItem.startTime }}:00 -
-            {{ selectedDate.originalItem.endTime }}:00
-          </p>
-        </div>
+      <h3>예약 현황</h3>
+      <hr style="margin: 0px 0px 12px 0px" />
+      <div v-if="selectedDate">
+        <p>성함 : {{ this.maskString(selectedDate.originalItem.title) }}</p>
+        <p>예약 날짜 : {{ selectedDate.originalItem.startDate }}</p>
+        <p>스튜디오 : {{ selectedDate.originalItem.studioName }}</p>
+        <p>인원수 : {{ selectedDate.originalItem.peopleNum }}명</p>
+        <p>
+          시간 : {{ selectedDate.originalItem.startTime }}:00 -
+          {{ selectedDate.originalItem.endTime }}:00
+        </p>
       </div>
     </div>
   </div>
@@ -42,9 +37,10 @@
 import { CalendarView, CalendarViewHeader } from "vue-simple-calendar";
 import "vue-simple-calendar/dist/css/default.css";
 import "vue-simple-calendar/dist/css/holidays-us.css";
+import $ from "jquery";
 
 import { mapGetters } from "vuex";
-import { fetchCalendarData } from "@/apiService.js";
+// import { fetchCalendarData } from "@/apiService.js";
 
 export default {
   name: "app",
@@ -68,48 +64,49 @@ export default {
     "calendar-view": window.CalendarView,
   },
   mounted() {
-    fetchCalendarData()
-      .then((response) => {
-        console.log(response);
-        // Handle the response
-      })
-      .catch((error) => {
-        console.log("");
-        console.log("[Error]:", error);
-        console.log("");
-        alert("An error occurred.");
-      });
-    // $.ajax({
-    //   /* 요청 시작 부분 */
-    //   // url: this.hostAddressName + "/studio/reserve/CalendarReservate",
-    //   // url: "http://티키타카.kr:81/studio/reserve/CalendarReservate",
-    //   url: api.defaults.baseURL +"/studio/reserve/CalendarReservate",
-    //   method: "GET",
-    //   type: "get", //전송 타입
-    //   dataType: "json",
-
-    //   /* 응답 확인 부분 */
-    //   success: (response) => {
+    // fetchCalendarData()
+    //   .then((response) => {
     //     console.log(response);
     //     this.getForm(response);
-    //   },
+    //     // Handle the response
+    //   })
+    //   .catch((error) => {
+    //     console.log("");
+    //     console.log("[Error]:", error);
+    //     console.log("");
+    //     alert("An error occurred.");
+    //   });
+    $.ajax({
+      /* 요청 시작 부분 */
+      url: this.hostAddressName + "/studio/reserve/CalendarReservate",
+      // url: "http://티키타카.kr:81/studio/reserve/CalendarReservate",
+      // url: api.defaults.baseURL +"/studio/reserve/CalendarReservate",
+      method: "GET",
+      type: "get", //전송 타입
+      dataType: "json",
 
-    //   /* 에러 확인 부분 */
-    //   error: function (xhr) {
-    //     // alert("전송 실패");
-    //     console.log("");
-    //     console.log("[Error] : [error] : " + xhr);
-    //     console.log("");
-    //     alert("오류가 발생하였습니다.");
-    //   },
+      /* 응답 확인 부분 */
+      success: (response) => {
+        console.log(response);
+        this.getForm(response);
+      },
 
-    //   /* 완료 확인 부분 */
-    //   complete: function (xhr, textStatus) {
-    //     console.log("");
-    //     console.log("[server] : [complete] : " + textStatus);
-    //     console.log("");
-    //   },
-    // });
+      /* 에러 확인 부분 */
+      error: function (xhr) {
+        // alert("전송 실패");
+        console.log("");
+        console.log("[Error] : [error] : " + xhr);
+        console.log("");
+        alert("오류가 발생하였습니다.");
+      },
+
+      /* 완료 확인 부분 */
+      complete: function (xhr, textStatus) {
+        console.log("");
+        console.log("[server] : [complete] : " + textStatus);
+        console.log("");
+      },
+    });
   },
   methods: {
     maskString(str) {
@@ -153,7 +150,7 @@ export default {
           const event = {
             id: i,
             startDate: form[i].date,
-            title: form[i].userName,
+            title: this.maskString(form[i].userName),
             peopleNum: form[i].peopleNum,
             studioName: form[i].studioName,
             startTime: form[i].startTime,

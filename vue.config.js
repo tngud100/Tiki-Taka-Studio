@@ -30,15 +30,15 @@ module.exports = defineConfig({
     headers: {
       "Permissions-Policy": "",
     },
-    proxy: {
-      '/studio': {
-        target: 'http://티키타카.kr:81',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/studio': '' 
-        }
-      }
-    }
+    // proxy: {
+    //   '/studio': {
+    //     target: 'http://티키타카.kr:81',
+    //     changeOrigin: true,
+    //     // pathRewrite: {
+    //     //   '^/studio': '' 
+    //     // }
+    //   }
+    // }
   },
 
   pluginOptions: {

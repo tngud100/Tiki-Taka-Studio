@@ -42,6 +42,11 @@ const routes = [
     component: () => import("@/components/Sub/EventsDetail/events1.vue"),
   },
   {
+    path: "/TabletReserveForm",
+    name: "TabletReserveForm",
+    component: () => import("@/components/Sub/TabletReserveForm.vue"),
+  },
+  {
     path: "/CalendarReservate",
     name: "CalendarReservate",
     component: () => import("@/components/Sub/ReservateDetail/CalendarReserve.vue"),

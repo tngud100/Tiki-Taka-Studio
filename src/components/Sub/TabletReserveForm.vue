@@ -1,77 +1,59 @@
-
 <template>
-  <section class="news_section">
-    <HeaderNav />
-    <HeaderTitle :title-data="title" :bg-image="bgImage" />
-    <div class="title-con">
-      <span class="title">{{ rooms[0].title }}</span>
-    </div>
-    <div class="container">
-      <div class="img-con">
-        <img :src="rooms[0].imageSrc" class="img" alt="studio" />
-        <div class="img-info">
-          <!-- <p class="img-title">워터 스튜디오</p> -->
+  <section>
+    <!-- 제목 -->
+    <div class="reserve-form">
+      <div class="title-box">
+        <div class="title-first">
+          <span class="title-span"> TNT STUDIO 견적/예약 </span>
         </div>
-        <div class="descript">
-          <p class="intro">장소 소개</p>
-          <p>- 1인 크리에이터가 콘텐츠를 촬영할 수 있는 공간입니다.</p>
-          <p>
-            - 고사양의 PC와 웹캠, 마이크, 스위치 등 최신 1인미디어 방송 장비를
-            갖추고 있습니다.
-          </p>
-          <p>
-            - 유튜브, 트위치 등 라이브 스트리밍과 녹화 모두 진행하실 수
-            있습니다.
-          </p>
+        <div class="title-second">
+          <div class="document-title">
+            <span class="document-span"> 담 당 자 </span>
+          </div>
+          <div class="document-title">
+            <span class="document-span"> 사 용 자 </span>
+          </div>
+          <div class="document-title">
+            <span class="document-span"> 대여승인 </span>
+          </div>
+          <div class="sign-con"></div>
+        </div>
+        <div class="title-third">
+          <div class="document-title">
+            <input style="width: 100%; margin: 4px" />
+          </div>
+          <div class="document-title">
+            <input style="width: 100%; margin: 4px" />
+          </div>
+          <div class="document-title">
+            <span class="document-span"> 반납승인 </span>
+          </div>
+          <div class="sign-con"></div>
         </div>
       </div>
       <div class="info-con">
         <div class="info">
+          <!-- 스튜디오 -->
           <div class="title-info">
             <div>
-              <p class="title">{{ rooms[0].title }}</p>
-              <p class="price">
-                {{ rooms[0].price.toLocaleString() }}원
-                <span style="font-size: 14"> / 시간</span>
-              </p>
-              <p class="price">
-                <span style="font-size: 14px">
-                  ( 인원수 : 최소 {{ rooms[0].numMin }}인 ~ 최대
-                  {{ rooms[0].numMax }}인)
-                </span>
-              </p>
-            </div>
-            <div
-              style="text-align: right; display: flex; align-items: flex-end"
-            >
-              <router-link to="/CalendarReservate">
-                <v-btn class="title btn">스튜디오 예약 현황</v-btn>
-              </router-link>
+              <p class="title">스튜디오</p>
+              <v-select
+                class="stuido-selector"
+                :items="'워터'"
+                :label="'스튜디오를' + '를 선택해 주세요'"
+                variant="outlined"
+              />
+              <div class="calender-box">
+                <router-link to="/CalendarReservate">
+                  <v-btn class="title btn">스튜디오 예약 현황</v-btn>
+                </router-link>
+              </div>
             </div>
           </div>
-          <hr />
+          <!-- 날짜 선택기 -->
           <div class="schedule-con">
             <p class="title">스케줄</p>
-
-            <!-- 날짜 테이블 -->
-            <!-- <v-text-field
-              @click="dialog = !dialog"
-              variant="outlined"
-              label="날짜를 선택해 주세요"
-              readonly
-              class="sub-title"
-              v-model="date"
-            >
-            </v-text-field> -->
             <div class="date-picker">
-              <!-- <v-date-picker
-                v-if="dialog"
-                :min="minDate"
-                :max="maxDate"
-                v-model="date"
-                @update:model-value="updateDate"
-                hide-actions
-              /> -->
               <Datepicker
                 :value="date"
                 v-model="date"
@@ -81,8 +63,9 @@
                 :disabled-dates="disableDate"
               />
             </div>
+
             <!-- 시간 테이블 -->
-            <div class="time-con" v-if="date">
+            <div class="time-con">
               <p class="time-title" style="margin-top: 20px">시간</p>
               <p class="sub-title">최소 3시간 이상</p>
               <v-text-field
@@ -96,18 +79,20 @@
                 <!-- {{ date }} -->
               </v-text-field>
               <div v-if="timeDialog" class="time-box">
-                <v-btn
-                  v-for="i in 24"
-                  :key="i"
-                  class="time-btn"
-                  @click="setTime(i)"
-                  :class="{
-                    'selected-time': isTimeSelected(i),
-                    'block-time': BlockTimeSet(i),
-                  }"
-                >
-                  {{ i < 10 ? "0" + i : i }}:00
-                </v-btn>
+                <div style="margin: auto; width: 80%">
+                  <v-btn
+                    v-for="i in 24"
+                    :key="i"
+                    class="time-btn"
+                    @click="setTime(i)"
+                    :class="{
+                      'selected-time': isTimeSelected(i),
+                      'block-time': BlockTimeSet(i),
+                    }"
+                  >
+                    {{ i < 10 ? "0" + i : i }}:00
+                  </v-btn>
+                </div>
                 <div
                   class="time-apply"
                   style="display: flex; justify-content: right; margin: 8px 0px"
@@ -123,14 +108,14 @@
             </div>
             <!-- 장비 테이블 v-if="timeList.length > 0" -->
             <div class="equipment-con">
-              <p class="equipment-title" style="margin-top: 20px">장비</p>
+              <p class="equipment-title">장비</p>
               <p class="sub-title">필요하신 장비를 선택해 주세요</p>
               <v-row>
                 <v-col
                   class="check-box v-col-6"
-                  xs="6"
-                  sm="6"
-                  md="6"
+                  xs="3"
+                  sm="3"
+                  md="3"
                   lg="3"
                   xl="3"
                   xxl="3"
@@ -228,7 +213,7 @@
               </div>
             </div>
 
-            <div class="price-con" v-if="timeHour != 0">
+            <div class="price-con">
               <hr style="margin-bottom: 20px" />
               <div class="price-box">
                 <span class="price-text"
@@ -262,53 +247,42 @@
                   >{{ this.totalPrice.toLocaleString() }}원</span
                 >
               </div>
+              <div class="sign-box">
+                <span>위와 같이 TNT Studio 장비 대여를 신청합니다.</span>
+                <br /><br />
+                <div class="sign">
+                  <span class="sign-text">신청인</span>
+                  <div><img /></div>
+                  <span class="sign-confirm">(인)</span>
+                </div>
+              </div>
             </div>
-            <DialogReserve
-              :date="date"
-              :time-string="timeString"
-              :num="num"
-              :total-price="totalPrice"
-              :time-list="timeList"
-              :camera="Selected.camera"
-              :monitor="Selected.monitor"
-              :micAudio="Selected.micAudio"
-              :lightSubFilm="Selected.lightSubFilm"
-              :equipmentNum="Selected.equipmentNum"
-              :roomTitle="rooms[0].title"
-              :roomNum="rooms[0].studioNum"
-            />
           </div>
         </div>
       </div>
-    </div>
-    <div class="btn-box">
-      <div class="btn">
-        <router-link :to="{ path: '/ask', query: { category: '스튜디오' } }">
-          <span class="btn-text">목록으로</span>
-        </router-link>
+
+      <div class="caution-box">
+        ※ 유의사항<br />
+        장비/비품 대여는 수량이 한정되어 있어 선예약 이용자를 우선합니다.<br />
+        대여한 PC에 기존에 설치된 것, 사전 협의한 것 외의 다른 프로그램을
+        설치하시면 안 됩니다.<br />
+        대여한 장비의 오염, 파손, 도난 시 그 책임을 이용자에게 청구할 수
+        있습니다.<br />
       </div>
     </div>
-    <Footer />
+    <div class="submit-btn">
+      <v-btn class="button">예약하기</v-btn>
+    </div>
   </section>
 </template>
 
 <script>
-import HeaderNav from "@/components/Header/HeaderSub.vue";
-import HeaderTitle from "@/components/Header/SubTitle.vue";
-import Footer from "@/components/Footer/FooterMain.vue";
-import DialogReserve from "./DialogReserve.vue";
-
 import { mapGetters } from "vuex";
 import Datepicker from "vuejs3-datepicker";
 import $ from "jquery";
-
 export default {
-  name: "ReservateDetail1",
+  name: "TabletReserveForm",
   components: {
-    HeaderNav,
-    Footer,
-    HeaderTitle,
-    DialogReserve,
     Datepicker,
   },
   computed: {
@@ -936,808 +910,206 @@ export default {
   },
 };
 </script>
-
 <style lang="scss" scoped>
-.selected-time {
-  background-color: #3399ff;
-  color: white;
+section {
+  position: absolute;
+  background-color: rgb(218, 218, 218);
+  top: 0;
+  left: 0;
+  width: 100%;
 }
-
-.block-time {
-  background-color: #888888;
-  color: white;
-}
-
-.news_section {
-  .title-con {
-    .title {
-      font-family: "Pretendard-Regular";
-      font-weight: bold;
+.reserve-form {
+  width: 760px;
+  padding: 20px;
+  margin: 30px auto;
+  background-color: white;
+  font-family: "Pretendard";
+  .title-box {
+    border: solid 1px #bebebe;
+    border-radius: 10px;
+    height: 170px;
+    display: flex;
+    .title-first {
+      width: 66%;
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      border-right: solid 1px #bebebe;
+      .title-span {
+        font-size: 22px;
+        font-weight: bold;
+      }
+    }
+    .title-second {
+      width: 17%;
+      border-right: solid 1px #bebebe;
+      .sign-con {
+        height: 40%;
+      }
+    }
+    .title-third {
+      width: 17%;
+      justify-content: center;
+      align-items: center;
+      .sign-con {
+        height: 40%;
+      }
+    }
+    .document-title {
+      height: 20%;
+      border-bottom: solid 1px #bebebe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .document-span {
+        font-size: 16px;
+      }
     }
   }
 
-  .container {
-    display: flex;
-    justify-content: space-between;
-    justify-items: center;
+  ::v-deep .v-input__details {
+    display: none;
+  }
+  .info-con {
+    margin-top: 10px;
+    .info {
+      width: 100%;
+      border: solid 1px #bebebe;
+      border-radius: 10px;
+      padding: 18px;
 
-    .img-con {
-      .img {
-        width: 100%;
-        border-radius: 10px;
-      }
-
-      font-family: "Pretendard-Regular";
-
-      .img-info {
-        .img-title {
-          font-weight: bold;
+      .title-info {
+        font-family: "Pretendard-Regular";
+        justify-content: space-between;
+        font-weight: bold;
+        .title {
+          margin: 8px 0px;
         }
-      }
-
-      .descript {
-        .intro {
-          font-weight: bold;
-          margin: 7px 0px;
-        }
-      }
-    }
-
-    .info-con {
-      .info {
-        width: 100%;
-        border: solid 1px #bebebe;
-        border-radius: 10px;
-
-        .title-info {
-          font-family: "Pretendard-Regular";
-          font-weight: bold;
+        .calender-box {
           display: flex;
-          justify-content: space-between;
+          justify-content: right;
+          margin: 12px;
         }
+      }
 
-        .schedule-con {
-          font-family: "Pretendard-Regular";
-          font-weight: bold;
+      .schedule-con {
+        font-family: "Pretendard-Regular";
+        font-weight: bold;
 
-          .date-picker {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .date-picker {
+          display: flex;
+          justify-content: center;
+          align-items: center;
 
-            ::v-deep .vuejs3-datepicker {
-              width: 100% !important;
-            }
-
-            ::v-deep .vuejs3-datepicker__value {
-              width: 100% !important;
-              color: #9e9e9e;
-              font-weight: 100;
-            }
+          ::v-deep .vuejs3-datepicker {
+            width: 100% !important;
           }
 
+          ::v-deep .vuejs3-datepicker__value {
+            width: 100% !important;
+            color: #9e9e9e;
+            font-weight: 100;
+          }
+        }
+
+        .time-con {
           .time-box {
             border: solid 1px rgb(204, 204, 204);
             border-radius: 10px;
-            text-align: left;
-          }
 
-          .num-title {
-            margin-top: 40px;
-          }
-
-          .title {
-          }
-
-          .sub-title {
+            button {
+              margin: 8px;
+              width: 35px;
+            }
           }
         }
+        .num-title {
+          margin-top: 40px;
+        }
+
+        .title {
+        }
+
+        .sub-title {
+          font-size: 14px;
+          margin: 12px 0px;
+        }
+      }
+
+      .equipment-con {
+        margin-top: 20px;
       }
     }
+  }
 
-    .price-con {
-      .price-box {
+  .price-con {
+    .price-box {
+      display: flex;
+      justify-content: space-between;
+    }
+    .sign-box {
+      margin: 60px auto 30px auto;
+      width: 60%;
+      text-align: center;
+      .sign {
+        width: 40%;
         display: flex;
         justify-content: space-between;
+        margin: auto;
       }
     }
   }
-  .btn-box {
-    margin-bottom: 50px;
+}
+.caution-box {
+  margin-top: 10px;
+  width: 100%;
+  border: solid 1px #bebebe;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.submit-btn {
+  display: flex;
+  margin: 20px auto 50px auto;
+  justify-content: center;
+  .button {
+    width: 150px;
+    height: 50px;
+    border-radius: 0px;
+  }
+}
+
+.btn-box {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .btn {
+    width: 150px;
+    height: 50px;
+    border: solid 1px rgb(0, 0, 0);
+    border-radius: 5px;
     display: flex;
     justify-content: center;
+    text-align: center;
     align-items: center;
-    .btn {
-      width: 150px;
-      height: 50px;
-      border: solid 1px rgb(0, 0, 0);
-      border-radius: 5px;
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      align-items: center;
 
-      cursor: pointer;
-      .btn-text {
-        font-family: "sans-serif";
-        color: rgb(0, 0, 0);
-      }
-    }
-    a {
-      text-decoration: none;
-    }
-    .btn:hover {
-      border: solid 1px #805bea;
-      box-shadow: 1px 1px 5px 1px whitesmoke;
-
-      .btn-text {
-        color: #805bea;
-      }
+    cursor: pointer;
+    .btn-text {
+      font-family: "sans-serif";
+      color: rgb(0, 0, 0);
     }
   }
-}
-
-//PC XL
-@media screen and (min-width: 1300px) {
-  .news_section {
-    .title-con {
-      width: 1300px;
-      margin: 30px auto;
-
-      .title {
-        font-size: 32px;
-      }
-    }
-
-    .container {
-      width: 1300px;
-      margin: 0px auto 100px auto;
-
-      .img-con {
-        width: calc(60% - 32px);
-
-        .img-info {
-          .img-title {
-            font-size: 20px;
-            padding: 12px;
-          }
-        }
-
-        .descript {
-          padding: 12px;
-          font-size: 16px;
-
-          .intro {
-            font-size: 20px;
-          }
-        }
-      }
-
-      .info-con {
-        width: calc(40% - 16px);
-
-        .info {
-          position: sticky;
-          width: 100%;
-          padding: 16px;
-
-          .title-info {
-            font-size: 18px;
-            margin: 16px 0px;
-          }
-
-          .schedule-con {
-            .date-picker {
-              ::v-deep .vuejs3-datepicker {
-                width: 100% !important;
-              }
-
-              ::v-deep .vuejs3-datepicker__value {
-                width: 100% !important;
-              }
-            }
-
-            .time-btn {
-              margin: 6px;
-              width: calc(18% - 6px);
-            }
-
-            ::v-deep .v-input__control {
-              height: auto;
-            }
-
-            ::v-deep .v-field__input {
-              padding-top: auto;
-            }
-
-            ::v-deep .v-input__details {
-              display: none;
-            }
-
-            .title {
-              font-size: 16px;
-              margin-top: 20px;
-            }
-
-            .sub-title {
-              font-size: 12px;
-              margin: 10px 0px;
-            }
-          }
-        }
-      }
-    }
+  a {
+    text-decoration: none;
   }
-}
-
-// PC
-@media screen and (min-width: 1080px) and (max-width: 1300px) {
-  .news_section {
-    .title-con {
-      width: 1080px;
-      margin: 30px auto;
-
-      .title {
-        font-size: 32px;
-      }
-    }
-
-    .container {
-      width: 1080px;
-      margin: 0px auto 100px auto;
-
-      .img-con {
-        width: calc(60% - 32px);
-
-        .img-info {
-          .img-title {
-            font-size: 20px;
-            padding: 12px;
-          }
-        }
-
-        .descript {
-          padding: 12px;
-          font-size: 16px;
-
-          .intro {
-            font-size: 20px;
-          }
-        }
-      }
-
-      .info-con {
-        width: calc(40% - 16px);
-
-        .info {
-          position: sticky;
-          width: 100%;
-          padding: 16px;
-
-          .title-info {
-            font-size: 18px;
-            margin: 16px 0px;
-          }
-
-          .schedule-con {
-            .date-picker {
-              ::v-deep .vuejs3-datepicker {
-                width: 100% !important;
-              }
-
-              ::v-deep .vuejs3-datepicker__value {
-                width: 100% !important;
-              }
-            }
-
-            ::v-deep .v-input__control {
-              height: auto;
-            }
-
-            ::v-deep .v-field__input {
-              padding-top: auto;
-            }
-
-            ::v-deep .v-input__details {
-              display: none;
-            }
-
-            .time-btn {
-              margin: 6px;
-              width: calc(23% - 6px);
-            }
-
-            .check-box {
-              margin-bottom: 40px;
-              height: 25px;
-            }
-
-            .title {
-              font-size: 16px;
-              margin-top: 20px;
-            }
-
-            .sub-title {
-              font-size: 12px;
-              margin: 10px 0px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-@media screen and (min-width: 1280px) and (max-width: 1290px) {
-  .news_section {
-    .title-con {
-      width: 750px !important;
-      margin: 30px auto;
-
-      .title {
-        font-size: 32px;
-      }
-    }
-
-    .container {
-      width: 750px !important;
-      margin: 0px auto 100px auto;
-      display: grid !important;
-
-      .img-con {
-        width: calc(100% - 12px) !important;
-        .img-info {
-          .img-title {
-            font-size: 20px;
-            padding: 10px;
-          }
-        }
-
-        .descript {
-          padding: 10px;
-          font-size: 16px;
-          margin-bottom: 12px;
-
-          .intro {
-            font-size: 20px;
-          }
-        }
-      }
-
-      .info-con {
-        width: calc(100% - 12px) !important;
-
-        .info {
-          position: sticky;
-          width: 100%;
-          padding: 12px;
-
-          .title-info {
-            font-size: 18px;
-            margin: 12px 0px;
-          }
-
-          .schedule-con {
-            .date-picker {
-              ::v-deep .vuejs3-datepicker {
-                width: 100% !important;
-              }
-
-              ::v-deep .vuejs3-datepicker__value {
-                width: 100% !important;
-              }
-            }
-
-            ::v-deep .v-input__control {
-              height: auto;
-            }
-
-            ::v-deep .v-field__input {
-              padding-top: auto;
-            }
-
-            ::v-deep .v-input__details {
-              display: none;
-            }
-
-            .time-btn {
-              margin: 8px;
-              width: calc(19% - 16px);
-            }
-
-            .check-box {
-              margin-bottom: 40px;
-              height: 25px;
-            }
-
-            .title {
-              font-size: 16px;
-              margin-top: 20px;
-            }
-
-            .sub-title {
-              font-size: 12px;
-              margin: 10px 0px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-// 노트북
-@media screen and (min-width: 760px) and (max-width: 1080px) {
-  .news_section {
-    .title-con {
-      width: 760px;
-      margin: 20px auto;
-
-      .title {
-        font-size: 26px;
-      }
-    }
-
-    .container {
-      width: 760px;
-      margin: 0px auto 70px auto;
-
-      .img-con {
-        width: calc(60% - 32px);
-
-        .img-info {
-          .img-title {
-            font-size: 18px;
-            padding: 8px;
-          }
-        }
-
-        .descript {
-          padding: 8px;
-          font-size: 14px;
-
-          .intro {
-            font-size: 17px;
-          }
-        }
-      }
-
-      .info-con {
-        width: calc(40% - 12px);
-
-        .info {
-          position: sticky;
-          width: 100%;
-          padding: 12px;
-
-          .title-info {
-            font-size: 16px;
-            margin: 16px 0px;
-          }
-
-          .btn {
-            height: 32px;
-            font-size: 12px;
-          }
-
-          .schedule-con {
-            .date-picker {
-              ::v-deep .vuejs3-datepicker {
-                width: 100% !important;
-              }
-
-              ::v-deep .vuejs3-datepicker__content {
-                font-size: 14px;
-              }
-
-              ::v-deep .vuejs3-datepicker__value {
-                width: 100% !important;
-                height: 40px;
-                padding: 9px;
-                font-size: 12px;
-              }
-            }
-
-            .time-con {
-              .time-box {
-                padding: 12px;
-
-                .time-btn {
-                  margin: 6px;
-                  width: calc(30% - 6px);
-                }
-              }
-
-              .time-input {
-                ::v-deep .v-input__control {
-                  height: 40px;
-                }
-
-                ::v-deep .v-field__input {
-                  padding-top: 0px;
-                  font-size: 14px;
-                }
-              }
-            }
-
-            .equipment-con {
-              ::v-deep .v-input__details {
-                display: none;
-              }
-
-              .check-box {
-                margin-bottom: 40px;
-                height: 25px;
-
-                ::v-deep .v-label {
-                  font-size: 14px;
-                }
-
-                ::v-deep .v-selection-control {
-                  --v-selection-control-size: 25px;
-                }
-              }
-
-              .equipment-input {
-                ::v-deep .v-field-label {
-                  top: 50%;
-                  font-size: 14px;
-                }
-
-                ::v-deep .v-field__input {
-                  min-height: 40px;
-                  font-size: 14px;
-                }
-
-                ::v-deep .v-input__details {
-                  display: none;
-                }
-              }
-            }
-
-            .people-num {
-              ::v-deep .v-label.v-field-label {
-                top: 40%;
-              }
-
-              ::v-deep .v-input__control {
-                height: 40px;
-                font-size: 12px;
-              }
-
-              ::v-deep .v-field__input {
-                padding-top: 0px;
-                font-size: 14px;
-              }
-
-              ::v-deep .v-input__details {
-                display: none;
-              }
-            }
-
-            .price-box {
-              font-size: 14px;
-
-              .price-text {
-                width: 75%;
-              }
-
-              .total-text,
-              .tolal-value {
-                font-size: 16px !important;
-              }
-            }
-
-            .title {
-              font-size: 14px;
-              margin-top: 20px;
-            }
-
-            .sub-title {
-              font-size: 12px;
-              margin: 10px 0px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-// 테블릿
-@media screen and (min-width: 640px) and (max-width: 759px) {
-  .news_section {
-    .title-con {
-      width: 640px;
-      margin: 30px auto;
-
-      .title {
-        font-size: 32px;
-      }
-    }
-
-    .container {
-      width: 640px;
-      margin: 0px auto 100px auto;
-      display: grid !important;
-
-      .img-con {
-        width: calc(100% - 12px);
-        .img-info {
-          .img-title {
-            font-size: 20px;
-            padding: 10px;
-          }
-        }
-
-        .descript {
-          padding: 10px;
-          font-size: 16px;
-          margin-bottom: 12px;
-
-          .intro {
-            font-size: 20px;
-          }
-        }
-      }
-
-      .info-con {
-        width: calc(100% - 12px);
-
-        .info {
-          position: sticky;
-          width: 100%;
-          padding: 12px;
-
-          .title-info {
-            font-size: 18px;
-            margin: 12px 0px;
-          }
-
-          .schedule-con {
-            .date-picker {
-              ::v-deep .vuejs3-datepicker {
-                width: 100% !important;
-              }
-
-              ::v-deep .vuejs3-datepicker__value {
-                width: 100% !important;
-              }
-            }
-
-            ::v-deep .v-input__control {
-              height: auto;
-            }
-
-            ::v-deep .v-field__input {
-              padding-top: auto;
-            }
-
-            ::v-deep .v-input__details {
-              display: none;
-            }
-
-            .time-btn {
-              margin: 8px;
-              width: calc(19% - 16px);
-            }
-
-            .check-box {
-              margin-bottom: 40px;
-              height: 25px;
-            }
-
-            .title {
-              font-size: 16px;
-              margin-top: 20px;
-            }
-
-            .sub-title {
-              font-size: 12px;
-              margin: 10px 0px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-// 모바일
-@media screen and (min-width: 320px) and (max-width: 639px) {
-  .news_section {
-    .title-con {
-      width: calc(100% - 12px);
-      margin: 30px auto;
-
-      .title {
-        font-size: 32px;
-      }
-    }
-
-    .container {
-      width: calc(100% - 12px);
-      margin: 0px auto 100px auto;
-      display: grid !important;
-
-      .img-con {
-        width: calc(100% - 12px);
-
-        .img-info {
-          .img-title {
-            font-size: 20px;
-            padding: 12px;
-          }
-        }
-
-        .descript {
-          padding: 12px;
-          font-size: 16px;
-          margin-bottom: 12px;
-
-          .intro {
-            font-size: 20px;
-          }
-        }
-      }
-
-      .info-con {
-        width: calc(100% - 12px);
-
-        .info {
-          position: sticky;
-          width: 100%;
-          padding: 12px;
-
-          .title-info {
-            font-size: 18px;
-            margin: 12px 0px;
-          }
-
-          .schedule-con {
-            .date-picker {
-              ::v-deep .vuejs3-datepicker {
-                width: 100% !important;
-              }
-
-              ::v-deep .vuejs3-datepicker__value {
-                width: 100% !important;
-              }
-            }
-
-            ::v-deep .v-input__control {
-              height: auto;
-            }
-
-            ::v-deep .v-field__input {
-              padding-top: auto;
-            }
-
-            ::v-deep .v-input__details {
-              display: none;
-            }
-
-            .time-btn {
-              margin: 8px;
-              width: calc(19% - 16px);
-            }
-
-            .check-box {
-              margin-bottom: 40px;
-              height: 25px;
-            }
-
-            .title {
-              font-size: 16px;
-              margin-top: 20px;
-            }
-
-            .sub-title {
-              font-size: 12px;
-              margin: 10px 0px;
-            }
-          }
-        }
-      }
+  .btn:hover {
+    border: solid 1px #805bea;
+    box-shadow: 1px 1px 5px 1px whitesmoke;
+
+    .btn-text {
+      color: #805bea;
     }
   }
 }

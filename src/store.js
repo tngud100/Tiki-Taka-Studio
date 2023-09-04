@@ -5,8 +5,8 @@ const store = createStore({
     videoIndex: 0,
     shortsVideoIndex: 0,
     shortsShowModal: false,
-    // hostAddressName : "티키앤타카.com";
-    hostAddressName: "http://티키타카.kr:81",
+    hostAddressName : "https://티키앤타카.com",
+    // hostAddressName: "http://티키타카.kr:81",
     rooms:[
       {
         title: '솔로 스튜디오',
