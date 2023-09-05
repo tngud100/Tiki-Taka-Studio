@@ -152,7 +152,7 @@ export default {
 
       /* 에러 확인 부분 */
       error: function (xhr) {
-        // alert("전송 실패");
+        alert("전송 실패");
         console.log("");
         console.log("[Error] : [error] : " + xhr);
         console.log("");
@@ -202,7 +202,7 @@ export default {
 
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
-          location.reload();
+          // location.reload();
 
           console.log("");
           console.log("[server] : [complete] : " + textStatus);

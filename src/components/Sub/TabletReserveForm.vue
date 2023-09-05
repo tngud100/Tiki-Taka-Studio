@@ -39,9 +39,10 @@
               <p class="title">스튜디오</p>
               <v-select
                 class="stuido-selector"
-                :items="'워터'"
+                :items="studio"
                 :label="'스튜디오를' + '를 선택해 주세요'"
                 variant="outlined"
+                @update:model-value="studio_select"
               />
               <div class="calender-box">
                 <router-link to="/CalendarReservate">
@@ -123,6 +124,7 @@
                   :key="index"
                   @click="isEquipmentSelected(index, item[1])"
                 >
+                  <div></div>
                   <v-checkbox v-model="item[1]" :label="item[0]"> </v-checkbox>
                 </v-col>
               </v-row>
@@ -146,16 +148,57 @@
                       setEquipmentSelected(Selected[index], index)
                     "
                   >
-                    <!-- <option
-                      v-for="items in Equipments"
-                      :key="items"
-                      style="
-                        height: 50px;
-                        border-radius: 5px;
-                        border: solid 1px gray;
-                      "
-                    ></option> -->
                   </v-select>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      padding: 0px 12px;
+                    "
+                    v-for="(item, index) in Selected[index]"
+                    :key="index"
+                  >
+                    {{ item }}
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                      "
+                    >
+                      <span style="margin-right: 12px">
+                        {{ this.itemPrice(item).toLocaleString() }}원
+                      </span>
+                      <span
+                        class="mdi mdi-minus-circle-outline"
+                        style="
+                          font-size: 30px;
+                          color: rgb(90, 90, 90);
+                          cursor: pointer;
+                        "
+                        @click="minusBtnEquipment(EquipmentCountIdx(item))"
+                      ></span>
+
+                      <div style="margin: 0px 30px; font-size: 16px">
+                        {{
+                          this.SelectedEquipmentCount.equipmentCount[
+                            EquipmentCountIdx(item)
+                          ]
+                        }}
+                      </div>
+
+                      <span
+                        class="mdi mdi-plus-circle-outline"
+                        style="
+                          font-size: 30px;
+                          color: rgb(90, 90, 90);
+                          cursor: pointer;
+                        "
+                        @click="plusBtnEquipment(EquipmentCountIdx(item))"
+                      ></span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -164,7 +207,8 @@
             <p class="num-title">총인원</p>
             <p class="sub-title">
               인원 초과시 인당
-              {{ this.rooms[0].numPrice.toLocaleString() }}원 추가 비용 발생
+              {{ this.rooms[this.select_studio].numPrice.toLocaleString() }}원
+              추가 비용 발생
             </p>
             <v-text-field
               label="인원수를 입력해 주세요."
@@ -194,7 +238,7 @@
                     color: rgb(90, 90, 90);
                     cursor: pointer;
                   "
-                  @click="minusBtn"
+                  @click="minusBtnPeople"
                 ></span>
 
                 <div style="margin: 0px 30px; font-size: 16px">
@@ -208,7 +252,7 @@
                     color: rgb(90, 90, 90);
                     cursor: pointer;
                   "
-                  @click="plusBtn"
+                  @click="plusBtnPeople"
                 ></span>
               </div>
             </div>
@@ -218,17 +262,23 @@
               <div class="price-box">
                 <span class="price-text"
                   >스튜디오 {{ this.timeHour }}시간 x
-                  {{ rooms[0].price.toLocaleString() }}원
+                  {{ rooms[this.select_studio].price.toLocaleString() }}원
                 </span>
                 <span class="price-value">
-                  {{ (rooms[0].price * this.timeHour).toLocaleString() }}원
+                  {{
+                    (
+                      rooms[this.select_studio].price * this.timeHour
+                    ).toLocaleString()
+                  }}원
                 </span>
               </div>
               <div class="price-box">
                 <span class="price-text">
                   인원수
-                  {{ this.num }}인 x {{ rooms[0].numPrice.toLocaleString() }}원
-                  ( 최소 {{ rooms[0].numMin }}인 ~ 최대 {{ rooms[0].numMax }}인)
+                  {{ this.num }}인 x
+                  {{ rooms[this.select_studio].numPrice.toLocaleString() }}원 (
+                  최소 {{ rooms[this.select_studio].numMin }}인 ~ 최대
+                  {{ rooms[this.select_studio].numMax }}인)
                 </span>
                 <span class="price-value">
                   {{ this.numPrice.toLocaleString() }}원
@@ -292,13 +342,15 @@ export default {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     return {
-      title: "예약하기",
-      bgImage: [
-        require("@/assets/banner/notify1920.svg"),
-        require("@/assets/banner/notify1300.svg"),
-        require("@/assets/banner/notify760.svg"),
+      studio: [
+        "솔로 스튜디오",
+        "듀오 스튜디오",
+        "하이브리드 스튜디오",
+        "워터 스튜디오",
+        "화이트 스튜디오",
+        "그린 스튜디오",
       ],
-      studioImage: [require("@/assets/studio/studio3.svg")],
+      select_studio: 0,
       dialog: false,
       disableDate: {
         to: yesterday,
@@ -330,6 +382,11 @@ export default {
         lightSubFilm: [],
         equipmentNum: [],
       },
+      SelectedEquipmentCount: {
+        maxEquipmentCount: [],
+        equipmentCount: [],
+        equipmentRemainCount: [],
+      },
       camera: [],
       num: 0,
       equipmentPrice: 0,
@@ -343,13 +400,69 @@ export default {
   },
   mounted() {
     this.setEquipmentValue();
-  },
-  watch: {
-    Selected(newVal, oldVal) {
-      console.log(newVal, oldVal);
-    },
+    for (var i = 0; i < 24; i++) {
+      this.SelectedEquipmentCount.equipmentCount.push(1);
+      this.SelectedEquipmentCount.maxEquipmentCount.push(0);
+      this.SelectedEquipmentCount.equipmentRemainCount.push(0);
+    }
   },
   methods: {
+    itemPrice(item) {
+      var lowerType = ["camera", "monitor", "MicAudio", "LightSubFilm"];
+      for (var k = 0; k < lowerType.length; k++) {
+        for (var i = 0; i < this.equipments[lowerType[k]].length; i++) {
+          if (item === this.equipments[lowerType[k]][i].name) {
+            return this.equipments[lowerType[k]][i].price;
+          }
+        }
+      }
+    },
+    plusBtnEquipment(equipmentCountIdx) {
+      var SelectedCount =
+        this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx];
+      var MaxCount =
+        this.SelectedEquipmentCount.maxEquipmentCount[equipmentCountIdx];
+      SelectedCount += 1;
+      if (SelectedCount >= MaxCount) {
+        SelectedCount = MaxCount;
+      }
+
+      this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx] =
+        SelectedCount;
+    },
+    minusBtnEquipment(equipmentCountIdx) {
+      var SelectedCount =
+        this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx];
+      SelectedCount -= 1;
+      if (SelectedCount <= 1) {
+        SelectedCount = 1;
+      }
+      this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx] =
+        SelectedCount;
+    },
+
+    EquipmentCountIdx(item) {
+      var lowerType = ["camera", "monitor", "MicAudio", "LightSubFilm"];
+      var equipmentCountIdx;
+      var maxEquipmentCount;
+
+      for (var k = 0; k < lowerType.length; k++) {
+        for (var i = 0; i < this.equipments[lowerType[k]].length; i++) {
+          if (item === this.equipments[lowerType[k]][i].name) {
+            maxEquipmentCount = this.equipments[lowerType[k]][i].count;
+            equipmentCountIdx =
+              this.equipments[lowerType[k]][i].equipmentNum - 1;
+            this.SelectedEquipmentCount.maxEquipmentCount[equipmentCountIdx] =
+              maxEquipmentCount;
+            return equipmentCountIdx;
+          }
+        }
+      }
+    },
+
+    studio_select(value) {
+      this.select_studio = this.studio.indexOf(value);
+    },
     setTime(time) {
       // 처음 선택 할 시 자동 3시간
       if (this.selectedStartTime === 0) {
@@ -416,7 +529,7 @@ export default {
       this.getDisableEquipment();
     },
 
-    // 클래스 부여
+    // 시간 css 클래스 부여
     isTimeSelected(i) {
       this.timeHour = this.selectedEndTime - this.selectedStartTime;
       this.timeString = `${this.selectedStartTime}:00 - ${this.selectedEndTime}:00 , ${this.timeHour}시간`;
@@ -482,6 +595,7 @@ export default {
         this.equipmentPrice = 0;
       }
     },
+    // 장비 데이터 가져오기
     setEquipmentValue() {
       if (this.equipments) {
         for (var i = 0; i < this.equipments.camera.length; i++) {
@@ -526,24 +640,6 @@ export default {
         return "조명&촬영보조";
       }
     },
-
-    // setEquipmentSelected(selectedName) {
-    //   const equipmentTypes = ["camera", "monitor", "micAudio", "lightSubFilm"];
-
-    //   equipmentTypes.forEach((type) => {
-    //     if (this.equipments[type]) {
-    //       this.equipments[type].forEach((equipment) => {
-    //         if (selectedName.includes(equipment.name)) {
-    //           this.Selected.equipmentNum.push(equipment.equipmentNum);
-    //         }
-    //       });
-    //     }
-    //   });
-
-    //   const RemoveDuplicate = [...new Set(this.Selected.equipmentNum)];
-    //   this.Selected.equipmentNum = RemoveDuplicate;
-    //   console.log(this.Selected.equipmentNum);
-    // },
 
     setEquipmentSelected(selectedName, type) {
       console.log(this.Selected);
@@ -645,7 +741,7 @@ export default {
       }
     },
 
-    minusBtn() {
+    minusBtnPeople() {
       this.num--;
       if (this.num <= 0) {
         this.num = 0;
@@ -653,10 +749,10 @@ export default {
 
       this.PriceCalc();
     },
-    plusBtn() {
+    plusBtnPeople() {
       this.num++;
-      if (this.num >= this.rooms[0].numMax) {
-        this.num = this.rooms[0].numMax;
+      if (this.num >= this.rooms[this.select_studio].numMax) {
+        this.num = this.rooms[this.select_studio].numMax;
       }
 
       this.PriceCalc();
@@ -664,8 +760,9 @@ export default {
 
     PriceCalc() {
       this.numPrice =
-        this.rooms[0].numPrice * (this.num - this.rooms[0].numMin);
-      if (this.num <= this.rooms[0].numMin) {
+        this.rooms[this.select_studio].numPrice *
+        (this.num - this.rooms[this.select_studio].numMin);
+      if (this.num <= this.rooms[this.select_studio].numMin) {
         this.numPrice = 0;
       }
 
@@ -673,7 +770,7 @@ export default {
         this.equipmentPrice = 0;
       }
       this.totalPrice =
-        this.rooms[0].price * this.timeHour +
+        this.rooms[this.select_studio].price * this.timeHour +
         this.equipmentPrice +
         this.numPrice;
     },
@@ -796,7 +893,7 @@ export default {
         url:
           this.hostAddressName +
           "/studio/reserve/" +
-          this.rooms[0].studioNum +
+          this.rooms[this.select_studio].studioNum +
           "/" +
           this.date,
         method: "GET",
@@ -917,6 +1014,15 @@ section {
   top: 0;
   left: 0;
   width: 100%;
+}
+.selected-time {
+  background-color: #3399ff;
+  color: white;
+}
+
+.block-time {
+  background-color: #888888;
+  color: white;
 }
 .reserve-form {
   width: 760px;
