@@ -39,8 +39,8 @@
               <p class="title">스튜디오</p>
               <v-select
                 class="stuido-selector"
+                value="솔로 스튜디오"
                 :items="studio"
-                :label="'스튜디오를' + '를 선택해 주세요'"
                 variant="outlined"
                 @update:model-value="studio_select"
               />
@@ -168,7 +168,8 @@
                       "
                     >
                       <span style="margin-right: 12px">
-                        {{ this.itemPrice(item).toLocaleString() }}원
+                        {{ this.itemPrice(item).toLocaleString() }}원 *
+                        {{ this.timeHour }} 시간
                       </span>
                       <span
                         class="mdi mdi-minus-circle-outline"
@@ -206,7 +207,7 @@
             <!-- 인원 테이블 -->
             <p class="num-title">총인원</p>
             <p class="sub-title">
-              인원 초과시 인당
+              최소 인원 초과시 인당
               {{ this.rooms[this.select_studio].numPrice.toLocaleString() }}원
               추가 비용 발생
             </p>
@@ -265,11 +266,7 @@
                   {{ rooms[this.select_studio].price.toLocaleString() }}원
                 </span>
                 <span class="price-value">
-                  {{
-                    (
-                      rooms[this.select_studio].price * this.timeHour
-                    ).toLocaleString()
-                  }}원
+                  {{ this.roomPrice.toLocaleString() }}원
                 </span>
               </div>
               <div class="price-box">
@@ -285,7 +282,9 @@
                 </span>
               </div>
               <div class="price-box">
-                <span class="price-text"> 장비 가격 </span>
+                <span class="price-text">
+                  장비 가격 x {{ this.timeHour }}시간
+                </span>
                 <span class="price-value">
                   {{ this.equipmentPrice.toLocaleString() }}원
                 </span>
@@ -302,8 +301,46 @@
                 <br /><br />
                 <div class="sign">
                   <span class="sign-text">신청인</span>
-                  <div><img /></div>
-                  <span class="sign-confirm">(인)</span>
+                  <div v-if="signatureSrc">
+                    <img
+                      :src="signatureSrc"
+                      style="
+                        width: 80px;
+                        position: absolute;
+                        height: 50px;
+                        transform: translateY(-12px);
+                      "
+                    />
+                  </div>
+
+                  <div
+                    class="sign-canvas"
+                    style="width: 80px; cursor: pointer"
+                    @click="openSignDialog"
+                  ></div>
+                  <div class="sign-div">
+                    <v-dialog v-model="signDialog">
+                      <v-card width="550">
+                        <v-card-text>
+                          <canvas
+                            ref="signatureCanvas"
+                            width="500"
+                            height="300"
+                            style="border: 1px solid black"
+                            @mousedown="startDrawing"
+                            @mousemove="draw"
+                            @mouseup="stopDrawing"
+                          ></canvas>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-btn @click="clearCanvas">clear</v-btn>
+                          <v-btn @click="saveSignature">save</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </div>
+
+                  <span class="sign-confirm" @click="openSignDialog">(인)</span>
                 </div>
               </div>
             </div>
@@ -319,9 +356,9 @@
         대여한 장비의 오염, 파손, 도난 시 그 책임을 이용자에게 청구할 수
         있습니다.<br />
       </div>
-    </div>
-    <div class="submit-btn">
-      <v-btn class="button">예약하기</v-btn>
+      <div class="submit-btn">
+        <v-btn class="button">예약하기</v-btn>
+      </div>
     </div>
   </section>
 </template>
@@ -392,10 +429,16 @@ export default {
       equipmentPrice: 0,
       numPrice: 0,
       totalPrice: 0,
+      roomPrice: 0,
       blockTimeList: [],
       checkAccount: false,
       disableEquipmentName: [],
       disableEquipmentNum: [],
+      signDialog: false,
+      signDraw: false,
+      ctx: null,
+      isDrawing: false,
+      signatureSrc: null,
     };
   },
   mounted() {
@@ -407,6 +450,68 @@ export default {
     }
   },
   methods: {
+    openSignDialog() {
+      this.signDialog = true;
+      this.$nextTick(() => {
+        const canvas = this.$refs.signatureCanvas;
+        if (canvas) {
+          this.ctx = canvas.getContext("2d");
+        }
+      });
+      //   const signBox = document.getElementsByClassName("sign-dialog");
+      //   signBox.style.display = "block";
+    },
+    startDrawing() {
+      this.isDrawing = true;
+      this.ctx.beginPath();
+    },
+    draw(event) {
+      if (!this.isDrawing) return;
+      this.ctx.lineWidth = 2;
+      this.ctx.lineCap = "round";
+      this.ctx.strokeStyle = "black";
+
+      const rect = this.$refs.signatureCanvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      this.ctx.lineTo(x, y);
+      this.ctx.stroke();
+    },
+    stopDrawing() {
+      this.isDrawing = false;
+    },
+    clearCanvas() {
+      this.ctx.clearRect(
+        0,
+        0,
+        this.$refs.signatureCanvas.width,
+        this.$refs.signatureCanvas.height
+      );
+    },
+    saveSignature() {
+      const signatureData = this.$refs.signatureCanvas.toDataURL("image/png");
+      this.signatureSrc = signatureData;
+      this.signDialog = false;
+      fetch(signatureData)
+        .then((response) => {
+          response.blob();
+        })
+        // .then((blob) => {
+        //   const item = new ClipboardItem({ "image/png": blob });
+        //   navigator.clipboard
+        //     .write([item])
+        //     .then(() => {
+        //       alert("Signature saved to clipboard!");
+        //     })
+        //     .catch((error) => {
+        //       console.error("Failed to save signature to clipboard:", error);
+        //     });
+        // })
+        .catch((error) => {
+          console.error("Failed to fetch signature data:", error);
+        });
+    },
     itemPrice(item) {
       var lowerType = ["camera", "monitor", "MicAudio", "LightSubFilm"];
       for (var k = 0; k < lowerType.length; k++) {
@@ -418,15 +523,26 @@ export default {
       }
     },
     plusBtnEquipment(equipmentCountIdx) {
+      console.log(this.SelectedEquipmentCount);
       var SelectedCount =
         this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx];
       var MaxCount =
         this.SelectedEquipmentCount.maxEquipmentCount[equipmentCountIdx];
       SelectedCount += 1;
+
       if (SelectedCount >= MaxCount) {
         SelectedCount = MaxCount;
       }
 
+      if (
+        this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx] !=
+          0 &&
+        SelectedCount >=
+          this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx]
+      ) {
+        SelectedCount =
+          this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx];
+      }
       this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx] =
         SelectedCount;
     },
@@ -765,14 +881,26 @@ export default {
       if (this.num <= this.rooms[this.select_studio].numMin) {
         this.numPrice = 0;
       }
-
       if (this.equipmentPrice <= 0) {
         this.equipmentPrice = 0;
       }
-      this.totalPrice =
-        this.rooms[this.select_studio].price * this.timeHour +
-        this.equipmentPrice +
-        this.numPrice;
+
+      this.rooomCalc();
+
+      this.totalPrice = this.roomPrice + this.equipmentPrice + this.numPrice;
+    },
+    rooomCalc() {
+      const priceHour3 = this.rooms[this.select_studio].PriceToHour3;
+      const priceHour6 = this.rooms[this.select_studio].PriceToHour6;
+      const priceHour12 = this.rooms[this.select_studio].PriceToHour12;
+      var price = this.rooms[this.select_studio].price;
+      if (this.timeHour >= 3 && this.timeHour < 6) {
+        this.roomPrice = priceHour3 + price * (this.timeHour - 3);
+      } else if (this.timeHour >= 6 && this.timeHour < 12) {
+        this.roomPrice = priceHour6 + price * (this.timeHour - 6);
+      } else if (this.timeHour >= 12) {
+        this.roomPrice = priceHour12 + price * (this.timeHour - 12);
+      }
     },
 
     equipmentCalc(removedSelected) {
@@ -828,54 +956,98 @@ export default {
         }
       }
 
-      console.log("삭제된 항목 : " + removedSelected);
-      console.log(equipmentType);
+      // console.log("삭제된 항목 : " + removedSelected);
+      // console.log(equipmentType);
       if (this.equipments[equipmentType]) {
         // 항목이 있을시에 가격 대입 시행(오류방지)
         for (var k = 0; k < this.equipments[equipmentType].length; k++) {
           // 전역 변수 equipments.parameter 리스트 for문
           let currentNum =
-            this.Selected.equipmentNum[this.Selected.equipmentNum.length - 1]; // 선택한 항목의 가장 최근 숫자
+            this.Selected.equipmentNum[this.Selected.equipmentNum.length - 1]; // 선택한 항목의 가장 최근 장비번호
           if (
-            // for문을 돌려 가장 최근 숫자와 알맞는 price 데이터 뽑기, 취소 항목없을시에 시행 (총금액에 항목 가격 추가)
+            // for문을 돌려 선택한 장비의 가장 최근 번호와 일치하는 price 데이터 뽑기, 취소 항목없을시에 시행 (총금액에 항목 가격 추가)
             this.equipments[equipmentType][k].equipmentNum === currentNum &&
             !removedSelected
           ) {
-            var price = this.equipments[equipmentType][k].price;
-            this.equipmentPrice += price * this.timeHour;
+            this.equipmentDiscountCalc(currentNum, this.timeHour, "plus");
             this.PriceCalc();
-            console.log("장비 " + this.equipments[equipmentType][k].price);
           } else if (removedSelected) {
             // 항목 취소하였을때 총 금액에서 취소한 항목 금액 감액
             if (
               // for문 돌려 취소한 항목의 금액 가져오기
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -=
-                this.equipments[equipmentType][k].price * this.timeHour;
-              this.PriceCalc();
-              console.log(
-                "취소 가격" + this.equipments[equipmentType][k].price
+              this.equipmentDiscountCalc(
+                removedSelected,
+                this.timeHour,
+                "minus"
               );
+              this.PriceCalc();
             }
           } else {
             // 취소한 항목이 배열의 마지막 데이터 일때( 취소한 항목 금액 총금액에서 감액 ) => 오류 방지를 위해 else사용
             if (
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -=
-                this.equipments[equipmentType][k].price * this.timeHour;
-              this.PriceCalc();
-              console.log(
-                "마지막 항목 취소 가격" +
-                  this.equipments[equipmentType][k].price
+              this.equipmentDiscountCalc(
+                removedSelected,
+                this.timeHour,
+                "minus"
               );
+              this.PriceCalc();
+              // );
             }
           }
         }
       }
 
       console.log("총 가격" + this.equipmentPrice);
+    },
+    equipmentDiscountCalc(equipmentNum, time, state) {
+      const equipmentNumRange = {
+        camera: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
+        monitor: [12],
+        MicAudio: [16, 17, 18, 19, 20],
+        LightSubFilm: [21, 22, 23],
+      };
+
+      let matchedKey = Object.keys(equipmentNumRange).find((key) =>
+        equipmentNumRange[key].includes(equipmentNum)
+      );
+
+      var equipmentList = this.equipments[matchedKey];
+
+      if (!equipmentList) {
+        return;
+      }
+      for (var k = 0; k < equipmentList.length; k++) {
+        if (equipmentList[k].equipmentNum === equipmentNum) {
+          const priceHour3 = equipmentList[k].PriceToHour3;
+          const priceHour6 = equipmentList[k].PriceToHour6;
+          const priceHour12 = equipmentList[k].PriceToHour12;
+          var price = equipmentList[k].price;
+          if (state === "plus") {
+            if (time >= 3 && time < 6) {
+              this.equipmentPrice += priceHour3 + price * (this.timeHour - 3);
+            } else if (time >= 6 && time < 12) {
+              this.equipmentPrice += priceHour6 + price * (this.timeHour - 6);
+            } else if (time >= 12) {
+              this.equipmentPrice += priceHour12 + price * (this.timeHour - 12);
+            }
+            console.log("PlusPrice: " + this.equipmentPrice);
+          }
+          if (state === "minus") {
+            if (time >= 3 && time < 6) {
+              this.equipmentPrice -= priceHour3 + price * (this.timeHour - 3);
+            } else if (time >= 6 && time < 12) {
+              this.equipmentPrice -= priceHour6 + price * (this.timeHour - 6);
+            } else if (time >= 12) {
+              this.equipmentPrice -= priceHour12 + price * (this.timeHour - 12);
+            }
+            console.log("minusPrice: " + this.equipmentPrice);
+          }
+        }
+      }
     },
 
     dateInsert(date) {
@@ -977,11 +1149,21 @@ export default {
       for (var i = 0; i < response.length; i++) {
         const EquipmentNum = response[i].equipmentNum;
         const EquipmentState = response[i].equipmentState;
+        const RemainCount = response[i].remainCount;
 
         if (EquipmentState === 0) {
           this.disableEquipmentNum.push(EquipmentNum);
         }
+
+        if (RemainCount >= 1) {
+          this.SelectedEquipmentCount.equipmentRemainCount[EquipmentNum - 1] =
+            RemainCount;
+        }
+        console.log("장비번호 : " + EquipmentNum);
+        console.log("장비상태 : " + EquipmentState);
+        console.log("장비잔여개수 : " + RemainCount);
       }
+
       this.disableEquipmentNum = [...new Set(this.disableEquipmentNum)];
 
       console.log("사용 불가능 장비 번호" + this.disableEquipmentNum); // 사용 불가능 장비 번호
@@ -1008,6 +1190,21 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+::v-deep .v-overlay__content {
+  align-items: center;
+}
+.sign-div {
+  // display: none;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // background-color: rgba(0, 0, 0, 0.5);
+  // width: 100%;
+  // height: 100%;
+  // z-index: 1;
+  .sign-dialog {
+  }
+}
 section {
   position: absolute;
   background-color: rgb(218, 218, 218);
@@ -1177,7 +1374,7 @@ section {
 
 .submit-btn {
   display: flex;
-  margin: 20px auto 50px auto;
+  margin: 30px auto 20px auto;
   justify-content: center;
   .button {
     width: 150px;
