@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- 제목 -->
-    <div class="reserve-form">
+    <div class="reserve-form" id="pdf">
       <div class="title-box">
         <div class="title-first">
           <span class="title-span"> TNT STUDIO 견적/예약 </span>
@@ -20,10 +20,13 @@
         </div>
         <div class="title-third">
           <div class="document-title">
-            <input style="width: 100%; margin: 4px" />
+            <input style="width: 100%; margin: 4px; text-align: center" />
           </div>
           <div class="document-title">
-            <input style="width: 100%; margin: 4px" />
+            <input
+              v-model="reserve_name"
+              style="width: 100%; margin: 4px; text-align: center"
+            />
           </div>
           <div class="document-title">
             <span class="document-span"> 반납승인 </span>
@@ -271,6 +274,14 @@
               </div>
               <div class="price-box">
                 <span class="price-text">
+                  장비 가격 x {{ this.timeHour }}시간
+                </span>
+                <span class="price-value">
+                  {{ this.equipmentPrice.toLocaleString() }}원
+                </span>
+              </div>
+              <div class="price-box">
+                <span class="price-text">
                   인원수
                   {{ this.num }}인 x
                   {{ rooms[this.select_studio].numPrice.toLocaleString() }}원 (
@@ -279,14 +290,6 @@
                 </span>
                 <span class="price-value">
                   {{ this.numPrice.toLocaleString() }}원
-                </span>
-              </div>
-              <div class="price-box">
-                <span class="price-text">
-                  장비 가격 x {{ this.timeHour }}시간
-                </span>
-                <span class="price-value">
-                  {{ this.equipmentPrice.toLocaleString() }}원
                 </span>
               </div>
               <hr style="margin: 20px 0px" />
@@ -308,16 +311,17 @@
                         width: 80px;
                         position: absolute;
                         height: 50px;
-                        transform: translateY(-12px);
+                        transform: translate3d(65px, -10px, 10px);
                       "
                     />
                   </div>
-
                   <div
                     class="sign-canvas"
                     style="width: 80px; cursor: pointer"
                     @click="openSignDialog"
-                  ></div>
+                  >
+                    {{ reserve_name }}
+                  </div>
                   <div class="sign-div">
                     <v-dialog v-model="signDialog">
                       <v-card width="550">
@@ -356,20 +360,42 @@
         대여한 장비의 오염, 파손, 도난 시 그 책임을 이용자에게 청구할 수
         있습니다.<br />
       </div>
+    </div>
+    <div class="function-btn">
+      <DialogReserve
+        :date="date"
+        :time-string="timeString"
+        :num="num"
+        :total-price="totalPrice"
+        :time-list="timeList"
+        :camera="Selected.camera"
+        :monitor="Selected.monitor"
+        :micAudio="Selected.micAudio"
+        :lightSubFilm="Selected.lightSubFilm"
+        :equipmentNum="Selected.equipmentNum"
+        :roomTitle="rooms[this.select_studio].title"
+        :roomNum="rooms[this.select_studio].studioNum"
+      />
       <div class="submit-btn">
-        <v-btn class="button">예약하기</v-btn>
+        <v-btn class="button" @click="captureScreenshot">저장하기</v-btn>
+        <!-- <v-btn >예약하기</v-btn> -->
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import DialogReserve from "./ReservateDetail/DialogReserve.vue";
 import { mapGetters } from "vuex";
 import Datepicker from "vuejs3-datepicker";
 import $ from "jquery";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
 export default {
   name: "TabletReserveForm",
   components: {
+    DialogReserve,
     Datepicker,
   },
   computed: {
@@ -388,6 +414,7 @@ export default {
         "그린 스튜디오",
       ],
       select_studio: 0,
+      reserve_name: "",
       dialog: false,
       disableDate: {
         to: yesterday,
@@ -443,11 +470,7 @@ export default {
   },
   mounted() {
     this.setEquipmentValue();
-    for (var i = 0; i < 24; i++) {
-      this.SelectedEquipmentCount.equipmentCount.push(1);
-      this.SelectedEquipmentCount.maxEquipmentCount.push(0);
-      this.SelectedEquipmentCount.equipmentRemainCount.push(0);
-    }
+    this.setSelectEquipmentValue();
   },
   methods: {
     openSignDialog() {
@@ -523,14 +546,18 @@ export default {
       }
     },
     plusBtnEquipment(equipmentCountIdx) {
-      console.log(this.SelectedEquipmentCount);
       var SelectedCount =
         this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx];
       var MaxCount =
         this.SelectedEquipmentCount.maxEquipmentCount[equipmentCountIdx];
-      SelectedCount += 1;
-
-      if (SelectedCount >= MaxCount) {
+      if (SelectedCount < MaxCount) {
+        SelectedCount += 1;
+        this.equipmentDiscountCalc(
+          equipmentCountIdx + 1,
+          this.timeHour,
+          "plus"
+        );
+      } else if (SelectedCount >= MaxCount) {
         SelectedCount = MaxCount;
       }
 
@@ -545,14 +572,32 @@ export default {
       }
       this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx] =
         SelectedCount;
+
+      // console.log(
+      //   "selected equipment:" + this.SelectedEquipmentCount.equipmentCount
+      // );
+      // console.log("equipmentIdx: " + equipmentCountIdx);
+      console.log(
+        "remainCount: " +
+          this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx]
+      );
     },
     minusBtnEquipment(equipmentCountIdx) {
       var SelectedCount =
         this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx];
-      SelectedCount -= 1;
-      if (SelectedCount <= 1) {
+      if (SelectedCount > 1) {
+        SelectedCount -= 1;
+        this.equipmentDiscountCalc(
+          equipmentCountIdx + 1,
+          this.timeHour,
+          "minus"
+        );
+      } else {
         SelectedCount = 1;
       }
+      // if (SelectedCount <= 1) {
+      //   SelectedCount = 1;
+      // }
       this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx] =
         SelectedCount;
     },
@@ -561,7 +606,6 @@ export default {
       var lowerType = ["camera", "monitor", "MicAudio", "LightSubFilm"];
       var equipmentCountIdx;
       var maxEquipmentCount;
-
       for (var k = 0; k < lowerType.length; k++) {
         for (var i = 0; i < this.equipments[lowerType[k]].length; i++) {
           if (item === this.equipments[lowerType[k]][i].name) {
@@ -570,6 +614,9 @@ export default {
               this.equipments[lowerType[k]][i].equipmentNum - 1;
             this.SelectedEquipmentCount.maxEquipmentCount[equipmentCountIdx] =
               maxEquipmentCount;
+            console.log(
+              "equipmentCount : " + this.SelectedEquipmentCount.equipmentCount
+            );
             return equipmentCountIdx;
           }
         }
@@ -706,10 +753,14 @@ export default {
       this.Selected.micAudio = [];
       this.Selected.lightSubFilm = [];
       this.Selected.monitor = [];
-      this.equipmentPrice = 0;
+      (this.SelectedEquipmentCount.maxEquipmentCount = []),
+        (this.SelectedEquipmentCount.equipmentCount = []),
+        (this.SelectedEquipmentCount.equipmentRemainCount = []),
+        (this.equipmentPrice = 0);
       if (this.equipmentPrice <= 0) {
         this.equipmentPrice = 0;
       }
+      this.setSelectEquipmentValue();
     },
     // 장비 데이터 가져오기
     setEquipmentValue() {
@@ -728,6 +779,14 @@ export default {
             this.equipments.LightSubFilm[l].name
           );
         }
+      }
+    },
+    // 장비 갯수 나타내는 데이터 구조 set
+    setSelectEquipmentValue() {
+      for (var i = 0; i < 24; i++) {
+        this.SelectedEquipmentCount.equipmentCount.push(1);
+        this.SelectedEquipmentCount.maxEquipmentCount.push(0);
+        this.SelectedEquipmentCount.equipmentRemainCount.push(0);
       }
     },
 
@@ -819,6 +878,7 @@ export default {
           if (type === "lightSubFilm") {
             type = "LightSubFilm";
           }
+
           // equipments의 두번째 파라미터와 같을때
           console.log("selected:" + this.Selected.equipmentNum);
 
@@ -829,9 +889,11 @@ export default {
                 this.equipments[type][i].equipmentNum ===
                 this.Selected.equipmentNum[k]
               ) {
+                console.log(this.Selected.equipmentNum);
+                console.log(this.Selected.equipmentNum[k]);
+
                 this.equipmentPrice -=
                   this.equipments[type][i].price * this.timeHour;
-                console.log(this.equipments[type][i].price);
               }
             }
           }
@@ -1022,6 +1084,8 @@ export default {
       }
       for (var k = 0; k < equipmentList.length; k++) {
         if (equipmentList[k].equipmentNum === equipmentNum) {
+          // console.log(equipmentNum);
+          // console.log(this.SelectedEquipmentCount.equipmentCount);
           const priceHour3 = equipmentList[k].PriceToHour3;
           const priceHour6 = equipmentList[k].PriceToHour6;
           const priceHour12 = equipmentList[k].PriceToHour12;
@@ -1186,6 +1250,33 @@ export default {
       }
       console.log(this.disableEquipmentName); // 사용 불가능 장비 이름
     },
+    async captureScreenshot() {
+      const element = document.getElementById("pdf"); // 'app'을 루트 Vue 컴포넌트의 ID로 교체하세요
+
+      // HTML 요소로부터 캔버스 생성
+      const canvas = await html2canvas(element, {
+        scale: 2, // Increase the scale for higher resolution
+      });
+      // PDF 문서 생성
+      const pdf = new jsPDF({
+        orientation: "portrait", // 'portrait' 또는 'landscape'
+        unit: "px", // 'px', 'pt', 'mm', 'cm', 'in'
+        format: "a4", // 'a3', 'a4', 'a5', 등
+      });
+
+      // 캔버스를 PDF에 이미지로 추가
+      pdf.addImage(
+        canvas.toDataURL("image/jpeg", 1.0),
+        "JPEG",
+        0,
+        0,
+        pdf.internal.pageSize.width,
+        pdf.internal.pageSize.height
+      );
+
+      // PDF를 'screenshot.pdf'로 저장
+      pdf.save("screenshot.pdf");
+    },
   },
 };
 </script>
@@ -1220,6 +1311,12 @@ section {
 .block-time {
   background-color: #888888;
   color: white;
+}
+.function-btn {
+  background-color: white;
+  width: 760px;
+  font-family: "Pretendard";
+  margin: auto;
 }
 .reserve-form {
   width: 760px;
