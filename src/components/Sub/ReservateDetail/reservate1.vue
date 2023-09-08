@@ -121,6 +121,7 @@
                 </div>
               </div>
             </div>
+
             <!-- 장비 테이블 v-if="timeList.length > 0" -->
             <div class="equipment-con">
               <p class="equipment-title" style="margin-top: 20px">장비</p>
@@ -171,6 +172,38 @@
                       "
                     ></option> -->
                   </v-select>
+                  <div
+                    class="equipment-option-box"
+                    v-for="(item, index) in Selected[index]"
+                    :key="index"
+                  >
+                    <span class="equipment-option-title">
+                      {{ item }}
+                    </span>
+                    <div class="equipment-option-calc">
+                      <span class="option-price" style="">
+                        {{ this.itemPrice(item).toLocaleString() }}원 *
+                        {{ this.timeHour }} 시간
+                      </span>
+                      <span
+                        class="mdi mdi-minus-circle-outline minus-btn"
+                        @click="minusBtnEquipment(EquipmentCountIdx(item))"
+                      ></span>
+
+                      <div class="option-count">
+                        {{
+                          this.SelectedEquipmentCount.equipmentCount[
+                            EquipmentCountIdx(item)
+                          ]
+                        }}
+                      </div>
+
+                      <span
+                        class="mdi mdi-plus-circle-outline plus-btn"
+                        @click="plusBtnEquipment(EquipmentCountIdx(item))"
+                      ></span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -356,6 +389,11 @@ export default {
         lightSubFilm: [],
         equipmentNum: [],
       },
+      SelectedEquipmentCount: {
+        maxEquipmentCount: [],
+        equipmentCount: [],
+        equipmentRemainCount: [],
+      },
       camera: [],
       num: 0,
       equipmentPrice: 0,
@@ -369,6 +407,7 @@ export default {
   },
   mounted() {
     this.setEquipmentValue();
+    this.setSelectEquipmentValue();
   },
   watch: {
     Selected(newVal, oldVal) {
@@ -552,24 +591,13 @@ export default {
         return "조명&촬영보조";
       }
     },
-
-    // setEquipmentSelected(selectedName) {
-    //   const equipmentTypes = ["camera", "monitor", "micAudio", "lightSubFilm"];
-
-    //   equipmentTypes.forEach((type) => {
-    //     if (this.equipments[type]) {
-    //       this.equipments[type].forEach((equipment) => {
-    //         if (selectedName.includes(equipment.name)) {
-    //           this.Selected.equipmentNum.push(equipment.equipmentNum);
-    //         }
-    //       });
-    //     }
-    //   });
-
-    //   const RemoveDuplicate = [...new Set(this.Selected.equipmentNum)];
-    //   this.Selected.equipmentNum = RemoveDuplicate;
-    //   console.log(this.Selected.equipmentNum);
-    // },
+    setSelectEquipmentValue() {
+      for (var i = 0; i < 24; i++) {
+        this.SelectedEquipmentCount.equipmentCount.push(1);
+        this.SelectedEquipmentCount.maxEquipmentCount.push(0);
+        this.SelectedEquipmentCount.equipmentRemainCount.push(0);
+      }
+    },
 
     setEquipmentSelected(selectedName, type) {
       console.log(this.Selected);
@@ -611,7 +639,144 @@ export default {
       this.Selected.equipmentNum = [...new Set(this.Selected.equipmentNum)];
       this.equipmentCalc(removedSelected);
     },
+    itemPrice(item) {
+      var lowerType = ["camera", "monitor", "MicAudio", "LightSubFilm"];
+      for (var k = 0; k < lowerType.length; k++) {
+        for (var i = 0; i < this.equipments[lowerType[k]].length; i++) {
+          if (item === this.equipments[lowerType[k]][i].name) {
+            return this.equipments[lowerType[k]][i].price;
+          }
+        }
+      }
+    },
+    plusBtnEquipment(equipmentCountIdx) {
+      var SelectedCount =
+        this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx];
+      var MaxCount =
+        this.SelectedEquipmentCount.maxEquipmentCount[equipmentCountIdx];
+      if (SelectedCount < MaxCount) {
+        SelectedCount += 1;
+        this.equipmentDiscountCalc(
+          equipmentCountIdx + 1,
+          this.timeHour,
+          "plus"
+        );
+      } else if (SelectedCount >= MaxCount) {
+        SelectedCount = MaxCount;
+      }
 
+      if (
+        this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx] !=
+          0 &&
+        SelectedCount >=
+          this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx]
+      ) {
+        SelectedCount =
+          this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx];
+      }
+      this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx] =
+        SelectedCount;
+
+      // console.log(
+      //   "selected equipment:" + this.SelectedEquipmentCount.equipmentCount
+      // );
+      // console.log("equipmentIdx: " + equipmentCountIdx);
+      console.log(
+        "remainCount: " +
+          this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx]
+      );
+      this.PriceCalc();
+    },
+    minusBtnEquipment(equipmentCountIdx) {
+      var SelectedCount =
+        this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx];
+      if (SelectedCount > 1) {
+        SelectedCount -= 1;
+        this.equipmentDiscountCalc(
+          equipmentCountIdx + 1,
+          this.timeHour,
+          "minus"
+        );
+      } else {
+        SelectedCount = 1;
+      }
+      // if (SelectedCount <= 1) {
+      //   SelectedCount = 1;
+      // }
+      this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx] =
+        SelectedCount;
+      this.PriceCalc();
+    },
+    equipmentDiscountCalc(equipmentNum, time, state) {
+      const equipmentNumRange = {
+        camera: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
+        monitor: [12],
+        MicAudio: [16, 17, 18, 19, 20],
+        LightSubFilm: [21, 22, 23, 24],
+      };
+
+      let matchedKey = Object.keys(equipmentNumRange).find((key) =>
+        equipmentNumRange[key].includes(equipmentNum)
+      );
+
+      var equipmentList = this.equipments[matchedKey];
+
+      if (!equipmentList) {
+        return;
+      }
+
+      for (var k = 0; k < equipmentList.length; k++) {
+        if (equipmentList[k].equipmentNum === equipmentNum) {
+          // console.log(equipmentNum);
+          // console.log(this.SelectedEquipmentCount.equipmentCount);
+          const priceHour3 = equipmentList[k].PriceToHour3;
+          const priceHour6 = equipmentList[k].PriceToHour6;
+          const priceHour12 = equipmentList[k].PriceToHour12;
+          var price = equipmentList[k].price;
+          if (state === "plus") {
+            if (time >= 3 && time < 6) {
+              this.equipmentPrice += priceHour3 + price * (this.timeHour - 3);
+            } else if (time >= 6 && time < 12) {
+              this.equipmentPrice += priceHour6 + price * (this.timeHour - 6);
+            } else if (time >= 12) {
+              this.equipmentPrice += priceHour12 + price * (this.timeHour - 12);
+            }
+            console.log("PlusPrice: " + this.equipmentPrice);
+          }
+          if (state === "minus") {
+            if (time >= 3 && time < 6) {
+              this.equipmentPrice -= priceHour3 + price * (this.timeHour - 3);
+            } else if (time >= 6 && time < 12) {
+              this.equipmentPrice -= priceHour6 + price * (this.timeHour - 6);
+            } else if (time >= 12) {
+              this.equipmentPrice -= priceHour12 + price * (this.timeHour - 12);
+            }
+            console.log("minusPrice: " + this.equipmentPrice);
+          }
+        }
+      }
+    },
+
+    EquipmentCountIdx(item) {
+      var lowerType = ["camera", "monitor", "MicAudio", "LightSubFilm"];
+      var equipmentCountIdx;
+      var maxEquipmentCount;
+      for (var k = 0; k < lowerType.length; k++) {
+        for (var i = 0; i < this.equipments[lowerType[k]].length; i++) {
+          if (item === this.equipments[lowerType[k]][i].name) {
+            maxEquipmentCount = this.equipments[lowerType[k]][i].count;
+            equipmentCountIdx =
+              this.equipments[lowerType[k]][i].equipmentNum - 1;
+            this.SelectedEquipmentCount.maxEquipmentCount[equipmentCountIdx] =
+              maxEquipmentCount;
+            console.log(
+              "equipmentCount : " + this.SelectedEquipmentCount.equipmentCount
+            );
+            return equipmentCountIdx;
+          }
+        }
+      }
+    },
     // 체크 해제시 초기화
     isEquipmentSelected(type, bool) {
       bool = !bool;
@@ -619,7 +784,7 @@ export default {
         camera: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
         monitor: [12],
         micAudio: [16, 17, 18, 19, 20],
-        lightSubFilm: [21, 22, 23],
+        lightSubFilm: [21, 22, 23, 24],
       };
 
       console.log("type : " + type);
@@ -709,7 +874,7 @@ export default {
         camera: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
         monitor: [12],
         micAudio: [16, 17, 18, 19, 20],
-        lightSubFilm: [21, 22, 23],
+        lightSubFilm: [21, 22, 23, 24],
       };
 
       var equipmentType = "";
@@ -757,8 +922,8 @@ export default {
         }
       }
 
-      console.log("삭제된 항목 : " + removedSelected);
-      console.log(equipmentType);
+      // console.log("삭제된 항목 : " + removedSelected);
+      // console.log(equipmentType);
       if (this.equipments[equipmentType]) {
         // 항목이 있을시에 가격 대입 시행(오류방지)
         for (var k = 0; k < this.equipments[equipmentType].length; k++) {
@@ -770,8 +935,9 @@ export default {
             this.equipments[equipmentType][k].equipmentNum === currentNum &&
             !removedSelected
           ) {
-            var price = this.equipments[equipmentType][k].price;
-            this.equipmentPrice += price * this.timeHour;
+            // var price = this.equipments[equipmentType][k].price;
+            // this.equipmentPrice += price * this.timeHour;
+            this.equipmentDiscountCalc(currentNum, this.timeHour, "plus");
             this.PriceCalc();
             console.log("장비 " + this.equipments[equipmentType][k].price);
           } else if (removedSelected) {
@@ -780,8 +946,13 @@ export default {
               // for문 돌려 취소한 항목의 금액 가져오기
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -=
-                this.equipments[equipmentType][k].price * this.timeHour;
+              // this.equipmentPrice -=
+              //   this.equipments[equipmentType][k].price * this.timeHour;
+              this.equipmentDiscountCalc(
+                removedSelected,
+                this.timeHour,
+                "minus"
+              );
               this.PriceCalc();
               console.log(
                 "취소 가격" + this.equipments[equipmentType][k].price
@@ -792,8 +963,13 @@ export default {
             if (
               this.equipments[equipmentType][k].equipmentNum === removedSelected
             ) {
-              this.equipmentPrice -=
-                this.equipments[equipmentType][k].price * this.timeHour;
+              // this.equipmentPrice -=
+              //   this.equipments[equipmentType][k].price * this.timeHour;
+              this.equipmentDiscountCalc(
+                removedSelected,
+                this.timeHour,
+                "minus"
+              );
               this.PriceCalc();
               console.log(
                 "마지막 항목 취소 가격" +
@@ -1162,6 +1338,40 @@ export default {
             .sub-title {
               font-size: 12px;
               margin: 10px 0px;
+            }
+            .equipment-option-box {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin: 4px 0px;
+              padding: 0px 12px;
+              color: #555555;
+              .equipment-option-title {
+                width: 50%;
+              }
+              .equipment-option-calc {
+                width: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .option-price {
+                  width: 60%;
+                  margin-right: 12px;
+                  text-align: right;
+                }
+                .option-count {
+                  width: 20%;
+                  text-align: center;
+                  font-size: 16px;
+                }
+                .plus-btn,
+                .minus-btn {
+                  width: 10%;
+                  font-size: 30px;
+                  color: rgb(90, 90, 90);
+                  cursor: pointer;
+                }
+              }
             }
           }
         }

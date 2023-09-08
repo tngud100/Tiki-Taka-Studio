@@ -111,7 +111,7 @@
               </div>
             </div>
             <!-- 장비 테이블 v-if="timeList.length > 0" -->
-            <div class="equipment-con">
+            <div class="equipment-con" v-if="timeList.length > 0">
               <p class="equipment-title">장비</p>
               <p class="sub-title">필요하신 장비를 선택해 주세요</p>
               <v-row>
@@ -334,6 +334,9 @@
                             @mousedown="startDrawing"
                             @mousemove="draw"
                             @mouseup="stopDrawing"
+                            @touchstart="startDrawing"
+                            @touchmove="draw"
+                            @touchend="stopDrawing"
                           ></canvas>
                         </v-card-text>
                         <v-card-actions>
@@ -485,18 +488,27 @@ export default {
       //   signBox.style.display = "block";
     },
     startDrawing() {
+      event.preventDefault();
+      console.log("touch");
       this.isDrawing = true;
       this.ctx.beginPath();
     },
     draw(event) {
+      event.preventDefault();
       if (!this.isDrawing) return;
       this.ctx.lineWidth = 2;
       this.ctx.lineCap = "round";
       this.ctx.strokeStyle = "black";
 
       const rect = this.$refs.signatureCanvas.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+
+      var x = event.clientX - rect.left;
+      var y = event.clientY - rect.top;
+
+      if (event.touches) {
+        x = event.touches[0].clientX - rect.left;
+        y = event.touches[0].clientY - rect.top;
+      }
 
       this.ctx.lineTo(x, y);
       this.ctx.stroke();
@@ -1087,6 +1099,7 @@ export default {
           // console.log(equipmentNum);
           // console.log(this.SelectedEquipmentCount.equipmentCount);
           const priceHour3 = equipmentList[k].PriceToHour3;
+
           const priceHour6 = equipmentList[k].PriceToHour6;
           const priceHour12 = equipmentList[k].PriceToHour12;
           var price = equipmentList[k].price;
@@ -1251,11 +1264,11 @@ export default {
       console.log(this.disableEquipmentName); // 사용 불가능 장비 이름
     },
     async captureScreenshot() {
-      const element = document.getElementById("pdf"); // 'app'을 루트 Vue 컴포넌트의 ID로 교체하세요
+      const element = document.getElementById("pdf");
 
       // HTML 요소로부터 캔버스 생성
       const canvas = await html2canvas(element, {
-        scale: 2, // Increase the scale for higher resolution
+        scale: 15, // Increase the scale for higher resolution
       });
       // PDF 문서 생성
       const pdf = new jsPDF({
@@ -1317,11 +1330,13 @@ section {
   width: 760px;
   font-family: "Pretendard";
   margin: auto;
+  padding: 20px;
+  margin-bottom: 30px;
 }
 .reserve-form {
   width: 760px;
   padding: 20px;
-  margin: 30px auto;
+  margin: 30px auto 0px auto;
   background-color: white;
   font-family: "Pretendard";
   .title-box {
@@ -1470,13 +1485,16 @@ section {
 }
 
 .submit-btn {
-  display: flex;
-  margin: 30px auto 20px auto;
-  justify-content: center;
+  // display: flex;
+  // margin: 30px auto 20px auto;
+  // justify-content: center;
   .button {
-    width: 150px;
-    height: 50px;
-    border-radius: 0px;
+    background-color: rgb(128, 91, 234);
+    font-size: 16px;
+    width: 100%;
+    height: 44px;
+    margin-top: 10px;
+    color: white;
   }
 }
 

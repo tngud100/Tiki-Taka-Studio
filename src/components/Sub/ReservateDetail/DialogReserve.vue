@@ -397,7 +397,6 @@ export default {
       this.dialog = false;
       this.sendData(); // 데이터 베이스
       this.sendMail(); // 구글 드라이브 저장, 메일 자동 전송
-      // location.reload();
     },
     Validcheck() {
       if (
@@ -524,6 +523,8 @@ export default {
           console.log("");
           console.log("[serverUploadImage] : [response] : " + response);
           console.log("");
+          location.reload();
+
           // console.log(response.data);
         },
 

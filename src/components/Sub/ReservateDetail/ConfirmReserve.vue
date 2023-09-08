@@ -42,6 +42,7 @@
       </tr>
     </tbody>
   </v-table>
+
   <!-- <v-data-table
     v-model:items-per-page="itemsPerPage"
     :headers="headers"
@@ -64,76 +65,7 @@ export default {
   //   },
   data() {
     return {
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          color: "Frozen Yogurt",
-          dka: 159,
-          fsae: "Frozen Yogurt",
-          sad: 159,
-          qwe: "Frozen Yogurt",
-        },
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          color: "Frozen Yogurt",
-          dka: 159,
-          fsae: "Frozen Yogurt",
-          sad: 159,
-        },
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          color: "Frozen Yogurt",
-          dka: 159,
-          fsae: "Frozen Yogurt",
-          sad: 159,
-          qwe: "Frozen Yogurt",
-        },
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          color: "Frozen Yogurt",
-          dka: 159,
-          fsae: "Frozen Yogurt",
-          sad: 159,
-          qwe: "Frozen Yogurt",
-        },
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          color: "Frozen Yogurt",
-          dka: 159,
-          fsae: "Frozen Yogurt",
-          sad: 159,
-        },
-      ],
       formDataArray: [],
-      //   itemsPerPage: 5,
-
-      //   headers: [
-      //     { title: "이름", align: "end", key: "userName" },
-      //     { title: "스튜디오", align: "end", key: "studioName" },
-      //     { title: "대여날짜", align: "start", key: "date" },
-      //     { title: "대여시간", align: "end", key: "startTime" },
-      //     { title: "사용 인원수", align: "end", key: "peopleNum" },
-      //     { title: "연락처", align: "end", key: "phone" },
-      //     { title: "이메일", align: "end", key: "email" },
-      //     { title: "입금 확인", align: "end", key: "state" },
-      //   ],
-      //   dessert: [
-      //     {
-      //       userName: "",
-      //       studioName: 159,
-      //       date: 6.0,
-      //       startTime: 24,
-      //       endTime: 24,
-      //       peopleNum: 4.0,
-      //       email: "1",
-      //       state: 0,
-      //     },
-      //   ],
     };
   },
   mounted() {
@@ -202,8 +134,7 @@ export default {
 
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
-          // location.reload();
-
+          location.reload();
           console.log("");
           console.log("[server] : [complete] : " + textStatus);
           console.log("");
