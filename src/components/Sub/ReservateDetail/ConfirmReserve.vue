@@ -1,16 +1,48 @@
 <template>
   <div
     style="
+      position: fixed;
+      width: 100%;
+      top: 0;
       height: 20vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #b9b9b9;
+      font-family: 'Pretendard';
     "
   >
-    <h1>예약 확인</h1>
+    <div
+      style="
+        height: 20vh;
+        width: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(185, 185, 185);
+      "
+    >
+      <h1>예약 확인</h1>
+    </div>
+    <div
+      style="
+        width: 100%;
+        height: 20vh;
+        display: flex;
+        justify-content: right;
+        align-items: flex-end;
+        padding-bottom: 12px;
+      "
+    >
+      <router-link to="/CalendarReservate" style="margin-right: 30px">
+        <v-btn class="title btn">스튜디오 예약 현황</v-btn>
+      </router-link>
+      <router-link to="/ask" style="margin-right: 30px">
+        <v-btn class="title btn">홈페이지 스튜디오 예약</v-btn>
+      </router-link>
+      <router-link to="/tabletReserveForm" style="margin-right: 30px">
+        <v-btn class="title btn">테블릿 예약 폼</v-btn>
+      </router-link>
+    </div>
   </div>
-  <v-table fixed-header height="80vh">
+  <v-table fixed-header height="80vh" style="margin-top: 20vh">
     <thead style="font-family: 'Pretendard'; font-weight: bold">
       <tr>
         <th class="text-center">이름</th>

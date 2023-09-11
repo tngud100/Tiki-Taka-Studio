@@ -1,5 +1,4 @@
 <template>
-  <v-btn @click="goBack" color="primary">뒤로가기</v-btn>
   <h1>티앤티 스튜디오 예약 현황</h1>
   <calendar-view
     :show-date="showDate"
@@ -30,6 +29,9 @@
         </p>
       </div>
     </div>
+  </div>
+  <div class="back-btnBox">
+    <v-btn @click="goBack" color="primary">뒤로가기</v-btn>
   </div>
 </template>
   
@@ -194,6 +196,12 @@ export default {
 };
 </script>
   <style>
+.back-btnBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 50px 0px;
+}
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -214,12 +222,11 @@ export default {
   max-width: 80%;
 }
 #app {
+  margin: 50px auto;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   color: #2c3e50;
   height: 67vh;
   width: 90vw;
-  margin-left: auto;
-  margin-right: auto;
 }
 .cv-wrapper {
   display: flex;

@@ -637,6 +637,11 @@ export default {
 
     studio_select(value) {
       this.select_studio = this.studio.indexOf(value);
+      this.date = null;
+      this.cancelSelectedTime();
+      this.resetEquipmentPrice();
+      this.resetEquipmentData();
+      this.resetSelectEquipment();
     },
     setTime(time) {
       // 처음 선택 할 시 자동 3시간
@@ -701,6 +706,7 @@ export default {
       // 초기화
       this.resetEquipmentPrice();
       this.resetEquipmentData();
+      this.resetSelectEquipment();
       this.getDisableEquipment();
     },
 
@@ -765,10 +771,7 @@ export default {
       this.Selected.micAudio = [];
       this.Selected.lightSubFilm = [];
       this.Selected.monitor = [];
-      (this.SelectedEquipmentCount.maxEquipmentCount = []),
-        (this.SelectedEquipmentCount.equipmentCount = []),
-        (this.SelectedEquipmentCount.equipmentRemainCount = []),
-        (this.equipmentPrice = 0);
+      this.equipmentPrice = 0;
       if (this.equipmentPrice <= 0) {
         this.equipmentPrice = 0;
       }
@@ -793,6 +796,12 @@ export default {
         }
       }
     },
+    resetSelectEquipment() {
+      this.SelectedEquipmentCount.equipmentCount = [];
+      this.SelectedEquipmentCount.maxEquipmentCount = [];
+      this.SelectedEquipmentCount.equipmentRemainCount = [];
+      this.setSelectEquipmentValue();
+    },
     // 장비 갯수 나타내는 데이터 구조 set
     setSelectEquipmentValue() {
       for (var i = 0; i < 24; i++) {
@@ -807,9 +816,12 @@ export default {
         date = date[0];
       }
       this.date = this.date.toISOString().slice(0, 10);
-      console.log(this.date);
+      // console.log(this.date);
       this.disableEquipmentNum = [];
+      this.cancelSelectedTime();
       this.resetEquipmentPrice();
+      this.resetEquipmentData();
+      this.resetSelectEquipment();
       this.getDisabledate();
     },
 
@@ -876,7 +888,7 @@ export default {
         camera: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
         monitor: [12],
         micAudio: [16, 17, 18, 19, 20],
-        lightSubFilm: [21, 22, 23],
+        lightSubFilm: [21, 22, 23, 24],
       };
 
       console.log("type : " + type);
@@ -903,9 +915,53 @@ export default {
               ) {
                 console.log(this.Selected.equipmentNum);
                 console.log(this.Selected.equipmentNum[k]);
-
-                this.equipmentPrice -=
-                  this.equipments[type][i].price * this.timeHour;
+                if (this.timeHour >= 3 && this.timeHour < 6) {
+                  this.equipmentPrice -=
+                    this.equipments[type][i].PriceToHour3 +
+                    this.equipments[type][i].price * (this.timeHour - 3);
+                } else if (this.timeHour >= 6 && this.timeHour < 12) {
+                  this.equipmentPrice -=
+                    this.equipments[type][i].PriceToHour6 +
+                    this.equipments[type][i].price * (this.timeHour - 6);
+                } else if (this.timeHour >= 12) {
+                  this.equipmentPrice -=
+                    this.equipments[type][i].PriceToHour12 +
+                    this.equipments[type][i].price * (this.timeHour - 12);
+                }
+                // 장비의 개수가 2개 이상이었을시 type 체크를 해제했을때 그 장비의 개수 만큼 더 가격을 더 빼준다
+                if (
+                  this.SelectedEquipmentCount.equipmentCount[
+                    this.Selected.equipmentNum[k] - 1
+                  ] > 1
+                ) {
+                  console.log("장비의 개수 두개 이상");
+                  for (
+                    var j = 1;
+                    j <
+                    this.SelectedEquipmentCount.equipmentCount[
+                      this.Selected.equipmentNum[k] - 1
+                    ];
+                    j++
+                  ) {
+                    console.log("장비의 개수 만큼 반복");
+                    if (this.timeHour >= 3 && this.timeHour < 6) {
+                      this.equipmentPrice -=
+                        this.equipments[type][i].PriceToHour3 +
+                        this.equipments[type][i].price * (this.timeHour - 3);
+                    } else if (this.timeHour >= 6 && this.timeHour < 12) {
+                      this.equipmentPrice -=
+                        this.equipments[type][i].PriceToHour6 +
+                        this.equipments[type][i].price * (this.timeHour - 6);
+                    } else if (this.timeHour >= 12) {
+                      this.equipmentPrice -=
+                        this.equipments[type][i].PriceToHour12 +
+                        this.equipments[type][i].price * (this.timeHour - 12);
+                    }
+                  }
+                  this.SelectedEquipmentCount.equipmentCount[
+                    this.Selected.equipmentNum[k] - 1
+                  ] = 1;
+                }
               }
             }
           }
@@ -982,7 +1038,7 @@ export default {
         camera: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
         monitor: [12],
         micAudio: [16, 17, 18, 19, 20],
-        lightSubFilm: [21, 22, 23],
+        lightSubFilm: [21, 22, 23, 24],
       };
 
       var equipmentType = "";
@@ -1082,7 +1138,7 @@ export default {
         camera: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
         monitor: [12],
         MicAudio: [16, 17, 18, 19, 20],
-        LightSubFilm: [21, 22, 23],
+        LightSubFilm: [21, 22, 23, 24],
       };
 
       let matchedKey = Object.keys(equipmentNumRange).find((key) =>

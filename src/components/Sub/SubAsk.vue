@@ -289,6 +289,9 @@ export default {
     uploadedFiles: [],
     categoryList: [
       {
+        list: "스튜디오",
+      },
+      {
         list: "제작/영상",
       },
       {
@@ -296,9 +299,6 @@ export default {
       },
       {
         list: "기타",
-      },
-      {
-        list: "스튜디오",
       },
     ],
     valid: false,
@@ -311,6 +311,7 @@ export default {
     btnState.addEventListener("click", function (e) {
       e.preventDefault();
     });
+    this.form.category = "스튜디오";
     if (this.$route.query.category) {
       this.form.category = this.$route.query.category;
     }
