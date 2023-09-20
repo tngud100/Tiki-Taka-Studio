@@ -103,23 +103,74 @@
       </tr>
     </tbody>
   </v-table> -->
+  <v-text-field
+    v-model="search"
+    append-icon="mdi-magnify"
+    label="Search"
+    single-line
+    hide-details
+  ></v-text-field>
   <v-data-table
     :items-per-page="itemsPerPage"
     :headers="headers"
     :items="listdata"
     class="elevation-1"
+    :search="search"
   >
+    <template v-slot:item="{ item }">
+      <tr style="text-align: center">
+        <td>{{ item.columns.name }}</td>
+        <td>{{ item.columns.studioName }}</td>
+        <td>{{ item.columns.date }}</td>
+        <td>{{ item.columns.time }}</td>
+        <td>{{ item.columns.num }}</td>
+        <td>{{ item.columns.phone }}</td>
+        <td>{{ item.columns.email }}</td>
+        <td>
+          <v-btn
+            :disabled="item.selectable.state === 1 ? true : false"
+            :class="{ pressed: item.selectable.state === 1 }"
+          >
+            확인
+            <v-dialog
+              v-model="item.selectable.passwordDialog"
+              activator="parent"
+              width="auto"
+            >
+              <v-card>
+                <v-card-text> 비밀번호 입력 </v-card-text>
+                <v-otp-input
+                  variant="solo-inverted"
+                  v-model="item.selectable.password"
+                  type="password"
+                  :loading="loading"
+                  @finish="onFinish(item.selectable.password, item.index)"
+                ></v-otp-input>
+
+                <v-card-actions>
+                  <v-btn
+                    color="primary"
+                    block
+                    @click="item.selectable.passwordDialog = false"
+                    >Close</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-snackbar
+              v-model="snackbar"
+              :color="snackbarColor"
+              :timeout="2000"
+            >
+              {{ text }}
+            </v-snackbar>
+          </v-btn>
+        </td>
+      </tr>
+    </template>
   </v-data-table>
 </template>
 <!-- <template v-slot:item="props">
-      <tr>
-        <td>{{ props.item.name }}</td>
-        <td>{{ props.item.date }}</td>
-        <td>{{ props.item.phone }}</td>
-        <td>{{ props.item.time }}</td>
-        <td>{{ props.item.email }}</td>
-        <td>{{ props.item.num }}</td>
-      </tr>
     </template> -->
 <script>
 import $ from "jquery";
@@ -142,6 +193,7 @@ export default {
       expectedPassword: "052345",
       itemsPerPage: 10, // 페이지당 아이템 수
       listdata: [],
+      search: "",
 
       headers: [
         { title: "이름", key: "name" },
@@ -151,7 +203,7 @@ export default {
         { title: "사용 인원수", key: "num" },
         { title: "연락처", key: "phone" },
         { title: "이메일", key: "email" },
-        { title: "동작", key: "action", sortable: false },
+        { title: "확인", key: "action", sortable: false },
       ],
     };
   },
@@ -197,14 +249,14 @@ export default {
 
         if (pw === this.expectedPassword) {
           this.confirmReservation(
-            this.formDataArray[idx].logId,
+            this.listdata[idx].logId,
             1,
-            this.formDataArray[idx].password
+            this.listdata[idx].password
           );
-          this.formDataArray[idx].passwordDialog = false;
+          this.listdata[idx].passwordDialog = false;
         }
 
-        this.formDataArray[idx].password = "";
+        this.listdata[idx].password = "";
       }, 1500);
     },
 
@@ -227,6 +279,10 @@ export default {
           num: this.formDataArray[i].peopleNum,
           phone: this.formDataArray[i].phone,
           email: this.formDataArray[i].email,
+          passwordDialog: this.formDataArray[i].passwordDialog,
+          password: this.formDataArray[i].password,
+          state: this.formDataArray[i].state,
+          logId: this.formDataArray[i].logId,
         });
         console.log(this.formDataArray[i].userName);
       }
@@ -261,10 +317,10 @@ export default {
 
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
-          location.reload();
           console.log("");
           console.log("[server] : [complete] : " + textStatus);
           console.log("");
+          location.reload();
         },
       });
     },
