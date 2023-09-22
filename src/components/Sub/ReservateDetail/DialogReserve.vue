@@ -311,6 +311,7 @@ export default {
     equipmentNum: Array,
     roomTitle: String,
     roomNum: Number,
+    selectedEquipmentCount: Array,
   },
   computed: {
     ...mapGetters(["rooms", "hostAddressName", "equipments"]),
@@ -446,6 +447,7 @@ export default {
       console.log(data);
       console.log("equipmentNum : " + equipmentNum);
       console.log("equipmentCount : " + equipmentCount);
+      console.log("selectedEquipmentCount: " + this.selectedEquipmentCount);
 
       $.ajax({
         /* 요청 시작 부분 */
@@ -458,6 +460,7 @@ export default {
           ...data,
           equipmentNumList: equipmentNum,
           equipmentCountList: equipmentCount,
+          selectedEquipmentCountList: this.selectedEquipmentCount,
         }),
         contentType: "application/json",
         dataType: "text",

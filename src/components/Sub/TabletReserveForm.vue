@@ -31,7 +31,44 @@
           <div class="document-title">
             <span class="document-span"> 반납승인 </span>
           </div>
-          <div class="sign-con"></div>
+          <!-- <div class="sign-con">
+            <span class="sign-confirm" @click="openSignDialog"></span>
+            <div v-if="signatureSrc">
+              <img
+                :src="signatureSrc"
+                style="
+                  width: 80px;
+                  position: absolute;
+                  height: 50px;
+                  transform: translate3d(65px, -10px, 10px);
+                "
+              />
+            </div>
+            <div class="sign-div">
+              <v-dialog v-model="signDialog">
+                <v-card width="550">
+                  <v-card-text>
+                    <canvas
+                      ref="signatureCanvas"
+                      width="500"
+                      height="300"
+                      style="border: 1px solid black"
+                      @mousedown="startDrawing"
+                      @mousemove="draw"
+                      @mouseup="stopDrawing"
+                      @touchstart="startDrawing"
+                      @touchmove="draw"
+                      @touchend="stopDrawing"
+                    ></canvas>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn @click="clearCanvas">clear</v-btn>
+                    <v-btn @click="saveSignature">save</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </div>
+          </div> -->
         </div>
       </div>
       <div class="info-con">
@@ -304,9 +341,9 @@
                 <br /><br />
                 <div class="sign">
                   <span class="sign-text">신청인</span>
-                  <div v-if="signatureSrc">
+                  <div v-if="signatureSrc[0].src">
                     <img
-                      :src="signatureSrc"
+                      :src="signatureSrc[0].src"
                       style="
                         width: 80px;
                         position: absolute;
@@ -318,36 +355,38 @@
                   <div
                     class="sign-canvas"
                     style="width: 80px; cursor: pointer"
-                    @click="openSignDialog"
+                    @click="openSignDialog(0)"
                   >
                     {{ reserve_name }}
                   </div>
                   <div class="sign-div">
-                    <v-dialog v-model="signDialog">
+                    <v-dialog v-model="signatureSrc[0].dailog">
                       <v-card width="550">
                         <v-card-text>
                           <canvas
-                            ref="signatureCanvas"
+                            ref="signatureCanvas0"
                             width="500"
                             height="300"
                             style="border: 1px solid black"
-                            @mousedown="startDrawing"
-                            @mousemove="draw"
-                            @mouseup="stopDrawing"
-                            @touchstart="startDrawing"
-                            @touchmove="draw"
-                            @touchend="stopDrawing"
+                            @mousedown="startDrawing(0)"
+                            @mousemove="draw(0, $event)"
+                            @mouseup="stopDrawing(0)"
+                            @touchstart="startDrawing(0)"
+                            @touchmove="draw(0, $event)"
+                            @touchend="stopDrawing(0)"
                           ></canvas>
                         </v-card-text>
                         <v-card-actions>
-                          <v-btn @click="clearCanvas">clear</v-btn>
-                          <v-btn @click="saveSignature">save</v-btn>
+                          <v-btn @click="clearCanvas(0)">clear</v-btn>
+                          <v-btn @click="saveSignature(0)">save</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
                   </div>
 
-                  <span class="sign-confirm" @click="openSignDialog">(인)</span>
+                  <span class="sign-confirm" @click="openSignDialog(0)"
+                    >(인)</span
+                  >
                 </div>
               </div>
             </div>
@@ -378,6 +417,7 @@
         :equipmentNum="Selected.equipmentNum"
         :roomTitle="rooms[this.select_studio].title"
         :roomNum="rooms[this.select_studio].studioNum"
+        :selectedEquipmentCount="SelectedEquipmentCount.equipmentCount"
       />
       <div class="submit-btn">
         <v-btn class="button" @click="captureScreenshot">저장하기</v-btn>
@@ -432,6 +472,7 @@ export default {
       selectedEndTime: 0,
       EquipmentType: {
         camera: ["카메라", false],
+
         monitor: ["모니터", false],
         micAudio: ["마이크&오디오", false],
         lightSubFilm: ["조명&촬영보조", false],
@@ -464,11 +505,16 @@ export default {
       checkAccount: false,
       disableEquipmentName: [],
       disableEquipmentNum: [],
-      signDialog: false,
-      signDraw: false,
-      ctx: null,
-      isDrawing: false,
-      signatureSrc: null,
+      // signDialog: false,
+      // signDraw: false,
+      // ctx: null,
+      // isDrawing: false,
+      // signatureSrc: null,
+      signatures: [
+        { dialog: false, src: null, ctx: null, isDrawing: false },
+        { dialog: false, src: null, ctx: null, isDrawing: false },
+        { dialog: false, src: null, ctx: null, isDrawing: false },
+      ],
     };
   },
   mounted() {
@@ -476,32 +522,31 @@ export default {
     this.setSelectEquipmentValue();
   },
   methods: {
-    openSignDialog() {
-      this.signDialog = true;
+    openSignDialog(index) {
+      this.signatures[index].dialog = true;
       this.$nextTick(() => {
-        const canvas = this.$refs.signatureCanvas;
+        const canvas = this.$refs[`signatureCanvas${index}`][0];
         if (canvas) {
-          this.ctx = canvas.getContext("2d");
+          this.signatures[index].ctx = canvas.getContext("2d");
         }
       });
-      //   const signBox = document.getElementsByClassName("sign-dialog");
-      //   signBox.style.display = "block";
     },
-    startDrawing() {
+    startDrawing(index) {
       event.preventDefault();
-      console.log("touch");
-      this.isDrawing = true;
-      this.ctx.beginPath();
+      this.signatures[index].isDrawing = true;
+      this.signatures[index].ctx.beginPath();
     },
-    draw(event) {
+    draw(index, event) {
       event.preventDefault();
-      if (!this.isDrawing) return;
-      this.ctx.lineWidth = 2;
-      this.ctx.lineCap = "round";
-      this.ctx.strokeStyle = "black";
+      if (!this.signatures[index].isDrawing) return;
+      const ctx = this.signatures[index].ctx;
 
-      const rect = this.$refs.signatureCanvas.getBoundingClientRect();
+      ctx.lineWidth = 2;
+      ctx.lineCap = "round";
+      ctx.strokeStyle = "black";
 
+      const rect =
+        this.$refs[`signatureCanvas${index}`][0].getBoundingClientRect();
       var x = event.clientX - rect.left;
       var y = event.clientY - rect.top;
 
@@ -510,43 +555,100 @@ export default {
         y = event.touches[0].clientY - rect.top;
       }
 
-      this.ctx.lineTo(x, y);
-      this.ctx.stroke();
+      ctx.lineTo(x, y);
+      ctx.stroke();
     },
-    stopDrawing() {
-      this.isDrawing = false;
+    stopDrawing(index) {
+      this.signatures[index].isDrawing = false;
     },
-    clearCanvas() {
-      this.ctx.clearRect(
+    clearCanvas(index) {
+      this.signatures[index].ctx.clearRect(
         0,
         0,
-        this.$refs.signatureCanvas.width,
-        this.$refs.signatureCanvas.height
+        this.$refs[`signatureCanvas${index}`][0].width,
+        this.$refs[`signatureCanvas${index}`][0].height
       );
     },
-    saveSignature() {
-      const signatureData = this.$refs.signatureCanvas.toDataURL("image/png");
-      this.signatureSrc = signatureData;
-      this.signDialog = false;
-      fetch(signatureData)
-        .then((response) => {
-          response.blob();
-        })
-        // .then((blob) => {
-        //   const item = new ClipboardItem({ "image/png": blob });
-        //   navigator.clipboard
-        //     .write([item])
-        //     .then(() => {
-        //       alert("Signature saved to clipboard!");
-        //     })
-        //     .catch((error) => {
-        //       console.error("Failed to save signature to clipboard:", error);
-        //     });
-        // })
-        .catch((error) => {
-          console.error("Failed to fetch signature data:", error);
-        });
+    saveSignature(index) {
+      const signatureData =
+        this.$refs[`signatureCanvas${index}`][0].toDataURL("image/png");
+      this.signatures[index].src = signatureData;
+      this.signatures[index].dialog = false;
+
+      fetch(signatureData).then((response) => response.blob());
+      //...
     },
+    // openSignDialog() {
+    //   this.signDialog = true;
+    //   this.$nextTick(() => {
+    //     const canvas = this.$refs.signatureCanvas;
+    //     if (canvas) {
+    //       this.ctx = canvas.getContext("2d");
+    //     }
+    //   });
+    //   //   const signBox = document.getElementsByClassName("sign-dialog");
+    //   //   signBox.style.display = "block";
+    // },
+    // startDrawing() {
+    //   event.preventDefault();
+    //   console.log("touch");
+    //   this.isDrawing = true;
+    //   this.ctx.beginPath();
+    // },
+    // draw(event) {
+    //   event.preventDefault();
+    //   if (!this.isDrawing) return;
+    //   this.ctx.lineWidth = 2;
+    //   this.ctx.lineCap = "round";
+    //   this.ctx.strokeStyle = "black";
+
+    //   const rect = this.$refs.signatureCanvas.getBoundingClientRect();
+
+    //   var x = event.clientX - rect.left;
+    //   var y = event.clientY - rect.top;
+
+    //   if (event.touches) {
+    //     x = event.touches[0].clientX - rect.left;
+    //     y = event.touches[0].clientY - rect.top;
+    //   }
+
+    //   this.ctx.lineTo(x, y);
+    //   this.ctx.stroke();
+    // },
+    // stopDrawing() {
+    //   this.isDrawing = false;
+    // },
+    // clearCanvas() {
+    //   this.ctx.clearRect(
+    //     0,
+    //     0,
+    //     this.$refs.signatureCanvas.width,
+    //     this.$refs.signatureCanvas.height
+    //   );
+    // },
+    // saveSignature() {
+    //   const signatureData = this.$refs.signatureCanvas.toDataURL("image/png");
+    //   this.signatureSrc = signatureData;
+    //   this.signDialog = false;
+    //   fetch(signatureData)
+    //     .then((response) => {
+    //       response.blob();
+    //     })
+    //     // .then((blob) => {
+    //     //   const item = new ClipboardItem({ "image/png": blob });
+    //     //   navigator.clipboard
+    //     //     .write([item])
+    //     //     .then(() => {
+    //     //       alert("Signature saved to clipboard!");
+    //     //     })
+    //     //     .catch((error) => {
+    //     //       console.error("Failed to save signature to clipboard:", error);
+    //     //     });
+    //     // })
+    //     .catch((error) => {
+    //       console.error("Failed to fetch signature data:", error);
+    //     });
+    // },
     itemPrice(item) {
       var lowerType = ["camera", "monitor", "MicAudio", "LightSubFilm"];
       for (var k = 0; k < lowerType.length; k++) {
@@ -1282,19 +1384,20 @@ export default {
       for (var i = 0; i < response.length; i++) {
         const EquipmentNum = response[i].equipmentNum;
         const EquipmentState = response[i].equipmentState;
-        const RemainCount = response[i].remainCount;
+        this.SelectedEquipmentCount.equipmentRemainCount[EquipmentNum - 1] =
+          response[i].remainCount;
 
         if (EquipmentState === 0) {
           this.disableEquipmentNum.push(EquipmentNum);
         }
 
-        if (RemainCount >= 1) {
-          this.SelectedEquipmentCount.equipmentRemainCount[EquipmentNum - 1] =
-            RemainCount;
-        }
+        // if (RemainCount >= 1) {
+        //   this.SelectedEquipmentCount.equipmentRemainCount[EquipmentNum - 1] =
+        //     RemainCount;
+        // }
         console.log("장비번호 : " + EquipmentNum);
         console.log("장비상태 : " + EquipmentState);
-        console.log("장비잔여개수 : " + RemainCount);
+        // console.log("장비잔여개수 : " + RemainCount);
       }
 
       this.disableEquipmentNum = [...new Set(this.disableEquipmentNum)];

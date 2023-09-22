@@ -133,7 +133,7 @@
           >
             확인
             <v-dialog
-              v-model="item.selectable.passwordDialog"
+              v-model="item.selectable.confirmPasswordDialog"
               activator="parent"
               width="auto"
             >
@@ -141,17 +141,58 @@
                 <v-card-text> 비밀번호 입력 </v-card-text>
                 <v-otp-input
                   variant="solo-inverted"
-                  v-model="item.selectable.password"
+                  v-model="item.selectable.confirmPassword"
                   type="password"
                   :loading="loading"
-                  @finish="onFinish(item.selectable.password, item.index)"
+                  @finish="
+                    onFinish(item.selectable.confirmPassword, item.index, true)
+                  "
                 ></v-otp-input>
 
                 <v-card-actions>
                   <v-btn
                     color="primary"
                     block
-                    @click="item.selectable.passwordDialog = false"
+                    @click="item.selectable.confirmPasswordDialog = false"
+                    >Close</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-snackbar
+              v-model="snackbar"
+              :color="snackbarColor"
+              :timeout="2000"
+            >
+              {{ text }}
+            </v-snackbar>
+          </v-btn>
+        </td>
+        <td>
+          <v-btn>
+            취소
+            <v-dialog
+              v-model="item.selectable.deletePasswordDialog"
+              activator="parent"
+              width="auto"
+            >
+              <v-card>
+                <v-card-text> 비밀번호 입력 </v-card-text>
+                <v-otp-input
+                  variant="solo-inverted"
+                  v-model="item.selectable.deletePassword"
+                  type="password"
+                  :loading="loading"
+                  @finish="
+                    onFinish(item.selectable.deletePassword, item.index, false)
+                  "
+                ></v-otp-input>
+
+                <v-card-actions>
+                  <v-btn
+                    color="primary"
+                    block
+                    @click="item.selectable.deletePasswordDialog = false"
                     >Close</v-btn
                   >
                 </v-card-actions>
@@ -204,6 +245,7 @@ export default {
         { title: "연락처", key: "phone" },
         { title: "이메일", key: "email" },
         { title: "확인", key: "action", sortable: false },
+        { title: "취소", key: "delete", sortable: false },
       ],
     };
   },
@@ -237,7 +279,7 @@ export default {
     });
   },
   methods: {
-    onFinish(pw, idx) {
+    onFinish(pw, idx, push) {
       this.loading = true;
 
       setTimeout(() => {
@@ -247,16 +289,25 @@ export default {
         this.text = `Processed password with "${pw}" (${this.snackbarColor})`;
         this.snackbar = true;
 
-        if (pw === this.expectedPassword) {
+        if (pw === this.expectedPassword && push === true) {
           this.confirmReservation(
             this.listdata[idx].logId,
             1,
-            this.listdata[idx].password
+            this.listdata[idx].confirmPassword
           );
-          this.listdata[idx].passwordDialog = false;
+          this.listdata[idx].confirmPasswordDialog = false;
         }
 
-        this.listdata[idx].password = "";
+        if (pw === this.expectedPassword && push === false) {
+          this.deleteReservation(
+            this.listdata[idx].logId,
+            this.listdata[idx].deletePassword
+          );
+          this.listdata[idx].deletePasswordDialog = false;
+        }
+
+        this.listdata[idx].confirmPassword = "";
+        this.listdata[idx].deletePassword = "";
       }, 1500);
     },
 
@@ -279,8 +330,10 @@ export default {
           num: this.formDataArray[i].peopleNum,
           phone: this.formDataArray[i].phone,
           email: this.formDataArray[i].email,
-          passwordDialog: this.formDataArray[i].passwordDialog,
-          password: this.formDataArray[i].password,
+          confirmPasswordDialog: this.formDataArray[i].confirmPasswordDialog,
+          confirmPassword: this.formDataArray[i].confirmPassword,
+          deletePasswordDialog: this.formDataArray[i].deletePasswordDialog,
+          deletePassword: this.formDataArray[i].deletePassword,
           state: this.formDataArray[i].state,
           logId: this.formDataArray[i].logId,
         });
@@ -315,6 +368,35 @@ export default {
           console.log("");
         },
 
+        /* 완료 확인 부분 */
+        complete: function (xhr, textStatus) {
+          console.log("");
+          console.log("[server] : [complete] : " + textStatus);
+          console.log("");
+          // location.reload();
+        },
+      });
+    },
+    deleteReservation(LogId, password) {
+      $.ajax({
+        /* 요청 시작 부분 */
+        url: this.hostAddressName + "/studio/delete/" + LogId + "/" + password,
+        method: "GET",
+        type: "get", //전송 타입
+        dataType: "json",
+
+        /* 응답 확인 부분 */
+        success: (response) => {
+          console.log(response);
+        },
+
+        /* 에러 확인 부분 */
+        error: function (xhr) {
+          // alert("전송 실패");
+          console.log("");
+          console.log("[Error] : [error] : " + xhr);
+          console.log("");
+        },
         /* 완료 확인 부분 */
         complete: function (xhr, textStatus) {
           console.log("");

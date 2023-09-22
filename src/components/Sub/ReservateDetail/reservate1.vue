@@ -309,11 +309,13 @@
               :equipmentNum="Selected.equipmentNum"
               :roomTitle="rooms[0].title"
               :roomNum="rooms[0].studioNum"
+              :selectedEquipmentCount="SelectedEquipmentCount.equipmentCount"
             />
           </div>
         </div>
       </div>
     </div>
+
     <div class="btn-box">
       <div class="btn">
         <router-link :to="{ path: '/ask', query: { category: '스튜디오' } }">
@@ -675,7 +677,6 @@ export default {
       } else if (SelectedCount >= MaxCount) {
         SelectedCount = MaxCount;
       }
-
       if (
         this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx] !=
           0 &&
@@ -688,14 +689,6 @@ export default {
       this.SelectedEquipmentCount.equipmentCount[equipmentCountIdx] =
         SelectedCount;
 
-      // console.log(
-      //   "selected equipment:" + this.SelectedEquipmentCount.equipmentCount
-      // );
-      // console.log("equipmentIdx: " + equipmentCountIdx);
-      console.log(
-        "remainCount: " +
-          this.SelectedEquipmentCount.equipmentRemainCount[equipmentCountIdx]
-      );
       this.PriceCalc();
     },
     minusBtnEquipment(equipmentCountIdx) {
@@ -1148,9 +1141,17 @@ export default {
       this.resetEquipmentPrice();
       this.resetEquipmentData();
 
+      // SelectedEquipmentCount: {
+      //         maxEquipmentCount: [],
+      //         equipmentCount: [],
+      //         equipmentRemainCount: [],
+      //       },
+
       for (var i = 0; i < response.length; i++) {
         const EquipmentNum = response[i].equipmentNum;
         const EquipmentState = response[i].equipmentState;
+        this.SelectedEquipmentCount.equipmentRemainCount[EquipmentNum - 1] =
+          response[i].remainCount;
 
         if (EquipmentState === 0) {
           this.disableEquipmentNum.push(EquipmentNum);
