@@ -341,9 +341,9 @@
                 <br /><br />
                 <div class="sign">
                   <span class="sign-text">신청인</span>
-                  <div v-if="signatureSrc[0].src">
+                  <div v-if="signatureSrc">
                     <img
-                      :src="signatureSrc[0].src"
+                      :src="signatureSrc"
                       style="
                         width: 80px;
                         position: absolute;
@@ -355,38 +355,36 @@
                   <div
                     class="sign-canvas"
                     style="width: 80px; cursor: pointer"
-                    @click="openSignDialog(0)"
+                    @click="openSignDialog"
                   >
                     {{ reserve_name }}
                   </div>
                   <div class="sign-div">
-                    <v-dialog v-model="signatureSrc[0].dailog">
+                    <v-dialog v-model="signDialog">
                       <v-card width="550">
                         <v-card-text>
                           <canvas
-                            ref="signatureCanvas0"
+                            ref="signatureCanvas"
                             width="500"
                             height="300"
                             style="border: 1px solid black"
-                            @mousedown="startDrawing(0)"
-                            @mousemove="draw(0, $event)"
-                            @mouseup="stopDrawing(0)"
-                            @touchstart="startDrawing(0)"
-                            @touchmove="draw(0, $event)"
-                            @touchend="stopDrawing(0)"
+                            @mousedown="startDrawing"
+                            @mousemove="draw"
+                            @mouseup="stopDrawing"
+                            @touchstart="startDrawing"
+                            @touchmove="draw"
+                            @touchend="stopDrawing"
                           ></canvas>
                         </v-card-text>
                         <v-card-actions>
-                          <v-btn @click="clearCanvas(0)">clear</v-btn>
-                          <v-btn @click="saveSignature(0)">save</v-btn>
+                          <v-btn @click="clearCanvas">clear</v-btn>
+                          <v-btn @click="saveSignature">save</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
                   </div>
 
-                  <span class="sign-confirm" @click="openSignDialog(0)"
-                    >(인)</span
-                  >
+                  <span class="sign-confirm" @click="openSignDialog">(인)</span>
                 </div>
               </div>
             </div>
@@ -505,16 +503,15 @@ export default {
       checkAccount: false,
       disableEquipmentName: [],
       disableEquipmentNum: [],
-      // signDialog: false,
-      // signDraw: false,
-      // ctx: null,
-      // isDrawing: false,
-      // signatureSrc: null,
-      signatures: [
-        { dialog: false, src: null, ctx: null, isDrawing: false },
-        { dialog: false, src: null, ctx: null, isDrawing: false },
-        { dialog: false, src: null, ctx: null, isDrawing: false },
-      ],
+      signDialog: false,
+      signDraw: false,
+      ctx: null,
+      isDrawing: false,
+      signatureSrc: null,
+      // signatures: [
+      //   { dialog: false, src: null, ctx: null, isDrawing: false },
+      //   { dialog: false, src: null, ctx: null, isDrawing: false },
+      // ],
     };
   },
   mounted() {
@@ -522,31 +519,32 @@ export default {
     this.setSelectEquipmentValue();
   },
   methods: {
-    openSignDialog(index) {
-      this.signatures[index].dialog = true;
+    openSignDialog() {
+      this.signDialog = true;
       this.$nextTick(() => {
-        const canvas = this.$refs[`signatureCanvas${index}`][0];
+        const canvas = this.$refs.signatureCanvas;
         if (canvas) {
-          this.signatures[index].ctx = canvas.getContext("2d");
+          this.ctx = canvas.getContext("2d");
         }
       });
+      //   const signBox = document.getElementsByClassName("sign-dialog");
+      //   signBox.style.display = "block";
     },
-    startDrawing(index) {
+    startDrawing() {
       event.preventDefault();
-      this.signatures[index].isDrawing = true;
-      this.signatures[index].ctx.beginPath();
+      console.log("touch");
+      this.isDrawing = true;
+      this.ctx.beginPath();
     },
-    draw(index, event) {
+    draw(event) {
       event.preventDefault();
-      if (!this.signatures[index].isDrawing) return;
-      const ctx = this.signatures[index].ctx;
+      if (!this.isDrawing) return;
+      this.ctx.lineWidth = 2;
+      this.ctx.lineCap = "round";
+      this.ctx.strokeStyle = "black";
 
-      ctx.lineWidth = 2;
-      ctx.lineCap = "round";
-      ctx.strokeStyle = "black";
+      const rect = this.$refs.signatureCanvas.getBoundingClientRect();
 
-      const rect =
-        this.$refs[`signatureCanvas${index}`][0].getBoundingClientRect();
       var x = event.clientX - rect.left;
       var y = event.clientY - rect.top;
 
@@ -555,100 +553,43 @@ export default {
         y = event.touches[0].clientY - rect.top;
       }
 
-      ctx.lineTo(x, y);
-      ctx.stroke();
+      this.ctx.lineTo(x, y);
+      this.ctx.stroke();
     },
-    stopDrawing(index) {
-      this.signatures[index].isDrawing = false;
+    stopDrawing() {
+      this.isDrawing = false;
     },
-    clearCanvas(index) {
-      this.signatures[index].ctx.clearRect(
+    clearCanvas() {
+      this.ctx.clearRect(
         0,
         0,
-        this.$refs[`signatureCanvas${index}`][0].width,
-        this.$refs[`signatureCanvas${index}`][0].height
+        this.$refs.signatureCanvas.width,
+        this.$refs.signatureCanvas.height
       );
     },
-    saveSignature(index) {
-      const signatureData =
-        this.$refs[`signatureCanvas${index}`][0].toDataURL("image/png");
-      this.signatures[index].src = signatureData;
-      this.signatures[index].dialog = false;
-
-      fetch(signatureData).then((response) => response.blob());
-      //...
+    saveSignature() {
+      const signatureData = this.$refs.signatureCanvas.toDataURL("image/png");
+      this.signatureSrc = signatureData;
+      this.signDialog = false;
+      fetch(signatureData)
+        .then((response) => {
+          response.blob();
+        })
+        // .then((blob) => {
+        //   const item = new ClipboardItem({ "image/png": blob });
+        //   navigator.clipboard
+        //     .write([item])
+        //     .then(() => {
+        //       alert("Signature saved to clipboard!");
+        //     })
+        //     .catch((error) => {
+        //       console.error("Failed to save signature to clipboard:", error);
+        //     });
+        // })
+        .catch((error) => {
+          console.error("Failed to fetch signature data:", error);
+        });
     },
-    // openSignDialog() {
-    //   this.signDialog = true;
-    //   this.$nextTick(() => {
-    //     const canvas = this.$refs.signatureCanvas;
-    //     if (canvas) {
-    //       this.ctx = canvas.getContext("2d");
-    //     }
-    //   });
-    //   //   const signBox = document.getElementsByClassName("sign-dialog");
-    //   //   signBox.style.display = "block";
-    // },
-    // startDrawing() {
-    //   event.preventDefault();
-    //   console.log("touch");
-    //   this.isDrawing = true;
-    //   this.ctx.beginPath();
-    // },
-    // draw(event) {
-    //   event.preventDefault();
-    //   if (!this.isDrawing) return;
-    //   this.ctx.lineWidth = 2;
-    //   this.ctx.lineCap = "round";
-    //   this.ctx.strokeStyle = "black";
-
-    //   const rect = this.$refs.signatureCanvas.getBoundingClientRect();
-
-    //   var x = event.clientX - rect.left;
-    //   var y = event.clientY - rect.top;
-
-    //   if (event.touches) {
-    //     x = event.touches[0].clientX - rect.left;
-    //     y = event.touches[0].clientY - rect.top;
-    //   }
-
-    //   this.ctx.lineTo(x, y);
-    //   this.ctx.stroke();
-    // },
-    // stopDrawing() {
-    //   this.isDrawing = false;
-    // },
-    // clearCanvas() {
-    //   this.ctx.clearRect(
-    //     0,
-    //     0,
-    //     this.$refs.signatureCanvas.width,
-    //     this.$refs.signatureCanvas.height
-    //   );
-    // },
-    // saveSignature() {
-    //   const signatureData = this.$refs.signatureCanvas.toDataURL("image/png");
-    //   this.signatureSrc = signatureData;
-    //   this.signDialog = false;
-    //   fetch(signatureData)
-    //     .then((response) => {
-    //       response.blob();
-    //     })
-    //     // .then((blob) => {
-    //     //   const item = new ClipboardItem({ "image/png": blob });
-    //     //   navigator.clipboard
-    //     //     .write([item])
-    //     //     .then(() => {
-    //     //       alert("Signature saved to clipboard!");
-    //     //     })
-    //     //     .catch((error) => {
-    //     //       console.error("Failed to save signature to clipboard:", error);
-    //     //     });
-    //     // })
-    //     .catch((error) => {
-    //       console.error("Failed to fetch signature data:", error);
-    //     });
-    // },
     itemPrice(item) {
       var lowerType = ["camera", "monitor", "MicAudio", "LightSubFilm"];
       for (var k = 0; k < lowerType.length; k++) {
