@@ -96,16 +96,146 @@ const routes = [
     name: "NewsDetail2",
     component: () => import("@/components/Sub/NewsDetail/news2.vue"),
   },
-  // {
-  //   path: "/news/3",
-  //   name: "NewsDetail3",
-  //   component: () => import("@/components/Sub/NewsDetail/news3.vue"),
-  // },
-  // {
-  //   path: "/news/4",
-  //   name: "NewsDetail4",
-  //   component: () => import("@/components/Sub/NewsDetail/news4.vue"),
-  // },
+  {
+    path: "/news3",
+    name: "NewsDetail3",
+    component: () => import("@/components/Sub/NewsDetail/news3.vue"),
+  },
+  {
+    path: "/news4",
+    name: "NewsDetail4",
+    component: () => import("@/components/Sub/NewsDetail/news4.vue"),
+  },
+  {
+    path: "/news5",
+    name: "NewsDetail5",
+    component: () => import("@/components/Sub/NewsDetail/news5.vue"),
+  },
+  {
+    path: "/news6",
+    name: "NewsDetail6",
+    component: () => import("@/components/Sub/NewsDetail/news6.vue"),
+  },
+  {
+    path: "/news7",
+    name: "NewsDetail7",
+    component: () => import("@/components/Sub/NewsDetail/news7.vue"),
+  },
+  {
+    path: "/news8",
+    name: "NewsDetail8",
+    component: () => import("@/components/Sub/NewsDetail/news8.vue"),
+  },
+  {
+    path: "/news9",
+    name: "NewsDetail9",
+    component: () => import("@/components/Sub/NewsDetail/news9.vue"),
+  },
+  {
+    path: "/news10",
+    name: "NewsDetail10",
+    component: () => import("@/components/Sub/NewsDetail/news10.vue"),
+  },
+  {
+    path: "/news11",
+    name: "NewsDetail11",
+    component: () => import("@/components/Sub/NewsDetail/news11.vue"),
+  },
+  {
+    path: "/news12",
+    name: "NewsDetail12",
+    component: () => import("@/components/Sub/NewsDetail/news12.vue"),
+  },
+  {
+    path: "/news13",
+    name: "NewsDetail13",
+    component: () => import("@/components/Sub/NewsDetail/news13.vue"),
+  },
+  {
+    path: "/news14",
+    name: "NewsDetail14",
+    component: () => import("@/components/Sub/NewsDetail/news14.vue"),
+  },
+  {
+    path: "/news15",
+    name: "NewsDetail15",
+    component: () => import("@/components/Sub/NewsDetail/news15.vue"),
+  },
+  {
+    path: "/news16",
+    name: "NewsDetail16",
+    component: () => import("@/components/Sub/NewsDetail/news16.vue"),
+  },
+  {
+    path: "/news17",
+    name: "NewsDetail17",
+    component: () => import("@/components/Sub/NewsDetail/news17.vue"),
+  },
+  {
+    path: "/news18",
+    name: "NewsDetail18",
+    component: () => import("@/components/Sub/NewsDetail/news18.vue"),
+  },
+  {
+    path: "/news19",
+    name: "NewsDetail19",
+    component: () => import("@/components/Sub/NewsDetail/news19.vue"),
+  },
+  {
+    path: "/news20",
+    name: "NewsDetail20",
+    component: () => import("@/components/Sub/NewsDetail/news20.vue"),
+  },
+  {
+    path: "/news21",
+    name: "NewsDetail21",
+    component: () => import("@/components/Sub/NewsDetail/news21.vue"),
+  },
+  {
+    path: "/news22",
+    name: "NewsDetail22",
+    component: () => import("@/components/Sub/NewsDetail/news22.vue"),
+  },
+  {
+    path: "/news23",
+    name: "NewsDetail23",
+    component: () => import("@/components/Sub/NewsDetail/news23.vue"),
+  },
+  {
+    path: "/news24",
+    name: "NewsDetail24",
+    component: () => import("@/components/Sub/NewsDetail/news24.vue"),
+  },
+  {
+    path: "/news25",
+    name: "NewsDetail25",
+    component: () => import("@/components/Sub/NewsDetail/news25.vue"),
+  },
+  {
+    path: "/news26",
+    name: "NewsDetail26",
+    component: () => import("@/components/Sub/NewsDetail/news26.vue"),
+  },
+  {
+    path: "/news27",
+    name: "NewsDetail27",
+    component: () => import("@/components/Sub/NewsDetail/news27.vue"),
+  },
+  {
+    path: "/news28",
+    name: "NewsDetail28",
+    component: () => import("@/components/Sub/NewsDetail/news28.vue"),
+  },
+  {
+    path: "/news29",
+    name: "NewsDetail29",
+    component: () => import("@/components/Sub/NewsDetail/news29.vue"),
+  },
+  {
+    path: "/news30",
+    name: "NewsDetail30",
+    component: () => import("@/components/Sub/NewsDetail/news30.vue"),
+  },
   {
     path: "/test",
     name: "TestPageTrash",

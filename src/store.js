@@ -5,8 +5,8 @@ const store = createStore({
     videoIndex: 0,
     shortsVideoIndex: 0,
     shortsShowModal: false,
-    // hostAddressName : "https://티키앤타카.com",
-    hostAddressName: "http://티키타카.kr:81",
+    hostAddressName : "https://티키앤타카.com",
+    // hostAddressName: "http://티키타카.kr:81",
     rooms:[
       {
         title: '솔로 스튜디오',
@@ -213,8 +213,6 @@ const store = createStore({
           equipmentNum: 15,
         },
         
-        
-        
       ],
       monitor: [
         {
@@ -312,8 +310,22 @@ const store = createStore({
           equipmentNum: 24,
         },
       ],
-    }
+    },
+    news: {
+      news1: {
+        title: '',
+        date: '',
+        src: '',
+        content:'',
+      },
+      news2: {
+        title: '',
+        date: '',
+        src: '',
+        content:'',
+      },
       
+    }
 
   },
   mutations: {
@@ -338,6 +350,7 @@ const store = createStore({
     hostAddressName: (state) => state.hostAddressName,
     rooms: (state) => state.rooms,
     equipments: (state) => state.equipments,
+    news: (state) => state.news,
   },
 });
 

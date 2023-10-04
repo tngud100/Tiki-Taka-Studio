@@ -233,8 +233,11 @@
           <v-window-item class="v-card3" :value="3">
             <div class="pa-4 text-center">
               <v-img class="mb-4" contain height="75" :src="img"></v-img>
-              <h3 class="text-h7 font-weight-bold mb-2">국민은행</h3>
-              <h3 class="text-h7 font-weight-bold mb-2">1560-511545-4849</h3>
+              <h3 class="text-h7 font-weight-bold mb-2">신한은행</h3>
+              <h3 class="text-h7 font-weight-bold mb-2">140-014-169153</h3>
+              <h3 class="text-h7 font-weight-bold mb-2">
+                (예금주: 주식회사 게임인스)
+              </h3>
               <p class="text-caption">
                 입금이 확인될시에 기입하신 이메일로 확인 메일이 전송 됩니다
               </p>
@@ -544,8 +547,6 @@ export default {
           console.log("");
           console.log("[serverUploadImage] : [complete] : " + textStatus);
           console.log("");
-
-          // location.reload();
         },
       });
     },

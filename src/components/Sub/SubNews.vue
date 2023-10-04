@@ -40,11 +40,17 @@
         </tr>
       </tbody>
     </div>
-    <div class="page_btn_box">
-      <!-- <v-icon class="btn_left page_btn">mdi-chevron-left</v-icon> -->
+    <v-pagination
+      v-model="page"
+      :length="3"
+      rounded="circle"
+      style="margin-bottom: 30px"
+    ></v-pagination>
+    <!-- <div class="page_btn_box">
+      <v-icon class="btn_left page_btn">mdi-chevron-left</v-icon>
       <span class="btn_num">1</span>
-      <!-- <v-icon class="btn_right page_btn">mdi-chevron-right</v-icon> -->
-    </div>
+      <v-icon class="btn_right page_btn">mdi-chevron-right</v-icon>
+    </div> -->
   </section>
 </template>
 <script>
@@ -55,6 +61,7 @@ export default {
   components: {
     HeaderTitle,
   },
+
   data() {
     return {
       title: "회사소식",
@@ -64,20 +71,183 @@ export default {
         require("@/assets/banner/notify1300.svg"),
         require("@/assets/banner/notify760.svg"),
       ],
+      page: 1,
       header: ["번호", "제목", "작성일자"],
-      desserts: [
+      dessertsData: [
         {
-          num: "2",
-          title: "TNT Studio 스튜디오 7월 완공",
+          num: "30",
+          title: " 대중문화예술기획업 등록 교육 이수",
+          date: "2023.08.16",
+        },
+        {
+          num: "29",
+          title: " 비디오 생산 증명서 취득",
+          date: "2023.08.08",
+        },
+        {
+          num: "28",
+          title: " (주)게임인스 하계휴가 안내",
+          date: "2023.07.25",
+        },
+        {
+          num: "27",
+          title: " (주)게임인스 TNT Studio의 촬영 스튜디오 사상점 오픈",
           date: "2023.07.21",
         },
         {
+          num: "26",
+          title: " 일 생활균형 일촌기업 사업 참여",
+          date: "2023.06.22",
+        },
+        {
+          num: "25",
+          title: "한국건강가정진흥원 교육 이수",
+          date: "2023.05.30",
+        },
+        {
+          num: "24",
+          title: " 2차 법정의무교육 진행",
+          date: "2023.05.03",
+        },
+        {
+          num: "23",
+          title: " 센텀직업전문학교_업무 협약",
+          date: "2023.04.26",
+        },
+        {
+          num: "22",
+          title: " M아카데미컴퓨터아트학원_산학 컨소시엄 협력",
+          date: "2023.04.12",
+        },
+        {
+          num: "21",
+          title: " 2차 직무능력향상 교육",
+          date: "2023.04.11",
+        },
+        {
+          num: "20",
+          title: " [보도자료] (주)게임인스, 씀씀이가 바른 기업 가입",
+          date: "2023.04.10",
+        },
+        {
+          num: "19",
+          title: "부산디자인진흥원 인력양성사업 협약",
+          date: "2022.04.04",
+        },
+        {
+          num: "18",
+          title: "파란일자리(1유형) 지원 사업 선정 및 협약",
+          date: "2023.03.01",
+        },
+        {
+          num: "17",
+          title: "부산인재개발원 실무인재 양성훈련 협약",
+          date: "2023.02.23",
+        },
+        {
+          num: "16",
+          title: "1차 법정의무교육 진행",
+          date: "2023.02.17",
+        },
+        {
+          num: "15",
+          title: "근로자 휴가지원 사업 참여",
+          date: "2023.02.02",
+        },
+        {
+          num: "14",
+          title: "1차 직무능력향상 교육",
+          date: "2023.01.17",
+        },
+        {
+          num: "13",
+          title: "소상공인IP역량강화 교육 수료",
+          date: "2022.11.24",
+        },
+        {
+          num: "12",
+          title: "일생활 균형 캠페인 참여",
+          date: "2022.11.14",
+        },
+        {
+          num: "11",
+          title: "창업 아카데미 교육 이수",
+          date: "2022.11.11",
+        },
+        {
+          num: "10",
+          title: "2022 신라대학교 취업박람회",
+          date: "2022.11.03",
+        },
+        {
+          num: "9",
+          title: " 청년 일자리 지원 사업 참여",
+          date: "2022.11.02",
+        },
+        {
+          num: "8",
+          title: "(재)부산인재개발원 부산IT교육센터와의 협약 체결",
+          date: "2022.10.27",
+        },
+        {
+          num: "7",
+          title: " 2022 서부산권 채용박람회",
+          date: "2022.10.13",
+        },
+        {
+          num: "6",
+          title:
+            " 한국산업안전보건공단_2022년 사무직 종사자의 안전관리 교육 이수",
+          date: "2022.09.15",
+        },
+        {
+          num: "5",
+          title: " 청년내일채움공제 참여",
+          date: "2022.08.31",
+        },
+        {
+          num: "4",
+          title: " 개인정보보호위원회_(신)개인정보보호법 교육 수료",
+          date: "2022.08.31",
+        },
+        {
+          num: "3",
+          title: " 통신판매업 신고",
+          date: "2022.04.07",
+        },
+        {
+          num: "2",
+          title: " 기업부설연구소 인정",
+          date: "2022.08.31",
+        },
+        {
           num: "1",
-          title: "TNT Studio Grand Opening",
-          date: "2023.06.10",
+          title: " 중소기업 인증",
+          date: "2022.08.31",
         },
       ],
+
+      // desserts: [
+      //   {
+      //     num: "2",
+      //     title: "TNT Studio 스튜디오 7월 완공",
+      //     date: "2023.07.21",
+      //   },
+      //   {
+      //     num: "1",
+      //     title: "TNT Studio Grand Opening",
+      //     date: "2023.06.10",
+      //   },
+      // ],
     };
+  },
+  computed: {
+    desserts() {
+      // 현재 페이지에 해당하는 디저트 데이터를 반환합니다.
+      const startIndex = (this.page - 1) * 10;
+      const endIndex = startIndex + 10;
+      return this.dessertsData.slice(startIndex, endIndex);
+    },
   },
 };
 </script>

@@ -15,6 +15,30 @@
         </div>
       </div>
       <!-- 스튜디오 기본장비-->
+
+      <!-- <div
+        class="img-con"
+        :class="['tab' + index, { '--active': rentalState === index }]"
+      >
+        <div class="instrument-con">
+          <div
+            v-for="(equipment, index) in equipmentImg"
+            :key="index"
+            class="instrument-wrap"
+          >
+            <div
+              v-for="(instrument, index) in equipment.instrument"
+              :key="index"
+              class="instrument-card"
+            >
+              <div class="img-con">
+                <img :src="instrument.src" class="img" />
+              </div>
+              <p class="instrument-text">{{ instrument.title }}</p>
+            </div>
+          </div>
+        </div>
+      </div> -->
       <table
         v-for="(equipment, index) in equipment"
         :key="index"
@@ -82,94 +106,90 @@ export default {
           thead: ["종류", "세부항목"],
           tbody: [
             {
-              td1: "촬영장비",
-              td2: "소니 FX3, 렌즈 (Meike-프라임 50mm T2.1), 렌즈 (ZEISS-Batis 18mm f/2.8), 마이크 (NEUMANN KK184+KM), 마이크 (RODE VideoMic NTG), 캠코더 ( HXRNX5R 789419)",
+              td1: "카메라",
+              td2: "SONY FX3, SONY A7M IV, 렌즈 (SONY FE 70-200mm F2.8 GM), 렌즈 (SONY FE 24-70mm F2.8 GM), 렌즈 (SONY FE 85mm F1.4 GM), 렌즈 (탐론 28-200mm F2.8-5.6 Di III RXD A07 SONY FE마운트), 배터리 (SONY NP-FZ100), 배터리 (SONY FZ100 상시전원 더미 배터리 어댑터), 렌즈 필터(K&f Concept NANO-X Ultra slim MRC UV 렌즈 필터 67mm), 렌즈 필터 (K&f Concept NANO-X Ultra slim MRC UV 렌즈 필터 77mm), 렌즈 필터(K&f Concept NANO-X Ultra slim MRC UV 렌즈 필터 82mm), 키트 (틸타 SONY FX3 케이지 베이직 키트 (TA-T13-A-B)), 삼각대 (스몰리그 SR1989 삼각대 (헤드포함)), 짐벌(DJI 로닌 RS3 프로 콤보 짐벌)",
             },
             {
-              td1: "PC 장비",
-              td2: "웹캠 (DSLR + 렌즈세트), 모니터 (32인치), PC (i9/DDR5 64G/M2 2TB/4090), PC (i7/DDR4 64G/M2 2TB/3060)",
+              td1: "모니터",
+              td2: "ATOMOS 닌자 V 프리뷰모니터 프로 키트 ",
             },
             {
-              td1: "조명",
-              td2: "면조명",
+              td1: "마이크&오디오",
+              td2: "RODE VIDEO MIC PRO PLUS, SONY UWP-D21, 코미카 4채널 무선마이크 BOOMX-U-QUA (송신기4, 수신기1), 베링거 FLOW8, Blackmagic Design ATEM Mini Extremem SIO",
             },
             {
-              td1: "악세사리",
-              td2: "삼각대 (Marsace MT2542), 짐벌 (DJI RONIN SC 2 PRO), 짐벌 (DJI 오리지널 RSC 2), 조명 (파보튜브2), 드론 (DJI Mavic 3 매빅 프리미엄)",
+              td1: "조명&촬영보조",
+              td2: "고프로 히어로11 블랙 올인원 패키지, 난라이트 파보튜브II 30X LED조명 2키트, 난라이트 파보튜브II 플로어스탠드, 난라이트 FS-300B",
             },
           ],
         },
-        // {
-        //   thead: ["장소", "N시간"],
-        //   tbody: [
-        //     {
-        //       td1: "5층 대회의실",
-        //       td2: "미정",
-        //       // td3: "24만원",
-        //     },
-        //     {
-        //       td1: "4층 소회의실",
-        //       td2: "미정",
-        //       // td3: "18만원",
-        //     },
-        //   ],
-        // },
-        // {
-        //   thead: ["구분", "비용 안내"],
-        //   tbody: [
-        //     {
-        //       td1: "양방향 운용(4시간)",
-        //       td2: "미정",
-        //     },
-        //     {
-        //       td1: "양방향 운용(1일)",
-        //       td2: "미정",
-        //     },
-        //     {
-        //       td1: "기획/연출/편집",
-        //       td2: "미정",
-        //     },
-        //   ],
-        // },
+      ],
+      equipmentImg: [
+        {
+          instrument: [
+            {
+              src: require("@/assets/studio/촬영장비/FX3.png"),
+              title: "FX3",
+              num: 1,
+              product: "SONY",
+            },
+          ],
+        },
       ],
       studioIntro: [
         {
           instrument: [
             {
-              src: require("@/assets/studio/studio1.svg"),
-              title: "로비A",
+              src: require("@/assets/studio/TNT로고.png"),
+              title: "TNT로고",
             },
             {
-              src: require("@/assets/studio/studio2.svg"),
-              title: "로비B",
+              src: require("@/assets/studio/라운지 (로비).png"),
+              title: "라운지(로비)",
             },
             {
-              src: require("@/assets/studio/studio3.svg"),
-              title: "로비C",
+              src: require("@/assets/studio/라운지 (주방).png"),
+              title: "라운지(주방)",
             },
             {
-              src: require("@/assets/studio/studio4.svg"),
-              title: "드레스룸",
+              src: require("@/assets/studio/솔로 스튜디오_1.png"),
+              title: "솔로 스튜디오",
             },
             {
-              src: require("@/assets/studio/studio5.svg"),
-              title: "사무공간",
+              src: require("@/assets/studio/듀오_1.png"),
+              title: "듀오 스튜디오",
             },
             {
-              src: require("@/assets/studio/studio6.svg"),
-              title: "주방",
+              src: require("@/assets/studio/워터 외부.png"),
+              title: "워터 스튜디오",
             },
             {
-              src: require("@/assets/studio/studio7.svg"),
-              title: "개인방송실",
+              src: require("@/assets/studio/하이브리드 스튜디오_1.png"),
+              title: "하이브리드 스튜디오",
             },
             {
-              src: require("@/assets/studio/studio8.svg"),
-              title: "크로마키실",
+              src: require("@/assets/studio/화이트 스튜디오.png"),
+              title: "화이트 스튜디오",
             },
             {
-              src: require("@/assets/studio/studio9.svg"),
-              title: "편집실",
+              src: require("@/assets/studio/그린 스튜디오.png"),
+              title: "그린 스튜디오",
+            },
+            {
+              src: require("@/assets/studio/파우더 룸(탈의실).png"),
+              title: "파우더 룸(탈의실)",
+            },
+            {
+              src: require("@/assets/studio/파우더 룸(화장대).png"),
+              title: "파우더 룸(화장대)",
+            },
+            {
+              src: require("@/assets/studio/샤워실 내부.png"),
+              title: "샤워실 내부",
+            },
+            {
+              src: require("@/assets/studio/샤워실 외부.png"),
+              title: "샤워실 외부",
             },
           ],
         },
@@ -251,7 +271,7 @@ export default {
             width: calc(33% - 24px);
             margin: 12px;
             .img-con {
-              height: 150px;
+              height: 200px;
             }
             .instrument-text {
               padding: 20px;
@@ -748,28 +768,28 @@ export default {
         }
       }
     }
-    .instrument-con {
-      .instrument-wrap {
+  }
+}
+.instrument-con {
+  .instrument-wrap {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+  }
+  .instrument-card {
+    border: solid 1px #b9b9b9;
+    border-radius: 5px;
+    .img-con {
+      width: 100%;
+      .img {
+        object-fit: cover;
         width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: left;
+        height: 100%;
       }
-      .instrument-card {
-        border: solid 1px #b9b9b9;
-        border-radius: 5px;
-        .img-con {
-          width: 100%;
-          .img {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-          }
-        }
-        .instrument-text {
-          font-family: "Pretendard-Regular";
-        }
-      }
+    }
+    .instrument-text {
+      font-family: "Pretendard-Regular";
     }
   }
 }
