@@ -31,19 +31,21 @@
             <span class="date"> {{ item.date }}</span>
           </router-link>
         </div>
-        <router-link
-          :to="'news' + (index + 1)"
-          v-for="(item, index) in news_mobile"
-          :key="index"
-          class="list-con mobile"
-        >
-          <span class="num">{{ item.num }}</span>
-          <div class="con">
-            <span class="list-title">{{ item.title }}</span>
-            <span class="list-detail"> - {{ item.subtitle }}</span>
-          </div>
-          <span class="date"> {{ item.date }}</span>
-        </router-link>
+        <div class="fix-contain">
+          <router-link
+            :to="'news' + (index + 1)"
+            v-for="(item, index) in news_mobile"
+            :key="index"
+            class="list-con mobile"
+          >
+            <span class="num">{{ item.num }}</span>
+            <div class="con">
+              <span class="list-title">{{ item.title }}</span>
+              <span class="list-detail"> - {{ item.subtitle }}</span>
+            </div>
+            <span class="date"> {{ item.date }}</span>
+          </router-link>
+        </div>
       </div>
       <!-- <div class="announcer-con">
         <div class="swiper" ref="bannerRef">
@@ -86,43 +88,95 @@ export default {
       bgicon: require("@/assets/service/bg_element1.svg"),
       news: [
         {
-          num: 1,
-          title: "TNT Studio Grand Opening",
-          subtitle: "2023년 TNT Studio가 그랜드 오픈을 하였습니다!",
-          date: "2023.06.10",
+          num: 30,
+          title: "대중문화예술기획업 등록 교육 이수",
+          subtitle: "대중문화예술기획업 등록 교육 이수",
+          date: "2023.08.16",
         },
         {
-          num: 2,
-          title: "TNT Studio 스튜디오 7월 완공",
-          subtitle: "2023년 7월 완공되는 TNT Studio 스튜디오는 부산/경남 거점 촬영 스튜디오로 ",
-          date: "2023.07.21",
+          num: 29,
+          title: "비디오 생산 증명서 취득",
+          subtitle: "비디오 생산 증명서 취득",
+          date: "2023.08.08",
         },
         {
-          num: 1,
-          title: "TNT Studio Grand Opening",
-          subtitle: "2023년 TNT Studio가 그랜드 오픈을 하였습니다!",
-          date: "2023.06.10",
+          num: 28,
+          title: "(주)게임인스 하계휴가 안내",
+          subtitle:
+            "길고 길었던 장마가 끝나고 서서히 더위가 기세를 찾아가는 여름을 맞이하여",
+          date: "2023.08.08",
         },
-        // {
-        //   title: "공지1",
-        //   subtitle: "이러이러한 공지사항이 있으며 ",
-        // },
+        {
+          num: 27,
+          title: "게임인스 TNT Studio의 촬영 스튜디오 사상점 오픈",
+          subtitle:
+            "오는 7월 말에 게임인스의 TNT studio 촬영 스튜디오 사상점이 개업합니다.",
+          date: "2023.08.08",
+        },
+        {
+          num: 26,
+          title: "일 생활균형 일촌기업 사업 참여",
+          subtitle: "일 생활균형 일촌기업 사업 참여",
+          date: "2023.08.08",
+        },
+        {
+          num: 25,
+          title: "한국건강가정진흥원 교육 이수",
+          subtitle: "한국건강가정진흥원 교육 이수",
+          date: "2023.05.30",
+        },
+        {
+          num: 30,
+          title: "대중문화예술기획업 등록 교육 이수",
+          subtitle: "대중문화예술기획업 등록 교육 이수",
+          date: "2023.08.16",
+        },
       ],
       news_mobile: [
         {
-          num: 1,
-          title: "TNT Studio Grand Opening",
-          subtitle: "2023년 TNT Studio가 그랜드 오픈을 하였습니다!",
-          date: "2023.06.10",
+          num: 30,
+          title: "대중문화예술기획업 등록 교육 이수",
+          subtitle: "대중문화예술기획업 등록 교육 이수",
+          date: "2023.08.16",
         },
-        // {
-        //   title: "공지1",
-        //   subtitle: "이러이러한 공지사항이 있으며 ",
-        // },
-        // {
-        //   title: "공지1",
-        //   subtitle: "이러이러한 공지사항이 있으며 ",
-        // },
+        {
+          num: 29,
+          title: "비디오 생산 증명서 취득",
+          subtitle: "비디오 생산 증명서 취득",
+          date: "2023.08.08",
+        },
+        {
+          num: 28,
+          title: "(주)게임인스 하계휴가 안내",
+          subtitle:
+            "길고 길었던 장마가 끝나고 서서히 더위가 기세를 찾아가는 여름을 맞이하여",
+          date: "2023.08.08",
+        },
+        {
+          num: 27,
+          title: "게임인스 TNT Studio의 촬영 스튜디오 사상점 오픈",
+          subtitle:
+            "오는 7월 말에 게임인스의 TNT studio 촬영 스튜디오 사상점이 개업합니다.",
+          date: "2023.08.08",
+        },
+        {
+          num: 26,
+          title: "일 생활균형 일촌기업 사업 참여",
+          subtitle: "일 생활균형 일촌기업 사업 참여",
+          date: "2023.08.08",
+        },
+        {
+          num: 25,
+          title: "한국건강가정진흥원 교육 이수",
+          subtitle: "한국건강가정진흥원 교육 이수",
+          date: "2023.05.30",
+        },
+        {
+          num: 30,
+          title: "대중문화예술기획업 등록 교육 이수",
+          subtitle: "대중문화예술기획업 등록 교육 이수",
+          date: "2023.08.16",
+        },
       ],
       img: [
         {
@@ -183,35 +237,50 @@ export default {
         animation: news_event,
         onEnter: () => {
           news_event.play();
-        },},
+        },
+      },
       repeat: -1,
-      // repeatDelay: 0
+      repeatDelay: 0,
     });
-    news_board.to(
-      '.news-event-section > .container > .news > .fix-contain > .list-con',
-      { duration: 1.5, bottom: 70 + 'px' },
-      'start+=1'
-    );
-    news_board.to(
-      '.news-event-section > .container > .news > .fix-contain > .list-con',
-      { duration: 1.5, bottom: 144 + 'px' },
-      'start+=3.5'
-    );
-    // const listCon = document.querySelectorAll('.pc');
-    // const AnimationTime = 2.5;
-    // var startOffset = 1;
-    // for (var i = 0; i < listCon.length - 1; i++) {
-    //   if (i > 0) {
-    //     startOffset = 1 + (AnimationTime * i);
-    //   }
-    //   news_board.to(
-    //     '.news-event-section > .container > .news > .fix-contain > .list-con',
-    //     { duration: 1.5, bottom: 70 * i + 'px' },
-    //     `start+=${startOffset}`
-    //   );
-    // }
-   
 
+    for (var i = 0; i <= this.news.length; i++) {
+      if (i === this.news.length - 1) {
+        return;
+      }
+      var bottomPXPC = 72 * (i + 1);
+      var bottomPXMobile = 62 * (i + 1);
+      const durationTime = 1.5;
+      var delayStart = 1.5;
+
+      news_board.to(
+        ".news-event-section > .container > .news > .fix-contain > .pc",
+        { duration: durationTime, bottom: bottomPXPC + "px", delay: delayStart }
+      );
+      news_board.to(
+        ".news-event-section > .container > .news > .fix-contain > .mobile",
+        {
+          duration: durationTime,
+          bottom: bottomPXMobile + "px",
+          delay: delayStart,
+        }
+      );
+    }
+
+    // news_board.to(
+    //   ".news-event-section > .container > .news > .fix-contain > .list-con",
+    //   { duration: 1.5, bottom: 144 + "px" },
+    //   "start+=3.5"
+    // );
+    // news_board.to(
+    //   ".news-event-section > .container > .news > .fix-contain > .list-con",
+    //   { duration: 1.5, bottom: 218 + "px" },
+    //   "start+=5.5"
+    // );
+    // news_board.to(
+    //   ".news-event-section > .container > .news > .fix-contain > .list-con",
+    //   { duration: 1.5, bottom: 292 + "px" },
+    //   "start+=7.5"
+    // );
   },
   setup() {
     const bannerRef = ref(null);
@@ -538,7 +607,6 @@ export default {
       width: 100%;
       margin: 0 1%;
 
-      
       .hr-margin {
         margin: 12px 0px;
       }
@@ -565,8 +633,8 @@ export default {
           color: #805bea;
         }
       }
-      .fix-contain{
-        height: 72px;
+      .fix-contain {
+        // height: 72px;
         position: relative;
         overflow: hidden;
         right: -30px;

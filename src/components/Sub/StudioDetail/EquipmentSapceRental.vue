@@ -16,6 +16,61 @@
       </div>
       <!-- 스튜디오 기본장비-->
 
+      <swiper
+        :spaceBetween="10"
+        :navigation="true"
+        :modules="modules"
+        :style="{
+          '--swiper-navigation-color': 'gray',
+          '--swiper-pagination-color': 'gray',
+        }"
+        class="swiperCon"
+        :breakpoints="{
+          320: {
+            slidesPerView: 2.2,
+            spaceBetween: 10,
+          },
+          360: {
+            slidesPerView: 2.5,
+            spaceBetween: 13,
+          },
+          400: {
+            slidesPerView: 2.8,
+            spaceBetween: 14,
+          },
+          500: {
+            slidesPerView: 3.3,
+            spaceBetween: 14,
+          },
+          640: {
+            slidesPerView: 3.5,
+            spaceBetween: 15,
+          },
+          760: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+          },
+          1080: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+        }"
+      >
+        <swiper-slide
+          v-for="(item, index) in equipmentImg"
+          :key="index"
+          class="swiper"
+        >
+          <div class="imgCon">
+            <img class="img" :src="item.src" />
+            <div class="textCon" style="text-align: center">
+              <p class="title">{{ item.title }}</p>
+              <!-- <p class="subTitle">{{ item.subTitle }}</p> -->
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper>
+
       <!-- <div
         class="img-con"
         :class="['tab' + index, { '--active': rentalState === index }]"
@@ -95,11 +150,22 @@
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { FreeMode, Navigation, Scrollbar } from "swiper";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 export default {
   name: "ESR",
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   data() {
     return {
       rentalState: 0,
+      modules: [FreeMode, Navigation, Scrollbar],
       tabList: ["스튜디오 기본장비", "스튜디오 소개"],
       equipment: [
         {
@@ -124,16 +190,43 @@ export default {
           ],
         },
       ],
+
       equipmentImg: [
         {
-          instrument: [
-            {
-              src: require("@/assets/studio/촬영장비/FX3.png"),
-              title: "FX3",
-              num: 1,
-              product: "SONY",
-            },
-          ],
+          title: "FX3",
+          num: 1,
+          product: "SONY",
+          src: require("@/assets/studio/촬영장비/FX3.png"),
+        },
+        {
+          src: require("@/assets/studio/촬영장비/FX3.png"),
+          title: "FX3",
+          num: 1,
+          product: "SONY",
+        },
+        {
+          src: require("@/assets/studio/촬영장비/FX3.png"),
+          title: "FX3",
+          num: 1,
+          product: "SONY",
+        },
+        {
+          src: require("@/assets/studio/촬영장비/FX3.png"),
+          title: "FX3",
+          num: 1,
+          product: "SONY",
+        },
+        {
+          src: require("@/assets/studio/촬영장비/FX3.png"),
+          title: "FX3",
+          num: 1,
+          product: "SONY",
+        },
+        {
+          src: require("@/assets/studio/촬영장비/FX3.png"),
+          title: "FX3",
+          num: 1,
+          product: "SONY",
         },
       ],
       studioIntro: [
@@ -194,6 +287,10 @@ export default {
           ],
         },
       ],
+      swiperNavigation: {
+        nextEl: ".swiper-button-next", // 다음 버튼 클래스
+        prevEl: ".swiper-button-prev", // 이전 버튼 클래스
+      },
     };
   },
   methods: {
@@ -215,6 +312,9 @@ export default {
       font-size: 30px;
     }
     .tab-con {
+      .swiperCon {
+        width: 1300px;
+      }
       .tab {
         width: 1300px;
         .tab-list {
@@ -293,6 +393,9 @@ export default {
       font-size: 30px;
     }
     .tab-con {
+      .swiperCon {
+        width: 1080px;
+      }
       .tab {
         width: 1080px;
         .tab-list {
@@ -372,6 +475,9 @@ export default {
       font-size: 24px;
     }
     .tab-con {
+      .swiperCon {
+        width: 760px;
+      }
       .tab {
         width: 760px;
         .tab-list {
@@ -451,6 +557,9 @@ export default {
       font-size: 22px;
     }
     .tab-con {
+      .swiperCon {
+        width: 640px;
+      }
       .tab {
         width: 640px;
         .tab-list {
@@ -532,6 +641,9 @@ export default {
       font-size: 20px;
     }
     .tab-con {
+      .swiperCon {
+        width: calc(100% - 50px);
+      }
       .tab {
         width: calc(100% - 12px);
         .tab-list {
@@ -619,6 +731,19 @@ export default {
   }
   .tab-con {
     display: grid;
+    .swiperCon {
+      // .swiper {
+      //   width: 220px;
+      //   .imgCon {
+      //     width: 220px;
+      .img {
+        width: 95%;
+        border: solid 1px gray;
+      }
+      // }
+      // }
+    }
+
     .tab {
       // width: 1300px;
       display: flex;
@@ -747,6 +872,8 @@ export default {
     }
     .tab-con {
       display: grid;
+      .swiperCon {
+      }
       .tab {
         width: 1300px;
         display: flex;

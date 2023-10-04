@@ -14,8 +14,11 @@
           <div class="text"></div>
           <div class="img_con">
             <div class="upper_box">
-              <!-- <img class="news_img" :src="require('@/assets/news/news30.svg')" /> -->
-              <p class="sub_imgtext">개인정보보호법 수료</p>
+              <img
+                class="news_img"
+                :src="require('@/assets/news/news30.jpg')"
+              />
+              <p class="sub_imgtext">대중문화예술기획업 등록 교육 이수</p>
             </div>
           </div>
         </div>
