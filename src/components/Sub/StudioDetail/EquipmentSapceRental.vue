@@ -15,62 +15,6 @@
         </div>
       </div>
       <!-- 스튜디오 기본장비-->
-
-      <swiper
-        :spaceBetween="10"
-        :navigation="true"
-        :modules="modules"
-        :style="{
-          '--swiper-navigation-color': 'gray',
-          '--swiper-pagination-color': 'gray',
-        }"
-        class="swiperCon"
-        :breakpoints="{
-          320: {
-            slidesPerView: 2.2,
-            spaceBetween: 10,
-          },
-          360: {
-            slidesPerView: 2.5,
-            spaceBetween: 13,
-          },
-          400: {
-            slidesPerView: 2.8,
-            spaceBetween: 14,
-          },
-          500: {
-            slidesPerView: 3.3,
-            spaceBetween: 14,
-          },
-          640: {
-            slidesPerView: 3.5,
-            spaceBetween: 15,
-          },
-          760: {
-            slidesPerView: 4,
-            spaceBetween: 10,
-          },
-          1080: {
-            slidesPerView: 4,
-            spaceBetween: 20,
-          },
-        }"
-      >
-        <swiper-slide
-          v-for="(item, index) in equipmentImg"
-          :key="index"
-          class="swiper"
-        >
-          <div class="imgCon">
-            <img class="img" :src="item.src" />
-            <div class="textCon" style="text-align: center">
-              <p class="title">{{ item.title }}</p>
-              <!-- <p class="subTitle">{{ item.subTitle }}</p> -->
-            </div>
-          </div>
-        </swiper-slide>
-      </swiper>
-
       <!-- <div
         class="img-con"
         :class="['tab' + index, { '--active': rentalState === index }]"
@@ -94,6 +38,53 @@
           </div>
         </div>
       </div> -->
+      <swiper
+        :navigation="true"
+        :modules="modules"
+        :style="{
+          '--swiper-navigation-color': '#805bea',
+          '--swiper-pagination-color': '#805bea',
+        }"
+        autoplay="2000"
+        :class="['swiperCon', { '--active': rentalState === 0 }]"
+        :breakpoints="{
+          320: {
+            slidesPerView: 2.2,
+          },
+          360: {
+            slidesPerView: 3,
+          },
+          400: {
+            slidesPerView: 3.3,
+          },
+          500: {
+            slidesPerView: 3.5,
+          },
+          640: {
+            slidesPerView: 3.7,
+          },
+          760: {
+            slidesPerView: 4,
+          },
+          1080: {
+            slidesPerView: 5,
+            spaceBetween: 10,
+          },
+        }"
+      >
+        <swiper-slide
+          v-for="(item, index) in filteredItems"
+          :key="index"
+          class="swiper"
+        >
+          <div v-if="item.src" class="imgCon">
+            <img class="img" :src="item.src" />
+            <div class="textCon" style="text-align: center">
+              <p class="subTitle">{{ item.name }}</p>
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper>
       <table
         v-for="(equipment, index) in equipment"
         :key="index"
@@ -156,12 +147,14 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import { mapGetters } from "vuex";
 export default {
   name: "ESR",
   components: {
     Swiper,
     SwiperSlide,
   },
+
   data() {
     return {
       rentalState: 0,
@@ -191,58 +184,16 @@ export default {
         },
       ],
 
-      equipmentImg: [
-        {
-          title: "FX3",
-          num: 1,
-          product: "SONY",
-          src: require("@/assets/studio/촬영장비/FX3.png"),
-        },
-        {
-          src: require("@/assets/studio/촬영장비/FX3.png"),
-          title: "FX3",
-          num: 1,
-          product: "SONY",
-        },
-        {
-          src: require("@/assets/studio/촬영장비/FX3.png"),
-          title: "FX3",
-          num: 1,
-          product: "SONY",
-        },
-        {
-          src: require("@/assets/studio/촬영장비/FX3.png"),
-          title: "FX3",
-          num: 1,
-          product: "SONY",
-        },
-        {
-          src: require("@/assets/studio/촬영장비/FX3.png"),
-          title: "FX3",
-          num: 1,
-          product: "SONY",
-        },
-        {
-          src: require("@/assets/studio/촬영장비/FX3.png"),
-          title: "FX3",
-          num: 1,
-          product: "SONY",
-        },
-      ],
       studioIntro: [
         {
           instrument: [
             {
-              src: require("@/assets/studio/TNT로고.png"),
-              title: "TNT로고",
-            },
-            {
               src: require("@/assets/studio/라운지 (로비).png"),
-              title: "라운지(로비)",
+              title: "라운지",
             },
             {
               src: require("@/assets/studio/라운지 (주방).png"),
-              title: "라운지(주방)",
+              title: "키친 스튜디오",
             },
             {
               src: require("@/assets/studio/솔로 스튜디오_1.png"),
@@ -276,13 +227,10 @@ export default {
               src: require("@/assets/studio/파우더 룸(화장대).png"),
               title: "파우더 룸(화장대)",
             },
-            {
-              src: require("@/assets/studio/샤워실 내부.png"),
-              title: "샤워실 내부",
-            },
+
             {
               src: require("@/assets/studio/샤워실 외부.png"),
-              title: "샤워실 외부",
+              title: "샤워실",
             },
           ],
         },
@@ -292,6 +240,22 @@ export default {
         prevEl: ".swiper-button-prev", // 이전 버튼 클래스
       },
     };
+  },
+  computed: {
+    ...mapGetters(["equipments"]),
+    filteredItems() {
+      const equipmentTypes = ["camera", "monitor", "MicAudio", "LightSubFilm"];
+      let allEquipment = [];
+      equipmentTypes.forEach((type) => {
+        allEquipment = allEquipment.concat(
+          this.equipments[type].filter(
+            (item) => item.src && item.src.trim() !== ""
+          )
+        );
+      });
+
+      return allEquipment;
+    },
   },
   methods: {
     RentalState(index) {
@@ -314,6 +278,10 @@ export default {
     .tab-con {
       .swiperCon {
         width: 1300px;
+        .img {
+          width: 220px;
+          height: 220px;
+        }
       }
       .tab {
         width: 1300px;
@@ -395,6 +363,10 @@ export default {
     .tab-con {
       .swiperCon {
         width: 1080px;
+        .img {
+          width: 160px;
+          height: 160px;
+        }
       }
       .tab {
         width: 1080px;
@@ -477,6 +449,10 @@ export default {
     .tab-con {
       .swiperCon {
         width: 760px;
+        .img {
+          width: 120px;
+          height: 120px;
+        }
       }
       .tab {
         width: 760px;
@@ -559,6 +535,10 @@ export default {
     .tab-con {
       .swiperCon {
         width: 640px;
+        .img {
+          width: 120px;
+          height: 120px;
+        }
       }
       .tab {
         width: 640px;
@@ -643,6 +623,10 @@ export default {
     .tab-con {
       .swiperCon {
         width: calc(100% - 50px);
+        .img {
+          width: 80px;
+          height: 80px;
+        }
       }
       .tab {
         width: calc(100% - 12px);
@@ -732,16 +716,25 @@ export default {
   .tab-con {
     display: grid;
     .swiperCon {
-      // .swiper {
-      //   width: 220px;
-      //   .imgCon {
-      //     width: 220px;
-      .img {
-        width: 95%;
-        border: solid 1px gray;
+      display: none;
+      border-radius: 5px;
+      padding: 12px;
+      margin-top: 30px;
+      .swiper {
+        align-self: center;
+        .imgCon {
+          text-align: center;
+          width: 100%;
+          aspect-ratio: 1/1;
+          // .img {
+          //   width: 220px;
+          //   height: 220px;
+          // }
+        }
       }
-      // }
-      // }
+    }
+    .--active {
+      display: block !important;
     }
 
     .tab {
@@ -872,8 +865,7 @@ export default {
     }
     .tab-con {
       display: grid;
-      .swiperCon {
-      }
+
       .tab {
         width: 1300px;
         display: flex;
