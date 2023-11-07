@@ -97,72 +97,76 @@ export default {
       schedule: [
         {
           video:
-            "https://www.youtube.com/embed/ysTO1NYpnAc?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/WMjjqv-5TzY?rel=0&enablejsapi=1",
           name: "티키앤타카",
           title:
-            "임형철-정성민-신보석이 말하는 뉴택틱 전술 활용법 l [피파의 모든 것 20화]",
-          date: "2023. 7. 30",
+            "임형철이 직접 만든 낭만 리버풀 전술 l [응답하라 낭만피파 14화]",
+          date: "2023. 11. 05",
         },
         {
           video:
-            "https://www.youtube.com/embed/yzs0nAEZ1-M?rel=0&enablejsapi=1",
-          name: "티키앤타카",
-          title: "한준희가 직접 만든 낭만 아스날 전술 l [응답하라 낭만피파 4화]",
-          date: "2023. 7. 26",
-        },
-        {
-          video:
-            "https://www.youtube.com/embed/TUjJRQY9ID8?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/1SNZse_XAdY?rel=0&enablejsapi=1",
           name: "티키앤타카",
           title:
-            "한준희가 직접 맞추는 피파4 아스날 낭만 스쿼드 l [응답하라 낭만피파 3화]",
-          date: "2023. 7. 23",
+            "최강자들의 엘클라시코, 곽준혁 vs 박지민 | 티키앤타카 FC온라인 연승전 2ROUND",
+          date: "2023. 11. 02",
         },
         {
           video:
-            "https://www.youtube.com/embed/x5DLf4QyZ6E?rel=0&enablejsapi=1",
-          name: "티키앤타카",
-          title: "장지현이 직접 만든 낭만 첼시 전술 l [응답하라 낭만피파 2화]",
-          date: "2023. 7. 19",
-        },
-        {
-          video:
-            "https://www.youtube.com/embed/HRk4lVGqJmU?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/TjUGsMw-Vkg?rel=0&enablejsapi=1",
           name: "티키앤타카",
           title:
-            "장지현이 직접 맞추는 피파4 첼시 낭만 스쿼드 l [응답하라 낭만피파 1화]",
-          date: "2023. 7. 16",
+            "임형철이 직접 맞추는 FC온라인 리버풀 낭만 스쿼드 l [응답하라 낭만피파 13화]",
+          date: "2023. 10. 29",
         },
         {
           video:
-            "https://www.youtube.com/embed/RRi-BcWfPpE?rel=0&enablejsapi=1",
-          name: "티키앤타카",
-          title: "한준희가 말하는 역대 최고의 조합들 l [피파의 모든 것 19화]",
-          date: "2023. 7. 12",
-        },
-        {
-          video:
-            "https://www.youtube.com/embed/jIqfSoHX9cc?rel=0&enablejsapi=1",
-          name: "티키앤타카",
-          title: "한준희가 말하는 최고의 듀오와 트리오 l [피파의 모든 것 18화]",
-          date: "2023. 7. 9",
-        },
-        {
-          video:
-            "https://www.youtube.com/embed/xaYUG6kN3D0?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/P0Pb59xswv0?rel=0&enablejsapi=1",
           name: "티키앤타카",
           title:
-            "임형철이 말하는 23토츠 공격수 티어리스트 l [피파의 모든 것 17화]",
-          date: "2023. 7. 5",
+            "[다시보기] 한준희x곽준혁x신보석 아이콘 모먼트 최종 출시 D-1 능력치 예상하기",
+          date: "2023. 10. 26",
+        },
+        {
+          video:
+            "https://www.youtube.com/embed/xtBq0LXuozc?rel=0&enablejsapi=1",
+          name: "티키앤타카",
+          title:
+            "한준희가 직접 만든 낭만 레알 마드리드 전술 l [응답하라 낭만피파 12화]",
+          date: "2023. 10. 22",
+        },
+        {
+          video:
+            "https://www.youtube.com/embed/08ndLoXvBZo?rel=0&enablejsapi=1",
+          name: "티키앤타카",
+          title:
+            "한준희가 직접 맞추는 FC온라인 레알 마드리드 낭만 스쿼드 l [응답하라 낭만피파 11화]",
+          date: "2023. 10. 15",
+        },
+        {
+          video:
+            "https://www.youtube.com/embed/Tby95ITG3O0?rel=0&enablejsapi=1",
+          name: "티키앤타카",
+          title:
+            "송영주가 직접 만든 낭만 바르셀로나 전술 l [응답하라 낭만피파 10화]",
+          date: "2023. 9. 23",
+        },
+        {
+          video:
+            "https://www.youtube.com/embed/FODUbZegNug?rel=0&enablejsapi=1",
+          name: "티키앤타카",
+          title:
+            "송영주가 직접 맞추는 피파4 바르셀로나 낭만 스쿼드 l [응답하라 낭만피파 9화]",
+          date: "2023. 9. 17",
         },
 
         {
           video:
-            "https://www.youtube.com/embed/w5xwAalXSwQ?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/AOwqgHtoqF4?rel=0&enablejsapi=1",
           name: "티키앤타카",
           title:
-            "임형철이 말하는 23토츠 티어리스트 (수비수, 미드필더) l [피파의 모든 것 16화]",
-          date: "2023. 7. 2",
+            "장지현이 말하는 CC시즌 주목 해야 할 선수 l [피파의 모든 것 27화]",
+          date: "2023. 9. 8",
         },
         // {
         //   video:

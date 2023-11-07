@@ -27,9 +27,10 @@
             <td class="desserts_align td_num">
               {{ item.num }}
             </td>
+
             <td
               class="desserts_align td_title"
-              style="justify-content: left; padding-left: 5%"
+              style="justify-content: left; padding-left: 3%"
             >
               {{ item.title }}
             </td>
@@ -42,7 +43,7 @@
     </div>
     <v-pagination
       v-model="page"
-      :length="3"
+      :length="4"
       rounded="circle"
       style="margin-bottom: 30px"
     ></v-pagination>
@@ -74,6 +75,26 @@ export default {
       page: 1,
       header: ["번호", "제목", "작성일자"],
       dessertsData: [
+        {
+          num: "34",
+          title: " 산학협력 체결서_정보영스피치",
+          date: "2023.11.01",
+        },
+        {
+          num: "33",
+          title: " 2023년 기장군 일자리박람회",
+          date: "2023.10.26",
+        },
+        {
+          num: "32",
+          title: " 2023년 연제구 일자리박람회",
+          date: "2023.10.23",
+        },
+        {
+          num: "31",
+          title: " 사상여성인력개발센터 업무 협약",
+          date: "2023.10.20",
+        },
         {
           num: "30",
           title: " 대중문화예술기획업 등록 교육 이수",
@@ -272,6 +293,7 @@ export default {
   padding-bottom: 30px;
   margin-top: 100px;
   .table_header {
+    font-family: "Pretendard-Regular";
     display: flex;
     text-align: center;
     border-top: 1px solid #c4c4c4;
@@ -293,7 +315,7 @@ export default {
     display: table;
     text-align: center;
     border-bottom: 1px solid #e7e7e7;
-    font-family: "Pretendard-Regular";
+    font-family: "Pretendard";
     width: 100%;
     .td_num {
       width: 15%;
@@ -305,6 +327,14 @@ export default {
       width: 15%;
     }
     .desserts_align {
+      // display: -webkit-inline-box;
+      // text-overflow: ellipsis;
+      // word-break: break-word;
+      // -webkit-box-orient: vertical;
+      // -webkit-line-clamp: 1;
+      // overflow: hidden;
+      // align-self: center;
+
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -357,6 +387,7 @@ a {
 
   .table_desserts {
     font-size: 16px;
+
     .td_num {
       height: 50px;
     }
@@ -422,7 +453,6 @@ a {
     padding-bottom: 3%;
     width: 760px;
   }
-
   .table_header {
     width: 760px;
     height: 45px;
@@ -449,48 +479,47 @@ a {
     font-size: 18px;
   }
 }
-
 // 테블릿
-@media screen and (min-width: 640px) and (max-width: 759px) {
-  .news_section {
-    margin-top: 55px;
-  }
-  .title {
-    font-size: 28px;
-    padding-top: 5%;
-    padding-bottom: 3%;
-    width: 640px;
-  }
+// @media screen and (min-width: 640px) and (max-width: 759px) {
+//   .news_section {
+//     margin-top: 55px;
+//   }
+//   .title {
+//     font-size: 28px;
+//     padding-top: 5%;
+//     padding-bottom: 3%;
+//     width: 640px;
+//   }
 
-  .table_header {
-    width: 640px;
-    height: 45px;
-    font-size: 12px;
-  }
+//   .table_header {
+//     width: 640px;
+//     height: 45px;
+//     font-size: 12px;
+//   }
 
-  .table_desserts {
-    font-size: 14px;
+//   .table_desserts {
+//     font-size: 14px;
 
-    .td_num {
-      height: 40px;
-    }
-    .td_title {
-      height: 40px;
-    }
-    .td_date {
-      height: 40px;
-    }
-  }
-  .btn_num {
-    font-size: 14px;
-  }
-  .page_btn {
-    font-size: 18px;
-  }
-}
+//     .td_num {
+//       height: 40px;
+//     }
+//     .td_title {
+//       height: 40px;
+//     }
+//     .td_date {
+//       height: 40px;
+//     }
+//   }
+//   .btn_num {
+//     font-size: 14px;
+//   }
+//   .page_btn {
+//     font-size: 18px;
+//   }
+// }
 
 // 모바일
-@media screen and (min-width: 320px) and (max-width: 639px) {
+@media screen and (max-width: 760px) {
   .news_section {
     margin-top: 50px;
   }
@@ -502,30 +531,47 @@ a {
   }
 
   .table_header {
-    height: 30px;
-    font-size: 11px;
+    font-size: 16px;
     width: calc(100vw - 40px);
     .table_title {
       width: 60% !important;
+      margin: 16px 0px;
+      margin: 8px;
     }
     .table_date {
       width: 25% !important;
+      margin: 16px 0px;
     }
   }
 
   .table_desserts {
-    font-size: 11px;
-
+    font-size: 16px;
+    width: calc(100% - 40px) !important;
+    margin: auto;
+    .desserts_align {
+      display: -webkit-inline-box !important;
+      text-overflow: ellipsis;
+      word-break: break-word;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      align-self: center;
+    }
     .td_num {
-      height: 30px;
+      margin: 16px 0px;
+      // height: 30px;
     }
     .td_title {
       width: 60% !important;
-      height: 30px;
+      margin: 16px 0px;
+      text-align: left;
+
+      // height: 30px;
     }
     .td_date {
       width: 25% !important;
-      height: 30px;
+      margin: 16px 0px;
+      // height: 30px;
     }
   }
   .btn_num {

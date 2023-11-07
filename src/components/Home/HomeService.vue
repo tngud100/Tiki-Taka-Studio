@@ -66,7 +66,7 @@ export default {
       service: [
         {
           class: "video left",
-          img: require("@/assets/service/test2.svg"),
+          img: require("@/assets/service/makeFilm.svg"),
           subtitle: "video production",
           title: "영상 제작",
           desc: "전문 영상제작팀이",
@@ -75,7 +75,7 @@ export default {
         },
         {
           class: "rental right",
-          img: require("@/assets/service/test1.svg"),
+          img: require("@/assets/service/lental.svg"),
           subtitle: "space rental ",
           title: "촬영 공간/장비 대여",
           desc: "100평 규모의 스튜디오와",
@@ -84,7 +84,7 @@ export default {
         },
         {
           class: "education left",
-          img: require("@/assets/service/test1.svg"),
+          img: require("@/assets/service/education.svg"),
           subtitle: "education",
           title: "크리에이터 교육",
           desc: "크리에이터 전문",
@@ -93,7 +93,7 @@ export default {
         },
         {
           class: "advertise right",
-          img: require("@/assets/service/test2.svg"),
+          img: require("@/assets/service/advertise.svg"),
           subtitle: "advertisement",
           title: "광고 대행",
           desc: "확실한 타깃의 채널을 이용해",
@@ -604,7 +604,7 @@ export default {
   }
   .container {
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
     .container-bg {
       position: absolute;
       background-color: #f3f2ff;
