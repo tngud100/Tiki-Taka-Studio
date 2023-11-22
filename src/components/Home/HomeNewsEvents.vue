@@ -88,6 +88,18 @@ export default {
       bgicon: require("@/assets/service/bg_element1.svg"),
       news: [
         {
+          num: 36,
+          title: "2023년 여성 새로 일하기 센터 기업 협약",
+          subtitle: "2023년 여성 새로 일하기 센터 기업 협약 ",
+          date: "2023.11.10",
+        },
+        {
+          num: 35,
+          title: "2023년 동서대학교 취업박람회",
+          subtitle: "2023년 동서대학교 취업박람회 ",
+          date: "2023.11.08",
+        },
+        {
           num: 34,
           title: "산학협력 체결서_정보영스피치",
           subtitle: "정보영스피치와 산학협력 체결서 ",

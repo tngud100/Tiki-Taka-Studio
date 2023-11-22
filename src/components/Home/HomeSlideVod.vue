@@ -97,11 +97,11 @@ export default {
       schedule: [
         {
           video:
-            "https://www.youtube.com/embed/WMjjqv-5TzY?rel=0&enablejsapi=1",
+            "https://www.youtube.com/embed/n_Gsmn4NdwQ?rel=0&enablejsapi=1",
           name: "티키앤타카",
           title:
-            "임형철이 직접 만든 낭만 리버풀 전술 l [응답하라 낭만피파 14화]",
-          date: "2023. 11. 05",
+            "임형철이 직접 만든 낭만 리버풀 전술 l [응답하라 낭만피파 15화]",
+          date: "2023. 11. 12",
         },
         {
           video:

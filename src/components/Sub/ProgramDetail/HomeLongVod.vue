@@ -145,7 +145,7 @@ export default {
       SwiperNum: 0,
       modules: [FreeMode, Navigation, Thumbs, Scrollbar],
       videoUrl: [
-        "https://www.youtube.com/embed/WMjjqv-5TzY?si=KzlOk9BE4pckUiLM?rel=0&enablejsapi=1",
+        "https://www.youtube.com/embed/n_Gsmn4NdwQ?si=LkTUjSi-D0PgDqSe?rel=0&enablejsapi=1",
         "https://www.youtube.com/embed/1SNZse_XAdY?si=RfRjzLZ7HcJSAfK9?rel=0&enablejsapi=1",
         "https://www.youtube.com/embed/TjUGsMw-Vkg?si=bl_iueuUEvhu5xm1?rel=0&enablejsapi=1",
         "https://www.youtube.com/embed/P0Pb59xswv0?si=Dn4NrKTn9IBa6ctf?rel=0&enablejsapi=1",
@@ -159,10 +159,10 @@ export default {
         {
           img: require("@/assets/thumbnail/thumbnail01.webp"),
           subTitle:
-            "임형철이 직접 만든 낭만 리버풀 전술 l [응답하라 낭만피파 14화]",
-          link: "https://www.youtube.com/watch?v=WMjjqv-5TzY",
+            "장지현이 직접 맞추는 FC온라인 토트넘 낭만 스쿼드와 전술 [응답하라 낭만피파 15화]",
+          link: "https://www.youtube.com/watch?v=n_Gsmn4NdwQ",
           // hoverImage: false,
-          date: "2023. 11. 5",
+          date: "2023. 11. 12",
           num: 0,
         },
         {
