@@ -1,4 +1,15 @@
 <template>
+  <div class="icon-contain">
+    <div class="icon-box">
+      <div class="icon-con">
+        <div class="icon-div" v-for="(item, index) in icon" :key="index">
+          <a :href="item.href">
+            <img :src="item.src" alt="logo" class="icon" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <section class="footer-section">
     <div class="footer-con">
       <div class="logo-con">
@@ -26,13 +37,9 @@
           </div>
         </div>
       </div>
-      <div>
-        <div class="icon-con">
-          <div class="icon-div" v-for="(item, index) in icon" :key="index">
-            <a :href="item.href">
-              <img :src="item.src" alt="logo" class="icon" />
-            </a>
-          </div>
+      <div class="info-con">
+        <div class="certificate-con">
+          <img :src="certificateLogo" class="certificateLogo" />
         </div>
         <div class="copyright-con">
           <div class="copyright">
@@ -49,6 +56,7 @@ export default {
   data() {
     return {
       logo: require("@/assets/footer/scrollLogo.svg"),
+      certificateLogo: require("@/assets/footer/bestFriendlyLogo.svg"),
       copyright: require("@/assets/footer/copyright.svg"),
       text: {
         location: "부산광역시 사상구 백양대로684 5F",
@@ -85,9 +93,26 @@ export default {
 <style lang="scss" scoped>
 //PC XL
 @media screen and (min-width: 1300px) {
+  .icon-box {
+    width: 1300px;
+    padding: 12px 0px;
+    .icon-con {
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      .icon-div {
+        margin-left: 10px;
+        .icon {
+          width: 26px;
+          height: 26px;
+        }
+      }
+    }
+  }
+
   .footer-con {
     width: 1300px;
-    padding: 30px 0px;
+    padding: 12px 0px 30px 0px;
     .logo-con {
       width: 10%;
       display: flex;
@@ -115,30 +140,42 @@ export default {
         }
       }
     }
-    .icon-con {
-      display: flex;
-      align-items: center;
-      justify-content: right;
-      .icon-div {
-        margin-left: 10px;
-        .icon {
-          width: 26px;
-          height: 26px;
+    .info-con {
+      width: 28%;
+      .certificate-con {
+        .certificateLogo {
+          width: 220px;
         }
       }
-    }
-    .copyright-con {
-      .copyright {
-        font-size: 14px;
+      .copyright-con {
+        .copyright {
+          font-size: 14px;
+        }
       }
     }
   }
 }
 // PC
 @media screen and (min-width: 1080px) and (max-width: 1300px) {
+  .icon-box {
+    width: 1080px;
+    padding: 12px 0px;
+    .icon-con {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      .icon-div {
+        margin-left: 10px;
+        .icon {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
   .footer-con {
     width: 1080px;
-    padding: 30px 0px;
+    padding: 6px 0px 30px 0px;
     .logo-con {
       width: 10%;
       display: flex;
@@ -166,21 +203,17 @@ export default {
         }
       }
     }
-    .icon-con {
-      display: flex;
-      justify-content: right;
-      align-items: center;
-      .icon-div {
-        margin-left: 10px;
-        .icon {
-          width: 24px;
-          height: 24px;
+    .info-con {
+      width: 29%;
+      .certificate-con {
+        .certificateLogo {
+          width: 200px;
         }
       }
-    }
-    .copyright-con {
-      .copyright {
-        font-size: 14px;
+      .copyright-con {
+        .copyright {
+          font-size: 14px;
+        }
       }
     }
   }
@@ -188,9 +221,25 @@ export default {
 
 // 노트북
 @media screen and (min-width: 760px) and (max-width: 1080px) {
+  .icon-box {
+    width: 760px;
+    padding: 6px 0px !important;
+    .icon-con {
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      .icon-div {
+        margin-left: 5px;
+        .icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
   .footer-con {
     width: 760px;
-    padding: 30px 0px;
+    padding: 6px 0px 12px 0px;
     .logo-con {
       width: 10%;
       display: flex;
@@ -218,21 +267,16 @@ export default {
         }
       }
     }
-    .icon-con {
-      display: flex;
-      align-items: center;
-      justify-content: right;
-      .icon-div {
-        margin-left: 5px;
-        .icon {
-          width: 20px;
-          height: 20px;
+    .info-con {
+      .certificate-con {
+        .certificateLogo {
+          width: 180px;
         }
       }
-    }
-    .copyright-con {
-      .copyright {
-        font-size: 12px;
+      .copyright-con {
+        .copyright {
+          font-size: 12px;
+        }
       }
     }
   }
@@ -240,6 +284,23 @@ export default {
 
 // 테블릿
 @media screen and (min-width: 640px) and (max-width: 759px) {
+  .icon-box {
+    width: 640px;
+    justify-content: center !important;
+    padding: 6px 0px;
+    .icon-con {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      .icon-div {
+        margin: 4px !important;
+        .icon {
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
   .footer-con {
     width: 640px;
     padding: 30px 0px;
@@ -270,6 +331,30 @@ export default {
         }
       }
     }
+
+    .info-con {
+      .certificate-con {
+        justify-content: center !important;
+        .certificateLogo {
+          width: 180px;
+        }
+      }
+      .copyright-con {
+        display: flex !important;
+        .copyright {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+// 모바일
+@media screen and (min-width: 320px) and (max-width: 639px) {
+  .icon-box {
+    width: 320px;
+    justify-content: center !important;
+    padding: 6px 0px;
     .icon-con {
       display: flex;
       justify-content: center;
@@ -277,19 +362,13 @@ export default {
       .icon-div {
         margin: 4px !important;
         .icon {
-          width: 20px;
-          height: 20px;
+          width: 25px;
+          height: 25px;
         }
       }
     }
-    .copyright-con {
-      display: flex !important;
-    }
   }
-}
 
-// 모바일
-@media screen and (min-width: 320px) and (max-width: 639px) {
   .footer-con {
     width: 320px;
     padding: 30px 0px;
@@ -320,28 +399,47 @@ export default {
         }
       }
     }
-    .icon-con {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      .icon-div {
-        margin: 4px !important;
-        .icon {
-          width: 20px;
-          height: 20px;
+    .info-con {
+      .certificate-con {
+        justify-content: center !important;
+        .certificateLogo {
+          width: 180px;
         }
       }
-    }
-    .copyright-con {
-      display: flex !important;
+      .copyright-con {
+        display: flex !important;
+        .copyright {
+          font-size: 12px;
+        }
+      }
     }
   }
 }
 
+.icon-contain {
+  border-top: solid 1px rgb(230, 230, 230);
+  .icon-box {
+    display: flex;
+    justify-content: right;
+    margin: auto;
+    .icon-con {
+      display: flex;
+
+      .icon-div {
+        a {
+          width: 100%;
+          height: 100%;
+          display: flex;
+        }
+      }
+    }
+  }
+}
 .footer-section {
   width: 100%;
   border-top: solid 1px rgb(230, 230, 230);
   background-color: #ffffff;
+
   .footer-con {
     display: flex;
     justify-content: center;
@@ -350,6 +448,7 @@ export default {
       align-items: center;
     }
     .contact-con {
+      align-items: center;
       .email {
       }
       .tel {
@@ -361,19 +460,23 @@ export default {
         }
       }
     }
-    .icon-con {
+  }
+  .info-con {
+    text-align: right;
+    .certificate-con {
       display: flex;
-
-      .icon-div {
+      justify-content: right;
+      .certificateLogo {
+        padding: 6px 0px;
       }
     }
-  }
-  .copyright-con {
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    .copyright {
-      font-family: "Pretendard-Regular";
+    .copyright-con {
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      .copyright {
+        font-family: "Pretendard-Regular";
+      }
     }
   }
 }

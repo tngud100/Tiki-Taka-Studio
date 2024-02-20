@@ -267,6 +267,16 @@ const routes = [
     component: () => import("@/components/Sub/NewsDetail/news36.vue"),
   },
   {
+    path: "/news37",
+    name: "newsdetail37",
+    component: () => import("@/components/Sub/NewsDetail/news37.vue"),
+  },
+  {
+    path: "/news38",
+    name: "newsdetail38",
+    component: () => import("@/components/Sub/NewsDetail/news38.vue"),
+  },
+  {
     path: "/test",
     name: "TestPageTrash",
     component: () => import("@/components/trash/TestPageTrash.vue"),

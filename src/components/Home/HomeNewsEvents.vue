@@ -88,6 +88,18 @@ export default {
       bgicon: require("@/assets/service/bg_element1.svg"),
       news: [
         {
+          num: 38,
+          title: "직접생산확인증명서",
+          subtitle: "직접생산확인증명서",
+          date: "2024.01.03",
+        },
+        {
+          num: 37,
+          title: "가족친화인증서 취득",
+          subtitle: "가족친화인증서 취득",
+          date: "2023.12.01",
+        },
+        {
           num: 36,
           title: "2023년 여성 새로 일하기 센터 기업 협약",
           subtitle: "2023년 여성 새로 일하기 센터 기업 협약 ",
@@ -137,6 +149,30 @@ export default {
         },
       ],
       news_mobile: [
+        {
+          num: 38,
+          title: "직접생산확인증명서",
+          subtitle: "직접생산확인증명서",
+          date: "2024.01.03",
+        },
+        {
+          num: 37,
+          title: "가족친화인증서 취득",
+          subtitle: "가족친화인증서 취득",
+          date: "2023.12.01",
+        },
+        {
+          num: 36,
+          title: "2023년 여성 새로 일하기 센터 기업 협약",
+          subtitle: "2023년 여성 새로 일하기 센터 기업 협약 ",
+          date: "2023.11.10",
+        },
+        {
+          num: 35,
+          title: "2023년 동서대학교 취업박람회",
+          subtitle: "2023년 동서대학교 취업박람회 ",
+          date: "2023.11.08",
+        },
         {
           num: 34,
           title: "산학협력 체결서_정보영스피치",
