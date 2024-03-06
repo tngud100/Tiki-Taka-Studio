@@ -8,7 +8,9 @@
           <p class="date_text">
             <span style="color: black">회사 소식 |</span> 작성 일자 : 2024-01-03
           </p>
-          <span class="title_text">직접생산확인증명서</span>
+          <span class="title_text"
+            >정보시스템 유지 관리_직접생산확인증명서</span
+          >
         </div>
         <div class="content_con">
           <div class="text"></div>
@@ -26,7 +28,7 @@
                 class="news_img"
                 :src="require('@/assets/news/news39-3.svg')"
               />
-              <p class="sub_imgtext">직접생산확인증명서</p>
+              <p class="sub_imgtext">정보시스템 유지 관리_직접생산확인증명서</p>
             </div>
           </div>
         </div>

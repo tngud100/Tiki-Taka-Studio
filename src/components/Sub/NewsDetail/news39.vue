@@ -1,34 +1,37 @@
 <template>
-  <section class="news_section">
+  <section class="news9_section">
     <HeaderNav />
     <HeaderTitle :title-data="title" :bg-image="bgImage" />
     <div class="container">
       <div class="box">
         <div class="title_con">
           <p class="date_text">
-            <span style="color: black">회사 소식 |</span> 작성 일자 : 2023-08-08
+            <span style="color: black">회사 소식 |</span> 작성 일자 : 2024-02-19
           </p>
-          <span class="title_text">
-            동영상 제작 서비스_직접생산확인증명서
-          </span>
+          <span class="title_text"
+            >기타행사기획 및 대행서비스_직접생산확인증명서</span
+          >
         </div>
         <div class="content_con">
-          <div class="text">
-            <br />
-            <div class="img_con">
-              <div class="upper_box">
-                <img
-                  class="news_img"
-                  :src="require('@/assets/news/news31.png')"
-                />
-                <img
-                  class="news_img"
-                  :src="require('@/assets/news/news29.svg')"
-                />
-                <p class="sub_imgtext">동영상 제작 서비스_직접생산확인증명서</p>
-              </div>
+          <div class="text"></div>
+          <div class="img_con">
+            <div class="upper_box">
+              <img
+                class="news_img"
+                :src="require('@/assets/news/news40-1.svg')"
+              />
+              <img
+                class="news_img"
+                :src="require('@/assets/news/news40-2.svg')"
+              />
+              <img
+                class="news_img"
+                :src="require('@/assets/news/news40-3.svg')"
+              />
+              <p class="sub_imgtext">
+                기타행사기획 및 대행서비스_직접생산확인증명서
+              </p>
             </div>
-            <br />
           </div>
         </div>
         <hr style="color: rgb(151, 151, 151)" />

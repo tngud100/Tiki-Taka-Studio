@@ -88,9 +88,21 @@ export default {
       bgicon: require("@/assets/service/bg_element1.svg"),
       news: [
         {
+          num: 40,
+          title: "2024 근로자 휴가지원 사업 참여 증서",
+          subtitle: "2024 근로자 휴가지원 사업 참여 증서",
+          date: "2024.02.26",
+        },
+        {
+          num: 39,
+          title: "기타행사기획 및 대행서비스_직접생산확인증명서",
+          subtitle: "기타행사기획 및 대행서비스_직접생산확인증명서",
+          date: "2024.02.19",
+        },
+        {
           num: 38,
-          title: "직접생산확인증명서",
-          subtitle: "직접생산확인증명서",
+          title: "정보시스템 유지 관리_직접생산확인증명서",
+          subtitle: "정보시스템 유지 관리_직접생산확인증명서",
           date: "2024.01.03",
         },
         {
