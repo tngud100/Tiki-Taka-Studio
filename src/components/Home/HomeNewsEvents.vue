@@ -88,6 +88,18 @@ export default {
       bgicon: require("@/assets/service/bg_element1.svg"),
       news: [
         {
+          num: 42,
+          title: "벤처기업확인기관장",
+          subtitle: "벤처기업확인기관장",
+          date: "2024.05.13",
+        },
+        {
+          num: 41,
+          title: "대한적십자 헌혈유공자 포장증",
+          subtitle: "대한적십자 헌혈유공자 포장증",
+          date: "2024.03.05",
+        },
+        {
           num: 40,
           title: "2024 근로자 휴가지원 사업 참여 증서",
           subtitle: "2024 근로자 휴가지원 사업 참여 증서",

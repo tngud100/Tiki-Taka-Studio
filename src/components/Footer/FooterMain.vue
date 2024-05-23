@@ -64,10 +64,10 @@ export default {
         tel: "051-301-5908",
       },
       icon: [
-        {
-          src: require("@/assets/footer/TKlogo.svg"),
-          href: "http://www.xn--ef5bu9n7vbido5j.com/",
-        },
+        // {
+        //   src: require("@/assets/footer/TKlogo.svg"),
+        //   href: "http://www.xn--ef5bu9n7vbido5j.com/",
+        // },
         {
           src: require("@/assets/footer/naverlogo.svg"),
           href: "https://blog.naver.com/gameinscokr",

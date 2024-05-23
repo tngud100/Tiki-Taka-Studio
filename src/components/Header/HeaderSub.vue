@@ -76,11 +76,11 @@ export default {
     ],
 
     menuIcon: [
-      {
-        name: "커뮤니티",
-        href: "http://xn--ef5bu9n7vbido5j.com/?page=0&sort=1&mod=0",
-        src: require("@/assets/header/tkLogo.svg"),
-      },
+      // {
+      //   name: "커뮤니티",
+      //   href: "http://xn--ef5bu9n7vbido5j.com/?page=0&sort=1&mod=0",
+      //   src: require("@/assets/header/tkLogo.svg"),
+      // },
       {
         name: "유튜브",
         href: "https://www.youtube.com/@tikintaka",
@@ -119,11 +119,11 @@ export default {
       },
     ],
     scrollMenuIcon: [
-      {
-        name: "커뮤니티",
-        href: "http://xn--ef5bu9n7vbido5j.com/?page=0&sort=1&mod=0",
-        src: require("@/assets/header/scrollTkLogo.svg"),
-      },
+      // {
+      //   name: "커뮤니티",
+      //   href: "http://xn--ef5bu9n7vbido5j.com/?page=0&sort=1&mod=0",
+      //   src: require("@/assets/header/scrollTkLogo.svg"),
+      // },
       {
         name: "유튜브",
         href: "https://www.youtube.com/@tikintaka",
