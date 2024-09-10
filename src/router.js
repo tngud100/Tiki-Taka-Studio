@@ -49,7 +49,8 @@ const routes = [
   {
     path: "/CalendarReservate",
     name: "CalendarReservate",
-    component: () => import("@/components/Sub/ReservateDetail/CalendarReserve.vue"),
+    component: () =>
+      import("@/components/Sub/ReservateDetail/CalendarReserve.vue"),
   },
   {
     path: "/reservate1",
@@ -84,7 +85,8 @@ const routes = [
   {
     path: "/reservateConfirm",
     name: "ReservateConfirmAdmin",
-    component: () => import("@/components/Sub/ReservateDetail/ConfirmReserve.vue"),
+    component: () =>
+      import("@/components/Sub/ReservateDetail/ConfirmReserve.vue"),
   },
   {
     path: "/news1",
@@ -296,6 +298,37 @@ const routes = [
     name: "newsdetail42",
     component: () => import("@/components/Sub/NewsDetail/news42.vue"),
   },
+  {
+    path: "/news43",
+    name: "newsdetail43",
+    component: () => import("@/components/Sub/NewsDetail/news43.vue"),
+  },
+  {
+    path: "/news44",
+    name: "newsdetail44",
+    component: () => import("@/components/Sub/NewsDetail/news44.vue"),
+  },
+  {
+    path: "/news45",
+    name: "newsdetail45",
+    component: () => import("@/components/Sub/NewsDetail/news45.vue"),
+  },
+  {
+    path: "/news46",
+    name: "newsdetail46",
+    component: () => import("@/components/Sub/NewsDetail/news46.vue"),
+  },
+  {
+    path: "/news47",
+    name: "newsdetail47",
+    component: () => import("@/components/Sub/NewsDetail/news47.vue"),
+  },
+  {
+    path: "/news48",
+    name: "newsdetail48",
+    component: () => import("@/components/Sub/NewsDetail/news48.vue"),
+  },
+
   {
     path: "/test",
     name: "TestPageTrash",

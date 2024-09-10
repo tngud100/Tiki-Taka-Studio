@@ -81,159 +81,41 @@ import "swiper/swiper-bundle.min.css";
 
 SwiperCore.use([Navigation, Autoplay]);
 
+import { mapGetters } from "vuex";
 export default {
   name: "HomeNewsEvents",
+  computed: {
+    ...mapGetters(["getHomeNewsData"]),
+    news() {
+      return this.getHomeNewsData.map((item) => {
+        return {
+          num: item.num,
+          title: item.title,
+          subtitle: item.title,
+          date: item.date,
+        };
+      });
+    },
+    mobile_data() {
+      return this.getHomeNewsData.map((item) => {
+        return {
+          num: item.num,
+          title: item.title,
+          subtitle: item.title,
+          date: item.date,
+        };
+      });
+    },
+    news_mobile() {
+      return {
+        ...this.mobile_data,
+      };
+    },
+  },
+
   data() {
     return {
       bgicon: require("@/assets/service/bg_element1.svg"),
-      news: [
-        {
-          num: 42,
-          title: "벤처기업확인기관장",
-          subtitle: "벤처기업확인기관장",
-          date: "2024.05.13",
-        },
-        {
-          num: 41,
-          title: "대한적십자 헌혈유공자 포장증",
-          subtitle: "대한적십자 헌혈유공자 포장증",
-          date: "2024.03.05",
-        },
-        {
-          num: 40,
-          title: "2024 근로자 휴가지원 사업 참여 증서",
-          subtitle: "2024 근로자 휴가지원 사업 참여 증서",
-          date: "2024.02.26",
-        },
-        {
-          num: 39,
-          title: "기타행사기획 및 대행서비스_직접생산확인증명서",
-          subtitle: "기타행사기획 및 대행서비스_직접생산확인증명서",
-          date: "2024.02.19",
-        },
-        {
-          num: 38,
-          title: "정보시스템 유지 관리_직접생산확인증명서",
-          subtitle: "정보시스템 유지 관리_직접생산확인증명서",
-          date: "2024.01.03",
-        },
-        {
-          num: 37,
-          title: "가족친화인증서 취득",
-          subtitle: "가족친화인증서 취득",
-          date: "2023.12.01",
-        },
-        {
-          num: 36,
-          title: "2023년 여성 새로 일하기 센터 기업 협약",
-          subtitle: "2023년 여성 새로 일하기 센터 기업 협약 ",
-          date: "2023.11.10",
-        },
-        {
-          num: 35,
-          title: "2023년 동서대학교 취업박람회",
-          subtitle: "2023년 동서대학교 취업박람회 ",
-          date: "2023.11.08",
-        },
-        {
-          num: 34,
-          title: "산학협력 체결서_정보영스피치",
-          subtitle: "정보영스피치와 산학협력 체결서 ",
-          date: "2023.11.01",
-        },
-        {
-          num: 33,
-          title: "2023년 기장군 일자리박람회",
-          subtitle: "2023년 기장군 일자리박람회",
-          date: "2023.10.26",
-        },
-        {
-          num: 32,
-          title: "2023년 연제구 일자리박람회",
-          subtitle: "2023년 연제구 일자리박람회",
-          date: "2023.10.23",
-        },
-        {
-          num: 31,
-          title: "사상여성인력개발센터 업무 협약",
-          subtitle: "사상여성인력개발센터 업무 협약",
-          date: "2023.10.20",
-        },
-        {
-          num: 30,
-          title: "대중문화예술기획업 등록 교육 이수",
-          subtitle: "대중문화예술기획업 등록 교육 이수",
-          date: "2023.08.16",
-        },
-        {
-          num: 34,
-          title: "산학협력 체결서_정보영스피치",
-          subtitle: "정보영스피치와 산학협력 체결서 ",
-          date: "2023.11.01",
-        },
-      ],
-      news_mobile: [
-        {
-          num: 38,
-          title: "직접생산확인증명서",
-          subtitle: "직접생산확인증명서",
-          date: "2024.01.03",
-        },
-        {
-          num: 37,
-          title: "가족친화인증서 취득",
-          subtitle: "가족친화인증서 취득",
-          date: "2023.12.01",
-        },
-        {
-          num: 36,
-          title: "2023년 여성 새로 일하기 센터 기업 협약",
-          subtitle: "2023년 여성 새로 일하기 센터 기업 협약 ",
-          date: "2023.11.10",
-        },
-        {
-          num: 35,
-          title: "2023년 동서대학교 취업박람회",
-          subtitle: "2023년 동서대학교 취업박람회 ",
-          date: "2023.11.08",
-        },
-        {
-          num: 34,
-          title: "산학협력 체결서_정보영스피치",
-          subtitle: "정보영스피치와 산학협력 체결서 ",
-          date: "2023.11.01",
-        },
-        {
-          num: 33,
-          title: "2023년 기장군 일자리박람회",
-          subtitle: "2023년 기장군 일자리박람회",
-          date: "2023.10.26",
-        },
-        {
-          num: 32,
-          title: "2023년 연제구 일자리박람회",
-          subtitle: "2023년 연제구 일자리박람회",
-          date: "2023.10.23",
-        },
-        {
-          num: 31,
-          title: "사상여성인력개발센터 업무 협약",
-          subtitle: "사상여성인력개발센터 업무 협약",
-          date: "2023.10.20",
-        },
-        {
-          num: 30,
-          title: "대중문화예술기획업 등록 교육 이수",
-          subtitle: "대중문화예술기획업 등록 교육 이수",
-          date: "2023.08.16",
-        },
-        {
-          num: 34,
-          title: "산학협력 체결서_정보영스피치",
-          subtitle: "정보영스피치와 산학협력 체결서 ",
-          date: "2023.11.01",
-        },
-      ],
       img: [
         {
           src: require("@/assets/pairing/mon/Top피파.svg"),

@@ -4,6 +4,7 @@ import { loadFonts } from "./plugins/webfontloader";
 
 import App from "./App.vue";
 import store from "./store";
+import newsStore from "./newsStore";
 import router from "./router.js";
 
 import Carousel3d from "vue3-carousel-3d";
@@ -23,6 +24,7 @@ createApp(App)
   .use(vuetify)
   .use(router)
   .use(store)
+  .use(newsStore)
   .use(Carousel3d)
   .mount("#app");
 
