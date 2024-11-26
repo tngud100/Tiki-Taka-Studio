@@ -328,6 +328,16 @@ const routes = [
     name: "newsdetail48",
     component: () => import("@/components/Sub/NewsDetail/news48.vue"),
   },
+  {
+    path: "/news49",
+    name: "newsdetail49",
+    component: () => import("@/components/Sub/NewsDetail/news49.vue"),
+  },
+  {
+    path: "/news50",
+    name: "newsdetail50",
+    component: () => import("@/components/Sub/NewsDetail/news50.vue"),
+  },
 
   {
     path: "/test",

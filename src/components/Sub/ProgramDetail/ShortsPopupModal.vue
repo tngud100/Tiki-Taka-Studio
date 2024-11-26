@@ -32,7 +32,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ShortsPopupModal",
   computed: {
-    ...mapGetters(["shortsVideoIndex", "shortsShowModal"]),
+    ...mapGetters("main", ["shortsVideoIndex", "shortsShowModal"]),
   },
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setShortsShowModal", "setShortsVideoNumber"]),
+    ...mapActions("main", ["setShortsShowModal", "setShortsVideoNumber"]),
     closeModal() {
       this.setShortsShowModal(false);
       document.body.classList.remove("modal-shorts-open");

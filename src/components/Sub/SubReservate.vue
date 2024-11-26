@@ -69,7 +69,7 @@ export default {
   //   HeaderTitle,
   // },
   computed: {
-    ...mapGetters(["rooms"]),
+    ...mapGetters("main", ["rooms"]),
   },
   data() {
     return {

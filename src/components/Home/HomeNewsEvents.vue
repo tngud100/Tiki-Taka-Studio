@@ -85,7 +85,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "HomeNewsEvents",
   computed: {
-    ...mapGetters(["getHomeNewsData"]),
+    ...mapGetters("news", ["getHomeNewsData"]),
     news() {
       return this.getHomeNewsData.map((item) => {
         return {
@@ -444,7 +444,7 @@ export default {
 // 모바일
 @media screen and (min-width: 320px) and (max-width: 639px) {
   .news-event-section {
-    width: calc(100%-24px);
+    width: calc(100% - 24px);
     margin: 30px auto 70px auto;
 
     .title-con {

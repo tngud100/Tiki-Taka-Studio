@@ -317,7 +317,7 @@ export default {
     selectedEquipmentCount: Array,
   },
   computed: {
-    ...mapGetters(["rooms", "hostAddressName", "equipments"]),
+    ...mapGetters("main", ["rooms", "hostAddressName", "equipments"]),
     currentTitle() {
       switch (this.step) {
         case 1:

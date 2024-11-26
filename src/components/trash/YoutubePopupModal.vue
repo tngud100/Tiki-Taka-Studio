@@ -20,7 +20,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "YoutubePopupModal",
   computed: {
-    ...mapGetters(["videoIndex", "showModal"]),
+    ...mapGetters("main", ["videoIndex", "showModal"]),
   },
   data() {
     return {

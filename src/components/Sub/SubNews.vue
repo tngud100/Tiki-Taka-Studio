@@ -64,7 +64,7 @@ export default {
     HeaderTitle,
   },
   computed: {
-    ...mapGetters(["newsData"]),
+    ...mapGetters("news", ["newsData"]),
     dessertsData() {
       return this.newsData;
     },

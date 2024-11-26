@@ -1,9 +1,9 @@
-import { createStore } from "vuex";
 import allData from "./newsData";
 
 const newsData = [...allData];
 
-const newsStore = createStore({
+const newsStore = {
+  namespaced: true,
   state: {
     newsData: newsData,
   },
@@ -17,6 +17,6 @@ const newsStore = createStore({
       return state.newsData.slice(0, 6);
     },
   },
-});
+};
 
 export default newsStore;

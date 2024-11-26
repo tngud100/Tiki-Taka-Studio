@@ -71,7 +71,7 @@ export default {
     ModalPopup,
   },
   computed: {
-    ...mapGetters(["shortsVideoIndex", "shortsShowModal"]),
+    ...mapGetters("main", ["shortsVideoIndex", "shortsShowModal"]),
   },
 
   data() {
@@ -146,7 +146,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setShortsShowModal", "setShortsVideoNumber"]),
+    ...mapActions("main", ["setShortsShowModal", "setShortsVideoNumber"]),
     openModal(index) {
       this.setShortsVideoNumber(index);
       this.setShortsShowModal(true);

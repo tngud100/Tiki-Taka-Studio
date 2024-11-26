@@ -34,8 +34,8 @@
     <v-btn @click="goBack" color="primary">뒤로가기</v-btn>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import { CalendarView, CalendarViewHeader } from "vue-simple-calendar";
 import "vue-simple-calendar/dist/css/default.css";
 import "vue-simple-calendar/dist/css/holidays-us.css";
@@ -51,7 +51,7 @@ export default {
     CalendarViewHeader,
   },
   computed: {
-    ...mapGetters(["hostAddressName"]),
+    ...mapGetters("main", ["hostAddressName"]),
   },
   data() {
     return {
@@ -195,7 +195,7 @@ export default {
   },
 };
 </script>
-  <style>
+<style>
 .back-btnBox {
   width: 100%;
   display: flex;

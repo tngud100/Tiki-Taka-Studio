@@ -138,7 +138,7 @@ export default {
     ModalPopup,
   },
   computed: {
-    ...mapGetters(["videoIndex", "showModal"]),
+    ...mapGetters("main", ["videoIndex", "showModal"]),
   },
   data() {
     return {

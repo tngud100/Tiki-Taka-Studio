@@ -322,7 +322,7 @@ import { mapGetters } from "vuex";
 // import { VDataTable } from "vuetify/labs/VDataTable";
 export default {
   computed: {
-    ...mapGetters(["hostAddressName"]),
+    ...mapGetters("main", ["hostAddressName"]),
   },
 
   //   components: {

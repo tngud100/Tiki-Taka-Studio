@@ -39,6 +39,7 @@ import HomeNewsEvents from "../components/Home/HomeNewsEvents.vue";
 import FooterMain from "../components/Footer/FooterMain.vue";
 // import HomeYoutubeVod from "../components/Home/HomeYoutubeVod";
 // import HomePairing from "../components/Home/HomePairing.vue";
+
 export default {
   name: "HomeView",
   components: {

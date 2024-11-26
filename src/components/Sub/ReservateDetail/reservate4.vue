@@ -1,4 +1,3 @@
-
 <template>
   <section class="news_section">
     <HeaderNav />
@@ -347,7 +346,7 @@ export default {
     Datepicker,
   },
   computed: {
-    ...mapGetters(["rooms", "hostAddressName", "equipments"]),
+    ...mapGetters("main", ["rooms", "hostAddressName", "equipments"]),
   },
   data() {
     const yesterday = new Date();

@@ -242,16 +242,24 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["equipments"]),
+    ...mapGetters("main", ["equipments"]),
     filteredItems() {
+      console.log(this.$store.state);
+      console.log(this.equipments);
       const equipmentTypes = ["camera", "monitor", "MicAudio", "LightSubFilm"];
       let allEquipment = [];
+
+      if (!this.equipments) return allEquipment; // 데이터가 없으면 빈 배열 반환
+
       equipmentTypes.forEach((type) => {
-        allEquipment = allEquipment.concat(
-          this.equipments[type].filter(
-            (item) => item.src && item.src.trim() !== ""
-          )
-        );
+        if (this.equipments[type]) {
+          // 데이터 유효성 확인
+          allEquipment = allEquipment.concat(
+            this.equipments[type].filter(
+              (item) => item.src && item.src.trim() !== ""
+            )
+          );
+        }
       });
 
       return allEquipment;

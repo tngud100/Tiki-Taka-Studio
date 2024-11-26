@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("@/assets/font/Pretendard-Regular.woff") format("woff");
+  font-style: normal;
+}
+
+body {
+  font-family: "Pretendard-Regular", sans-serif;
+}

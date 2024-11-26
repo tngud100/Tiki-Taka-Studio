@@ -440,7 +440,7 @@ export default {
     Datepicker,
   },
   computed: {
-    ...mapGetters(["rooms", "hostAddressName", "equipments"]),
+    ...mapGetters("main", ["rooms", "hostAddressName", "equipments"]),
   },
   data() {
     const yesterday = new Date();
